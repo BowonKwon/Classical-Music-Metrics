@@ -1,41 +1,96 @@
 <!DOCTYPE html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>방법·출처 — 클래식 음악 세이버메트릭스</title><meta name="description" content="악보와 연주를 숫자로 읽는다 — 바흐와 베토벤부터">
+<script>(function(){var q=new URLSearchParams(location.search).get("theme");if(q==="light"||q==="dark"){localStorage.setItem("cmm-theme",q)}else if(q==="auto"){localStorage.removeItem("cmm-theme")}var v=localStorage.getItem("cmm-theme");if(v)document.documentElement.setAttribute("data-theme",v)})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:light dark;--bg:#fcfcfb;--fg:#0b0b0b;--fg2:#52514e;--line:#e4e3df;--card:#f4f3ef;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--grid:#e9e8e3}
-@media(prefers-color-scheme:dark){:root{--bg:#1a1a19;--fg:#f0efec;--fg2:#c3c2b7;--line:#3a3a38;--card:#242423;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--grid:#2e2e2c}}
-*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;overflow-wrap:anywhere;font:16px/1.6 -apple-system,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
-a{color:var(--s1);text-decoration:none}a:hover{text-decoration:underline}
-header{border-bottom:1px solid var(--line);padding:.6rem 1rem;display:flex;gap:1.2rem;align-items:baseline;flex-wrap:wrap}
-header .brand{font-weight:700;font-size:1.05rem;color:var(--fg)}header nav a{color:var(--fg2);margin-right:.9rem}header .lang{margin-left:auto}
-main{max-width:1040px;margin:0 auto;padding:1.2rem 1rem 4rem}
-h1{font-size:1.7rem;line-height:1.25;margin:.4rem 0 .3rem}h2{font-size:1.25rem;margin:2rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.2rem}h3{font-size:1.05rem;margin:1.4rem 0 .4rem}
-.tag{display:inline-block;font-size:.75rem;padding:.05rem .45rem;border:1px solid var(--line);border-radius:3px;color:var(--fg2);margin-right:.3rem}
-.lead{color:var(--fg2);margin:0 0 1rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem;margin:.8rem 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem}.card b{display:block;margin-bottom:.2rem}.card small{color:var(--fg2)}
-.stat{font-size:1.9rem;font-weight:700;line-height:1.1}.stat small{font-size:.8rem;font-weight:400;color:var(--fg2);display:block}
-table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}th,td{border-bottom:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}th{color:var(--fg2);font-weight:600;cursor:pointer;white-space:nowrap}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-.wrap{overflow-x:auto}
-dl{display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem}dt{color:var(--fg2)}dd{margin:0;min-width:0}main{min-width:0}
-figure{margin:1rem 0}figcaption{font-size:.85rem;color:var(--fg2)}
-svg{max-width:100%;height:auto;display:block}svg text{font-family:inherit;fill:var(--fg2);font-size:11px}svg .ax{stroke:var(--line)}svg .grid{stroke:var(--grid)}
-.legend{display:flex;gap:1rem;font-size:.85rem;color:var(--fg2);flex-wrap:wrap}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:.35rem;vertical-align:middle;background:var(--c)}
-.note{background:var(--card);border-left:3px solid var(--s1);padding:.6rem .9rem;margin:1rem 0;font-size:.95rem}
-footer{border-top:1px solid var(--line);color:var(--fg2);font-size:.8rem;padding:1rem;text-align:center}
+/* layout: one quiet column, serif display over sans body; low-saturation slate accent with a sand secondary */
+:root{color-scheme:light;
+  --bg:#f8f7f4;--bg2:#efede8;--card:#ffffff;--line:#dedbd3;--line2:#ebe8e1;
+  --fg:#1d1f24;--fg2:#5a5e68;--fg3:#8a8e98;
+  --accent:#3f6a9e;--accent2:#b5833f;
+  --s1:#3a6fb0;--s2:#b5833f;--s3:#7f63ad;--grid:#e6e3dc;
+  --shadow:0 1px 2px rgba(30,32,40,.05),0 6px 18px rgba(30,32,40,.05);
+  --display:"Noto Serif KR","Source Serif 4",Georgia,"Times New Roman",serif;
+  --body:"Noto Sans KR",-apple-system,"Segoe UI","Apple SD Gothic Neo",Roboto,sans-serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#1b1c1f;--bg2:#222326;--card:#232428;--line:#34363c;--line2:#2b2d32;
+  --fg:#ebe9e4;--fg2:#b3b1aa;--fg3:#80827f;
+  --accent:#7ea4d6;--accent2:#d1a35f;
+  --s1:#5a8ccf;--s2:#b5863a;--s3:#9078c4;--grid:#2e3035;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.25)}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#1b1c1f;--bg2:#222326;--card:#232428;--line:#34363c;--line2:#2b2d32;
+  --fg:#ebe9e4;--fg2:#b3b1aa;--fg3:#80827f;
+  --accent:#7ea4d6;--accent2:#d1a35f;
+  --s1:#5a8ccf;--s2:#b5863a;--s3:#9078c4;--grid:#2e3035;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.25)}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;font:16px/1.7 var(--body);background:var(--bg);color:var(--fg);overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.55rem 1.1rem;display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+header .brand{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--fg);letter-spacing:-.01em}
+header nav{display:flex;gap:1rem;flex-wrap:wrap}header nav a{color:var(--fg2);font-size:.92rem;padding:.2rem 0;border-bottom:2px solid transparent}
+header nav a:hover{text-decoration:none;color:var(--fg)}header nav a.on{color:var(--fg);border-bottom-color:var(--accent2)}
+header .right{margin-left:auto;display:flex;gap:.6rem;align-items:center}
+header .lang{font-size:.88rem;color:var(--fg2);border:1px solid var(--line);border-radius:999px;padding:.15rem .7rem}header .lang:hover{text-decoration:none;color:var(--fg);border-color:var(--fg3)}
+.theme{border:1px solid var(--line);background:transparent;color:var(--fg2);border-radius:999px;width:30px;height:30px;cursor:pointer;font-size:.9rem;line-height:1;padding:0}.theme:hover{color:var(--fg);border-color:var(--fg3)}
+main{max-width:1060px;margin:0 auto;padding:1.6rem 1.1rem 4rem;min-width:0}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.25;letter-spacing:-.015em;margin:.3rem 0 .5rem;text-wrap:balance}
+h2{font-family:var(--display);font-weight:600;font-size:1.3rem;line-height:1.3;margin:2.4rem 0 .8rem;padding-bottom:.35rem;border-bottom:1px solid var(--line);text-wrap:balance}
+h3{font-size:1.02rem;margin:1.4rem 0 .4rem}
+.eyebrow{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem}
+.tag{display:inline-block;font-size:.74rem;letter-spacing:.04em;padding:.1rem .55rem;border-radius:999px;color:var(--fg2);background:var(--bg2);border:1px solid var(--line2)}
+.tag.layer{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.lead{color:var(--fg2);font-size:1.05rem;max-width:70ch;margin:0 0 1.2rem}
+.hero{padding:.6rem 0 1.4rem;border-bottom:1px solid var(--line);margin-bottom:1.4rem}
+.hero h1{font-size:clamp(1.9rem,4vw,2.7rem)}.hero .lead{font-size:1.12rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:.8rem;margin:.9rem 0 1.4rem}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem .9rem;box-shadow:var(--shadow);color:var(--fg);transition:transform .15s,border-color .15s}
+a.card:hover{text-decoration:none;transform:translateY(-2px);border-color:var(--fg3)}
+.card b{display:block;margin-bottom:.25rem;font-size:.98rem;color:var(--accent)}.card small{color:var(--fg2);font-size:.86rem;line-height:1.5;display:block}
+.card.layer-A{border-top:3px solid var(--s1)}.card.layer-C{border-top:3px solid var(--s2)}.card.layer-D{border-top:3px solid var(--s3)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1.2rem 0 1.6rem}
+.stat{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;box-shadow:var(--shadow);color:var(--fg)}
+.stat .n{font-family:var(--display);font-size:2rem;font-weight:600;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat small{display:block;color:var(--fg2);margin-top:.35rem;font-size:.86rem;line-height:1.45}
+a.stat:hover{text-decoration:none;border-color:var(--fg3)}
+.spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0 1.4rem;box-shadow:var(--shadow)}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:.55rem 1.4rem;margin:0}dt{color:var(--fg3);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding-top:.15rem}dd{margin:0;min-width:0}
+dd.formula{font-family:ui-monospace,"SF Mono",Consolas,"Noto Sans KR",monospace;font-size:.9rem;background:var(--bg2);border-radius:6px;padding:.45rem .65rem;line-height:1.6}
 @media(max-width:640px){dl{grid-template-columns:1fr}dt{margin-top:.5rem}}
-.filter{margin:.4rem 0}.filter input{padding:.3rem .5rem;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg);width:min(100%,320px)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
+th,td{border-bottom:1px solid var(--line2);padding:.42rem .6rem;text-align:left;vertical-align:top}
+thead th{color:var(--fg2);font-weight:600;font-size:.82rem;letter-spacing:.02em;cursor:pointer;white-space:nowrap;border-bottom:1px solid var(--line)}
+thead th:hover{color:var(--fg)}tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg2) 55%,transparent)}tbody tr:hover{background:var(--bg2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}td:first-child{white-space:nowrap}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:0 .3rem;margin:.6rem 0 1rem}.wrap table{margin:0}
+figure{margin:1.2rem 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1rem .8rem;box-shadow:var(--shadow)}
+figcaption{font-size:.86rem;color:var(--fg2);margin-top:.5rem;line-height:1.5}
+svg{max-width:100%;height:auto;display:block}svg text{font-family:var(--body);fill:var(--fg2);font-size:11px}svg .ax{stroke:var(--line)}svg .grid{stroke:var(--grid)}
+.legend{display:flex;gap:1.1rem;font-size:.86rem;color:var(--fg2);flex-wrap:wrap;margin:.2rem 0 .4rem}.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:.4rem;vertical-align:-1px;background:var(--c)}
+.note{background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-left:4px solid var(--accent);border-radius:8px;padding:.7rem 1rem;margin:1.2rem 0;font-size:.95rem}
+.prose p,.prose ul,.prose .note,.prose .lead{max-width:72ch}.prose p{margin:.8rem 0}.prose ul{padding-left:1.2rem}.prose li{margin:.3rem 0}
+.src{color:var(--fg2);font-size:.92rem}.files a{display:inline-block;font-size:.85rem;background:var(--bg2);border:1px solid var(--line2);border-radius:6px;padding:.15rem .55rem;margin:.2rem .3rem .2rem 0;color:var(--fg2)}.files a:hover{color:var(--fg);text-decoration:none;border-color:var(--fg3)}
+footer{border-top:1px solid var(--line);color:var(--fg3);font-size:.82rem;padding:1.2rem;text-align:center}
+.filter{margin:.5rem 0}.filter input{padding:.4rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);width:min(100%,340px);font:inherit;font-size:.9rem}
+.filter input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+.links{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:2rem;font-size:.95rem}
+@media(prefers-reduced-motion:reduce){.card,a.card:hover{transition:none;transform:none}}
 </style></head><body>
 <header><a class="brand" href="../ko/index.html">클래식 음악 세이버메트릭스</a>
-<nav><a href="../ko/index.html">홈</a><a href="../ko/metrics/index.html">지표</a><a href="../ko/reading.html">읽기용 판</a><a href="../ko/data.html">데이터</a><a href="../ko/method.html">방법·출처</a></nav>
-<a class="lang" href="../en/index.html">English</a></header>
-<main><h1>방법·출처</h1><h2>원칙</h2><ul>
+<nav><a href="../ko/index.html">홈</a><a href="../ko/metrics/index.html">지표</a><a href="../ko/reading.html">읽기용 판</a><a href="../ko/data.html">데이터</a><a href="../ko/method.html" class="on">방법·출처</a></nav>
+<div class="right"><button id="theme" class="theme" type="button" aria-label="theme">◑</button><a class="lang" href="../en/index.html">English</a></div></header>
+<main><div class='prose'><h1>방법·출처</h1><h2>원칙</h2><ul>
 <li><b>지표 하나에 정의·공식·표본·한계를 함께 둔다.</b> 야구의 세이버메트릭스가 설득력을 갖는 이유가 그것이라서다.</li>
 <li><b>기술 통계와 해석을 가른다.</b> 「반음계 비율이 높다」는 측정이고, 「그래서 더 혁신적이다」는 해석이다. 이 사이트는 앞의 것만 한다.</li>
 <li><b>같은 코드가 두 작곡가를 잰다.</b> 바흐와 베토벤을 다른 식으로 재면 비교가 아니다.</li>
-<li><b>원자료는 공개 코퍼스만 쓴다.</b> 악보·MIDI·음원은 재배포하지 않고 수치만 낸다.</li></ul><h2>자료원</h2><p><b>dcml</b> — DCML 코퍼스(EPFL 디지털·인지 음악학 연구실). 베토벤 현악4중주(ABC, Neuwirth·Harasim·Moss·Rohrmeier 2018)·피아노 소나타(Hentschel 외 2024), 바흐 영국·프랑스 모음곡·무반주 독주곡(Hentschel 외 2025), 바흐 코랄(Kaiser 2002 판 변환). 악보는 MuseScore 파일에서 ms3 로 추출한 음표·마디·화성 표. <a href='https://github.com/DCMLab'>https://github.com/DCMLab</a> · 라이선스: CC BY-NC-SA 4.0 (chorales: CC0 1.0)</p><p><b>kern370</b> — Craig Sapp, Bach 370 chorales (Humdrum **kern, Breitkopf &amp; Härtel 번호). 코랄 지표의 교차 검증용 두 번째 인코딩. <a href='https://github.com/craigsapp/bach-370-chorales'>https://github.com/craigsapp/bach-370-chorales</a> · 라이선스: CC BY-NC-SA 4.0</p><p><b>bmetr</b> — Martín-Castro &amp; Ucar (2020), &quot;Conductors&#x27; tempo choices shed light over Beethoven&#x27;s metronome&quot;, PLOS ONE 15(12): e0243616. 지휘자 36명의 베토벤 교향곡 전집 녹음(1,332 트랙)의 길이·코다 템포 추정치와 악보의 메트로놈 표기·마디 수. R 패키지 bmetr. <a href='https://github.com/Enchufa2/bmetr'>https://github.com/Enchufa2/bmetr</a> · 라이선스: MIT</p><p><b>asap</b> — ASAP 데이터셋(Foscarin 외, ISMIR 2020). 악보와 박 단위로 정렬된 피아노 MIDI 연주 — 바흐 평균율 169개, 베토벤 소나타 271개(이 중 악보와 박 수가 맞는 정렬 확인본은 169·259개이고, 집계는 그것만 쓴다). 연주는 MAESTRO(국제 e-Competition 피아노 콩쿠르) 녹음에서 온다. <a href='https://github.com/fosfrancesco/asap-dataset'>https://github.com/fosfrancesco/asap-dataset</a> · 라이선스: CC BY-NC-SA 4.0</p><p><b>nyphil</b> — 뉴욕 필하모닉 공연 기록(Performance History). 1842년 12월 첫 연주회부터 현재 시즌까지 15,000여 프로그램의 작품·작곡가·지휘자. 뉴욕 필 본 공연 외에 아카이브가 함께 보존한 뉴욕 심포니·스타디움 콘서트·실내악 시리즈 등의 프로그램도 들어 있고, 이 사이트는 이를 거르지 않는다. 매일 갱신. <a href='https://github.com/nyphilarchive/PerformanceHistory'>https://github.com/nyphilarchive/PerformanceHistory</a> · 라이선스: CC0 1.0</p><h2>교차 검증</h2>바흐 코랄은 두 개의 독립된 인코딩(DCML MuseScore 판, Sapp Humdrum 판)으로 같은 지표를 계산해 대조했다. 음표 수가 2% 안에서 일치하는 235곡에서 아홉 지표의 피어슨 상관은 최소 0.92 였다.<div class="wrap"><table class="sort" id="cross"><thead><tr><th class="">metric</th><th class="num">표본</th><th class="num">DCML</th><th class="num">Humdrum</th><th class="num">r</th><th class="num">|diff| median</th></tr></thead><tbody><tr><td>chromatic_ratio</td><td class="num" data-v="235">235</td><td class="num" data-v="0.068">0.068</td><td class="num" data-v="0.068">0.068</td><td class="num" data-v="0.983">0.983</td><td class="num" data-v="0.0002">0.0002</td></tr><tr><td>pitch_class_entropy</td><td class="num" data-v="235">235</td><td class="num" data-v="3.008">3.008</td><td class="num" data-v="3.009">3.009</td><td class="num" data-v="0.967">0.967</td><td class="num" data-v="0.001">0.0010</td></tr><tr><td>rhythm_entropy</td><td class="num" data-v="235">235</td><td class="num" data-v="1.512">1.512</td><td class="num" data-v="1.504">1.504</td><td class="num" data-v="0.979">0.979</td><td class="num" data-v="0.004">0.0040</td></tr><tr><td>offbeat_onset_ratio</td><td class="num" data-v="235">235</td><td class="num" data-v="0.205">0.205</td><td class="num" data-v="0.208">0.208</td><td class="num" data-v="0.984">0.984</td><td class="num" data-v="0.0004">0.0004</td></tr><tr><td>mean_simultaneity</td><td class="num" data-v="235">235</td><td class="num" data-v="2.821">2.821</td><td class="num" data-v="2.82">2.820</td><td class="num" data-v="0.976">0.976</td><td class="num" data-v="0.0">0.0000</td></tr><tr><td>notes_per_quarter</td><td class="num" data-v="235">235</td><td class="num" data-v="4.318">4.318</td><td class="num" data-v="4.327">4.327</td><td class="num" data-v="0.975">0.975</td><td class="num" data-v="0.0048">0.0048</td></tr><tr><td>top_leap_ratio</td><td class="num" data-v="235">235</td><td class="num" data-v="0.143">0.143</td><td class="num" data-v="0.143">0.143</td><td class="num" data-v="0.957">0.957</td><td class="num" data-v="0.0">0.0000</td></tr><tr><td>top_mean_interval_semitones</td><td class="num" data-v="235">235</td><td class="num" data-v="1.857">1.857</td><td class="num" data-v="1.857">1.857</td><td class="num" data-v="0.967">0.967</td><td class="num" data-v="0.0">0.0000</td></tr><tr><td>pitch_range_semitones</td><td class="num" data-v="235">235</td><td class="num" data-v="36.0">36.000</td><td class="num" data-v="36.0">36.000</td><td class="num" data-v="0.923">0.923</td><td class="num" data-v="0.0">0.0000</td></tr></tbody></table></div><h2>선행 연구와의 대조</h2>Martín-Castro & Ucar (2020)는 혼합효과 회귀로 시대연주·시대연주 영향·낭만파 지휘자가 표기보다 각각 6(2)·8(2)·13(2) bpm 느리다고 보고했다. 이 사이트의 단순 중앙값은 -6·-8·-12.7 bpm 으로, 방법이 달라도 같은 그림이다.<h2>AI 사용 고지</h2><p>지표 설계·코드·본문 초고는 Claude(Anthropic)의 도움으로 작성했고, 엮은이가 원자료와 대조해 검증했다. 수치는 공개 코드로 재현할 수 있다.</p><h2>아직 없는 것 (장기 과제)</h2><ul><li>베토벤 교향곡의 악보 지표 — 기계 판독 총보가 공개돼 있지 않아 악보 인식(OMR)과 사람 교정이 필요하다.</li><li>바흐 녹음의 연주 시간 추이(시대연주 운동 전후) — 음반 메타데이터에서 재발매 중복을 걸러야 한다.</li><li>지휘자별 템포 통계의 확장 — 베토벤 이외 작곡가.</li><li>뉴욕 필 이외 오케스트라의 레퍼토리 — 일괄 공개 데이터가 드물다.</li></ul></main>
+<li><b>원자료는 공개 코퍼스만 쓴다.</b> 악보·MIDI·음원은 재배포하지 않고 수치만 낸다.</li></ul><h2>자료원</h2><p><b>dcml</b> — DCML 코퍼스(EPFL 디지털·인지 음악학 연구실). 베토벤 현악4중주(ABC, Neuwirth·Harasim·Moss·Rohrmeier 2018)·피아노 소나타(Hentschel 외 2024), 바흐 영국·프랑스 모음곡·무반주 독주곡(Hentschel 외 2025), 바흐 코랄(Kaiser 2002 판 변환). 악보는 MuseScore 파일에서 ms3 로 추출한 음표·마디·화성 표. <a href='https://github.com/DCMLab'>https://github.com/DCMLab</a> · 라이선스: CC BY-NC-SA 4.0 (chorales: CC0 1.0)</p><p><b>kern370</b> — Craig Sapp, Bach 370 chorales (Humdrum **kern, Breitkopf &amp; Härtel 번호). 코랄 지표의 교차 검증용 두 번째 인코딩. <a href='https://github.com/craigsapp/bach-370-chorales'>https://github.com/craigsapp/bach-370-chorales</a> · 라이선스: CC BY-NC-SA 4.0</p><p><b>bmetr</b> — Martín-Castro &amp; Ucar (2020), &quot;Conductors&#x27; tempo choices shed light over Beethoven&#x27;s metronome&quot;, PLOS ONE 15(12): e0243616. 지휘자 36명의 베토벤 교향곡 전집 녹음(1,332 트랙)의 길이·코다 템포 추정치와 악보의 메트로놈 표기·마디 수. R 패키지 bmetr. <a href='https://github.com/Enchufa2/bmetr'>https://github.com/Enchufa2/bmetr</a> · 라이선스: MIT</p><p><b>asap</b> — ASAP 데이터셋(Foscarin 외, ISMIR 2020). 악보와 박 단위로 정렬된 피아노 MIDI 연주 — 바흐 평균율 169개, 베토벤 소나타 271개(이 중 악보와 박 수가 맞는 정렬 확인본은 169·259개이고, 집계는 그것만 쓴다). 연주는 MAESTRO(국제 e-Competition 피아노 콩쿠르) 녹음에서 온다. <a href='https://github.com/fosfrancesco/asap-dataset'>https://github.com/fosfrancesco/asap-dataset</a> · 라이선스: CC BY-NC-SA 4.0</p><p><b>nyphil</b> — 뉴욕 필하모닉 공연 기록(Performance History). 1842년 12월 첫 연주회부터 현재 시즌까지 15,000여 프로그램의 작품·작곡가·지휘자. 뉴욕 필 본 공연 외에 아카이브가 함께 보존한 뉴욕 심포니·스타디움 콘서트·실내악 시리즈 등의 프로그램도 들어 있고, 이 사이트는 이를 거르지 않는다. 매일 갱신. <a href='https://github.com/nyphilarchive/PerformanceHistory'>https://github.com/nyphilarchive/PerformanceHistory</a> · 라이선스: CC0 1.0</p><h2>교차 검증</h2>바흐 코랄은 두 개의 독립된 인코딩(DCML MuseScore 판, Sapp Humdrum 판)으로 같은 지표를 계산해 대조했다. 음표 수가 2% 안에서 일치하는 235곡에서 아홉 지표의 피어슨 상관은 최소 0.92 였다.<div class="wrap"><table class="sort" id="cross"><thead><tr><th class="">metric</th><th class="num">표본</th><th class="num">DCML</th><th class="num">Humdrum</th><th class="num">r</th><th class="num">|diff| median</th></tr></thead><tbody><tr><td>chromatic_ratio</td><td class="num" data-v="235">235</td><td class="num" data-v="0.068">0.068</td><td class="num" data-v="0.068">0.068</td><td class="num" data-v="0.983">0.983</td><td class="num" data-v="0.0002">0.0002</td></tr><tr><td>pitch_class_entropy</td><td class="num" data-v="235">235</td><td class="num" data-v="3.008">3.008</td><td class="num" data-v="3.009">3.009</td><td class="num" data-v="0.967">0.967</td><td class="num" data-v="0.001">0.0010</td></tr><tr><td>rhythm_entropy</td><td class="num" data-v="235">235</td><td class="num" data-v="1.512">1.512</td><td class="num" data-v="1.504">1.504</td><td class="num" data-v="0.979">0.979</td><td class="num" data-v="0.004">0.0040</td></tr><tr><td>offbeat_onset_ratio</td><td class="num" data-v="235">235</td><td class="num" data-v="0.205">0.205</td><td class="num" data-v="0.208">0.208</td><td class="num" data-v="0.984">0.984</td><td class="num" data-v="0.0004">0.0004</td></tr><tr><td>mean_simultaneity</td><td class="num" data-v="235">235</td><td class="num" data-v="2.821">2.821</td><td class="num" data-v="2.82">2.820</td><td class="num" data-v="0.976">0.976</td><td class="num" data-v="0.0">0.0000</td></tr><tr><td>notes_per_quarter</td><td class="num" data-v="235">235</td><td class="num" data-v="4.318">4.318</td><td class="num" data-v="4.327">4.327</td><td class="num" data-v="0.975">0.975</td><td class="num" data-v="0.0048">0.0048</td></tr><tr><td>top_leap_ratio</td><td class="num" data-v="235">235</td><td class="num" data-v="0.143">0.143</td><td class="num" data-v="0.143">0.143</td><td class="num" data-v="0.957">0.957</td><td class="num" data-v="0.0">0.0000</td></tr><tr><td>top_mean_interval_semitones</td><td class="num" data-v="235">235</td><td class="num" data-v="1.857">1.857</td><td class="num" data-v="1.857">1.857</td><td class="num" data-v="0.967">0.967</td><td class="num" data-v="0.0">0.0000</td></tr><tr><td>pitch_range_semitones</td><td class="num" data-v="235">235</td><td class="num" data-v="36.0">36.000</td><td class="num" data-v="36.0">36.000</td><td class="num" data-v="0.923">0.923</td><td class="num" data-v="0.0">0.0000</td></tr></tbody></table></div><h2>선행 연구와의 대조</h2>Martín-Castro & Ucar (2020)는 혼합효과 회귀로 시대연주·시대연주 영향·낭만파 지휘자가 표기보다 각각 6(2)·8(2)·13(2) bpm 느리다고 보고했다. 이 사이트의 단순 중앙값은 -6·-8·-12.7 bpm 으로, 방법이 달라도 같은 그림이다.<h2>AI 사용 고지</h2><p>지표 설계·코드·본문 초고는 Claude(Anthropic)의 도움으로 작성했고, 엮은이가 원자료와 대조해 검증했다. 수치는 공개 코드로 재현할 수 있다.</p><h2>아직 없는 것 (장기 과제)</h2><ul><li>베토벤 교향곡의 악보 지표 — 기계 판독 총보가 공개돼 있지 않아 악보 인식(OMR)과 사람 교정이 필요하다.</li><li>바흐 녹음의 연주 시간 추이(시대연주 운동 전후) — 음반 메타데이터에서 재발매 중복을 걸러야 한다.</li><li>지휘자별 템포 통계의 확장 — 베토벤 이외 작곡가.</li><li>뉴욕 필 이외 오케스트라의 레퍼토리 — 일괄 공개 데이터가 드물다.</li></ul></div></main>
 <footer>클래식 음악 세이버메트릭스 · 판 1.0 · 생성일 2026-10-31 · <a href="https://github.com/BowonKwon/Classical-Music-Metrics">GitHub</a></footer>
 <script>
+(function(){var k="cmm-theme",r=document.documentElement,b=document.getElementById("theme");function ap(v){if(v)r.setAttribute("data-theme",v);else r.removeAttribute("data-theme");if(b)b.textContent=v==="dark"?"☾":v==="light"?"☀":"◑"}var cur=localStorage.getItem(k)||"";ap(cur);if(b)b.addEventListener("click",function(){cur=cur===""?"light":cur==="light"?"dark":"";if(cur)localStorage.setItem(k,cur);else localStorage.removeItem(k);ap(cur)})})();
 document.querySelectorAll('table.sort').forEach(function(t){
   var ths=t.querySelectorAll('th');ths.forEach(function(th,i){th.addEventListener('click',function(){
     var rows=Array.from(t.tBodies[0].rows),asc=th.dataset.asc!=='1';th.dataset.asc=asc?'1':'0';
