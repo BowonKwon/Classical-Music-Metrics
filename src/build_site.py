@@ -28,7 +28,7 @@ PTYPE_COLOR = {"Romantic": 1, "HI influence": 2, "HI": 0}
 
 T = {
     "ko": dict(
-        site="클래식 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐와 베토벤부터",
+        site="서양 고전 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐와 베토벤부터",
         nav_home="홈", nav_metrics="지표", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         layer="층", definition="정의", formula="공식", reading="읽는 법", caveat="한계", source="자료원", unit="단위",
         table="표", download="CSV 내려받기", n="표본", median="중앙값", q1="1사분위", q3="3사분위", min="최소", max="최대",
@@ -544,7 +544,7 @@ def main():
         ny_pts_h = [(int(r.season_start), float(r.hhi)) for _, r in ny_season.iterrows()]
         cond_items = [(f"{r.conductor.split(',')[0]} ({t['ptype'][r.ptype]})", r.median_diff_bpm, PTYPE_COLOR[r.ptype]) for r in cond.itertuples()]
         if lang == "ko":
-            body.append(f"""<p class="lead">야구는 타율과 OPS로 선수를 읽는다. 클래식 음악도 악보와 녹음이 데이터로 공개된 만큼은 같은 일을 할 수 있다. 이 판은 수치 사이트의 핵심 결과를 글로 읽는 판이다. 지표 하나하나의 정의와 전체 표는 <a href="metrics/index.html">지표</a> 면에 있다.</p>
+            body.append(f"""<p class="lead">야구는 타율과 OPS로 선수를 읽는다. 서양 고전 음악도 악보와 녹음이 데이터로 공개된 만큼은 같은 일을 할 수 있다. 이 판은 수치 사이트의 핵심 결과를 글로 읽는 판이다. 지표 하나하나의 정의와 전체 표는 <a href="metrics/index.html">지표</a> 면에 있다.</p>
 <h2>1. 악보 — 바흐 {H['n_bach']}악장, 베토벤 {H['n_beet']}악장</h2>
 <p>공개 주석 코퍼스에서 바흐의 코랄·영국 및 프랑스 모음곡·무반주 독주곡과 베토벤의 현악4중주 전곡·피아노 소나타 전곡을 가져와 같은 코드로 쟀다. 음표 {H['n_notes']:,}개다. 아래는 모음별 중앙값이다.</p>
 {table_html(medtab, mt_cols, 'medtab', lang, filt=False)}
@@ -599,7 +599,7 @@ def main():
             (f"{H['ny_first_beet']:.0%} → {H['ny_last_beet']:.0%}", f"뉴욕 필 베토벤 점유율, {H['ny_first_season']} → {H['ny_last_season']}" if lang == "ko" else f"NY Phil Beethoven share, {H['ny_first_season']} → {H['ny_last_season']}", "metrics/beethoven_share.html"),
         ]
         body = [f"<div class='hero'><h1>{t['site']}</h1><p class='lead'>{t['tagline']}</p></div><div class='stats'>" + "".join(f"<a class='stat' href='{h}'><span class='n'>{esc(v)}</span><small>{esc(d)}</small></a>" for v, d, h in cards) + "</div>"]
-        body.append(("<p class='lead' style='margin-top:.4rem'>세이버메트릭스가 야구를 바꾼 것은 통계 그 자체가 아니라 <b>지표마다 정의·공식·표본·한계를 공개한 것</b>이었다. 이 사이트는 서양 고전음악에 같은 틀을 적용한다. 공개 악보 코퍼스와 연주 데이터셋에서 수치를 뽑고, 지표 하나에 페이지 하나를 둔다. 첫 판은 바흐와 베토벤이다.</p>" if lang == "ko" else
+        body.append(("<p class='lead' style='margin-top:.4rem'>세이버메트릭스가 야구를 바꾼 것은 통계 그 자체가 아니라 <b>지표마다 정의·공식·표본·한계를 공개한 것</b>이었다. 이 사이트는 서양 고전 음악에 같은 틀을 적용한다. 공개 악보 코퍼스와 연주 데이터셋에서 수치를 뽑고, 지표 하나에 페이지 하나를 둔다. 첫 판은 바흐와 베토벤이다.</p>" if lang == "ko" else
                      "<p class='lead' style='margin-top:.4rem'>What sabermetrics changed in baseball was not the statistics themselves but <b>publishing each metric's definition, formula, sample and caveats</b>. This site applies that frame to Western classical music: numbers extracted from open score corpora and performance datasets, one page per metric. The first edition covers Bach and Beethoven.</p>"))
         for lay in ("A", "C", "D"):
             body.append(f"<h2>{LAYERS[lay][lang]}</h2><div class='cards'>")
