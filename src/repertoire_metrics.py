@@ -88,6 +88,16 @@ def main():
     ss["n_programs"] = df.groupby("season")["program_id"].nunique().reindex(ss["season"]).values
     ss.to_csv(out / "nyphil_season_summary.csv", index=False, encoding="utf-8")
 
+    wf_all = df.groupby(["composer", "work_title"]).agg(
+        performances=("n_concerts", "sum"),
+        programs=("program_id", "nunique"),
+        first_season=("season", "min"),
+        last_season=("season", "max"),
+    ).reset_index().sort_values("performances", ascending=False)
+    wf_all["rank"] = range(1, len(wf_all) + 1)
+    wf_all.head(300).to_csv(out / "nyphil_work_frequency_all_top300.csv", index=False, encoding="utf-8")
+    df.groupby("orchestra")["program_id"].nunique().sort_values(ascending=False).rename("programs").reset_index().to_csv(out / "nyphil_orchestra_programs.csv", index=False, encoding="utf-8")
+
     bb = df[df["is_bach"] | df["is_beethoven"]]
     wf = bb.groupby(["composer", "work_title"]).agg(
         performances=("n_concerts", "sum"),
@@ -95,6 +105,7 @@ def main():
         first_season=("season", "min"),
         last_season=("season", "max"),
     ).reset_index().sort_values("performances", ascending=False)
+    wf = wf.merge(wf_all[["composer", "work_title", "rank"]], on=["composer", "work_title"], how="left").rename(columns={"rank": "rank_all_composers"})
     wf.to_csv(out / "nyphil_work_frequency.csv", index=False, encoding="utf-8")
 
     print("work performances", int(df["n_concerts"].sum()), "programs", df["program_id"].nunique(), "seasons", df["season"].nunique())
