@@ -28,7 +28,7 @@ PTYPE_COLOR = {"Romantic": 1, "HI influence": 2, "HI": 0}
 
 T = {
     "ko": dict(
-        site="클래식 음악 세이버메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐와 베토벤부터",
+        site="클래식 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐와 베토벤부터",
         nav_home="홈", nav_metrics="지표", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         layer="층", definition="정의", formula="공식", reading="읽는 법", caveat="한계", source="자료원", unit="단위",
         table="표", download="CSV 내려받기", n="표본", median="중앙값", q1="1사분위", q3="3사분위", min="최소", max="최대",
