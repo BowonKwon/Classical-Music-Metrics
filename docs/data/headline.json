@@ -37,6 +37,13 @@
  "ny_last_comp": 221,
  "ny_top_work": "SYMPHONY NO. 5 IN C MINOR, OP.67",
  "ny_top_n": 633,
+ "ny_top_rank": 5,
+ "ny_all_top": "MESSIAH",
+ "ny_all_top_composer": "Handel, George Frideric",
+ "ny_all_top_n": 1239,
+ "ny_programs_complete": 15006,
+ "faster_n": 152,
+ "faster_of": 1188,
  "cross_min_r": 0.923,
  "cross_n": 235
 }

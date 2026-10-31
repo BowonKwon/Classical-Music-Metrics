@@ -1,10 +1,10 @@
 metric,n,dcml_median,kern_median,pearson_r,median_abs_diff
 chromatic_ratio,235,0.068,0.068,0.983,0.0002
 pitch_class_entropy,235,3.008,3.009,0.967,0.001
-rhythm_entropy,235,1.427,1.437,0.98,0.0025
+rhythm_entropy,235,1.512,1.504,0.979,0.004
 offbeat_onset_ratio,235,0.205,0.208,0.984,0.0004
 mean_simultaneity,235,2.821,2.82,0.976,0.0
-notes_per_quarter,235,4.292,4.284,0.972,0.0048
-top_leap_ratio,235,0.144,0.144,0.956,0.0
-top_mean_interval_semitones,235,1.857,1.867,0.965,0.0
+notes_per_quarter,235,4.318,4.327,0.975,0.0048
+top_leap_ratio,235,0.143,0.143,0.957,0.0
+top_mean_interval_semitones,235,1.857,1.857,0.967,0.0
 pitch_range_semitones,235,36.0,36.0,0.923,0.0

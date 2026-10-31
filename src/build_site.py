@@ -296,6 +296,7 @@ def main():
     asap_perf = pd.read_csv(D / "asap_performance_metrics.csv")
     ny_season = pd.read_csv(D / "nyphil_season_summary.csv")
     ny_work = pd.read_csv(D / "nyphil_work_frequency.csv")
+    ny_all = pd.read_csv(D / "nyphil_work_frequency_all_top300.csv")
 
     # public CSV copies
     DATA_FILES = {
@@ -311,6 +312,8 @@ def main():
         "nyphil_season_summary.csv": ("nyphil", "D"),
         "nyphil_composer_season.csv": ("nyphil", "D"),
         "nyphil_work_frequency.csv": ("nyphil", "D"),
+        "nyphil_work_frequency_all_top300.csv": ("nyphil", "D"),
+        "nyphil_orchestra_programs.csv": ("nyphil", "D"),
     }
     for f in DATA_FILES:
         shutil.copy(D / f, OUT / "data" / f)
@@ -341,7 +344,10 @@ def main():
         ny_first_season=ny_first["season"], ny_last_season=ny_last["season"],
         ny_first_beet=ny_first["beethoven_share"], ny_last_beet=ny_last["beethoven_share"],
         ny_first_hhi=ny_first["hhi"], ny_last_hhi=ny_last["hhi"], ny_first_comp=int(ny_first["distinct_composers"]), ny_last_comp=int(ny_last["distinct_composers"]),
-        ny_top_work=ny_work.iloc[0]["work_title"], ny_top_n=int(ny_work.iloc[0]["performances"]),
+        ny_top_work=ny_work.iloc[0]["work_title"], ny_top_n=int(ny_work.iloc[0]["performances"]), ny_top_rank=int(ny_work.iloc[0]["rank_all_composers"]),
+        ny_all_top=ny_all.iloc[0]["work_title"], ny_all_top_composer=ny_all.iloc[0]["composer"], ny_all_top_n=int(ny_all.iloc[0]["performances"]),
+        ny_programs_complete=int(ny_season[ny_season["season"] <= ny_last["season"]]["n_programs"].sum()),
+        faster_n=int((coda_ok["coda_tempo_diff_bpm"] > 0).sum()), faster_of=int(len(coda_ok)),
         cross_min_r=float(cross["pearson_r"].min()), cross_n=int(cross["n"].iloc[0]),
     )
     (OUT / "data" / "headline.json").write_text(json.dumps(H, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
@@ -421,9 +427,10 @@ def main():
         rows = []
         for f, (sk, lay) in DATA_FILES.items():
             n = sum(1 for _ in open(D / f, encoding="utf-8")) - 1
-            rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{esc(SOURCES[sk]['license'])}</td></tr>")
-        body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{t['license']}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
-        body.append("<p>" + ("파생 CSV 의 라이선스는 원자료를 따른다. NC-SA 자료에서 나온 표는 CC BY-NC-SA 4.0, CC0·MIT 자료에서 나온 표는 CC BY 4.0 으로 배포한다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "Derived CSVs inherit their source licenses: tables from NC-SA corpora are CC BY-NC-SA 4.0; tables from CC0/MIT sources are CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
+            derived = "CC BY-NC-SA 4.0" if sk in ("dcml", "kern370", "asap") else "CC BY 4.0"
+            rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{esc(SOURCES[sk]['license'])}</td><td>{derived}</td></tr>")
+        body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
+        body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. bmetr(MIT)·뉴욕 필(CC0) 원자료는 그 자체에 표시·비영리 의무가 없으며, 거기서 엮은이가 계산해 더한 부분에 대해서만 CC BY 4.0 을 붙인다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the licence the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The bmetr (MIT) and NY Phil (CC0) sources themselves carry no attribution or non-commercial obligation; CC BY 4.0 applies only to what the editor computed and added. No original scores, MIDI or audio are redistributed here.") + "</p>")
         (base / "data.html").write_text(page(lang, t["nav_data"], "".join(body)), encoding="utf-8")
 
         # ---------------- method page
@@ -483,22 +490,22 @@ def main():
 <h2>1. 악보 — 바흐 {H['n_bach']}악장, 베토벤 {H['n_beet']}악장</h2>
 <p>공개 주석 코퍼스에서 바흐의 코랄·영국 및 프랑스 모음곡·무반주 독주곡과 베토벤의 현악4중주 전곡·피아노 소나타 전곡을 가져와 같은 코드로 쟀다. 음표 {H['n_notes']:,}개다. 아래는 모음별 중앙값이다.</p>
 {table_html(medtab, mt_cols, 'medtab', lang, filt=False)}
-<p>세 가지가 눈에 띈다. 첫째, <b>반음계 비율</b>은 코랄(0.06)에서 베토벤 소나타(0.15)까지 두 배 넘게 벌어지지만, 바흐 독주곡(0.11)과 베토벤 4중주(0.13)는 가깝다 — 「바로크는 온음계, 고전은 반음계」라는 통념은 장르를 통제하면 흐려진다. 둘째, <b>화성 리듬</b>은 반대 방향이다. 바흐 모음곡은 마디당 세 화음, 베토벤은 두 화음 미만으로, 베토벤이 한 화음을 더 오래 끈다. 셋째, <b>최상성부 도약 비율</b>은 코랄 소프라노(0.14)가 가장 낮고 베토벤 소나타(0.52)가 가장 높다. 성악적 선율과 기악적 분산화음의 차이가 숫자로 그대로 나온다.</p>
+<p>세 가지가 눈에 띈다. 첫째, <b>반음계 비율</b>은 코랄(0.06)에서 베토벤 소나타(0.15)까지 두 배 넘게 벌어지지만, 바흐 무반주 독주곡(0.11)과 베토벤 4중주(0.13)는 가깝다 — 작곡가 사이의 간격이 편성 사이의 간격보다 작을 수 있다는 뜻이고, 「바로크는 온음계, 고전은 반음계」라는 통념을 이 표만으로 세울 수는 없다(장르를 통제한 비교는 아니다). 둘째, <b>화성 리듬</b>은 반대 방향이다. 바흐 모음곡은 마디당 세 화음, 베토벤은 두 화음 미만으로, 베토벤이 한 화음을 더 오래 끈다. 셋째, <b>최상성부 도약 비율</b>은 코랄 소프라노(0.14)가 가장 낮고 베토벤 소나타(0.50)가 가장 높다. 성악적 선율과 기악적 분산화음의 차이가 숫자로 그대로 나온다.</p>
 <div class="note">이 숫자는 「무엇이 다른가」를 말하지 「왜」나 「누가 낫나」를 말하지 않는다. 편성·장르·주석자가 모두 다르다는 점을 표의 한계 칸에 적어 두었다.</div>
 <h2>2. 베토벤의 메트로놈 — 지휘자 {H['n_cond']}명은 표기보다 얼마나 느린가</h2>
 <p>베토벤은 교향곡 1~8번에 메트로놈 숫자를 남겼고, 그것이 너무 빠르다는 논란이 두 세기째다. Martín-Castro와 Ucar(2020)는 지휘자 36명의 전집 녹음 {H['n_tracks']:,}트랙에서 템포를 추출했다. 그 공개 데이터를 다시 집계하면 다음과 같다(교향곡 9번은 원저자처럼 제외).</p>
 <div class="wrap"><table><thead><tr><th>연주 양식</th><th class="num">악장·지휘자 조합</th><th class="num">중앙값 (bpm)</th><th class="num">1사분위</th><th class="num">3사분위</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
-<p>낭만파 지휘자는 중앙값으로 분당 {abs(H['rom']):.1f}박 느리고, 시대악기 지휘자도 {abs(H['hi']):.0f}박 느리다. <b>표기보다 빠른 지휘자는 한 명도 없다.</b> 원저자는 이 13 bpm 가량의 간격이 메트로놈 추의 높이(눈금 15 mm = 12 bpm)와 맞아떨어진다는 점에서 베토벤이 눈금을 잘못 읽었을 가능성을 제기했다. 그 해석의 옳고 그름과 무관하게, 「모든 지휘자가 일정하게 느리다」는 사실 자체는 데이터에서 확인된다.</p>
+<p>낭만파 지휘자는 중앙값으로 분당 {abs(H['rom']):.1f}박 느리고, 시대악기 지휘자도 {abs(H['hi']):.0f}박 느리다. <b>지휘자별 중앙값이 표기보다 빠른 사람은 36명 중 한 명도 없다.</b> 다만 악장 하나하나로 보면 {H['faster_n']}건({H['faster_n']/H['faster_of']:.1%})은 표기보다 빠르다 — 느린 쪽으로 치우친 것이지 모든 연주가 느린 것은 아니다. 원저자는 이 13 bpm 가량의 간격이 그 시대 멜첼 메트로놈 추의 높이(눈금에서 15 mm = 12 bpm)와 맞아떨어진다는 점에서 베토벤이 눈금을 잘못 읽었을 가능성을 제기했다. 그 해석의 옳고 그름과 무관하게, 「지휘자 36명이 모두 평균적으로 느리다」는 사실 자체는 데이터에서 확인된다.</p>
 {legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>지휘자별 중앙값(33악장). 가장 느린 뵘(−17.5)부터 가장 가까운 샤이(−1.0)까지.</figcaption></figure>
 <h2>3. 피아니스트들은 같은 곡을 얼마나 다르게 치는가</h2>
-<p>ASAP 데이터셋에는 바흐 평균율 {H['asap_bach_pieces']}곡({H['asap_bach_perf']}연주)과 베토벤 소나타 {H['asap_beet_pieces']}악장({H['asap_beet_perf']}연주)이 박 단위로 악보와 정렬돼 있다. 연주자는 국제 피아노 e-콩쿠르 참가자다.</p>
-<ul><li><b>연주자 간 템포 산포</b> 중앙값: 바흐 {H['asap_bach_cv']:.3f}, 베토벤 {H['asap_beet_cv']:.3f}. 같은 곡의 평균 템포가 ±5~6% 안에 모인다 — 콩쿠르 참가자들은 템포 선택에서 생각보다 비슷하다.</li>
+<p>ASAP 데이터셋에서 악보와 박 수가 맞는 연주는 바흐 평균율 {H['asap_bach_pieces']}곡({H['asap_bach_perf']}연주)과 베토벤 소나타 {H['asap_beet_pieces']}악장({H['asap_beet_perf']}연주, 원자료 271개 중 12개 제외)이다. 연주자는 국제 피아노 e-콩쿠르 참가자다.</p>
+<ul><li><b>연주자 간 템포 산포</b>(연주가 2개 이상인 바흐 40곡·베토벤 33악장) 중앙값: 바흐 {H['asap_bach_cv']:.3f}, 베토벤 {H['asap_beet_cv']:.3f}. 같은 곡의 평균 템포 표준편차가 평균의 5~6% — 콩쿠르 참가자들은 템포 선택에서 생각보다 비슷하다.</li>
 <li><b>박 단위 템포 흔들림</b>(루바토) 중앙값: 바흐 {H['asap_bach_rub']:.3f}, 베토벤 {H['asap_beet_rub']:.3f}. 베토벤에서 박마다 더 많이 늘고 준다.</li>
 <li><b>강약 폭</b>(velocity 표준편차) 중앙값: 바흐 {H['asap_bach_vel']:.1f}, 베토벤 {H['asap_beet_vel']:.1f}. 셈여림 대비는 베토벤이 뚜렷이 크다.</li></ul>
 <h2>4. 180년의 레퍼토리 — 뉴욕 필하모닉</h2>
-<p>1842년 12월 7일 첫 연주회(베토벤 5번으로 시작했다)부터 {H['ny_last_season']} 시즌까지 {H['ny_programs']:,}개 프로그램이 공개돼 있다. 가장 많이 연주된 작품은 {esc(H['ny_top_work'])}로 {H['ny_top_n']}회다.</p>
+<p>1842년 12월 7일 첫 연주회(베토벤 5번으로 시작했다)부터 {H['ny_last_season']} 시즌까지 {H['ny_programs_complete']:,}개 프로그램이 공개돼 있다(진행 중인 시즌까지 {H['ny_programs']:,}개; 뉴욕 심포니·스타디움 콘서트 등 아카이브가 함께 보존한 관련 단체의 프로그램 포함). 전체에서 가장 많이 오른 작품은 {esc(H['ny_all_top_composer'])}의 {esc(H['ny_all_top'])}({H['ny_all_top_n']:,}회 — 작품 항목 × 연주회 수로 센 값이고, 부분 연주도 들어간다)이고, 바흐·베토벤 작품 가운데는 {esc(H['ny_top_work'])}가 {H['ny_top_n']}회로 전체 {H['ny_top_rank']}위다.</p>
 {legend([('Beethoven', 1), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Bach', ny_pts_j, 0)], '.0%', ylabel='시즌 작품 연주 점유율')}<figcaption>베토벤 점유율은 {H['ny_first_season']} 시즌 {H['ny_first_beet']:.1%}에서 {H['ny_last_season']} 시즌 {H['ny_last_beet']:.1%}로. 바흐는 줄곧 1~4%.</figcaption></figure>
-<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='작곡가 집중도 (HHI)')}<figcaption>집중도는 {H['ny_first_hhi']:.3f}(작곡가 {H['ny_first_comp']}명)에서 {H['ny_last_hhi']:.3f}(작곡가 {H['ny_last_comp']}명)로 — 레퍼토리는 꾸준히 넓어졌다.</figcaption></figure>
+<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='작곡가 집중도 (HHI)')}<figcaption>집중도는 {H['ny_first_hhi']:.3f}(작곡가 {H['ny_first_comp']}명)에서 {H['ny_last_hhi']:.3f}(작곡가 {H['ny_last_comp']}명)로. 해마다 오르내리지만 첫 시즌과 최근 시즌을 비교하면 레퍼토리는 크게 넓어졌다.</figcaption></figure>
 <h2>5. 한계와 다음</h2>
 <p>이 판에 없는 것이 무엇인지가 있는 것만큼 중요하다. 베토벤 교향곡은 연주 지표만 있고 악보 지표가 없다(기계 판독 총보가 없어서다). 바흐의 녹음 데이터는 피아노 연주뿐이고, 시대악기 운동 전후의 연주 시간 변화는 아직 재지 못했다. 레퍼토리는 한 오케스트라의 기록이다. 각 지표의 한계 칸과 <a href="method.html">방법·출처</a> 면의 장기 과제 목록이 그 빈자리를 적어 둔다.</p>""")
         else:
@@ -506,22 +513,22 @@ def main():
 <h2>1. Scores — {H['n_bach']} Bach movements, {H['n_beet']} Beethoven movements</h2>
 <p>From open annotated corpora: Bach's chorales, English and French Suites and solo works; Beethoven's complete string quartets and piano sonatas — {H['n_notes']:,} notes, measured by one codebase. Medians by collection:</p>
 {table_html(medtab, mt_cols, 'medtab', lang, filt=False)}
-<p>Three things stand out. First, the <b>chromatic ratio</b> more than doubles from the chorales (0.06) to Beethoven's sonatas (0.15), yet Bach's solo works (0.11) and Beethoven's quartets (0.13) sit close together — the cliché "Baroque diatonic, Classical chromatic" blurs once genre is held fixed. Second, <b>harmonic rhythm</b> runs the other way: Bach's suites change chord about three times a bar, Beethoven fewer than twice. Third, the <b>top-line leap ratio</b> is lowest in chorale sopranos (0.14) and highest in Beethoven's sonatas (0.52): vocal line versus instrumental figuration, in one number.</p>
+<p>Three things stand out. First, the <b>chromatic ratio</b> more than doubles from the chorales (0.06) to Beethoven's sonatas (0.15), yet Bach's unaccompanied solo works (0.11) and Beethoven's quartets (0.13) sit close together — the gap between composers can be smaller than the gap between forces, so this table alone cannot establish the cliché "Baroque diatonic, Classical chromatic" (it is not a genre-controlled comparison). Second, <b>harmonic rhythm</b> runs the other way: Bach's suites change chord about three times a bar, Beethoven fewer than twice. Third, the <b>top-line leap ratio</b> is lowest in chorale sopranos (0.14) and highest in Beethoven's sonatas (0.50): vocal line versus instrumental figuration, in one number.</p>
 <div class="note">These numbers say what differs, not why or which is better. Instrumentation, genre and annotators all differ; the caveats column on each metric page says so.</div>
 <h2>2. Beethoven's metronome — how far below the marks do {H['n_cond']} conductors play?</h2>
 <p>Beethoven left metronome numbers for Symphonies 1–8, and for two centuries they have been called too fast. Martín-Castro and Ucar (2020) extracted tempi from {H['n_tracks']:,} tracks by 36 conductors. Re-aggregating their open data (Symphony 9 excluded, as in the paper):</p>
 <div class="wrap"><table><thead><tr><th>Performance style</th><th class="num">movement × conductor</th><th class="num">median (bpm)</th><th class="num">Q1</th><th class="num">Q3</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
-<p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor is faster than the marks.</b> The authors note that this gap of about 13 bpm matches the height of the metronome's weight (15 mm on the scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that every conductor is slower by a roughly constant amount is in the data.</p>
+<p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor's median is faster than the marks.</b> Movement by movement, though, {H['faster_n']} of {H['faster_of']:,} readings ({H['faster_n']/H['faster_of']:.1%}) run faster — the distribution leans slow; not every performance is slow. The authors note that this gap of about 13 bpm matches the height of the weight on a Maelzel metronome of the period (15 mm on its scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that all 36 conductors are slower on average is in the data.</p>
 {legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>Median per conductor over 33 movements, from the slowest (Böhm, −17.5) to the closest (Chailly, −1.0).</figcaption></figure>
 <h2>3. How differently do pianists play the same piece?</h2>
-<p>ASAP aligns {H['asap_bach_perf']} performances of {H['asap_bach_pieces']} Well-Tempered Clavier pieces and {H['asap_beet_perf']} performances of {H['asap_beet_pieces']} Beethoven sonata movements to their scores, beat by beat. The performers are International Piano-e-Competition entrants.</p>
-<ul><li><b>Across-performer tempo spread</b> (median CV): Bach {H['asap_bach_cv']:.3f}, Beethoven {H['asap_beet_cv']:.3f}. Average tempi for a piece cluster within ±5–6% — competition pianists agree on tempo more than one might expect.</li>
+<p>ASAP aligns {H['asap_bach_perf']} performances of {H['asap_bach_pieces']} Well-Tempered Clavier pieces and {H['asap_beet_perf']} performances of {H['asap_beet_pieces']} Beethoven sonata movements to their scores, beat by beat (12 of the 271 Beethoven performances whose beat counts do not match the score are left out). The performers are International Piano-e-Competition entrants.</p>
+<ul><li><b>Across-performer tempo spread</b> (median CV over pieces with two or more performances: 40 Bach, 33 Beethoven): Bach {H['asap_bach_cv']:.3f}, Beethoven {H['asap_beet_cv']:.3f}. The SD of a piece's mean tempi is 5–6% of the mean — competition pianists agree on tempo more than one might expect.</li>
 <li><b>Beat-to-beat tempo change</b> (rubato): Bach {H['asap_bach_rub']:.3f}, Beethoven {H['asap_beet_rub']:.3f}. More stretching per beat in Beethoven.</li>
 <li><b>Dynamic spread</b> (velocity SD): Bach {H['asap_bach_vel']:.1f}, Beethoven {H['asap_beet_vel']:.1f}. Markedly wider dynamics in Beethoven.</li></ul>
 <h2>4. 180 years of repertoire — the New York Philharmonic</h2>
-<p>{H['ny_programs']:,} programs are open, from the first concert on 7 December 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season. The most performed work is {esc(H['ny_top_work'])}, {H['ny_top_n']} times.</p>
+<p>{H['ny_programs_complete']:,} programs are open from the first concert on 7 December 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). The most performed work overall is {esc(H['ny_all_top_composer'])}'s {esc(H['ny_all_top'])} ({H['ny_all_top_n']:,} — counted as work entries × concerts, partial performances included); among Bach and Beethoven it is {esc(H['ny_top_work'])}, {H['ny_top_n']} times, rank {H['ny_top_rank']} overall.</p>
 {legend([('Beethoven', 1), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Bach', ny_pts_j, 0)], '.0%', ylabel='share of work performances per season')}<figcaption>Beethoven's share falls from {H['ny_first_beet']:.1%} in {H['ny_first_season']} to {H['ny_last_beet']:.1%} in {H['ny_last_season']}; Bach stays at 1–4% throughout.</figcaption></figure>
-<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration drops from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers): the repertoire kept widening.</figcaption></figure>
+<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers). It swings from season to season, but first and latest seasons compared, the repertoire has widened a great deal.</figcaption></figure>
 <h2>5. Limits and next steps</h2>
 <p>What is missing matters as much as what is here. The Beethoven symphonies have performance metrics but no score metrics (no open machine-readable full scores). Bach's performance data is piano only; the change in recorded durations around the period-instrument movement is not yet measured. The repertoire series is one orchestra. The caveats on each metric page and the long-term list under <a href="method.html">Method & sources</a> record those gaps.</p>""")
         (base / "reading.html").write_text(page(lang, t["nav_reading"], "".join(body)), encoding="utf-8")

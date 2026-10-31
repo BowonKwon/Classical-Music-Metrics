@@ -62,11 +62,76 @@ def entropy(counter: Counter) -> float:
 #   beat_unit (Fraction, e.g. 1/4), mc_onset (Fraction within measure),
 #   grace (bool), tied_cont (bool: continuation of a tie, not a new onset)
 # --------------------------------------------------------------------------
-def note_metrics(df: pd.DataFrame) -> dict:
-    df = df[~df["grace"]].copy()
-    on = df[~df["tied_cont"]]  # real onsets only
+def merge_ties(df: pd.DataFrame) -> pd.DataFrame:
+    """Attach tie-continuation fragments to the note they prolong.
+
+    Returns the frame sorted by onset with two new columns:
+      dur_merged  for onset rows, the full tied duration; for fragments, their own
+      attached    True for a continuation fragment that was merged into an onset
+    A fragment is attached to an onset note of the same MIDI pitch whose current
+    end equals the fragment's onset (same staff and voice preferred). Fragments
+    that cannot be attached stay as sounding, non-onset notes.
+    """
+    df = df.sort_values(["onset_qb", "staff", "voice"]).reset_index(drop=True)
+    dur = df["dur_qb"].to_numpy(dtype=float).copy()
+    end = df["onset_qb"].to_numpy(dtype=float) + dur
+    attached = [False] * len(df)
+    staff = df["staff"].to_numpy()
+    voice = df["voice"].to_numpy()
+    open_: dict = {}
+    for i, (on, d, midi, st, vo, cont) in enumerate(zip(df["onset_qb"], df["dur_qb"], df["midi"], staff, voice, df["tied_cont"])):
+        if cont:
+            best = None
+            for j in open_.get(midi, []):
+                if abs(end[j] - on) < 1e-6:
+                    if best is None or (staff[j] == st and voice[j] == vo):
+                        best = j
+            if best is not None:
+                dur[best] += d
+                end[best] += d
+                attached[i] = True
+                continue
+        lst = open_.setdefault(midi, [])
+        lst[:] = [j for j in lst if end[j] >= on - 1e-6]
+        lst.append(i)
+    df["dur_merged"] = dur
+    df["attached"] = attached
+    return df
+
+
+def top_line(snd: pd.DataFrame) -> pd.Series:
+    """Highest sounding pitch at each onset position, kept only where that
+    highest note itself starts there. `snd` holds every sounding note (onsets
+    with merged durations plus unattached tie fragments) with `is_onset`."""
+    import heapq
+
+    notes = snd[["onset_qb", "dur_merged", "midi", "is_onset"]].sort_values("onset_qb").to_numpy()
+    heap: list = []  # (-midi, end, onset, is_onset)
+    seq, idx = [], []
+    i, n = 0, len(notes)
+    positions = sorted(set(notes[:, 0].tolist()))
+    for t in positions:
+        while i < n and notes[i, 0] <= t:
+            o, d, m, iso = notes[i]
+            heapq.heappush(heap, (-m, o + d, o, bool(iso)))
+            i += 1
+        while heap and heap[0][1] <= t + 1e-9:
+            heapq.heappop(heap)
+        if heap and heap[0][3] and abs(heap[0][2] - t) < 1e-9:
+            seq.append(-heap[0][0])
+            idx.append(t)
+    return pd.Series(seq, index=idx, dtype=float)
+
+
+def note_metrics(df: pd.DataFrame, length_qb: float) -> dict:
+    df = merge_ties(df[~df["grace"]].copy())
+    snd = df[~df["attached"]].copy()  # every sounding note
+    snd["is_onset"] = ~snd["tied_cont"]
+    on = snd[snd["is_onset"]]  # real onsets, with tied durations merged
     out: dict = {}
     out["n_notes"] = int(len(on))
+    out["n_tie_fragments"] = int(df["tied_cont"].sum())
+    out["n_tie_fragments_unattached"] = int(snd["tied_cont"].sum())
     if len(on) == 0:
         return out
     out["n_staves"] = int(df["staff"].nunique())
@@ -83,11 +148,11 @@ def note_metrics(df: pd.DataFrame) -> dict:
     out["pitch_class_entropy"] = entropy(Counter((on["midi"] % 12).tolist()))
     out["tpc_vocabulary"] = int(on["tpc"].nunique())
 
-    # rhythm
-    durs = Counter(on["dur_qb"].round(6).tolist())
+    # rhythm (durations after tying)
+    durs = Counter(on["dur_merged"].round(6).tolist())
     out["rhythm_entropy"] = entropy(durs)
     out["duration_vocabulary"] = len(durs)
-    out["mean_duration_qb"] = float(on["dur_qb"].mean())
+    out["mean_duration_qb"] = float(on["dur_merged"].mean())
     on_beat = on.apply(lambda r: (r["mc_onset"] % r["beat_unit"]) == 0, axis=1)
     out["offbeat_onset_ratio"] = float(1 - on_beat.mean())
 
@@ -95,13 +160,12 @@ def note_metrics(df: pd.DataFrame) -> dict:
     positions = on.groupby("onset_qb").size()
     out["n_onset_positions"] = int(len(positions))
     out["mean_simultaneity"] = float(positions.mean())
-    span = float(df["onset_qb"].max() + df["dur_qb"].max() - df["onset_qb"].min())
-    out["notes_per_quarter"] = out["n_notes"] / span if span > 0 else float("nan")
+    out["notes_per_quarter"] = out["n_notes"] / length_qb if length_qb and length_qb > 0 else float("nan")
 
     # melody of the top line: at each onset position, the highest *sounding*
-    # pitch; the position is kept only when that highest note itself starts
-    # there (so a held soprano note is not replaced by a moving alto note).
-    top = top_line(on)
+    # pitch (tied notes keep sounding for their full length); the position is
+    # kept only when that highest note itself starts there.
+    top = top_line(snd)
     if len(top) >= 2:
         iv = top.diff().dropna().abs()
         out["top_n_notes"] = int(len(top))
@@ -116,29 +180,6 @@ def note_metrics(df: pd.DataFrame) -> dict:
             float(((d.shift() * d) < 0).sum() / len(d)) if len(d) else float("nan")
         )
     return out
-
-
-
-def top_line(on: pd.DataFrame) -> pd.Series:
-    """Highest sounding pitch at each onset position where that pitch starts."""
-    import heapq
-
-    notes = on[["onset_qb", "dur_qb", "midi"]].sort_values("onset_qb").to_numpy()
-    heap: list = []  # (-midi, end, onset)
-    seq, idx = [], []
-    i, n = 0, len(notes)
-    positions = sorted(set(notes[:, 0].tolist()))
-    for t in positions:
-        while i < n and notes[i, 0] <= t:
-            o, d, m = notes[i]
-            heapq.heappush(heap, (-m, o + d, o))
-            i += 1
-        while heap and heap[0][1] <= t:
-            heapq.heappop(heap)
-        if heap and heap[0][2] == t:
-            seq.append(-heap[0][0])
-            idx.append(t)
-    return pd.Series(seq, index=idx, dtype=float)
 
 
 # --------------------------------------------------------------------------
@@ -234,7 +275,7 @@ def dcml_corpus(raw: Path, folder: str, composer: str, collection: str, lic: str
             "annotated_key": m.get("annotated_key", ""),
             "license": lic,
         }
-        row.update(note_metrics(notes))
+        row.update(note_metrics(notes, float(m["length_qb"])))
         hpath = base / "harmonies" / f"{piece}.harmonies.tsv"
         if hpath.exists():
             h = pd.read_csv(hpath, sep="\t", dtype=str)
@@ -315,7 +356,7 @@ def kern_corpus(raw: Path, folder: str, composer: str, collection: str, lic: str
             "length_qb": float(s.duration.quarterLength),
             "license": lic,
         }
-        row.update(note_metrics(df))
+        row.update(note_metrics(df, float(s.duration.quarterLength)))
         rows.append(row)
     return rows
 

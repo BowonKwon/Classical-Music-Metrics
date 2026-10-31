@@ -28,7 +28,7 @@ src/    지표 정의(registry.py)·추출 스크립트 4개·사이트 생성�
 
 - 사이트의 글과 지표 설명에서 엮은이에게 권리가 있는 부분은 [CC BY-NC 4.0](LICENSE.md)으로 공개합니다. 이 요약은 이해를 돕기 위한 것이고, 조건은 라이선스 원문을 따릅니다.
 - 코드(`src/`)는 [PolyForm Noncommercial 1.0.0](LICENSE.md)으로 공개합니다. 상업적으로 이용하시려면 [Issues](https://github.com/BowonKwon/Classical-Music-Metrics/issues)로 연락해 주십시오.
-- 파생 데이터(`data/`)는 원자료의 라이선스를 따릅니다. DCML·Sapp·ASAP(CC BY-NC-SA 4.0)에서 나온 표는 **CC BY-NC-SA 4.0**, bmetr(MIT)·뉴욕 필(CC0)에서 나온 표는 **CC BY 4.0** 입니다. 표마다 어느 쪽인지는 [데이터](https://bowonkwon.github.io/Classical-Music-Metrics/ko/data.html) 면에 적혀 있습니다.
+- 파생 데이터(`data/`): DCML·Sapp·ASAP(CC BY-NC-SA 4.0)에서 만든 표는 그 조건을 이어받아 **CC BY-NC-SA 4.0**, bmetr(MIT)·뉴욕 필(CC0)에서 엮은이가 계산해 더한 표는 **CC BY 4.0** 입니다(원자료 자체에는 그런 의무가 없습니다). 표마다 원자료 라이선스와 표의 라이선스를 [데이터](https://bowonkwon.github.io/Classical-Music-Metrics/ko/data.html) 면에 나란히 적었습니다.
 - © 2026 권보원(Bowon Kwon)
 
 ## 일러두기
@@ -52,4 +52,4 @@ An open data site that reads scores and performances as numbers. As in baseball'
 
 `docs/` is the site (GitHub Pages), `data/` the derived CSVs with the input commit hashes, `src/` the metric registry, four extractors and the site builder. Clone the source repositories into `data/raw/` and run the scripts to rebuild everything. No scores, MIDI or audio are redistributed.
 
-Text is licensed under [CC BY-NC 4.0](LICENSE.md) and code under [PolyForm Noncommercial 1.0.0](LICENSE.md) to the extent the editor holds rights; derived data inherits its source license (CC BY-NC-SA 4.0 for tables from DCML, Sapp and ASAP; CC BY 4.0 for tables from bmetr and the NY Phil). © 2026 Bowon Kwon. Metric design, code and draft text were produced with help from Claude (Anthropic) and verified by the editor against the source data; errors may remain — please report them via Issues. This is a personal project and does not represent any institution the editor belongs to.
+Text is licensed under [CC BY-NC 4.0](LICENSE.md) and code under [PolyForm Noncommercial 1.0.0](LICENSE.md) to the extent the editor holds rights; derived tables from DCML, Sapp and ASAP carry their sources' CC BY-NC-SA 4.0 forward, while the editor's computations from bmetr (MIT) and the NY Phil (CC0) are released under CC BY 4.0 (the sources themselves impose no such terms); the Data page lists both licences for every table. © 2026 Bowon Kwon. Metric design, code and draft text were produced with help from Claude (Anthropic) and verified by the editor against the source data; errors may remain — please report them via Issues. This is a personal project and does not represent any institution the editor belongs to.
