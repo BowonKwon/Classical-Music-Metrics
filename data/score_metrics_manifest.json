@@ -1,0 +1,27 @@
+{
+  "bach_chorales": {
+    "git_head": "b8169ca06d9e183c59f317cce3b3b1e369f70d78",
+    "pieces": 361,
+    "license": "CC0-1.0"
+  },
+  "bach_en_fr_suites": {
+    "git_head": "9cd6d362ed8246ed8edfc425944862ed88ddf1a5",
+    "pieces": 89,
+    "license": "CC-BY-NC-SA-4.0"
+  },
+  "bach_solo": {
+    "git_head": "dce67f753ced46b43dbfb16779fe3a19233893da",
+    "pieces": 68,
+    "license": "CC-BY-NC-SA-4.0"
+  },
+  "ABC": {
+    "git_head": "b6b7d38500bacb30c81db7e09d8790df1a2edd46",
+    "pieces": 70,
+    "license": "CC-BY-NC-SA-4.0"
+  },
+  "beethoven_piano_sonatas": {
+    "git_head": "ea7181bff88abc8713257234f7ec4033178c57a9",
+    "pieces": 91,
+    "license": "CC-BY-NC-SA-4.0"
+  }
+}
