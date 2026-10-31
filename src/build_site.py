@@ -56,32 +56,84 @@ T = {
 }
 
 CSS = """
-:root{color-scheme:light dark;--bg:#fcfcfb;--fg:#0b0b0b;--fg2:#52514e;--line:#e4e3df;--card:#f4f3ef;--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--grid:#e9e8e3}
-@media(prefers-color-scheme:dark){:root{--bg:#1a1a19;--fg:#f0efec;--fg2:#c3c2b7;--line:#3a3a38;--card:#242423;--s1:#3987e5;--s2:#d95926;--s3:#199e70;--grid:#2e2e2c}}
-*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}body{margin:0;overflow-wrap:anywhere;font:16px/1.6 -apple-system,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
-a{color:var(--s1);text-decoration:none}a:hover{text-decoration:underline}
-header{border-bottom:1px solid var(--line);padding:.6rem 1rem;display:flex;gap:1.2rem;align-items:baseline;flex-wrap:wrap}
-header .brand{font-weight:700;font-size:1.05rem;color:var(--fg)}header nav a{color:var(--fg2);margin-right:.9rem}header .lang{margin-left:auto}
-main{max-width:1040px;margin:0 auto;padding:1.2rem 1rem 4rem}
-h1{font-size:1.7rem;line-height:1.25;margin:.4rem 0 .3rem}h2{font-size:1.25rem;margin:2rem 0 .6rem;border-bottom:1px solid var(--line);padding-bottom:.2rem}h3{font-size:1.05rem;margin:1.4rem 0 .4rem}
-.tag{display:inline-block;font-size:.75rem;padding:.05rem .45rem;border:1px solid var(--line);border-radius:3px;color:var(--fg2);margin-right:.3rem}
-.lead{color:var(--fg2);margin:0 0 1rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem;margin:.8rem 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.7rem .9rem}.card b{display:block;margin-bottom:.2rem}.card small{color:var(--fg2)}
-.stat{font-size:1.9rem;font-weight:700;line-height:1.1}.stat small{font-size:.8rem;font-weight:400;color:var(--fg2);display:block}
-table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}th,td{border-bottom:1px solid var(--line);padding:.35rem .5rem;text-align:left;vertical-align:top}th{color:var(--fg2);font-weight:600;cursor:pointer;white-space:nowrap}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
-.wrap{overflow-x:auto}
-dl{display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem}dt{color:var(--fg2)}dd{margin:0;min-width:0}main{min-width:0}
-figure{margin:1rem 0}figcaption{font-size:.85rem;color:var(--fg2)}
-svg{max-width:100%;height:auto;display:block}svg text{font-family:inherit;fill:var(--fg2);font-size:11px}svg .ax{stroke:var(--line)}svg .grid{stroke:var(--grid)}
-.legend{display:flex;gap:1rem;font-size:.85rem;color:var(--fg2);flex-wrap:wrap}.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:.35rem;vertical-align:middle;background:var(--c)}
-.note{background:var(--card);border-left:3px solid var(--s1);padding:.6rem .9rem;margin:1rem 0;font-size:.95rem}
-footer{border-top:1px solid var(--line);color:var(--fg2);font-size:.8rem;padding:1rem;text-align:center}
+/* layout: one quiet column, serif display over sans body; low-saturation slate accent with a sand secondary */
+:root{color-scheme:light;
+  --bg:#f8f7f4;--bg2:#efede8;--card:#ffffff;--line:#dedbd3;--line2:#ebe8e1;
+  --fg:#1d1f24;--fg2:#5a5e68;--fg3:#8a8e98;
+  --accent:#3f6a9e;--accent2:#b5833f;
+  --s1:#3a6fb0;--s2:#b5833f;--s3:#7f63ad;--grid:#e6e3dc;
+  --shadow:0 1px 2px rgba(30,32,40,.05),0 6px 18px rgba(30,32,40,.05);
+  --display:"Noto Serif KR","Source Serif 4",Georgia,"Times New Roman",serif;
+  --body:"Noto Sans KR",-apple-system,"Segoe UI","Apple SD Gothic Neo",Roboto,sans-serif}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#1b1c1f;--bg2:#222326;--card:#232428;--line:#34363c;--line2:#2b2d32;
+  --fg:#ebe9e4;--fg2:#b3b1aa;--fg3:#80827f;
+  --accent:#7ea4d6;--accent2:#d1a35f;
+  --s1:#5a8ccf;--s2:#b5863a;--s3:#9078c4;--grid:#2e3035;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.25)}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#1b1c1f;--bg2:#222326;--card:#232428;--line:#34363c;--line2:#2b2d32;
+  --fg:#ebe9e4;--fg2:#b3b1aa;--fg3:#80827f;
+  --accent:#7ea4d6;--accent2:#d1a35f;
+  --s1:#5a8ccf;--s2:#b5863a;--s3:#9078c4;--grid:#2e3035;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.25)}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;font:16px/1.7 var(--body);background:var(--bg);color:var(--fg);overflow-wrap:anywhere;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:.55rem 1.1rem;display:flex;gap:1.4rem;align-items:center;flex-wrap:wrap}
+header .brand{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--fg);letter-spacing:-.01em}
+header nav{display:flex;gap:1rem;flex-wrap:wrap}header nav a{color:var(--fg2);font-size:.92rem;padding:.2rem 0;border-bottom:2px solid transparent}
+header nav a:hover{text-decoration:none;color:var(--fg)}header nav a.on{color:var(--fg);border-bottom-color:var(--accent2)}
+header .right{margin-left:auto;display:flex;gap:.6rem;align-items:center}
+header .lang{font-size:.88rem;color:var(--fg2);border:1px solid var(--line);border-radius:999px;padding:.15rem .7rem}header .lang:hover{text-decoration:none;color:var(--fg);border-color:var(--fg3)}
+.theme{border:1px solid var(--line);background:transparent;color:var(--fg2);border-radius:999px;width:30px;height:30px;cursor:pointer;font-size:.9rem;line-height:1;padding:0}.theme:hover{color:var(--fg);border-color:var(--fg3)}
+main{max-width:1060px;margin:0 auto;padding:1.6rem 1.1rem 4rem;min-width:0}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(1.6rem,3.2vw,2.2rem);line-height:1.25;letter-spacing:-.015em;margin:.3rem 0 .5rem;text-wrap:balance}
+h2{font-family:var(--display);font-weight:600;font-size:1.3rem;line-height:1.3;margin:2.4rem 0 .8rem;padding-bottom:.35rem;border-bottom:1px solid var(--line);text-wrap:balance}
+h3{font-size:1.02rem;margin:1.4rem 0 .4rem}
+.eyebrow{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem}
+.tag{display:inline-block;font-size:.74rem;letter-spacing:.04em;padding:.1rem .55rem;border-radius:999px;color:var(--fg2);background:var(--bg2);border:1px solid var(--line2)}
+.tag.layer{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 35%,transparent);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.lead{color:var(--fg2);font-size:1.05rem;max-width:70ch;margin:0 0 1.2rem}
+.hero{padding:.6rem 0 1.4rem;border-bottom:1px solid var(--line);margin-bottom:1.4rem}
+.hero h1{font-size:clamp(1.9rem,4vw,2.7rem)}.hero .lead{font-size:1.12rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:.8rem;margin:.9rem 0 1.4rem}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.85rem 1rem .9rem;box-shadow:var(--shadow);color:var(--fg);transition:transform .15s,border-color .15s}
+a.card:hover{text-decoration:none;transform:translateY(-2px);border-color:var(--fg3)}
+.card b{display:block;margin-bottom:.25rem;font-size:.98rem;color:var(--accent)}.card small{color:var(--fg2);font-size:.86rem;line-height:1.5;display:block}
+.card.layer-A{border-top:3px solid var(--s1)}.card.layer-C{border-top:3px solid var(--s2)}.card.layer-D{border-top:3px solid var(--s3)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1.2rem 0 1.6rem}
+.stat{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;box-shadow:var(--shadow);color:var(--fg)}
+.stat .n{font-family:var(--display);font-size:2rem;font-weight:600;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat small{display:block;color:var(--fg2);margin-top:.35rem;font-size:.86rem;line-height:1.45}
+a.stat:hover{text-decoration:none;border-color:var(--fg3)}
+.spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0 1.4rem;box-shadow:var(--shadow)}
+dl{display:grid;grid-template-columns:max-content 1fr;gap:.55rem 1.4rem;margin:0}dt{color:var(--fg3);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding-top:.15rem}dd{margin:0;min-width:0}
+dd.formula{font-family:ui-monospace,"SF Mono",Consolas,"Noto Sans KR",monospace;font-size:.9rem;background:var(--bg2);border-radius:6px;padding:.45rem .65rem;line-height:1.6}
 @media(max-width:640px){dl{grid-template-columns:1fr}dt{margin-top:.5rem}}
-.filter{margin:.4rem 0}.filter input{padding:.3rem .5rem;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg);width:min(100%,320px)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
+th,td{border-bottom:1px solid var(--line2);padding:.42rem .6rem;text-align:left;vertical-align:top}
+thead th{color:var(--fg2);font-weight:600;font-size:.82rem;letter-spacing:.02em;cursor:pointer;white-space:nowrap;border-bottom:1px solid var(--line)}
+thead th:hover{color:var(--fg)}tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg2) 55%,transparent)}tbody tr:hover{background:var(--bg2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}td:first-child{white-space:nowrap}
+.wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:0 .3rem;margin:.6rem 0 1rem}.wrap table{margin:0}
+figure{margin:1.2rem 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1rem .8rem;box-shadow:var(--shadow)}
+figcaption{font-size:.86rem;color:var(--fg2);margin-top:.5rem;line-height:1.5}
+svg{max-width:100%;height:auto;display:block}svg text{font-family:var(--body);fill:var(--fg2);font-size:11px}svg .ax{stroke:var(--line)}svg .grid{stroke:var(--grid)}
+.legend{display:flex;gap:1.1rem;font-size:.86rem;color:var(--fg2);flex-wrap:wrap;margin:.2rem 0 .4rem}.legend span::before{content:"";display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:.4rem;vertical-align:-1px;background:var(--c)}
+.note{background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-left:4px solid var(--accent);border-radius:8px;padding:.7rem 1rem;margin:1.2rem 0;font-size:.95rem}
+.prose p,.prose ul,.prose .note,.prose .lead{max-width:72ch}.prose p{margin:.8rem 0}.prose ul{padding-left:1.2rem}.prose li{margin:.3rem 0}
+.src{color:var(--fg2);font-size:.92rem}.files a{display:inline-block;font-size:.85rem;background:var(--bg2);border:1px solid var(--line2);border-radius:6px;padding:.15rem .55rem;margin:.2rem .3rem .2rem 0;color:var(--fg2)}.files a:hover{color:var(--fg);text-decoration:none;border-color:var(--fg3)}
+footer{border-top:1px solid var(--line);color:var(--fg3);font-size:.82rem;padding:1.2rem;text-align:center}
+.filter{margin:.5rem 0}.filter input{padding:.4rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);width:min(100%,340px);font:inherit;font-size:.9rem}
+.filter input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+.links{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:2rem;font-size:.95rem}
+@media(prefers-reduced-motion:reduce){.card,a.card:hover{transition:none;transform:none}}
 """
 
 JS = """
+(function(){var k="cmm-theme",r=document.documentElement,b=document.getElementById("theme");function ap(v){if(v)r.setAttribute("data-theme",v);else r.removeAttribute("data-theme");if(b)b.textContent=v==="dark"?"\u263E":v==="light"?"\u2600":"\u25D1"}var cur=localStorage.getItem(k)||"";ap(cur);if(b)b.addEventListener("click",function(){cur=cur===""?"light":cur==="light"?"dark":"";if(cur)localStorage.setItem(k,cur);else localStorage.removeItem(k);ap(cur)})})();
 document.querySelectorAll('table.sort').forEach(function(t){
   var ths=t.querySelectorAll('th');ths.forEach(function(th,i){th.addEventListener('click',function(){
     var rows=Array.from(t.tBodies[0].rows),asc=th.dataset.asc!=='1';th.dataset.asc=asc?'1':'0';
@@ -107,17 +159,23 @@ def fmt(v, spec) -> str:
         return str(v)
 
 
-def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "") -> str:
+def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", active: str = "") -> str:
     t = T[lang]
     root = "../" * depth
     other = "en" if lang == "ko" else "ko"
+    nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
+           ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
+    navh = "".join(f'<a href="{h}"{" class=\"on\"" if k == active else ""}>{n}</a>' for k, h, n in nav)
     return f"""<!DOCTYPE html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} — {t['site']}</title><meta name="description" content="{esc(desc or t['tagline'])}">
+<script>(function(){{var q=new URLSearchParams(location.search).get("theme");if(q==="light"||q==="dark"){{localStorage.setItem("cmm-theme",q)}}else if(q==="auto"){{localStorage.removeItem("cmm-theme")}}var v=localStorage.getItem("cmm-theme");if(v)document.documentElement.setAttribute("data-theme",v)}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
 <style>{CSS}</style></head><body>
 <header><a class="brand" href="{root}{lang}/index.html">{t['site']}</a>
-<nav><a href="{root}{lang}/index.html">{t['nav_home']}</a><a href="{root}{lang}/metrics/index.html">{t['nav_metrics']}</a><a href="{root}{lang}/reading.html">{t['nav_reading']}</a><a href="{root}{lang}/data.html">{t['nav_data']}</a><a href="{root}{lang}/method.html">{t['nav_method']}</a></nav>
-<a class="lang" href="{root}{other}/index.html">{t['lang_other']}</a></header>
+<nav>{navh}</nav>
+<div class="right"><button id="theme" class="theme" type="button" aria-label="theme">\u25D1</button><a class="lang" href="{root}{other}/index.html">{t['lang_other']}</a></div></header>
 <main>{body}</main>
 <footer>{t['site']} · {t['version']} {VERSION} · {t['built']} {BUILD_DATE} · <a href="{REPO}">GitHub</a></footer>
 <script>{JS}</script></body></html>"""
@@ -172,10 +230,10 @@ def svg_strip(groups: list[tuple[str, list[float], int]], spec: str, width=900, 
         vs2 = [v for v in vs if not math.isnan(v)]
         for v in vs2:
             jy = cy + rnd.uniform(-row_h * 0.3, row_h * 0.3)
-            out.append(f'<circle cx="{x(v):.1f}" cy="{jy:.1f}" r="3.2" fill="{col}" fill-opacity=".55" stroke="var(--bg)" stroke-width="1"><title>{fmt(v, spec)}</title></circle>')
+            out.append(f'<circle cx="{x(v):.1f}" cy="{jy:.1f}" r="3.4" fill="{col}" fill-opacity=".6" stroke="var(--card)" stroke-width="1"><title>{fmt(v, spec)}</title></circle>')
         if vs2:
             med = sorted(vs2)[len(vs2) // 2]
-            out.append(f'<rect x="{x(med)-1.5:.1f}" y="{cy-row_h*0.42:.1f}" width="3" height="{row_h*0.84:.1f}" fill="var(--fg)" rx="1"><title>median {fmt(med, spec)}</title></rect>')
+            out.append(f'<rect x="{x(med)-1.5:.1f}" y="{cy-row_h*0.42:.1f}" width="3" height="{row_h*0.84:.1f}" fill="var(--fg)" rx="1.5"><title>median {fmt(med, spec)}</title></rect>')
     out.append("</svg>")
     return "".join(out)
 
@@ -361,9 +419,9 @@ def main():
         # ---------------- metric pages
         for m in METRICS:
             ml = L(m)
-            body = [f'<span class="tag">{LAYERS[m["layer"]][lang]}</span><span class="tag">{t["unit"]}: {esc(m["unit"])}</span>',
+            body = [f'<div class="eyebrow"><span class="tag layer">{LAYERS[m["layer"]][lang]}</span><span class="tag">{t["unit"]}: {esc(m["unit"])}</span></div>',
                     f"<h1>{esc(ml['name'])}</h1><p class='lead'>{esc(ml['definition'])}</p>",
-                    f"<dl><dt>{t['formula']}</dt><dd>{esc(ml['formula'])}</dd><dt>{t['reading']}</dt><dd>{esc(ml['reading'])}</dd><dt>{t['caveat']}</dt><dd>{esc(ml['caveat'])}</dd></dl>"]
+                    f"<div class='spec'><dl><dt>{t['formula']}</dt><dd class='formula'>{esc(ml['formula'])}</dd><dt>{t['reading']}</dt><dd>{esc(ml['reading'])}</dd><dt>{t['caveat']}</dt><dd>{esc(ml['caveat'])}</dd></dl></div>"]
             if m["table"] == "score":
                 groups, summ = [], []
                 for (comp, coll), g in score.groupby(["composer", "collection"], sort=False):
@@ -407,10 +465,10 @@ def main():
                 body.append(table_html(ny_season.iloc[::-1], [("season", "Season", None), ("n_programs", "programs", "d"), ("work_performances", "work perf.", "d"), ("distinct_composers", "composers", "d"), ("bach_share", "Bach", ".1%"), ("beethoven_share", "Beethoven", ".1%"), ("hhi", "HHI", ".3f"), ("top_composer", "Top composer", None)], "ny", lang))
                 src = "nyphil"
             s = SOURCES[src]
-            body.append(f"<h2>{t['source']}</h2><p>{esc(s[lang])} <a href='{s['url']}'>{s['url']}</a> · {t['license']}: {esc(s['license'])}</p>")
+            body.append(f"<h2>{t['source']}</h2><p class='src'>{esc(s[lang])} <a href='{s['url']}'>{s['url']}</a> · {t['license']}: {esc(s['license'])}</p>")
             files = [f for f, (sk, _) in DATA_FILES.items() if sk == src]
-            body.append("<p>" + " · ".join(f'<a href="../../data/{f}">{f}</a>' for f in files) + "</p>")
-            (base / "metrics" / f"{m['id']}.html").write_text(page(lang, ml["name"], "".join(body), depth=2, desc=ml["definition"]), encoding="utf-8")
+            body.append("<p class='files'>" + "".join(f'<a href="../../data/{f}">{f}</a>' for f in files) + "</p>")
+            (base / "metrics" / f"{m['id']}.html").write_text(page(lang, ml["name"], "".join(body), depth=2, desc=ml["definition"], active="metrics"), encoding="utf-8")
 
         # ---------------- metrics index
         body = [f"<h1>{t['metric_list']}</h1>"]
@@ -418,9 +476,9 @@ def main():
             body.append(f"<h2>{LAYERS[lay][lang]}</h2><div class='cards'>")
             for m in METRICS:
                 if m["layer"] == lay:
-                    body.append(f"<a class='card' href='{m['id']}.html'><b>{esc(L(m)['name'])}</b><small>{esc(L(m)['definition'])}</small></a>")
+                    body.append(f"<a class='card layer-{lay}' href='{m['id']}.html'><b>{esc(L(m)['name'])}</b><small>{esc(L(m)['definition'])}</small></a>")
             body.append("</div>")
-        (base / "metrics" / "index.html").write_text(page(lang, t["nav_metrics"], "".join(body), depth=2), encoding="utf-8")
+        (base / "metrics" / "index.html").write_text(page(lang, t["nav_metrics"], "".join(body), depth=2, active="metrics"), encoding="utf-8")
 
         # ---------------- data page
         body = [f"<h1>{t['nav_data']}</h1>"]
@@ -431,7 +489,7 @@ def main():
             rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{esc(SOURCES[sk]['license'])}</td><td>{derived}</td></tr>")
         body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
         body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. bmetr(MIT)·뉴욕 필(CC0) 원자료는 그 자체에 표시·비영리 의무가 없으며, 거기서 엮은이가 계산해 더한 부분에 대해서만 CC BY 4.0 을 붙인다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the licence the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The bmetr (MIT) and NY Phil (CC0) sources themselves carry no attribution or non-commercial obligation; CC BY 4.0 applies only to what the editor computed and added. No original scores, MIDI or audio are redistributed here.") + "</p>")
-        (base / "data.html").write_text(page(lang, t["nav_data"], "".join(body)), encoding="utf-8")
+        (base / "data.html").write_text(page(lang, t["nav_data"], "".join(body), active="data"), encoding="utf-8")
 
         # ---------------- method page
         body = [f"<h1>{t['nav_method']}</h1>"]
@@ -467,7 +525,7 @@ def main():
             "Bach recording durations over time (before/after the period-instrument movement) — requires de-duplicating reissues in release metadata.",
             "Conductor tempo statistics beyond Beethoven.",
             "Repertoire of orchestras other than the New York Philharmonic — bulk open data is rare."]))) + "</ul>")
-        (base / "method.html").write_text(page(lang, t["nav_method"], "".join(body)), encoding="utf-8")
+        (base / "method.html").write_text(page(lang, t["nav_method"], "<div class='prose'>" + "".join(body) + "</div>", active="method"), encoding="utf-8")
 
         # ---------------- reading edition
         body = [f"<h1>{t['nav_reading']}</h1>"]
@@ -531,7 +589,7 @@ def main():
 <figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers). It swings from season to season, but first and latest seasons compared, the repertoire has widened a great deal.</figcaption></figure>
 <h2>5. Limits and next steps</h2>
 <p>What is missing matters as much as what is here. The Beethoven symphonies have performance metrics but no score metrics (no open machine-readable full scores). Bach's performance data is piano only; the change in recorded durations around the period-instrument movement is not yet measured. The repertoire series is one orchestra. The caveats on each metric page and the long-term list under <a href="method.html">Method & sources</a> record those gaps.</p>""")
-        (base / "reading.html").write_text(page(lang, t["nav_reading"], "".join(body)), encoding="utf-8")
+        (base / "reading.html").write_text(page(lang, t["nav_reading"], "<div class='prose'>" + "".join(body) + "</div>", active="reading"), encoding="utf-8")
 
         # ---------------- home
         cards = [
@@ -540,17 +598,17 @@ def main():
             (f"{H['asap_bach_perf']+H['asap_beet_perf']}", "박 단위 정렬된 피아노 연주" if lang == "ko" else "beat-aligned piano performances", "metrics/tempo_cv_across_performers.html"),
             (f"{H['ny_first_beet']:.0%} → {H['ny_last_beet']:.0%}", f"뉴욕 필 베토벤 점유율, {H['ny_first_season']} → {H['ny_last_season']}" if lang == "ko" else f"NY Phil Beethoven share, {H['ny_first_season']} → {H['ny_last_season']}", "metrics/beethoven_share.html"),
         ]
-        body = [f"<h1>{t['site']}</h1><p class='lead'>{t['tagline']}</p><div class='cards'>" + "".join(f"<a class='card' href='{h}'><div class='stat'>{esc(v)}<small>{esc(d)}</small></div></a>" for v, d, h in cards) + "</div>"]
-        body.append(("<p>세이버메트릭스가 야구를 바꾼 것은 통계 그 자체가 아니라 <b>지표마다 정의·공식·표본·한계를 공개한 것</b>이었다. 이 사이트는 서양 고전음악에 같은 틀을 적용한다. 공개 악보 코퍼스와 연주 데이터셋에서 수치를 뽑고, 지표 하나에 페이지 하나를 둔다. 첫 판은 바흐와 베토벤이다.</p>" if lang == "ko" else
-                     "<p>What sabermetrics changed in baseball was not the statistics themselves but <b>publishing each metric's definition, formula, sample and caveats</b>. This site applies that frame to Western classical music: numbers extracted from open score corpora and performance datasets, one page per metric. The first edition covers Bach and Beethoven.</p>"))
+        body = [f"<div class='hero'><h1>{t['site']}</h1><p class='lead'>{t['tagline']}</p></div><div class='stats'>" + "".join(f"<a class='stat' href='{h}'><span class='n'>{esc(v)}</span><small>{esc(d)}</small></a>" for v, d, h in cards) + "</div>"]
+        body.append(("<p class='lead' style='margin-top:.4rem'>세이버메트릭스가 야구를 바꾼 것은 통계 그 자체가 아니라 <b>지표마다 정의·공식·표본·한계를 공개한 것</b>이었다. 이 사이트는 서양 고전음악에 같은 틀을 적용한다. 공개 악보 코퍼스와 연주 데이터셋에서 수치를 뽑고, 지표 하나에 페이지 하나를 둔다. 첫 판은 바흐와 베토벤이다.</p>" if lang == "ko" else
+                     "<p class='lead' style='margin-top:.4rem'>What sabermetrics changed in baseball was not the statistics themselves but <b>publishing each metric's definition, formula, sample and caveats</b>. This site applies that frame to Western classical music: numbers extracted from open score corpora and performance datasets, one page per metric. The first edition covers Bach and Beethoven.</p>"))
         for lay in ("A", "C", "D"):
             body.append(f"<h2>{LAYERS[lay][lang]}</h2><div class='cards'>")
             for m in METRICS:
                 if m["layer"] == lay:
-                    body.append(f"<a class='card' href='metrics/{m['id']}.html'><b>{esc(L(m)['name'])}</b><small>{esc(L(m)['definition'])}</small></a>")
+                    body.append(f"<a class='card layer-{lay}' href='metrics/{m['id']}.html'><b>{esc(L(m)['name'])}</b><small>{esc(L(m)['definition'])}</small></a>")
             body.append("</div>")
-        body.append(f"<p><a href='reading.html'>{t['nav_reading']} →</a> · <a href='data.html'>{t['nav_data']} →</a> · <a href='method.html'>{t['nav_method']} →</a></p>")
-        (base / "index.html").write_text(page(lang, t["nav_home"], "".join(body)), encoding="utf-8")
+        body.append(f"<p class='links'><a href='reading.html'>{t['nav_reading']} →</a><a href='data.html'>{t['nav_data']} →</a><a href='method.html'>{t['nav_method']} →</a></p>")
+        (base / "index.html").write_text(page(lang, t["nav_home"], "".join(body), active="home"), encoding="utf-8")
 
     # root redirect by browser language
     (OUT / "index.html").write_text("""<!DOCTYPE html><html><head><meta charset="utf-8"><title>Classical Music Metrics</title>
