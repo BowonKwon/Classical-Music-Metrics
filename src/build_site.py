@@ -33,7 +33,7 @@ T = {
         layer="층", definition="정의", formula="공식", reading="읽는 법", caveat="한계", source="자료원", unit="단위",
         table="표", download="CSV 내려받기", n="표본", median="중앙값", q1="1사분위", q3="3사분위", min="최소", max="최대",
         collection="모음", composer="작곡가", movements="악장 수", by_collection="모음별 분포", top="상위", bottom="하위",
-        all_rows="전체 행", ranking="순위표", license="라이선스", cite="인용", built="생성일", version="판",
+        all_rows="전체 행", ranking="순위표", license="라이선스", cite="인용", built="생성일", version="판", hub="공개 자료 전체",
         coll={"chorales": "코랄(371)", "english_french_suites": "영국·프랑스 모음곡", "solo_violin_cello_flute": "무반주 바이올린·첼로·플루트",
               "piano_sonatas": "피아노 소나타", "string_quartets": "현악4중주", "chorales_kern370": "코랄(Humdrum)"},
         ptype={"Romantic": "낭만파", "HI influence": "시대연주 영향", "HI": "시대연주"},
@@ -46,7 +46,7 @@ T = {
         layer="Layer", definition="Definition", formula="Formula", reading="How to read it", caveat="Caveats", source="Source", unit="Unit",
         table="Table", download="Download CSV", n="n", median="median", q1="Q1", q3="Q3", min="min", max="max",
         collection="Collection", composer="Composer", movements="movements", by_collection="Distribution by collection", top="Top", bottom="Bottom",
-        all_rows="All rows", ranking="Ranking", license="License", cite="Citation", built="Built", version="Version",
+        all_rows="All rows", ranking="Ranking", license="License", cite="Citation", built="Built", version="Version", hub="All public materials",
         coll={"chorales": "Chorales (371)", "english_french_suites": "English & French Suites", "solo_violin_cello_flute": "Solo violin, cello, flute",
               "piano_sonatas": "Piano sonatas", "string_quartets": "String quartets", "chorales_kern370": "Chorales (Humdrum)"},
         ptype={"Romantic": "Romantic", "HI influence": "HIP-influenced", "HI": "Period (HIP)"},
@@ -163,6 +163,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
     t = T[lang]
     root = "../" * depth
     other = "en" if lang == "ko" else "ko"
+    hub_path = "" if lang == "ko" else "en/"
     nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
     navh = "".join(f'<a href="{h}"{" class=\"on\"" if k == active else ""}>{n}</a>' for k, h, n in nav)
@@ -177,7 +178,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
 <nav>{navh}</nav>
 <div class="right"><button id="theme" class="theme" type="button" aria-label="theme">\u25D1</button><a class="lang" href="{root}{other}/index.html">{t['lang_other']}</a></div></header>
 <main>{body}</main>
-<footer>{t['site']} · {t['version']} {VERSION} · {t['built']} {BUILD_DATE} · <a href="{REPO}">GitHub</a></footer>
+<footer>{t['site']} · {t['version']} {VERSION} · {t['built']} {BUILD_DATE} · <a href="{REPO}">GitHub</a> · {t['hub']} <a href="https://bowonkwon.github.io/{hub_path}">bowonkwon.github.io</a></footer>
 <script>{JS}</script></body></html>"""
 
 
