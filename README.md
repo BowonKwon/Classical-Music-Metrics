@@ -4,7 +4,7 @@
 
 - **사이트:** https://bowonkwon.github.io/Classical-Music-Metrics/ ([한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/))
 - **읽기용 판:** 핵심 결과를 글로 읽는 판 — [한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/reading.html) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **판:** 1.2 (2026. 11. 1.) — 1.0 은 2026. 10. 31., 1.1 은 2026. 11. 1.
+- **판:** 1.2.1 (2026. 11. 2.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1.
 - **다른 공개 자료:** https://bowonkwon.github.io/ — 법률 외국어 자습서·AI 자습서와 함께 한곳에 모았습니다.
 
 ## 무엇이 들어 있나
@@ -15,6 +15,11 @@
 | 연주 지표 | 지휘자 36명의 베토벤 교향곡 전집에서 메트로놈 표기 대비 템포; 바흐 평균율·베토벤 소나타 피아노 연주 428개의 템포 산포·루바토·강약 폭(모차르트 연주 16개는 소표본이라 표에만) | bmetr(Martín-Castro & Ucar 2020), ASAP |
 | 레퍼토리 지표 | 뉴욕 필하모닉 1842~2026 시즌, 작곡가 3,126명 전체의 점유율·발췌 비율·생존 작곡가 점유율·레퍼토리 나이·정전 회전율·작곡가 집중도. 전 작곡가 순위표와 상위 50명 프로필 면 | NY Phil Performance History, Wikidata(작곡가 생몰년) |
 | 작품 활동·역사 (1.2) | 작곡가 10명의 경력 띠·나이별 작품면·쓴 시기와 연주되는 시기, 교향곡 편성, 템포 지시어 구성, 교향곡 편성란의 악기 사용 변천(25년 구간), A음 높이의 역사(1361~1885년 측정 242건) | IMSLP 작품면, NY Phil, Ellis 『On the Sensations of Tone』 부록(1885·1895, 퍼블릭 도메인) |
+
+## 1.2.1에서 바뀐 것
+
+- 지표 면 29개와 「작품·역사」 면 7개 절 맨 위에 「한눈에 보기」 상자를 두었습니다. 수치는 그 면의 표에서 계산하고, 주의할 점은 각 지표의 한계 설명에서 가져왔습니다.
+- 반음계 비율과 레퍼토리 집중도(HHI)의 한계 설명을 더 정확하게 고쳤습니다.
 
 ## 1.2에서 더한 것
 
@@ -57,7 +62,7 @@ src/    지표 정의(registry.py)·추출 스크립트·Wikidata 매칭 스크�
 An open data site that reads scores and performances as numbers. As in baseball's sabermetrics, **every metric carries its definition, formula, sample and caveats**, one page per metric, computed from open score corpora and performance datasets. It began with Bach and Beethoven; version 1.1 added Mozart and the New York Philharmonic's repertoire across every composer, and 1.2 adds a 'Works & history' page on composers' work activity, symphonic orchestration, tempo markings, instrument use and the history of the pitch of a′.
 
 - **Site:** https://bowonkwon.github.io/Classical-Music-Metrics/en/ · **Reading edition:** [en/reading.html](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **Version:** 1.2 (Nov 1, 2026) — 1.0 was Oct 31, 2026; 1.1 Nov 1, 2026
+- **Version:** 1.2.1 (Nov 2, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026
 - **Other public materials:** https://bowonkwon.github.io/en/ — the legal-language and AI handbooks, listed alongside this site.
 
 | Layer | Contents | Sources |
@@ -66,6 +71,8 @@ An open data site that reads scores and performances as numbers. As in baseball'
 | Performance metrics | Tempo vs Beethoven's metronome marks for 36 conductors' symphony cycles; tempo spread, rubato and dynamic range over 428 piano performances of the Well-Tempered Clavier and Beethoven sonatas (16 Mozart performances, too few for charts, appear in tables) | bmetr (Martín-Castro & Ucar 2020), ASAP |
 | Repertoire metrics | New York Philharmonic, 1842–2026, all 3,126 composers: shares, excerpt share, living-composer share, repertoire age, canon turnover, concentration; a full composer ranking and profiles of the top 50 | NY Phil Performance History, Wikidata (composer dates) |
 | Works & history (1.2) | Career ribbons, work pages by age and composed-vs-performed for ten composers; symphony orchestration; tempo markings; instruments named in symphony instrumentation by 25-year period; the pitch of a′ 1361–1885 (242 measurements) | IMSLP work pages, NY Phil, Ellis's appendix to *On the Sensations of Tone* (1885/1895, public domain) |
+
+**What changed in 1.2.1.** An 'At a glance' box now opens the 29 metric pages and the seven sections of the Works & history page: numbers computed from the page's own tables, and the main limit from each metric's caveats. The caveats for the chromatic ratio and repertoire concentration (HHI) were made more precise.
 
 **What 1.2 adds.** A 'Works & history' page built from IMSLP work pages (4,589 pages for ten composers, 3,140 in the Symphonies category). The unit is the IMSLP work page, not the number of works composed, and the Symphonies category is not a probability sample of all symphonies; the page states these limits. Ellis's table of historical pitches was transcribed from the 1895 page images and checked line by line against 1885 (`data/ellis/`). Tables derived from IMSLP (`data/imslp/`) and their charts are **CC BY-SA 4.0**.
 
