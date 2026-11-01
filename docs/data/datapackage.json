@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.1",
+ "version": "1.2",
  "created": "2026-11-01",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -456,6 +456,329 @@
      "title": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570)",
      "path": "https://www.wikidata.org/",
      "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_works",
+   "path": "imslp/imslp_works.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 4589,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_composer_year",
+   "path": "imslp/imslp_composer_year.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 1332,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_composer_age",
+   "path": "imslp/imslp_composer_age.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 94,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_reception_period",
+   "path": "imslp/imslp_reception_period.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 97,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_nyphil_match_rate",
+   "path": "imslp/imslp_nyphil_match_rate.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 10,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_nyphil_matches",
+   "path": "imslp/imslp_nyphil_matches.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 1513,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    },
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_symphony_orchestration",
+   "path": "imslp/imslp_symphony_orchestration.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 207,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_movement_tempo",
+   "path": "imslp/imslp_movement_tempo.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 6245,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_tempo_by_period",
+   "path": "imslp/imslp_tempo_by_period.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 74,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_tempo_language",
+   "path": "imslp/imslp_tempo_language.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 14,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_instrument_use",
+   "path": "imslp/imslp_instrument_use.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 240,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "imslp-imslp_symphony_instruments",
+   "path": "imslp/imslp_symphony_instruments.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 721,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "ellis-ellis_pitch_table1",
+   "path": "ellis/ellis_pitch_table1.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 242,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Helmholtz, On the Sensations of Tone, tr",
+     "path": "https://archive.org/details/onsensationsofto00helmrich",
+     "license": "Public domain"
+    }
+   ]
+  },
+  {
+   "name": "ellis-ellis_pitch_table2",
+   "path": "ellis/ellis_pitch_table2.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works and history",
+   "rows": 284,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Helmholtz, On the Sensations of Tone, tr",
+     "path": "https://archive.org/details/onsensationsofto00helmrich",
+     "license": "Public domain"
     }
    ]
   }

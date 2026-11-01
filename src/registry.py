@@ -15,6 +15,7 @@ LAYERS = {
     "A": {"ko": "악보 지표", "en": "Score metrics"},
     "C": {"ko": "연주 지표", "en": "Performance metrics"},
     "D": {"ko": "레퍼토리 지표", "en": "Repertoire metrics"},
+    "B": {"ko": "작품 활동·역사", "en": "Works and history"},
 }
 
 SOURCES = {
@@ -53,6 +54,18 @@ SOURCES = {
         "en": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570). Composers with at least 10 NY Phil performances (U1) were searched by name; only human items with a music occupation were kept and checked against the composer's first season (born at least five years earlier). Names with several candidates or a failed check were resolved one by one by the editor. The matching table (composer_wikidata.csv) is published.",
         "license": "CC0 1.0",
         "url": "https://www.wikidata.org/",
+    },
+    "imslp": {
+        "ko": "IMSLP(국제 악보 도서관 프로젝트) 작품면의 작곡 연도·장르 태그·편성·악장 칸. 작곡가 범주 10명과 교향곡 범주를 MediaWiki API 로 받아(robots.txt 허용, 요청 간격 2초) 엮은이가 파싱했다. 1.2에서 추가.",
+        "en": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and the Symphonies category, fetched through the MediaWiki API (allowed by robots.txt, two seconds between requests) and parsed by the editor. Added in 1.2.",
+        "license": "CC BY-SA 4.0",
+        "url": "https://imslp.org/",
+    },
+    "ellis": {
+        "ko": "Helmholtz, On the Sensations of Tone, A. J. Ellis 영역 3판(1895), 부록 XX 섹션 H 의 역사적 음고 표(Table I·II). 엮은이가 쪽 이미지에서 옮겨 적고 2판(1885)과 전부 대조했다. 퍼블릭 도메인. 1.2에서 추가.",
+        "en": "Helmholtz, On the Sensations of Tone, tr. A. J. Ellis, 3rd ed. (1895), Appendix XX, Section H: tables of historical pitch (Tables I and II), transcribed from the page images by the editor and checked against the 2nd edition (1885). Public domain. Added in 1.2.",
+        "license": "Public domain",
+        "url": "https://archive.org/details/onsensationsofto00helmrich",
     },
 }
 
