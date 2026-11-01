@@ -17,13 +17,15 @@ import pandas as pd
 
 from registry import LAYERS, METRICS, SOURCES
 
-VERSION = "1.1"
+VERSION = "1.2"
 BUILD_DATE = "2026-11-01"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
     ("1.0", "2026-10-31", "바흐·베토벤 악보 14지표, 연주 6지표, 뉴욕 필 레퍼토리 4지표.", "Bach and Beethoven: 14 score metrics, 6 performance metrics, 4 NY Phil repertoire metrics."),
     ("1.1", BUILD_DATE, "모차르트 피아노 소나타 54악장(악보 14지표)과 ASAP 모차르트 연주 16개를 더했다. 뉴욕 필 레퍼토리를 전 작곡가로 넓히고 지표 5개(모차르트 점유율·발췌 비율·생존 작곡가 점유율·레퍼토리 나이·정전 회전율)와 작곡가 면을 신설했다. 레퍼토리의 세는 단위를 「프로그램의 작품 항목」에서 「프로그램의 작품」으로 바꾸어 1.0 의 레퍼토리 수치가 달라졌다(옛 값은 표의 1.0 단위 열).",
      "Added Mozart's piano sonatas (54 movements, all 14 score metrics) and 16 ASAP Mozart performances. Widened the NY Phil repertoire layer to every composer, with five new metrics (Mozart share, excerpt share, living-composer share, repertoire age, canon turnover) and composer pages. The repertoire counting unit changed from 'work entry on a program' to 'work on a program', so 1.0 repertoire values changed (old values kept in a '1.0 unit' column)."),
+    ("1.2", BUILD_DATE, "「작품·역사」 면을 신설했다 — IMSLP 작품면으로 본 작곡가 10명의 작품 활동(경력 띠·나이별 작품면·쓴 시기와 연주되는 시기), 교향곡 편성, 템포 지시어 구성, 악기 사용 변천, 그리고 Ellis 측정표로 본 A음 높이의 역사(1361~1885). IMSLP 에서 온 표는 CC BY-SA 4.0 이다(다른 표와 라이선스가 다르다). 각 파일의 라이선스·출처는 data/datapackage.json 에 있다.",
+     "New 'Works & history' page: ten composers' work activity from IMSLP work pages (career ribbons, work pages by age, composed vs performed), symphony orchestration, tempo markings, instrument use, and the history of the pitch of a′ from Ellis's tables (1361–1885). Tables derived from IMSLP are CC BY-SA 4.0 (a different licence from the other tables). Each file's licence and sources are listed in data/datapackage.json."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -68,7 +70,7 @@ def slug(name: str) -> str:
 T = {
     "ko": dict(
         site="서양 고전 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐·베토벤·모차르트와 뉴욕 필 180년",
-        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
+        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         season="시즌", all_concerts="전체", subscription="정기공연만", v10="1.0 단위", coverage="생몰년 확인", lower="하한", upper="상한",
         perf_u1="작품 연주", perf_u2="전곡 연주", excerpt="발췌 비율", first="첫 시즌", last="마지막 시즌", n_seasons="연주된 시즌 수", born="출생", died="사망",
         rank="순위", category="구분", peak="최고 점유 시즌", top_works="많이 연주된 작품", decade_rank="10년 단위 순위", programs="프로그램",
@@ -84,7 +86,7 @@ T = {
     ),
     "en": dict(
         site="Classical Music Metrics", tagline="Reading scores and performances as numbers — Bach, Beethoven, Mozart and 180 years of the New York Philharmonic",
-        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
+        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
         season="Season", all_concerts="all", subscription="subscription only", v10="1.0 unit", coverage="dated", lower="lower", upper="upper",
         perf_u1="work perf.", perf_u2="complete perf.", excerpt="excerpt share", first="first season", last="last season", n_seasons="seasons played", born="born", died="died",
         rank="rank", category="type", peak="peak season", top_works="Most performed works", decade_rank="Rank by decade", programs="programs",
@@ -211,6 +213,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
     hub_path = "" if lang == "ko" else "en/"
     nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
            ("composers", f"{root}{lang}/composers/index.html", t["nav_composers"]),
+           ("history", f"{root}{lang}/history.html", t["nav_history"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
     navh = "".join(f'<a href="{h}"{" class=\"on\"" if k == active else ""}>{n}</a>' for k, h, n in nav)
     return f"""<!DOCTYPE html>
@@ -382,7 +385,17 @@ def table_html(df: pd.DataFrame, cols: list[tuple[str, str, str | None]], tid: s
 LICENSE_URL = {
     "CC-BY-4.0": "https://creativecommons.org/licenses/by/4.0/",
     "CC-BY-NC-SA-4.0": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/",
 }
+
+
+def table_licence(keys) -> str:
+    """Licence the editor attaches to a derived table, from its source keys."""
+    if any(k in ("dcml", "kern370", "asap") for k in keys):
+        return "CC-BY-NC-SA-4.0"
+    if "imslp" in keys:
+        return "CC-BY-SA-4.0"
+    return "CC-BY-4.0"
 
 
 def write_datapackage(data_dir: Path, data_files: dict) -> None:
@@ -392,7 +405,7 @@ def write_datapackage(data_dir: Path, data_files: dict) -> None:
     resources = []
     for f, (sk, lay) in data_files.items():
         keys = sk.split("+")
-        lic = "CC-BY-NC-SA-4.0" if any(k in ("dcml", "kern370", "asap") for k in keys) else "CC-BY-4.0"
+        lic = table_licence(keys)
         df = pd.read_csv(data_dir / f)
         res = {
             "name": f.replace("/", "-").removesuffix(".csv").lower(),
@@ -480,9 +493,16 @@ def main():
         "aliases/nyphil_composers.csv": ("nyphil", "D"),
         "aliases/composer_wikidata.csv": ("wikidata", "D"),
     }
-    (OUT / "data" / "aliases").mkdir(exist_ok=True)
+    import history_pages
+    for f in history_pages.HISTORY_FILES:
+        DATA_FILES[f"imslp/{f}"] = ("imslp+nyphil" if "nyphil" in f or "reception" in f else "imslp", "B")
+    for f in history_pages.ELLIS_FILES:
+        DATA_FILES[f"ellis/{f}"] = ("ellis", "B")
+    for sub in ("aliases", "imslp", "ellis"):
+        (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
-        src_f = AL / f.split("/", 1)[1] if f.startswith("aliases/") else D / f
+        sub, _, nm = f.partition("/")
+        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": Path("data/proto") / nm}.get(sub, D / f) if nm else D / f
         shutil.copy(src_f, OUT / "data" / f)
     write_datapackage(OUT / "data", DATA_FILES)
 
@@ -716,11 +736,11 @@ def main():
         rows = []
         for f, (sk, lay) in DATA_FILES.items():
             n = len(pd.read_csv(OUT / "data" / f))
-            derived = "CC BY-NC-SA 4.0" if sk in ("dcml", "kern370", "asap") else "CC BY 4.0"
-            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({'NY Phil' if k == 'nyphil' else k.capitalize()})" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
+            derived = table_licence(sk.split("+")).replace("CC-BY-NC-SA-4.0", "CC BY-NC-SA 4.0").replace("CC-BY-SA-4.0", "CC BY-SA 4.0").replace("CC-BY-4.0", "CC BY 4.0")
+            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
             rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{src_lic}</td><td>{derived}</td></tr>")
         body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
-        body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the licence the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). No original scores, MIDI or audio are redistributed here.") + "</p>")
+        body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the licence the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that licence forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
         body.append("<p>" + ("파일마다 이 표의 라이선스·원자료·원자료 라이선스를 기계가 읽을 수 있게 적은 목록: <a href='../data/datapackage.json'>datapackage.json</a>(Frictionless Data Package). CSV 만 따로 가져갈 때도 이 목록을 함께 두기 바란다." if lang == "ko" else
                             "A machine-readable list of each file's licence, sources and source licences: <a href='../data/datapackage.json'>datapackage.json</a> (Frictionless Data Package). Please keep it with any CSV you redistribute.") + "</p>")
         (base / "data.html").write_text(page(lang, t["nav_data"], "".join(body), active="data"), encoding="utf-8")
@@ -859,10 +879,14 @@ def main():
 <p>What is missing matters as much as what is here. The Beethoven symphonies have performance metrics but no score metrics (no open machine-readable full scores). Bach's performance data is piano only; the change in recorded durations around the period-instrument movement is not yet measured. The repertoire series is one orchestra. The caveats on each metric page and the long-term list under <a href="method.html">Method & sources</a> record those gaps.</p>""")
         (base / "reading.html").write_text(page(lang, t["nav_reading"], "<div class='prose'>" + "".join(body) + "</div>", active="reading"), encoding="utf-8")
 
+        # ---------------- works & history (1.2)
+        history_pages.build(lang, base / "history.html", page)
+
         # ---------------- home
         cards = [
             (f"{H['n_movements']}", "악장 측정 (바흐 %d · 베토벤 %d · 모차르트 %d)" % (H['n_bach'], H['n_beet'], H['n_moz']) if lang == "ko" else "movements measured (Bach %d · Beethoven %d · Mozart %d)" % (H['n_bach'], H['n_beet'], H['n_moz']), "metrics/chromatic_ratio.html"),
             (f"{H['ny_persons']:,}", "뉴욕 필 1842~2026에 연주된 작곡가" if lang == "ko" else "composers performed by the NY Phil, 1842–2026", "composers/index.html"),
+            ("1361–1885", "A음 높이의 역사 — Ellis 측정표 242건" if lang == "ko" else "the pitch of a′ — 242 measurements tabulated by Ellis", "history.html#s7"),
             (f"{H['rom']:+.1f} bpm", "낭만파 지휘자의 베토벤 표기 대비 중앙값" if lang == "ko" else "Romantic conductors vs Beethoven's marks (median)", "metrics/coda_tempo_diff_bpm.html"),
             (f"{H['asap_bach_perf']+H['asap_beet_perf']}", "박 단위 정렬된 피아노 연주" if lang == "ko" else "beat-aligned piano performances", "metrics/tempo_cv_across_performers.html"),
             (f"{H['ny_first_beet']:.0%} → {H['ny_last_beet']:.0%}", f"뉴욕 필 베토벤 점유율, {H['ny_first_season']} → {H['ny_last_season']}" if lang == "ko" else f"NY Phil Beethoven share, {H['ny_first_season']} → {H['ny_last_season']}", "metrics/beethoven_share.html"),
@@ -876,6 +900,13 @@ def main():
                 if m["layer"] == lay:
                     body.append(f"<a class='card layer-{lay}' href='metrics/{m['id']}.html'><b>{esc(L(m)['name'])}</b><small>{esc(L(m)['definition'])}</small></a>")
             body.append("</div>")
+        body.append(f"<h2>{LAYERS['B'][lang]}</h2><div class='cards'>" + "".join(
+            f"<a class='card layer-D' href='history.html#s{i}'><b>{esc(n)}</b><small>{esc(d)}</small></a>" for i, n, d in (
+                (1, "경력 띠" if lang == "ko" else "Career ribbons", "작곡가 10명이 해마다 쓴 작품을 장르별로" if lang == "ko" else "what ten composers wrote each year, by genre"),
+                (3, "쓴 시기와 연주되는 시기" if lang == "ko" else "Composed vs performed", "어느 시기 작품이 뉴욕 필에서 많이 연주되나" if lang == "ko" else "which periods of a composer's output the NY Phil plays"),
+                (5, "템포 지시어" if lang == "ko" else "Tempo markings", "교향곡 악장 줄의 템포어 구성과 자국어 지시어" if lang == "ko" else "tempo words in symphony movement lists, and vernacular markings"),
+                (6, "악기 사용 변천" if lang == "ko" else "Instrument use", "교향곡 편성란에 이름이 오른 악기의 비율" if lang == "ko" else "share of symphonies naming each instrument"),
+                (7, "A음 높이의 역사" if lang == "ko" else "The pitch of a′", "1361~1885년 소리굽쇠·오르간 측정값" if lang == "ko" else "forks and organ pipes measured, 1361–1885"))) + "</div>")
         body.append(f"<p class='links'><a href='reading.html'>{t['nav_reading']} →</a><a href='data.html'>{t['nav_data']} →</a><a href='method.html'>{t['nav_method']} →</a></p>")
         (base / "index.html").write_text(page(lang, t["nav_home"], "".join(body), active="home"), encoding="utf-8")
 

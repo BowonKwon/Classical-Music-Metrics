@@ -1,0 +1,95 @@
+composer,age_bin,works,share
+"Bach, Johann Sebastian",10,1,0.0011402508551881414
+"Bach, Johann Sebastian",15,49,0.055872291904218926
+"Bach, Johann Sebastian",20,65,0.07411630558722919
+"Bach, Johann Sebastian",25,81,0.09236031927023945
+"Bach, Johann Sebastian",30,77,0.08779931584948689
+"Bach, Johann Sebastian",35,220,0.2508551881413911
+"Bach, Johann Sebastian",40,133,0.1516533637400228
+"Bach, Johann Sebastian",45,62,0.07069555302166476
+"Bach, Johann Sebastian",50,116,0.1322690992018244
+"Bach, Johann Sebastian",55,42,0.04789053591790194
+"Bach, Johann Sebastian",60,29,0.0330672748004561
+"Bach, Johann Sebastian",65,2,0.002280501710376283
+"Beethoven, Ludwig van",10,8,0.024096385542168676
+"Beethoven, Ludwig van",15,8,0.024096385542168676
+"Beethoven, Ludwig van",20,42,0.12650602409638553
+"Beethoven, Ludwig van",25,74,0.22289156626506024
+"Beethoven, Ludwig van",30,49,0.14759036144578314
+"Beethoven, Ludwig van",35,37,0.11144578313253012
+"Beethoven, Ludwig van",40,41,0.12349397590361445
+"Beethoven, Ludwig van",45,37,0.11144578313253012
+"Beethoven, Ludwig van",50,25,0.07530120481927711
+"Beethoven, Ludwig van",55,11,0.03313253012048193
+"Brahms, Johannes",15,9,0.06
+"Brahms, Johannes",20,25,0.16666666666666666
+"Brahms, Johannes",25,32,0.21333333333333335
+"Brahms, Johannes",30,13,0.08666666666666667
+"Brahms, Johannes",35,11,0.07333333333333333
+"Brahms, Johannes",40,14,0.09333333333333334
+"Brahms, Johannes",45,12,0.08
+"Brahms, Johannes",50,19,0.12666666666666668
+"Brahms, Johannes",55,8,0.05333333333333334
+"Brahms, Johannes",60,7,0.04666666666666667
+"Dvorak, Antonín",15,2,0.013888888888888888
+"Dvorak, Antonín",20,6,0.041666666666666664
+"Dvorak, Antonín",25,5,0.034722222222222224
+"Dvorak, Antonín",30,20,0.1388888888888889
+"Dvorak, Antonín",35,47,0.3263888888888889
+"Dvorak, Antonín",40,22,0.1527777777777778
+"Dvorak, Antonín",45,18,0.125
+"Dvorak, Antonín",50,17,0.11805555555555555
+"Dvorak, Antonín",55,7,0.04861111111111111
+"Haydn, Franz Joseph",15,6,0.013245033112582781
+"Haydn, Franz Joseph",20,2,0.004415011037527594
+"Haydn, Franz Joseph",25,41,0.09050772626931568
+"Haydn, Franz Joseph",30,63,0.1390728476821192
+"Haydn, Franz Joseph",35,49,0.10816777041942605
+"Haydn, Franz Joseph",40,63,0.1390728476821192
+"Haydn, Franz Joseph",45,31,0.0684326710816777
+"Haydn, Franz Joseph",50,47,0.10375275938189846
+"Haydn, Franz Joseph",55,51,0.11258278145695365
+"Haydn, Franz Joseph",60,84,0.18543046357615894
+"Haydn, Franz Joseph",65,14,0.03090507726269316
+"Haydn, Franz Joseph",70,2,0.004415011037527594
+"Mahler, Gustav",15,2,0.1
+"Mahler, Gustav",20,4,0.2
+"Mahler, Gustav",25,1,0.05
+"Mahler, Gustav",30,1,0.05
+"Mahler, Gustav",35,2,0.1
+"Mahler, Gustav",40,6,0.3
+"Mahler, Gustav",45,3,0.15
+"Mahler, Gustav",50,1,0.05
+"Mozart, Wolfgang Amadeus",5,32,0.04804804804804805
+"Mozart, Wolfgang Amadeus",10,70,0.10510510510510511
+"Mozart, Wolfgang Amadeus",15,130,0.19519519519519518
+"Mozart, Wolfgang Amadeus",20,113,0.16966966966966968
+"Mozart, Wolfgang Amadeus",25,155,0.23273273273273273
+"Mozart, Wolfgang Amadeus",30,134,0.2012012012012012
+"Mozart, Wolfgang Amadeus",35,32,0.04804804804804805
+"Schubert, Franz",10,19,0.020042194092827006
+"Schubert, Franz",15,499,0.5263713080168776
+"Schubert, Franz",20,201,0.2120253164556962
+"Schubert, Franz",25,159,0.16772151898734178
+"Schubert, Franz",30,70,0.07383966244725738
+"Stravinsky, Igor",20,3,0.02857142857142857
+"Stravinsky, Igor",25,14,0.13333333333333333
+"Stravinsky, Igor",30,12,0.11428571428571428
+"Stravinsky, Igor",35,15,0.14285714285714285
+"Stravinsky, Igor",40,6,0.05714285714285714
+"Stravinsky, Igor",45,6,0.05714285714285714
+"Stravinsky, Igor",50,5,0.047619047619047616
+"Stravinsky, Igor",55,4,0.0380952380952381
+"Stravinsky, Igor",60,13,0.12380952380952381
+"Stravinsky, Igor",65,2,0.01904761904761905
+"Stravinsky, Igor",70,8,0.0761904761904762
+"Stravinsky, Igor",75,7,0.06666666666666667
+"Stravinsky, Igor",80,10,0.09523809523809523
+"Tchaikovsky, Pyotr Ilyich",10,1,0.006578947368421052
+"Tchaikovsky, Pyotr Ilyich",20,20,0.13157894736842105
+"Tchaikovsky, Pyotr Ilyich",25,20,0.13157894736842105
+"Tchaikovsky, Pyotr Ilyich",30,22,0.14473684210526316
+"Tchaikovsky, Pyotr Ilyich",35,30,0.19736842105263158
+"Tchaikovsky, Pyotr Ilyich",40,19,0.125
+"Tchaikovsky, Pyotr Ilyich",45,23,0.1513157894736842
+"Tchaikovsky, Pyotr Ilyich",50,17,0.1118421052631579
