@@ -15,17 +15,20 @@ from pathlib import Path
 
 import pandas as pd
 
+import takeaways
 from registry import LAYERS, METRICS, SOURCES
 
-VERSION = "1.2"
-BUILD_DATE = "2026-11-01"
+VERSION = "1.2.1"
+BUILD_DATE = "2026-11-02"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
     ("1.0", "2026-10-31", "바흐·베토벤 악보 14지표, 연주 6지표, 뉴욕 필 레퍼토리 4지표.", "Bach and Beethoven: 14 score metrics, 6 performance metrics, 4 NY Phil repertoire metrics."),
-    ("1.1", BUILD_DATE, "모차르트 피아노 소나타 54악장(악보 14지표)과 ASAP 모차르트 연주 16개를 더했다. 뉴욕 필 레퍼토리를 전 작곡가로 넓히고 지표 5개(모차르트 점유율·발췌 비율·생존 작곡가 점유율·레퍼토리 나이·정전 회전율)와 작곡가 면을 신설했다. 레퍼토리의 세는 단위를 「프로그램의 작품 항목」에서 「프로그램의 작품」으로 바꾸어 1.0 의 레퍼토리 수치가 달라졌다(옛 값은 표의 1.0 단위 열).",
+    ("1.1", "2026-11-01", "모차르트 피아노 소나타 54악장(악보 14지표)과 ASAP 모차르트 연주 16개를 더했다. 뉴욕 필 레퍼토리를 전 작곡가로 넓히고 지표 5개(모차르트 점유율·발췌 비율·생존 작곡가 점유율·레퍼토리 나이·정전 회전율)와 작곡가 면을 신설했다. 레퍼토리의 세는 단위를 「프로그램의 작품 항목」에서 「프로그램의 작품」으로 바꾸어 1.0 의 레퍼토리 수치가 달라졌다(옛 값은 표의 1.0 단위 열).",
      "Added Mozart's piano sonatas (54 movements, all 14 score metrics) and 16 ASAP Mozart performances. Widened the NY Phil repertoire layer to every composer, with five new metrics (Mozart share, excerpt share, living-composer share, repertoire age, canon turnover) and composer pages. The repertoire counting unit changed from 'work entry on a program' to 'work on a program', so 1.0 repertoire values changed (old values kept in a '1.0 unit' column)."),
-    ("1.2", BUILD_DATE, "「작품·역사」 면을 신설했다 — IMSLP 작품면으로 본 작곡가 10명의 작품 활동(경력 띠·나이별 작품면·쓴 시기와 연주되는 시기), 교향곡 편성, 템포 지시어 구성, 악기 사용 변천, 그리고 Ellis 측정표로 본 A음 높이의 역사(1361~1885). IMSLP 에서 온 표는 CC BY-SA 4.0 이다(다른 표와 라이선스가 다르다). 각 파일의 라이선스·출처는 data/datapackage.json 에 있다.",
+    ("1.2", "2026-11-01", "「작품·역사」 면을 신설했다 — IMSLP 작품면으로 본 작곡가 10명의 작품 활동(경력 띠·나이별 작품면·쓴 시기와 연주되는 시기), 교향곡 편성, 템포 지시어 구성, 악기 사용 변천, 그리고 Ellis 측정표로 본 A음 높이의 역사(1361~1885). IMSLP 에서 온 표는 CC BY-SA 4.0 이다(다른 표와 라이선스가 다르다). 각 파일의 라이선스·출처는 data/datapackage.json 에 있다.",
      "New 'Works & history' page: ten composers' work activity from IMSLP work pages (career ribbons, work pages by age, composed vs performed), symphony orchestration, tempo markings, instrument use, and the history of the pitch of a′ from Ellis's tables (1361–1885). Tables derived from IMSLP are CC BY-SA 4.0 (a different licence from the other tables). Each file's licence and sources are listed in data/datapackage.json."),
+    ("1.2.1", BUILD_DATE, "지표 면 29개와 「작품·역사」 면 7개 절의 맨 위에 「한눈에 보기」 상자를 더했다 — 그 면의 표에서 계산한 수치 요약과 가장 중요한 한계. 반음계 비율·레퍼토리 집중도(HHI)의 한계 설명을 더 정확하게 고쳤다.",
+     "Added an 'At a glance' box at the top of the 29 metric pages and the seven sections of the Works & history page: a summary computed from the page's own tables and the most important limit. Made the caveats for the chromatic ratio and repertoire concentration (HHI) more precise."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -155,6 +158,7 @@ a.card:hover{text-decoration:none;transform:translateY(-2px);border-color:var(--
 .stat .n{font-family:var(--display);font-size:2rem;font-weight:600;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stat small{display:block;color:var(--fg2);margin-top:.35rem;font-size:.86rem;line-height:1.45}
 a.stat:hover{text-decoration:none;border-color:var(--fg3)}
+.glance{border-left:4px solid var(--accent);background:var(--bg2);border-radius:0 10px 10px 0;padding:.8rem 1.1rem;margin:.6rem 0 1.1rem;max-width:78ch}.glance-h{margin:0 0 .4rem;font-size:.82rem;font-weight:600;letter-spacing:.04em;color:var(--fg2)}.glance dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem}.glance dt{color:var(--fg2);font-size:.9rem;white-space:nowrap}.glance dd{margin:0}
 .spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0 1.4rem;box-shadow:var(--shadow)}
 dl{display:grid;grid-template-columns:max-content 1fr;gap:.55rem 1.4rem;margin:0}dt{color:var(--fg3);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding-top:.15rem}dd{margin:0;min-width:0}
 dd.formula{font-family:ui-monospace,"SF Mono",Consolas,"Noto Sans KR",monospace;font-size:.9rem;background:var(--bg2);border-radius:6px;padding:.45rem .65rem;line-height:1.6}
@@ -568,10 +572,13 @@ def main():
         L = lambda m: m[lang]  # noqa: E731
 
         # ---------------- metric pages
+        glance_data = dict(score=score, ny_done=ny_done, ny_turn=ny_turn, cond=cond, mvsum=mvsum, asap_piece=asap_piece)
         for m in METRICS:
             ml = L(m)
             body = [f'<div class="eyebrow"><span class="tag layer">{LAYERS[m["layer"]][lang]}</span><span class="tag">{t["unit"]}: {esc(m["unit"])}</span></div>',
-                    f"<h1>{esc(ml['name'])}</h1><p class='lead'>{esc(ml['definition'])}</p>",
+                    f"<h1>{esc(ml['name'])}</h1>",
+                    takeaways.box(m, lang, glance_data, t["coll"], {x["id"]: x for x in METRICS}),
+                    f"<p class='lead'>{esc(ml['definition'])}</p>",
                     f"<div class='spec'><dl><dt>{t['formula']}</dt><dd class='formula'>{esc(ml['formula'])}</dd><dt>{t['reading']}</dt><dd>{esc(ml['reading'])}</dd><dt>{t['caveat']}</dt><dd>{esc(ml['caveat'])}</dd></dl></div>"]
             if m["table"] == "score":
                 groups, summ = [], []
