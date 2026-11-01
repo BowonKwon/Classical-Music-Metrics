@@ -30,6 +30,7 @@ DCML_CORPORA = [
     ("bach_solo", "Bach", "solo_violin_cello_flute", "CC-BY-NC-SA-4.0"),
     ("ABC", "Beethoven", "string_quartets", "CC-BY-NC-SA-4.0"),
     ("beethoven_piano_sonatas", "Beethoven", "piano_sonatas", "CC-BY-NC-SA-4.0"),
+    ("mozart_piano_sonatas", "Mozart", "piano_sonatas", "CC-BY-NC-SA-4.0"),
 ]
 KERN_CORPORA = [
     ("bach-370-chorales", "Bach", "chorales_kern370", "CC-BY-NC-SA-4.0"),
