@@ -23,5 +23,10 @@
     "git_head": "ea7181bff88abc8713257234f7ec4033178c57a9",
     "pieces": 91,
     "license": "CC-BY-NC-SA-4.0"
+  },
+  "mozart_piano_sonatas": {
+    "git_head": "5337257a5318711e6302cfe85c3f1a6ade3c6271",
+    "pieces": 54,
+    "license": "CC-BY-NC-SA-4.0"
   }
 }

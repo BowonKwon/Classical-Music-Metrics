@@ -1,5 +1,5 @@
 """Performance metrics from the ASAP dataset (Foscarin et al., ISMIR 2020;
-CC BY-NC-SA 4.0): Bach and Beethoven piano performances with beat annotations.
+CC BY-NC-SA 4.0): piano performances with beat annotations.
 
 Per performance (one MIDI file):
   duration_s            last annotated beat minus first annotated beat
@@ -16,8 +16,9 @@ Per performance (one MIDI file):
 Per piece: number of performances and the across-performer spread of mean
 tempo (coefficient of variation) and of duration.
 
-Only performances whose beat count matches the score (score_and_performance_aligned)
-are used for tempo; others are kept with a flag.
+Per-performance rows are computed for every performance and carry the `aligned`
+flag (score_and_performance_aligned). The per-piece summary keeps only aligned
+performances. Composers: Bach, Beethoven, Mozart (Mozart added in 1.1).
 """
 from __future__ import annotations
 
@@ -56,7 +57,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", default="data/raw")
     ap.add_argument("--out", default="data/derived")
-    ap.add_argument("--composers", default="Bach,Beethoven")
+    ap.add_argument("--composers", default="Bach,Beethoven,Mozart")
     a = ap.parse_args()
     raw, out = Path(a.raw) / "asap-dataset", Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
