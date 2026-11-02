@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.2.1",
+ "version": "1.3",
  "created": "2026-11-02",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -16,6 +16,29 @@
   {
    "name": "score_metrics_by_movement",
    "path": "score_metrics_by_movement.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 733,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ],
+   "description": "Mixed licence: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column."
+  },
+  {
+   "name": "score_metrics_13_by_movement",
+   "path": "score_metrics_13_by_movement.csv",
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
@@ -154,6 +177,50 @@
    "encoding": "utf-8",
    "layer": "Performance metrics",
    "rows": 37,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_symphony_marks",
+   "path": "beethoven_symphony_marks.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 61,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_symphony_recordings",
+   "path": "beethoven_symphony_recordings.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 36,
    "licenses": [
     {
      "name": "CC-BY-4.0",

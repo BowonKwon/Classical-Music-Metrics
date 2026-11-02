@@ -28,5 +28,10 @@
     "git_head": "5337257a5318711e6302cfe85c3f1a6ade3c6271",
     "pieces": 54,
     "license": "CC-BY-NC-SA-4.0"
+  },
+  "bach-370-chorales": {
+    "git_head": "a95574f9e93b4d72a96cd390a059df4f8471ddb6",
+    "pieces": 370,
+    "license": "CC-BY-NC-SA-4.0"
   }
 }
