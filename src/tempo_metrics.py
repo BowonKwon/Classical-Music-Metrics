@@ -29,6 +29,8 @@ from pathlib import Path
 import pandas as pd
 import pyreadr
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 HARMONICS = [1 / 3, 1 / 2, 2 / 3, 3 / 2, 2, 3]
 
 
@@ -42,8 +44,8 @@ def load(raw: Path, name: str) -> pd.DataFrame:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default="data/raw")
-    ap.add_argument("--out", default="data/derived")
+    ap.add_argument("--raw", default=str(ROOT / "data/raw"))
+    ap.add_argument("--out", default=str(ROOT / "data/derived"))
     a = ap.parse_args()
     raw, out = Path(a.raw), Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -88,10 +90,10 @@ def main():
     s = s.merge(rec[["conductor", "orchestra", "date", "year", "ptype"]], on="conductor")
     s["recording_year_start"] = s["date"].str.extract(r"(\d{4})").astype(float)
 
-    d.to_csv(out / "beethoven_symphony_duration_ratio.csv", index=False, encoding="utf-8")
-    s.to_csv(out / "beethoven_symphony_coda_tempo.csv", index=False, encoding="utf-8")
-    marks.to_csv(out / "beethoven_symphony_marks.csv", index=False, encoding="utf-8")
-    rec.to_csv(out / "beethoven_symphony_recordings.csv", index=False, encoding="utf-8")
+    d.to_csv(out / "beethoven_symphony_duration_ratio.csv", index=False, encoding="utf-8", lineterminator="\n")
+    s.to_csv(out / "beethoven_symphony_coda_tempo.csv", index=False, encoding="utf-8", lineterminator="\n")
+    marks.to_csv(out / "beethoven_symphony_marks.csv", index=False, encoding="utf-8", lineterminator="\n")
+    rec.to_csv(out / "beethoven_symphony_recordings.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # --- summaries
     mv = d.groupby(["symphony", "movement", "main_mark", "main_character"]).agg(
@@ -108,8 +110,8 @@ def main():
         median_ratio=("coda_tempo_ratio", "median"),
         n_rectified=("rectified", "sum"),
     ).reset_index().sort_values("median_diff_bpm")
-    mv.to_csv(out / "beethoven_symphony_movement_summary.csv", index=False, encoding="utf-8")
-    cond.to_csv(out / "beethoven_symphony_conductor_summary.csv", index=False, encoding="utf-8")
+    mv.to_csv(out / "beethoven_symphony_movement_summary.csv", index=False, encoding="utf-8", lineterminator="\n")
+    cond.to_csv(out / "beethoven_symphony_conductor_summary.csv", index=False, encoding="utf-8", lineterminator="\n")
     print("movements", len(mv), "conductors", len(cond))
     print("coda rows", len(s), "rectified", int(s["rectified"].sum()), "unusable", int(s["unusable"].sum()))
     print(cond[["conductor", "ptype", "median_diff_bpm", "n_movements"]].to_string())

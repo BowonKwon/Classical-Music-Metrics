@@ -6,6 +6,7 @@ names, filters and the language switch are the page's own.
 from __future__ import annotations
 
 import html
+import re
 
 import pandas as pd
 
@@ -36,7 +37,7 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
     hi_c, lo_c = per.idxmax(), per.idxmin()
     G[1] = _box(lang,
                 (f"작품면은 {name(hi_c)} {int(per[hi_c]):,}면이 가장 많고 {name(lo_c)} {int(per[lo_c]):,}면이 가장 적다. 장르별로는 {josa(gname(top_g), '이가')} 전체의 {gen[top_g]:.0%}로 가장 많다." if ko else
-                 f"{name(hi_c)} has the most work pages ({int(per[hi_c]):,}) and {name(lo_c)} the fewest ({int(per[lo_c]):,}). By genre, {gname(top_g).lower()} makes up {gen[top_g]:.0%} of all pages."),
+                 f"{name(hi_c)} has the most work pages ({int(per[hi_c]):,}) and {name(lo_c)} the fewest ({int(per[lo_c]):,}). By genre, {gname(top_g).lower()} makes up the largest share, {gen[top_g]:.0%} of all pages."),
                 ("단위는 IMSLP 작품면이라 작곡한 작품 수와 같지 않다." if ko else "The unit is the IMSLP work page, not the number of works composed."))
 
     # 2 — age profile: earliest and latest peak band
@@ -71,6 +72,7 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
     dec = dec[dec["size"] >= 5]
     d0, d1 = dec.index[0], dec.index[-1]
     mx = SY.loc[SY.orch_parts.idxmax()]
+    mx_title = re.sub(r"No\.(?=\d)", "No. ", str(mx.work_title))  # 'Symphony No.2' -> 'Symphony No. 2' in running text
     last = SY[(SY.year_start // 10) * 10 == d1]
     vc = last.composer.value_counts()
     lead_c, lead_n = vc.index[0], int(vc.iloc[0])
@@ -78,8 +80,8 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
     note_ko = f"({int(d1)}년대 {len(last)}곡 가운데 {lead_n}곡이 {name(lead_c)})" if heavy else ""
     note_en = f" ({lead_n} of the {len(last)} in the {int(d1)}s are by {name(lead_c)})" if heavy else ""
     G[4] = _box(lang,
-                (f"교향곡이 5곡 이상인 10년 구간의 중앙값은 {int(d0)}년대 {dec.loc[d0, 'median']:.0f}파트에서 {int(d1)}년대 {dec.loc[d1, 'median']:.0f}파트로{note_ko}. 가장 많은 곡은 {name(mx.composer)} 「{mx.work_title}」({int(mx.orch_parts)}파트)." if ko else
-                 f"In decades with at least five symphonies, the median goes from {dec.loc[d0, 'median']:.0f} parts in the {int(d0)}s to {dec.loc[d1, 'median']:.0f} in the {int(d1)}s{note_en}. The largest is {name(mx.composer)}'s {mx.work_title} ({int(mx.orch_parts)} parts)."),
+                (f"교향곡이 5곡 이상인 10년 구간의 중앙값은 {int(d0)}년대 {dec.loc[d0, 'median']:.0f}파트에서 {int(d1)}년대 {dec.loc[d1, 'median']:.0f}파트로{note_ko}. 가장 많은 곡은 {name(mx.composer)} 「{mx_title}」({int(mx.orch_parts)}파트)." if ko else
+                 f"In decades with at least five symphonies, the median goes from {dec.loc[d0, 'median']:.0f} parts in the {int(d0)}s to {dec.loc[d1, 'median']:.0f} in the {int(d1)}s{note_en}. The largest is {name(mx.composer)}'s {mx_title} ({int(mx.orch_parts)} parts)."),
                 ("편성란에 적힌 비현악 파트 수라 연주자 수나 악보의 실제 파트 수와 같다는 보장은 없다." if ko else
                  "Non-string parts as listed on the page; this need not equal the number of players or parts in the score."))
 
@@ -91,7 +93,7 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
     ni_pk = tl.loc[okb, "non_italian_share"].idxmax()
     G[5] = _box(lang,
                 (f"템포어가 인식된 줄 가운데(인식 20줄·인식률 60% 이상인 첫 구간과 마지막 구간) 「빠름·매우 빠름」의 비율은 {a}~{a + 24}년 {fastish.get(a, 0):.0%}, {z}~{z + 24}년 {fastish.get(z, 0):.0%}이고, 「느림·보통 느림」은 {slowish.get(a, 0):.0%}, {slowish.get(z, 0):.0%}다. 이탈리아어가 아닌 템포어는 {int(ni_pk)}~{int(ni_pk) + 24}년에 {tl.loc[ni_pk, 'non_italian_share']:.0%}로 가장 많다." if ko else
-                 f"Among lines with a recognised tempo word (first and last bins with at least 20 recognised lines and 60% recognition), fast or very fast: {fastish.get(a, 0):.0%} in {a}–{a + 24}, {fastish.get(z, 0):.0%} in {z}–{z + 24}; slow or moderately slow: {slowish.get(a, 0):.0%} and {slowish.get(z, 0):.0%}. Non-Italian tempo words peak at {tl.loc[ni_pk, 'non_italian_share']:.0%} in {int(ni_pk)}–{int(ni_pk) + 24}."),
+                 f"Among lines with a recognized tempo word (first and last bins with at least 20 recognized lines and 60% recognition), fast or very fast: {fastish.get(a, 0):.0%} in {a}–{a + 24}, {fastish.get(z, 0):.0%} in {z}–{z + 24}; slow or moderately slow: {slowish.get(a, 0):.0%} and {slowish.get(z, 0):.0%}. Non-Italian tempo words peak at {tl.loc[ni_pk, 'non_italian_share']:.0%} in {int(ni_pk)}–{int(ni_pk) + 24}."),
                 ("적힌 지시어의 구성이지 연주 속도(BPM)가 아니다. 느린 서주가 있는 악장은 서주의 템포어로 잡힌다." if ko else
                  "The make-up of written markings, not performed speed (BPM). A movement with a slow introduction is classed by the introduction."))
 
@@ -105,7 +107,7 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
                 (f"교향곡의 절반 이상에 이름이 오른 악기는 {a}~{a + 24}년 {na}개, {z}~{z + 24}년 {nz}개. 비율이 가장 크게 늘어난 악기는 {josa(iname(r1), '과와')} {josa(iname(r2), ('이', ''))}다({iu.loc[r1, a]:.0%} → {iu.loc[r1, z]:.0%}, {iu.loc[r2, a]:.0%} → {iu.loc[r2, z]:.0%})." if ko else
                  f"Instruments named in at least half the symphonies: {na} in {a}–{a + 24}, {nz} in {z}–{z + 24}. The biggest rises are {iname(r1)} ({iu.loc[r1, a]:.0%} → {iu.loc[r1, z]:.0%}) and {iname(r2)} ({iu.loc[r2, a]:.0%} → {iu.loc[r2, z]:.0%})."),
                 ("편성 상세가 있는 면만 들어가 전체 교향곡의 확률 표본이 아니고, 선택·겸용 악기도 「적힘」으로 셌다." if ko else
-                 "Only pages with an instrumentation detail are included, so this is not a probability sample, and optional or doubling instruments count as named."))
+                 "Only pages with instrumentation details are included, so this is not a probability sample, and optional or doubling instruments count as named."))
 
     # 7 — pitch of a': 25-year medians (bins with five or more points)
     ed = EP.dropna(subset=["year"])
@@ -116,5 +118,5 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
                 (f"25년 구간 중앙값(5점 이상)은 {int(lo_b)}~{int(lo_b) + 24}년 {med.loc[lo_b, 'median']:.1f} Hz가 가장 낮고 {int(hi_b)}~{int(hi_b) + 24}년 {med.loc[hi_b, 'median']:.1f} Hz가 가장 높다. 연도가 있는 기록은 {len(ed)}건." if ko else
                  f"Among 25-year medians (five or more points), the lowest is {med.loc[lo_b, 'median']:.1f} Hz in {int(lo_b)}–{int(lo_b) + 24} and the highest {med.loc[hi_b, 'median']:.1f} Hz in {int(hi_b)}–{int(hi_b) + 24}. {len(ed)} records carry a date."),
                 ("Ellis가 모은 기록의 분포이지 각 시대의 「표준」이 아니고, 같은 시기에도 장소와 용도에 따라 100 Hz 넘게 벌어진다." if ko else
-                 "The spread of the records Ellis collected, not each era's 'standard'; pitches of the same period differ by more than 100 Hz with place and use."))
+                 "The spread of the records Ellis collected, not each era's 'standard'; pitches of the same period differ by more than 100 Hz depending on place and use."))
     return G

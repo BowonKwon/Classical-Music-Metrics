@@ -50,7 +50,7 @@ _ARCH = ("한 아카이브의 기록이며 뉴욕 심포니·스타디움 콘서
 _EARLY = ("초기 시즌은 작품 연주 건수가 적어 비율이 거칠다(1842–43은 작품 연주 31건).",
           "Early seasons have few work performances, so shares are coarse (31 in 1842–43).")
 _FORCES = ("모든 성부의 음을 합산하므로, 편성이 다른 묶음 사이의 높낮이는 편성 차이를 크게 반영한다.",
-           "All voices are counted together, so differences between groups with different forces largely reflect the forces.")
+           "All voices are counted together, so differences between collections with different forces largely reflect the forces.")
 CAUTION = {
     "beethoven_share": (_ARCH[0] + " " + _EARLY[0], _ARCH[1] + " " + _EARLY[1]),
     "mozart_share": ("「Mozart, Wolfgang Amadeus」 표기만 세고(레오폴트 모차르트는 별개) 편곡도 넣는다. " + _ARCH[0],
@@ -60,7 +60,7 @@ CAUTION = {
     "excerpt_share": ("옛 프로그램에서 협주곡 한 악장을 악장 표시 없이 적었으면 전곡으로 잡힌다. 초기 시즌은 작품 연주 건수가 적다.",
                       "An old program that listed one concerto movement without marking it counts as complete. Early seasons have few work performances."),
     "hhi": ("정기공연만 세면 표본과 곡목 구성이 달라져 값도 달라진다(2025–26 정기공연만 0.016, 전체 0.011). 초기 시즌은 작품 연주 건수가 적다.",
-            "Counting subscription concerts only changes the sample and the programme mix, and so the value (2025–26: 0.016 vs 0.011). Early seasons have few work performances."),
+            "Restricting the count to subscription concerts changes the sample and the program mix, and therefore the value (2025–26: 0.016 vs 0.011). Early seasons have few work performances."),
     "distinct_composers": ("연주회 수가 늘면 함께 늘어나므로 점유율·HHI와 같이 본다.", "Grows with the number of concerts, so read it with shares and HHI."),
     "living_share": ("생몰년 확인 비율이 2020년대 시즌에 72~81%로 떨어지고 미확인 작곡가는 대부분 생존해 있을 것이므로, 최근 값은 실제보다 낮을 가능성이 크다 — 상한과 함께 읽는다. 「시즌 시작 연도에 생존」은 연 단위 근사다.",
                      "Date coverage falls to 72–81% in the 2020s and most composers without dates are presumably alive, so recent values are likely too low — read them with the upper bound. 'Alive in the start year' is a year-level approximation."),
@@ -69,11 +69,11 @@ CAUTION = {
     "canon_turnover": ("1840년대는 8시즌, 2020년대는 진행 중 시즌까지 7시즌으로 짧다(1840년대는 앞 10년이 없어 값이 없다). 순위 경계의 동률은 이름순으로 끊으므로 경계의 한 명이 바뀌면 지수가 크게 움직인다.",
                        "The 1840s have 8 seasons and the 2020s 7 including the one in progress (the 1840s have no earlier decade to compare). Ties at the cut-off are broken alphabetically, so one name changing at the boundary moves the index a lot."),
     "chords_per_measure": ("주석이 있는 코퍼스에만 있다(코랄 제외). 주석자의 분석 단위가 코퍼스마다 조금 다르고, 마디의 길이·박자도 묶음마다 다르다.",
-                           "Only for annotated corpora (not chorales). Annotation granularity differs slightly between corpora, and bar length and metre differ between groups."),
+                           "Only for annotated corpora (not chorales). Annotation granularity differs slightly between corpora, and bar length and meter differ between collections."),
     "chromatic_ratio": ("조표 기준이라, 조표를 바꾸지 않은 채 전조한 구간에서는 새 조의 음이라도 원래 조표 밖이면 「반음계」로 잡힌다. 코랄은 DCML 판본에 임시표 오류 경고가 있어 Humdrum 판본과 대조했다(상관 0.98).",
                         "Keyed to the signature, so in a modulation without a signature change, notes of the new key outside the original signature count as chromatic. The DCML chorales carry a warning about accidental errors and were cross-checked against the Humdrum encoding (r = 0.98)."),
     "local_key_changes_per_100_measures": ("주석자의 조 판단에 좌우된다. 짧은 토니시제이션은 부속화음으로 처리되어 여기 들어가지 않는다.",
-                                           "Depends on the annotator's key reading. Brief tonicizations are labelled as applied chords and are not counted here."),
+                                           "Depends on the annotators' key reading. Brief tonicizations are labeled as applied chords and are not counted here."),
     "mean_simultaneity": ("울리고 있는 음이 아니라 시작하는 음만 센다. " + _FORCES[0], "Counts starting notes, not sounding ones. " + _FORCES[1]),
     "notes_per_quarter": ("템포를 모르므로 「초당 음표 수」가 아니다. " + _FORCES[0], "Tempo is unknown, so this is not notes per second. " + _FORCES[1]),
     "coda_tempo_diff_bpm": ("템포는 원저자가 Marsyas 템포 추정기로 뽑은 값이고 코다 구간 하나만 표본했다. 교향곡 9번은 뺐다(1~8번). 지휘자 중앙값이 모두 음수여도 모든 악장이 느리다는 뜻은 아니다.",
@@ -83,7 +83,7 @@ CAUTION = {
     "tempo_cv_across_performers": ("연주자는 국제 피아노 e-콩쿠르 참가자(MAESTRO)라 상업 음반 연주자 표본이 아니다. 곡당 연주 수가 1~25개로 고르지 않고, 연주가 하나뿐인 곡은 이 지표에서 빠진다.",
                                    "Performers are International Piano-e-Competition entrants (MAESTRO), not commercial recording artists. Performances per piece range from 1 to 25, and pieces with a single performance drop out of this metric."),
     "pitch_mean_midi": ("편성과 악기 음역에 크게 좌우되어 같은 편성 안에서만 비교한다. 바흐 무반주 묶음은 바이올린(높음)과 첼로(낮음)가 섞여 분포가 둘로 갈린다.",
-                        "Driven by forces and instrument ranges; compare within the same forces only. Bach's solo group mixes violin (high) and cello (low), so its distribution splits in two."),
+                        "Driven by forces and instrument ranges; compare within the same forces only. Bach's solo works mix violin (high) and cello (low), so their distribution splits in two."),
     "pitch_sd_midi": ("편성에 따라 달라지므로 같은 편성 안에서만 비교한다.", "Depends on the forces; compare within the same forces only."),
     "mean_chord_duration_qb": ("주석이 있는 코퍼스에만 있다(코랄 제외). 주석자의 분석 단위가 코퍼스마다 조금 다르다.",
                                "Only for annotated corpora (not chorales). Annotation granularity differs slightly between corpora."),
@@ -92,13 +92,13 @@ CAUTION = {
     "dim7_ratio": ("주석이 있는 코퍼스에만 있다(코랄 제외). 이끈음 위 감7과 부속화음으로 쓰인 감7을 가리지 않는다.",
                    "Only for annotated corpora (not chorales). Leading-tone and applied diminished sevenths are not separated."),
     "cadences_per_100_measures": ("종지를 주석한 코퍼스·작품에만 있다: 베토벤 현악4중주는 주석이 없고, 바흐 무반주는 BWV 1009~1013만 주석이 있다(바이올린 작품·첼로 모음곡 1·2번은 비워 둔다). 마디 길이가 다른 묶음끼리는 차이를 덜어 읽는다.",
-                                  "Only where cadences are annotated: the Beethoven quartets have none, and among Bach's solo works only BWV 1009–1013 are annotated (the violin works and Cello Suites 1–2 are left blank). Discount differences between groups with different bar lengths."),
+                                  "Only where cadences are annotated: the Beethoven quartets have none, and among Bach's solo works only BWV 1009–1013 are annotated (the violin works and Cello Suites 1–2 are left blank). Treat differences between collections with different bar lengths with caution."),
     "chromatic_numeral_ratio": ("DCML 표기는 단조의 로마 숫자를 자연 단음계 기준으로 적어, 단조의 이끈음 화음(화성 단음계로는 온음계 화음)이 ♯vii 로 적혀 여기에 들어간다(모차르트 단조 구간 화음 2,304개 중 206개). 단조 비중이 큰 묶음은 값이 높게 나온다.",
                                 "DCML writes minor-key numerals against the natural minor scale, so minor-key leading-tone chords (diatonic in harmonic minor) appear as ♯vii and count here (206 of 2,304 minor-key chords in Mozart). Groups with more minor music score higher."),
     "pac_ratio_of_cadences": ("종지 주석이 있는 악장에만 있다(종지 밀도와 같은 범위). 종지가 몇 개 안 되는 악장은 값이 거칠다.",
                               "Only for movements with cadence annotation (same scope as cadence density). Movements with few cadences give coarse values."),
     "phrase_4_8_ratio": ("악구 길이와 같은 한계(주석자 판단·못갖춘마디·옛 표기). 끝에서 끝까지의 간격이라 악구 안의 대칭성까지 보여 주지는 않는다.",
-                         "Same limits as phrase length (annotators' judgement, pickups, older convention). End-to-end gaps do not show symmetry within a phrase."),
+                         "Same limits as phrase length (annotators' judgment, pickups, older convention). End-to-end gaps do not show symmetry within a phrase."),
     "predominant_chromatic_ratio": ("주석이 있는 코퍼스에만 있다(코랄 제외). 나폴리 화음의 전위·부속 용법을 가리지 않는다.",
                                     "Only for annotated corpora (not chorales). Inversions and applied uses of the Neapolitan are not separated."),
     "velocity_sd_median": ("MIDI velocity는 음량의 대리 지표이며 악기·녹음 환경에 따라 눈금이 다르다. 같은 데이터셋 안의 상대 비교에만 쓴다.",
@@ -127,7 +127,7 @@ def _score(m, lang, d, coll_names):
         v = g[m["id"]].astype(float).dropna()
         if len(v):
             cl = coll_label(coll_names[coll])
-            name = f"{KO[comp]} {cl}" if lang == "ko" else (f"{comp}'s works for solo violin, cello and flute" if coll == "solo_violin_cello_flute" else f"{comp}'s {cl if cl.startswith('English') else cl[0].lower() + cl[1:]}")
+            name = f"{KO[comp]} {cl}" if lang == "ko" else (f"{comp}'s solo works (violin, cello, flute)" if coll == "solo_violin_cello_flute" else f"{comp}'s {cl if cl.startswith('English') else cl[0].lower() + cl[1:]}")
             meds.append((name, v.median(), len(v), comp, coll))
     meds.sort(key=lambda x: x[1], reverse=True)
     hi, lo = meds[0], meds[-1]
@@ -137,7 +137,7 @@ def _score(m, lang, d, coll_names):
     if lang == "ko":
         out = f"악장 중앙값이 가장 높은 묶음은 {hi_n}({_f(hi[1], fmt)}), 가장 낮은 묶음은 {lo_n}({_f(lo[1], fmt)})."
     else:
-        out = f"Across movements, {hi_n} have the highest median ({_f(hi[1], fmt)}) and {lo_n} the lowest ({_f(lo[1], fmt)})."
+        out = f"Among the collections, {hi_n} have the highest median ({_f(hi[1], fmt)}) and {lo_n} the lowest ({_f(lo[1], fmt)})."
     son = {c: v for _, v, _, c, coll in meds if coll == "piano_sonatas"}
     if {"Beethoven", "Mozart"} <= son.keys():
         if lang == "ko":
@@ -190,7 +190,8 @@ def _turnover(m, lang, d):
 def _coda(m, lang, d):
     c = d["cond"]
     n, slow = len(c), int((c["median_diff_bpm"] < 0).sum())
-    top = c["median_diff_bpm"].max()
+    diffs = c["median_diff_bpm"].astype(float)
+    top = diffs.loc[diffs.abs().idxmin()]  # closest to the marks = smallest |difference|
     med = c["median_diff_bpm"].median()
     if lang == "ko":
         who = f"지휘자 {n}명 모두" if slow == n else f"지휘자 {n}명 가운데 {slow}명의"

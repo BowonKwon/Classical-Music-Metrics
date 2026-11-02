@@ -33,6 +33,8 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).parent))
 import score_metrics as sm  # noqa: E402
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 PHRASE_END = {"}", "}{", "\\\\", "\\"}
 
 
@@ -104,7 +106,7 @@ def note_13(df: pd.DataFrame) -> dict:
     return out
 
 
-def main(raw: Path = Path("data/raw"), out: Path = Path("data/derived")):
+def main(raw: Path = (ROOT / "data/raw"), out: Path = (ROOT / "data/derived")):
     rows = []
     for folder, comp, coll, lic in sm.DCML_CORPORA:
         base = raw / folder
@@ -127,7 +129,7 @@ def main(raw: Path = Path("data/raw"), out: Path = Path("data/derived")):
             rows.append(row)
         print(folder, sum(r["corpus"] == folder for r in rows))
     df = pd.DataFrame(rows)
-    df.to_csv(out / "score_metrics_13_by_movement.csv", index=False, encoding="utf-8")
+    df.to_csv(out / "score_metrics_13_by_movement.csv", index=False, encoding="utf-8", lineterminator="\n")
     print(df.describe().T.round(3).to_string())
 
 

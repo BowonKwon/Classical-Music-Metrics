@@ -11,7 +11,7 @@
    "role": "author"
   }
  ],
- "description": "Derived tables behind the Classical Music Metrics site. Each resource lists the licence of the table and the licences of its sources. Original scores, MIDI and audio are not included.",
+ "description": "Derived tables behind the Classical Music Metrics site. Each resource lists the license of the table and the licenses of its sources. Original scores, MIDI and audio are not included.",
  "resources": [
   {
    "name": "score_metrics_by_movement",
@@ -34,7 +34,7 @@
      "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
     }
    ],
-   "description": "Mixed licence: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column."
+   "description": "Mixed license: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column."
   },
   {
    "name": "score_metrics_13_by_movement",
@@ -57,7 +57,7 @@
      "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
     }
    ],
-   "description": "Mixed licence: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column."
+   "description": "Mixed license: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column."
   },
   {
    "name": "score_metrics_kern370",
@@ -532,7 +532,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 4589,
    "licenses": [
     {
@@ -554,7 +554,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 1332,
    "licenses": [
     {
@@ -576,7 +576,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 94,
    "licenses": [
     {
@@ -598,7 +598,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 97,
    "licenses": [
     {
@@ -625,7 +625,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 10,
    "licenses": [
     {
@@ -652,7 +652,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 1513,
    "licenses": [
     {
@@ -679,7 +679,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 207,
    "licenses": [
     {
@@ -701,7 +701,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 6245,
    "licenses": [
     {
@@ -723,7 +723,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 74,
    "licenses": [
     {
@@ -745,7 +745,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 14,
    "licenses": [
     {
@@ -767,7 +767,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 240,
    "licenses": [
     {
@@ -789,7 +789,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 721,
    "licenses": [
     {
@@ -811,7 +811,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 242,
    "licenses": [
     {
@@ -833,7 +833,7 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "layer": "Works and history",
+   "layer": "Works & history",
    "rows": 284,
    "licenses": [
     {

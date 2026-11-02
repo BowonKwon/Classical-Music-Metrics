@@ -33,6 +33,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 GENRES = ["orchestral", "stage", "vocal", "chamber", "keyboard", "other"]
 GENRE_KO = {"orchestral": "관현악", "stage": "극음악", "vocal": "성악", "chamber": "실내악", "keyboard": "건반", "other": "기타"}
 VOICE = re.compile(r"(^|\s)(v|vv|sop|mez|alt|ten|bar|bass|ch|mch|mch2|wch|cch|chorus|voice)(\s|$)")
@@ -172,10 +174,10 @@ def title_key(text: str) -> str | None:
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    raw = pd.concat([pd.read_json(f, lines=True) for f in glob.glob("data/raw/imslp/*.jsonl")], ignore_index=True)
+    raw = pd.concat([pd.read_json(f, lines=True) for f in sorted(glob.glob(str(ROOT / "data/raw/imslp/*.jsonl")))], ignore_index=True)
     raw = raw.astype(object).where(raw.notna(), None)  # missing fields -> None, not NaN
     raw = raw[~raw["composer"].astype(str).str.startswith("category:")]  # whole-category fetches are for imslp_history.py
-    wd = pd.read_csv("data/aliases/composer_wikidata.csv")
+    wd = pd.read_csv(ROOT / "data/aliases/composer_wikidata.csv")
     life = wd.set_index("composer")[["birth_year", "death_year"]]
     rows = []
     n_redirect = 0
@@ -208,8 +210,8 @@ def main():
             "orch_parts": orch_parts(r.get("InstrDetail")) if (g == "orchestral" or "symphonies" in tags.lower()) else np.nan,
         })
     W = pd.DataFrame(rows)
-    out = Path("data/derived")
-    W.to_csv(out / "imslp_works.csv", index=False, encoding="utf-8")
+    out = (ROOT / "data/derived")
+    W.to_csv(out / "imslp_works.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # composer x year x genre (spread over ranges)
     D_ = W[W.year_start.notna() & (W.year_kind != "terminus")]
@@ -219,21 +221,21 @@ def main():
         for y in span:
             yy.append((r.composer, y, r.genre, 1 / len(span)))
     CY = pd.DataFrame(yy, columns=["composer", "year", "genre", "works"]).groupby(["composer", "year", "genre"])["works"].sum().reset_index()
-    CY.to_csv(out / "imslp_composer_year.csv", index=False, encoding="utf-8")
+    CY.to_csv(out / "imslp_composer_year.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # age curve: share of dated works by 5-year age bin
     A = D_.dropna(subset=["age_start"]).copy()
     A["age_bin"] = (A["age_start"] // 5 * 5).astype(int)
     AC = A.groupby(["composer", "age_bin"]).size().rename("works").reset_index()
     AC["share"] = AC["works"] / AC.groupby("composer")["works"].transform("sum")
-    AC.to_csv(out / "imslp_composer_age.csv", index=False, encoding="utf-8")
+    AC.to_csv(out / "imslp_composer_age.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # reception: match NY Phil works (U1) by catalogue key / symphony number
     ny = pd.read_csv(out / "nyphil_work_frequency_top50_composers.csv")
-    nyall = json.load(open("data/raw/PerformanceHistory/Programs/json/complete.json", encoding="utf-8"))
+    nyall = json.load(open(ROOT / "data/raw/PerformanceHistory/Programs/json/complete.json", encoding="utf-8"))
     # full work list per composer from the pairs table is not saved; rebuild U1 per work id quickly
     from repertoire_metrics import load_entries, apply_aliases, to_pairs  # noqa: E402
-    pairs = to_pairs(apply_aliases(load_entries(Path("data/raw")), Path("data/aliases/nyphil_composers.csv")))
+    pairs = to_pairs(apply_aliases(load_entries((ROOT / "data/raw")), (ROOT / "data/aliases/nyphil_composers.csv")))
     wf = pairs.groupby(["composer", "work_id"]).agg(title=("work_title", "first"), u1=("u1", "sum")).reset_index()
     wf = wf[wf["composer"].isin(CAT)]
     index = {}
@@ -256,8 +258,8 @@ def main():
     wf["imslp_row"] = match
     wf["year_start"] = wf["imslp_row"].map(lambda i: W.loc[int(i), "year_start"] if pd.notna(i) and W.loc[int(i), "year_kind"] != "terminus" else np.nan)
     rate = wf.assign(m=wf["imslp_row"].notna()).groupby("composer").apply(lambda g: pd.Series({"u1": g.u1.sum(), "matched_u1_share": g.loc[g.m, "u1"].sum() / g.u1.sum(), "dated_u1_share": g.loc[g.year_start.notna(), "u1"].sum() / g.u1.sum()}))
-    rate.to_csv(out / "imslp_nyphil_match_rate.csv", encoding="utf-8")
-    wf.to_csv(out / "imslp_nyphil_matches.csv", index=False, encoding="utf-8")
+    rate.to_csv(out / "imslp_nyphil_match_rate.csv", encoding="utf-8", lineterminator="\n")
+    wf.to_csv(out / "imslp_nyphil_matches.csv", index=False, encoding="utf-8", lineterminator="\n")
     rec = []
     for c in CAT:
         w_ = D_[D_.composer == c]
@@ -269,10 +271,10 @@ def main():
             rec.append({"composer": c, "bin_start": b0,
                         "works_share": ((w_.year_start >= b0) & (w_.year_start < b0 + 5)).mean(),
                         "nyphil_share": p_.loc[(p_.year_start >= b0) & (p_.year_start < b0 + 5), "u1"].sum() / p_.u1.sum() if p_.u1.sum() else np.nan})
-    pd.DataFrame(rec).to_csv(out / "imslp_reception_period.csv", index=False, encoding="utf-8")
+    pd.DataFrame(rec).to_csv(out / "imslp_reception_period.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     S = W[W.is_symphony & W.orch_parts.notna() & W.year_start.notna()][["composer", "page", "work_title", "year_start", "orch_parts", "duration_min"]]
-    S.to_csv(out / "imslp_symphony_orchestration.csv", index=False, encoding="utf-8")
+    S.to_csv(out / "imslp_symphony_orchestration.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     print("works", len(W), "dated", int(W.year_start.notna().sum()), "of which terminus-only", int((W.year_kind == "terminus").sum()), "redirect/empty pages dropped", n_redirect, "other-composer pages dropped", n_other_composer, "catalogue key collisions", collisions)
     print(W.groupby("composer").year_kind.value_counts().unstack(fill_value=0).to_string())

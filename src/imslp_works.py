@@ -24,6 +24,8 @@ from pathlib import Path
 import pandas as pd
 import requests
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 API = "https://imslp.org/api.php"
 UA = {"User-Agent": "ClassicalMusicMetrics/1.2 (https://github.com/BowonKwon/Classical-Music-Metrics)"}
 DELAY = 2.0
@@ -109,7 +111,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cmd", choices=["fetch", "parse"])
     ap.add_argument("--composers", nargs="*", default=list(COMPOSERS))
-    ap.add_argument("--raw", default="data/raw/imslp")
+    ap.add_argument("--raw", default=str(ROOT / "data/raw/imslp"))
     ap.add_argument("--category", help="fetch a whole IMSLP category instead of composer categories, e.g. Symphonies")
     a = ap.parse_args()
     if a.cmd == "fetch":

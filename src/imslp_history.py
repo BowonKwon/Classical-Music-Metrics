@@ -24,6 +24,8 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).parent))
 from work_activity import years  # noqa: E402
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 # Italian tempo words, slow -> fast, with an ordinal rank
 ITALIAN = ["grave", "largo", "larghetto", "lento", "adagio", "adagietto", "andante", "andantino", "moderato",
            "allegretto", "allegro", "vivo", "vivace", "vivacissimo", "presto", "prestissimo"]
@@ -92,10 +94,10 @@ def tempo_of(line: str):
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    raw = pd.concat([pd.read_json(f, lines=True) for f in glob.glob("data/raw/imslp/*.jsonl")], ignore_index=True)
+    raw = pd.concat([pd.read_json(f, lines=True) for f in sorted(glob.glob(str(ROOT / "data/raw/imslp/*.jsonl")))], ignore_index=True)
     raw = raw.astype(object).where(raw.notna(), None)
     raw["source"] = np.where(raw["composer"].astype(str).str.startswith("category:"), "symphonies", "composer")
-    out = Path("data/derived")
+    out = (ROOT / "data/derived")
     rows = []
     for r in raw.to_dict("records"):
         ys, ye, kind = years(r.get("Year/Date of Composition"))
@@ -109,7 +111,7 @@ def main():
             rows.append({"source": r["source"], "page": r["page"], "year": ys, "line_no": i, "tempo_word": w, "tempo_class": cls, "lang": lang, "line": line[:120]})
     ALL = pd.DataFrame(rows).drop_duplicates(subset=["page", "line_no"])
     M = ALL[ALL.tempo_word.notna()]
-    M.to_csv(out / "imslp_movement_tempo.csv", index=False, encoding="utf-8")
+    M.to_csv(out / "imslp_movement_tempo.csv", index=False, encoding="utf-8", lineterminator="\n")
     sym_pages = raw.loc[raw.source == "symphonies", "page"]
     S = M[M.page.isin(sym_pages)].copy()
     S["bin"] = (S.year // 25 * 25).astype(int)
@@ -118,12 +120,12 @@ def main():
     tp = S.groupby(["bin", "tempo_class"]).size().rename("n").reset_index()
     tp["share"] = tp.n / tp.groupby("bin").n.transform("sum")
     tp = tp.merge(S.groupby("bin").size().rename("movements").reset_index(), on="bin")
-    tp.to_csv(out / "imslp_tempo_by_period.csv", index=False, encoding="utf-8")
+    tp.to_csv(out / "imslp_tempo_by_period.csv", index=False, encoding="utf-8", lineterminator="\n")
     lang = S.groupby("bin").apply(lambda g: pd.Series({"movements": len(g), "non_italian_share": (g.lang == "vernacular").mean(), "works": g.page.nunique()})).reset_index()
     # recognition: listed lines (movements, parts and version headers) vs lines with a recognised tempo word
     lang = lang.merge(SA.groupby("bin").size().rename("listed_lines").reset_index(), on="bin", how="left")
     lang["recognised_share"] = lang["movements"] / lang["listed_lines"]
-    lang.to_csv(out / "imslp_tempo_language.csv", index=False, encoding="utf-8")
+    lang.to_csv(out / "imslp_tempo_language.csv", index=False, encoding="utf-8", lineterminator="\n")
     # first-movement and overall tempo word frequency (all sources)
     # instruments
     sy = raw[raw.source == "symphonies"].copy()
@@ -143,8 +145,8 @@ def main():
     I["bin"] = (I.year // 25 * 25).astype(int)
     use = I.groupby("bin")[list(INSTRUMENTS)].mean().reset_index().melt(id_vars="bin", var_name="instrument", value_name="share")
     use = use.merge(I.groupby("bin").size().rename("symphonies").reset_index(), on="bin")
-    use.to_csv(out / "imslp_instrument_use.csv", index=False, encoding="utf-8")
-    I.to_csv(out / "imslp_symphony_instruments.csv", index=False, encoding="utf-8")
+    use.to_csv(out / "imslp_instrument_use.csv", index=False, encoding="utf-8", lineterminator="\n")
+    I.to_csv(out / "imslp_symphony_instruments.csv", index=False, encoding="utf-8", lineterminator="\n")
     print("movements with tempo word", len(M), "of which symphonies category", len(S))
     print(lang.round(3).to_string())
     print(tp.pivot(index="bin", columns="tempo_class", values="share").reindex(columns=CLASSES).round(2).to_string())

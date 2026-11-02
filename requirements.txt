@@ -1,0 +1,13 @@
+# Python 3.11 or later.
+# The committed site/ was built with Python 3.14.4 and the versions below (numpy 2.5.3).
+# A rebuild on Python 3.11.15 (numpy 2.4.6, the newest numpy for 3.11) is byte-identical (checked 2026-11-02).
+# pandas 2.2.3 also reproduces the site byte for byte; pandas 3.1 changes rounding-boundary digits on six
+# pages, so pandas is pinned.
+pandas==3.0.6
+numpy>=2.4,<2.6
+music21==10.5.2      # score_metrics.py, Humdrum chorales only
+mido==1.3.3          # performance_metrics.py (ASAP MIDI)
+pyreadr==0.5.8       # tempo_metrics.py (bmetr .rda)
+requests==2.34.2     # imslp_works.py, wikidata_composers.py (fetch steps)
+# tests only (tests/ is not published)
+pytest==9.2.0
