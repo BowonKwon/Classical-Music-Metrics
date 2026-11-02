@@ -21,6 +21,8 @@ from pathlib import Path
 
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 # --------------------------------------------------------------------------
 # Corpus registry: (folder, composer, collection label, license)
 # --------------------------------------------------------------------------
@@ -96,7 +98,7 @@ def merge_ties(df: pd.DataFrame) -> pd.DataFrame:
         lst[:] = [j for j in lst if end[j] >= on - 1e-6]
         lst.append(i)
     df["dur_merged"] = dur
-    df["attached"] = attached
+    df["attached"] = pd.Series(attached, index=df.index, dtype=bool)  # stays bool when there are no notes
     return df
 
 
@@ -372,8 +374,8 @@ def git_head(path: Path) -> str:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default="data/raw")
-    ap.add_argument("--out", default="data/derived")
+    ap.add_argument("--raw", default=str(ROOT / "data/raw"))
+    ap.add_argument("--out", default=str(ROOT / "data/derived"))
     ap.add_argument("--skip-kern", action="store_true")
     a = ap.parse_args()
     raw, out = Path(a.raw), Path(a.out)
@@ -400,7 +402,7 @@ def main():
             print(folder, len(r), "pieces")
             kern_rows += r
             manifest[folder] = {"git_head": git_head(raw / folder), "pieces": len(r), "license": lic}
-        pd.DataFrame(kern_rows).to_csv(out / "score_metrics_kern370.csv", index=False, encoding="utf-8")
+        pd.DataFrame(kern_rows).to_csv(out / "score_metrics_kern370.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     df = pd.DataFrame(rows)
     # corpora or works with no cadence labels at all: not annotated, not zero
@@ -411,7 +413,7 @@ def main():
         no_cad = df.groupby("corpus")["n_cadence_labels"].transform("sum") == 0
         no_cad_work = df.groupby(["corpus", "work_number"], dropna=False)["n_cadence_labels"].transform("sum") == 0
         df.loc[no_cad | no_cad_work, cad_cols] = float("nan")
-    df.to_csv(out / "score_metrics_by_movement.csv", index=False, encoding="utf-8")
+    df.to_csv(out / "score_metrics_by_movement.csv", index=False, encoding="utf-8", lineterminator="\n")
     (out / "score_metrics_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(df.groupby(["composer", "collection"]).size())
 

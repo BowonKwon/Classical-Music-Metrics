@@ -31,6 +31,8 @@ import mido
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 
 def beat_times(ann_path: Path) -> np.ndarray:
     t = []
@@ -55,8 +57,8 @@ def midi_velocities(path: Path) -> np.ndarray:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default="data/raw")
-    ap.add_argument("--out", default="data/derived")
+    ap.add_argument("--raw", default=str(ROOT / "data/raw"))
+    ap.add_argument("--out", default=str(ROOT / "data/derived"))
     ap.add_argument("--composers", default="Bach,Beethoven,Mozart")
     a = ap.parse_args()
     raw, out = Path(a.raw) / "asap-dataset", Path(a.out)
@@ -97,7 +99,7 @@ def main():
             row["velocity_range_p95_p5"] = float(np.percentile(v, 95) - np.percentile(v, 5))
         rows.append(row)
     df = pd.DataFrame(rows)
-    df.to_csv(out / "asap_performance_metrics.csv", index=False, encoding="utf-8")
+    df.to_csv(out / "asap_performance_metrics.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     ok = df[df["aligned"] == True].dropna(subset=["tempo_mean_bpm"])  # noqa: E712
     piece = ok.groupby(["composer", "title"]).agg(
@@ -112,7 +114,7 @@ def main():
         local_tempo_change_median=("local_tempo_change", "median"),
         velocity_sd_median=("velocity_sd", "median"),
     ).reset_index()
-    piece.to_csv(out / "asap_piece_summary.csv", index=False, encoding="utf-8")
+    piece.to_csv(out / "asap_piece_summary.csv", index=False, encoding="utf-8", lineterminator="\n")
     print(df.groupby("composer").size(), "\n", ok.groupby("composer").size())
     print(piece.groupby("composer")[["tempo_cv_across_performers", "ibi_cv_median", "local_tempo_change_median", "velocity_sd_median"]].median())
     print(piece.sort_values("n_performances", ascending=False).head(10).to_string())

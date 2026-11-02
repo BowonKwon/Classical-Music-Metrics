@@ -10,6 +10,7 @@ import argparse
 import html
 import json
 import math
+import re
 import shutil
 from pathlib import Path
 
@@ -17,6 +18,8 @@ import pandas as pd
 
 import takeaways
 from registry import LAYERS, METRICS, SOURCES
+
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
 VERSION = "1.3"
 BUILD_DATE = "2026-11-02"
@@ -26,11 +29,13 @@ CHANGELOG = [
     ("1.1", "2026-11-01", "모차르트 피아노 소나타 54악장(악보 14지표)과 ASAP 모차르트 연주 16개를 더했다. 뉴욕 필 레퍼토리를 전 작곡가로 넓히고 지표 5개(모차르트 점유율·발췌 비율·생존 작곡가 점유율·레퍼토리 나이·정전 회전율)와 작곡가 면을 신설했다. 레퍼토리의 세는 단위를 「프로그램의 작품 항목」에서 「프로그램의 작품」으로 바꾸어 1.0 의 레퍼토리 수치가 달라졌다(옛 값은 표의 1.0 단위 열).",
      "Added Mozart's piano sonatas (54 movements, all 14 score metrics) and 16 ASAP Mozart performances. Widened the NY Phil repertoire layer to every composer, with five new metrics (Mozart share, excerpt share, living-composer share, repertoire age, canon turnover) and composer pages. The repertoire counting unit changed from 'work entry on a program' to 'work on a program', so 1.0 repertoire values changed (old values kept in a '1.0 unit' column)."),
     ("1.2", "2026-11-01", "「작품·역사」 면을 신설했다 — IMSLP 작품면으로 본 작곡가 10명의 작품 활동(경력 띠·나이별 작품면·쓴 시기와 연주되는 시기), 교향곡 편성, 템포 지시어 구성, 악기 사용 변천, 그리고 Ellis 측정표로 본 A음 높이의 역사(1361~1885). IMSLP 에서 온 표는 CC BY-SA 4.0 이다(다른 표와 라이선스가 다르다). 각 파일의 라이선스·출처는 data/datapackage.json 에 있다.",
-     "New 'Works & history' page: ten composers' work activity from IMSLP work pages (career ribbons, work pages by age, composed vs performed), symphony orchestration, tempo markings, instrument use, and the history of the pitch of a′ from Ellis's tables (1361–1885). Tables derived from IMSLP are CC BY-SA 4.0 (a different licence from the other tables). Each file's licence and sources are listed in data/datapackage.json."),
+     "New 'Works & history' page: ten composers' work activity from IMSLP work pages (career ribbons, work pages by age, composed vs performed), symphony orchestration, tempo markings, instrument use, and the history of the pitch of a′ from Ellis's tables (1361–1885). Tables derived from IMSLP are CC BY-SA 4.0 (a different license from the other tables). Each file's license and sources are listed in data/datapackage.json."),
     ("1.2.1", "2026-11-02", "지표 면 29개와 「작품·역사」 면 7개 절의 맨 위에 「한눈에 보기」 상자를 더했다 — 그 면의 표에서 계산한 수치 요약과 가장 중요한 한계. 반음계 비율·레퍼토리 집중도(HHI)의 한계 설명을 더 정확하게 고쳤다.",
      "Added an 'At a glance' box at the top of the 29 metric pages and the seven sections of the Works & history page: a summary computed from the page's own tables and the most important limit. Made the caveats for the chromatic ratio and repertoire concentration (HHI) more precise."),
     ("1.3", BUILD_DATE, "악보 지표를 14개에서 39개로 늘렸다. 이미 계산해 두었던 16개(최상성부 순차·반복 비율과 음역, 선율 윤곽 전환, 평균 음고·산포, 5도권 음이름 폭, 음가 종류·평균 음가, 평균 화음 길이, 반음계 화음, 전위 화음, 거치는 조의 수, 단조 구간 비율, 종지 밀도, 완전 정격 종지 비율)를 공개하고, 9개(리듬 대비 지수 nPVI, 도약 후 반진행, 박 넘김 당김음, 동기 반복률, 감7화음, 나폴리·증6화음, 페달 포인트, 악구 길이, 4·8마디 악구 비율)를 새로 계산했다. 종지를 주석하지 않은 작품(바흐 무반주 바이올린 작품·첼로 모음곡 1·2번)의 종지 밀도는 0 이 아니라 빈칸으로 고쳤다.",
-     "Score metrics grow from 14 to 39. Sixteen already computed are now published (top-line step and repeat ratios and range, melodic direction changes, mean pitch and spread, pitch-name vocabulary, duration vocabulary and mean length, mean chord length, chromatic chords, inversions, keys visited, minor-key share, cadence density, PAC share), and nine are new (nPVI rhythmic contrast, post-leap reversal, beat-crossing syncopation, motif repetition, diminished sevenths, Neapolitan and augmented sixths, pedal points, phrase length, 4- and 8-bar phrase share). Cadence density for works without cadence annotation (Bach's solo violin works and Cello Suites 1–2) is now blank rather than 0."),
+     "Score metrics grew from 14 to 39. Sixteen that had already been computed were published (top-line step and repeat ratios and range, melodic direction changes, mean pitch and spread, pitch-name vocabulary, duration vocabulary and mean length, mean chord length, chromatic chords, inversions, keys visited, minor-key share, cadence density, PAC share), and nine were new (nPVI rhythmic contrast, post-leap reversal, beat-crossing syncopation, motif repetition, diminished sevenths, Neapolitan and augmented sixths, pedal points, phrase length, 4- and 8-bar phrase share). Cadence density for works without cadence annotation (Bach's solo violin works and Cello Suites 1–2) was changed from 0 to blank."),
+    ("1.3.1", BUILD_DATE, "지표 면 띠 그림의 중앙값 막대를 고쳤다 — 값이 짝수 개일 때 가운데 두 값의 평균이 아니라 위쪽 값을 그리고 있었다. 지표 38개 면의 띠 111줄에서 중앙값이 바뀌어 이제 같은 면 표의 중앙값과 맞는다(반올림 뒤 막대 위치나 툴팁 값이 달라진 것은 109줄. 예: 종지 밀도의 바흐 무반주 묶음 16.7 → 15.8). 표·요약 상자·CSV의 수치는 그대로다. 영어 면의 문장·용어·철자(미국식)·표 머리글 대소문자를 손보고, 원자료 커밋 기록(raw_manifest.json)에서 커밋이 없는 IMSLP 항목을 뺐다(작업 저장소의 커밋이 잘못 들어가 있었다).",
+     "Fixed the median bar in the strip charts on metric pages: with an even number of values it showed the upper middle value instead of the mean of the two middle values. On 38 metric pages the median changes in 111 strip rows, which now match the median in the table on the same page (after rounding, the bar position or tooltip value differs in 109 of them; e.g. cadence density, Bach's solo works: 16.7 → 15.8). Numbers in tables, summary boxes and CSVs are unchanged. Revised wording, terms, spelling (now American) and table-header capitalization on the English pages, and removed the IMSLP entry from the record of input commits (raw_manifest.json): IMSLP has no commit, and the build repository's own commit had been recorded in its place."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -99,9 +104,9 @@ T = {
         table="Table", download="Download CSV", n="n", median="median", q1="Q1", q3="Q3", min="min", max="max",
         collection="Collection", composer="Composer", movements="movements", by_collection="Distribution by collection", top="Top", bottom="Bottom",
         all_rows="All rows", ranking="Ranking", license="License", cite="Citation", built="Built", version="Version", hub="All public materials",
-        coll={"chorales": "Chorales", "english_french_suites": "English & French Suites", "solo_violin_cello_flute": "Solo violin, cello and flute",
+        coll={"chorales": "Chorales", "english_french_suites": "English and French Suites", "solo_violin_cello_flute": "Solo violin, cello and flute",
               "piano_sonatas": "Piano sonatas", "string_quartets": "String quartets", "chorales_kern370": "Chorales (Humdrum)"},
-        ptype={"Romantic": "Romantic", "HI influence": "HIP-influenced", "HI": "Period (HIP)"},
+        ptype={"Romantic": "Romantic", "HI influence": "HIP-influenced", "HI": "Period-instrument (HIP)"},
         dist_caption="One dot per movement. Vertical bar = collection median.",
         metric_list="All metrics", search="Filter", work="Work", mvt="Movement", year="Year", bars="Bars", no_harm="(blank for collections without harmony annotations)",
     ),
@@ -213,8 +218,32 @@ def fmt(v, spec) -> str:
         return str(v)
 
 
+CAP_U1U2 = {"ko": '완결 시즌별. 두 선 모두 그 시즌의 작품 연주 전체를 분모로 한다 — 위 선은 이 작곡가의 작품 연주, 아래 선은 그중 전곡 연주(악장 표시 없는 연주)의 몫이다. 두 선의 간격이 그 시즌 전체에서 이 작곡가의 발췌 연주가 차지한 몫이다.',
+            "en": "Completed seasons. Both lines use the season's total work performances as denominator: the upper line is this composer's work performances, the lower line the part of them that are complete (no movement named). The gap is this composer's excerpts as a share of the whole season."}
+
+
+_SC_KEEP = ("n", "r")  # statistical symbols stay lower case
+
+
+def _cap(m):
+    txt = m.group(2)
+    word = re.match(r"[^<\s(]*", txt).group(0)
+    if word in _SC_KEEP or txt.startswith("a′"):
+        return m.group(0)
+    return m.group(1) + txt[:1].upper() + txt[1:]
+
+
+def sentence_case_labels(html: str) -> str:
+    """English pages: table headers, legend entries and definition terms start with a capital (sentence case)."""
+    html = re.sub(r"(<th\b[^>]*>)([a-z][^<]*)", _cap, html)
+    html = re.sub(r"(<dt>)([a-z][^<]*)", _cap, html)
+    return re.sub(r'<div class="legend">.*?</div>', lambda b: re.sub(r"(<span\b[^>]*>)([a-z][^<]*)", _cap, b.group(0)), html, flags=re.S)
+
+
 def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", active: str = "") -> str:
     t = T[lang]
+    if lang == "en":
+        body = sentence_case_labels(body)
     root = "../" * depth
     other = "en" if lang == "ko" else "ko"
     hub_path = "" if lang == "ko" else "en/"
@@ -222,7 +251,8 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
            ("composers", f"{root}{lang}/composers/index.html", t["nav_composers"]),
            ("history", f"{root}{lang}/history.html", t["nav_history"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
-    navh = "".join(f'<a href="{h}"{" class=\"on\"" if k == active else ""}>{n}</a>' for k, h, n in nav)
+    on_attr = ' class="on"'
+    navh = "".join(f'<a href="{h}"{on_attr if k == active else ""}>{n}</a>' for k, h, n in nav)
     return f"""<!DOCTYPE html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} — {t['site']}</title><meta name="description" content="{esc(desc or t['tagline'])}">
@@ -289,7 +319,8 @@ def svg_strip(groups: list[tuple[str, list[float], int]], spec: str, width=900, 
             jy = cy + rnd.uniform(-row_h * 0.3, row_h * 0.3)
             out.append(f'<circle cx="{x(v):.1f}" cy="{jy:.1f}" r="3.4" fill="{col}" fill-opacity=".6" stroke="var(--card)" stroke-width="1"><title>{fmt(v, spec)}</title></circle>')
         if vs2:
-            med = sorted(vs2)[len(vs2) // 2]
+            sv, mid = sorted(vs2), len(vs2) // 2
+            med = sv[mid] if len(sv) % 2 else (sv[mid - 1] + sv[mid]) / 2
             out.append(f'<rect x="{x(med)-1.5:.1f}" y="{cy-row_h*0.42:.1f}" width="3" height="{row_h*0.84:.1f}" fill="var(--fg)" rx="1.5"><title>median {fmt(med, spec)}</title></rect>')
     out.append("</svg>")
     return "".join(out)
@@ -438,7 +469,7 @@ def table_licence(keys) -> str:
 
 def write_datapackage(data_dir: Path, data_files: dict) -> None:
     """Frictionless Data Package descriptor: one entry per published CSV with its
-    licence, the licence of its sources and the sources themselves, so that a file
+    license, the license of its sources and the sources themselves, so that a file
     taken on its own can be traced. Generated from DATA_FILES; nothing is typed twice."""
     resources = []
     for f, (sk, lay) in data_files.items():
@@ -457,7 +488,7 @@ def write_datapackage(data_dir: Path, data_files: dict) -> None:
             "sources": [{"title": SOURCES[k]["en"].split(". ")[0][:160], "path": SOURCES[k]["url"], "license": SOURCES[k]["license"]} for k in keys],
         }
         if f in ("score_metrics_by_movement.csv", "score_metrics_13_by_movement.csv"):
-            res["description"] = ("Mixed licence: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; "
+            res["description"] = ("Mixed license: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; "
                                   "all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column.")
         resources.append(res)
     pkg = {
@@ -468,7 +499,7 @@ def write_datapackage(data_dir: Path, data_files: dict) -> None:
         "created": BUILD_DATE,
         "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
         "contributors": [{"title": "Bowon Kwon", "role": "author"}],
-        "description": "Derived tables behind the Classical Music Metrics site. Each resource lists the licence of the table and the licences of its sources. "
+        "description": "Derived tables behind the Classical Music Metrics site. Each resource lists the license of the table and the licenses of its sources. "
                        "Original scores, MIDI and audio are not included.",
         "resources": resources,
     }
@@ -478,9 +509,9 @@ def write_datapackage(data_dir: Path, data_files: dict) -> None:
 # ----------------------------------------------------------------- build
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--derived", default="data/derived")
+    ap.add_argument("--derived", default=str(ROOT / "data/derived"))
     ap.add_argument("--out", default="site")
-    ap.add_argument("--aliases", default="data/aliases")
+    ap.add_argument("--aliases", default=str(ROOT / "data/aliases"))
     a = ap.parse_args()
     D, OUT = Path(a.derived), Path(a.out)
     for sub in ("ko", "en", "data"):  # clean children only (a local server may hold the root)
@@ -545,7 +576,7 @@ def main():
         (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
         sub, _, nm = f.partition("/")
-        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": Path("data/proto") / nm}.get(sub, D / f) if nm else D / f
+        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm}.get(sub, D / f) if nm else D / f
         shutil.copy(src_f, OUT / "data" / f)
     write_datapackage(OUT / "data", DATA_FILES)
 
@@ -732,7 +763,7 @@ def main():
         cdf["name_html"] = cdf["composer"].map(lambda c: f"<a href='{slug(c)}.html'>{esc(disp(c))}</a>" if c in top50 else esc(disp(c)))
         intro = ("뉴욕 필하모닉 공연 기록(1842–43 ~ %s)에 작품이 오른 모든 이름 %s개. 사람 작곡가 %s명과 전승곡·국가·작곡가 미상·공동 표기 등 사람이 아닌 표기를 구분했다. 순위는 사람 작곡가만 매긴다. 상위 50명은 이름을 누르면 프로필 면으로 간다. 작품 연주(U1)는 한 프로그램의 작품 하나 × 연주회 수, 전곡 연주(U2)는 그중 발췌가 아닌 것이다."
                  % (ny_season.iloc[-1]["season"], f"{H['ny_strings']:,}", f"{H['ny_persons']:,}")) if lang == "ko" else (
-                 "Every name with a work in the New York Philharmonic Performance History (1842–43 to %s): %s names, of which %s are individual composers; traditional, anthem, unattributed and joint credits are labelled separately and not ranked. The top 50 link to profile pages. Work performances (U1) = one work on a program × its concerts; complete performances (U2) exclude excerpts."
+                 "Every name with a work in the New York Philharmonic Performance History (1842–43 to %s): %s names, of which %s are individual composers; traditional, anthem, unattributed and joint credits are labeled separately and not ranked. The top 50 link to profile pages. Work performances (U1) = one work on a program × its concerts; complete performances (U2) exclude excerpts."
                  % (ny_season.iloc[-1]["season"], f"{H['ny_strings']:,}", f"{H['ny_persons']:,}"))
         rows = []
         for r in cdf.itertuples():
@@ -767,7 +798,7 @@ def main():
             body = [f"<div class='eyebrow'><span class='tag layer'>{LAYERS['D'][lang]}</span><span class='tag'>NY Phil</span></div><h1>{esc(title)}</h1>",
                     "<div class='spec'><dl>" + "".join(f"<dt>{esc(k)}</dt><dd>{esc(v)}</dd>" for k, v in facts) + "</dl></div>",
                     legend([(t["perf_u1"], 0), (t["perf_u2"] + (" (같은 분모)" if lang == "ko" else " (same denominator)"), 1)]),
-                    f"<figure>{svg_lines([(t['perf_u1'], pts1, 0), (t['perf_u2'], pts2, 1)], '.1%', ylabel='share', end_labels=False)}<figcaption>{'완결 시즌별. 두 선 모두 그 시즌의 작품 연주 전체를 분모로 한다 — 위 선은 이 작곡가의 작품 연주, 아래 선은 그중 전곡 연주(악장 표시 없는 연주)의 몫이다. 두 선의 간격이 그 시즌 전체에서 이 작곡가의 발췌 연주가 차지한 몫이다.' if lang=='ko' else 'Completed seasons. Both lines use the season\'s total work performances as denominator: the upper line is this composer\'s work performances, the lower line the part of them that are complete (no movement named). The gap is this composer\'s excerpts as a share of the whole season.'}</figcaption></figure>"]
+                    f"<figure>{svg_lines([(t['perf_u1'], pts1, 0), (t['perf_u2'], pts2, 1)], '.1%', ylabel='share', end_labels=False)}<figcaption>{CAP_U1U2[lang]}</figcaption></figure>"]
             dr = ny_dec[ny_dec["composer"] == c][["decade", "rank", "share"]].astype({"decade": int, "rank": int})
             dr["decade"] = dr["decade"].astype(str) + ("년대" if lang == "ko" else "s")
             if len(dr):
@@ -786,9 +817,9 @@ def main():
             src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
             rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{src_lic}</td><td>{derived}</td></tr>")
         body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
-        body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the licence the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that licence forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
+        body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the license the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that license forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
         body.append("<p>" + ("파일마다 이 표의 라이선스·원자료·원자료 라이선스를 기계가 읽을 수 있게 적은 목록: <a href='../data/datapackage.json'>datapackage.json</a>(Frictionless Data Package). CSV 만 따로 가져갈 때도 이 목록을 함께 두기 바란다." if lang == "ko" else
-                            "A machine-readable list of each file's licence, sources and source licences: <a href='../data/datapackage.json'>datapackage.json</a> (Frictionless Data Package). Please keep it with any CSV you redistribute.") + "</p>")
+                            "A machine-readable list of each file's license, sources and source licenses: <a href='../data/datapackage.json'>datapackage.json</a> (Frictionless Data Package). Please keep it with any CSV you redistribute.") + "</p>")
         (base / "data.html").write_text(page(lang, t["nav_data"], "".join(body), active="data"), encoding="utf-8")
 
         # ---------------- method page
@@ -823,7 +854,7 @@ def main():
 <p>The unit changes rankings. Wagner is {ordinal(H['wag_rank_u1'])} by work performances (U1) but, with {H['wag_excerpt']:.0%} excerpts, {ordinal(H['wag_rank_u2'])} by complete performances (U2). Shares and concentration therefore use U1, and the excerpt share is its own metric. The four 1.0 metrics are recomputed under the old definition in a '1.0 unit' column (identical to the published 1.0 values for every completed season).</p>
 <p>The 'subscription only' series counts only concerts whose event type is Subscription Season, leaving out Stadium, parks, tour and young people's concerts.</p>
 <h2>Composer names</h2>
-<p>The archive already uses authority forms, so no composer is split by accents or capitalisation. Instead, 91 non-person credits are classified and one pen name is merged (P.D.Q. Bach → Peter Schickele): traditional, anthem, unattributed, not a work (talks, demonstrations, improvisation), and joint or arrangement credits ('Vivaldi-Bach', 'Lennon-McCartney', slash-joined names, bands and ensembles). They stay in every denominator but are not counted as composers; joint credits are not assigned to the original composer, which would move an arranger's share into the composer's. Table: <a href="../data/aliases/nyphil_composers.csv">aliases/nyphil_composers.csv</a>.</p>
+<p>The archive already uses authority forms, so no composer is split by accents or capitalization. Instead, 91 non-person credits are classified and one pen name is merged (P.D.Q. Bach → Peter Schickele): traditional, anthem, unattributed, not a work (talks, demonstrations, improvisation), and joint or arrangement credits ('Vivaldi-Bach', 'Lennon-McCartney', slash-joined names, bands and ensembles). They stay in every denominator but are not counted as composers; joint credits are not assigned to the original composer, since doing so would move an arranger's share into the composer's. Table: <a href="../data/aliases/nyphil_composers.csv">aliases/nyphil_composers.csv</a>.</p>
 <h2>Composer dates (Wikidata)</h2>
 <p>The 529 composers with 10+ performances were searched by name in Wikidata; only human items with a music occupation were kept and checked against the first NY Phil season (born at least five years earlier). 478 with a single candidate passing the check were accepted automatically; 40 with several same-name candidates or a failed check were resolved by the editor from the works performed and the dates (e.g. Humperdinck the composer, born 1854, not the singer born 1936); 10 remain unresolved and blank. 'P.D.Q. Bach' is Peter Schickele's pen name and is merged into Schickele in the composer tables. Where an item holds several dates the preferred-rank value is used, otherwise the earliest normal-rank year; one clear error (Guarnieri's death, 1933 → 1993) was corrected by hand. Years are taken as written, so a date recorded in the Julian calendar can be one year off. Only death years enter the repertoire metrics; a composer without a death year is treated as living. Table: <a href="../data/aliases/composer_wikidata.csv">aliases/composer_wikidata.csv</a>.</p>""")
         body.append("<h2>" + ("교차 검증" if lang == "ko" else "Cross-check") + "</h2>")
@@ -832,19 +863,19 @@ def main():
         body.append(table_html(cross, [("metric", "metric", None), ("n", t["n"], "d"), ("dcml_median", "DCML", ".3f"), ("kern_median", "Humdrum", ".3f"), ("pearson_r", "r", ".3f"), ("median_abs_diff", "|diff| median", ".4f")], "cross", lang, filt=False))
         body.append("<h2>" + ("선행 연구와의 대조" if lang == "ko" else "Comparison with the source paper") + "</h2>")
         body.append(("Martín-Castro & Ucar (2020)는 혼합효과 회귀로 시대연주·시대연주 영향·낭만파 지휘자가 표기보다 각각 6(2)·8(2)·13(2) bpm 느리다고 보고했다. 이 사이트의 단순 중앙값은 %.0f·%.0f·%.1f bpm 으로, 방법이 달라도 같은 그림이다." % (H["hi"], H["hii"], H["rom"])) if lang == "ko" else
-                    ("Martín-Castro & Ucar (2020) report, from a mixed-effects regression, that HIP, HIP-influenced and Romantic conductors fall below the marks by 6(2), 8(2) and 13(2) bpm. The plain medians here are %.0f, %.0f and %.1f bpm — the same picture by a simpler route." % (H["hi"], H["hii"], H["rom"])))
+                    ("Martín-Castro & Ucar (2020) report, from a mixed-effects regression, that period-instrument (HIP), HIP-influenced and Romantic conductors fall below the marks by 6(2), 8(2) and 13(2) bpm. The plain medians here are %.0f, %.0f and %.1f bpm — the same picture by a simpler route." % (H["hi"], H["hii"], H["rom"])))
         body.append("<h2>" + ("AI 사용 고지" if lang == "ko" else "AI disclosure") + "</h2><p>" + ("지표 설계·코드·본문 초고는 Claude(Anthropic)의 도움으로 작성했고, 엮은이가 원자료와 대조해 검증했다. 수치는 공개 코드로 재현할 수 있다." if lang == "ko" else "Metric design, code and draft text were produced with help from Claude (Anthropic) and verified by the editor against the source data. All numbers are reproducible from the published code.") + "</p>")
         body.append("<h2>" + ("아직 없는 것 (장기 과제)" if lang == "ko" else "Not yet here (long-term)") + "</h2><ul>" + ("".join(f"<li>{x}</li>" for x in ([
             "베토벤 교향곡의 악보 지표 — 기계 판독 총보가 공개돼 있지 않아 악보 인식(OMR)과 사람 교정이 필요하다.",
             "바흐 녹음의 연주 시간 추이(시대연주 운동 전후) — 음반 메타데이터에서 재발매 중복을 걸러야 한다.",
             "지휘자별 템포 통계의 확장 — 베토벤 이외 작곡가.",
             "뉴욕 필 이외 오케스트라의 레퍼토리 — 일괄 공개 데이터가 드물다.",
-            "종지 지표(종지 밀도·정격 종지 비율) — 모차르트·베토벤 소나타 코퍼스에 종지 주석이 있으나, 두 코퍼스의 주석 체계가 같은지 확인한 뒤 낸다."] if lang == "ko" else [
+            "종지 주석이 없는 작품의 종지 지표 — 종지 밀도와 완전 정격 종지 비율은 1.3부터 종지를 주석한 악장에 한해 낸다. 베토벤 현악4중주와 바흐 무반주 바이올린 작품·첼로 모음곡 1·2번은 코퍼스에 종지 주석이 없어 비어 있다."] if lang == "ko" else [
             "Score metrics for the Beethoven symphonies — no open machine-readable full scores; needs OMR plus human correction.",
             "Bach recording durations over time (before/after the period-instrument movement) — requires de-duplicating reissues in release metadata.",
             "Conductor tempo statistics beyond Beethoven.",
             "Repertoire of orchestras other than the New York Philharmonic — bulk open data is rare.",
-            "Cadence metrics (cadence density, PAC ratio) — the Mozart and Beethoven sonata corpora carry cadence labels, to be published once the two annotation schemes are confirmed comparable."]))) + "</ul>")
+            "Cadence metrics for works without cadence annotation — cadence density and PAC share have been published since 1.3 for annotated movements only. The Beethoven string quartets, Bach's solo violin works and Cello Suites 1–2 carry no cadence labels in the corpora, so they are blank."]))) + "</ul>")
         body.append("<h2>" + ("변경 이력" if lang == "ko" else "Changelog") + "</h2><ul>" + "".join(f"<li><b>{v}</b> ({d}) — {esc(ko if lang == 'ko' else en)}</li>" for v, d, ko, en in CHANGELOG) + "</ul>")
         (base / "method.html").write_text(page(lang, t["nav_method"], "<div class='prose'>" + "".join(body) + "</div>", active="method"), encoding="utf-8")
 
@@ -887,7 +918,7 @@ def main():
 <li><b>강약 폭</b>(velocity 표준편차) 중앙값: 바흐 {H['asap_bach_vel']:.1f}, 베토벤 {H['asap_beet_vel']:.1f}. 셈여림 대비는 베토벤이 뚜렷이 크다.</li></ul>
 <h2>4. 180년의 레퍼토리 — 뉴욕 필하모닉</h2>
 <p>1842년 12월 7일 첫 연주회(베토벤 5번으로 시작했다)부터 {H['ny_last_season']} 시즌까지 {H['ny_programs_complete']:,}개 프로그램이 공개돼 있다(진행 중인 시즌까지 {H['ny_programs']:,}개; 뉴욕 심포니·스타디움 콘서트 등 아카이브가 함께 보존한 관련 단체의 프로그램 포함). 작품이 오른 이름은 {H['ny_strings']:,}개, 그중 사람 작곡가가 {H['ny_persons']:,}명이다. 전 작곡가 순위는 <a href="composers/index.html">작곡가</a> 면에 있다.</p>
-<p><b>무엇을 한 번으로 세느냐가 먼저다.</b> 기록의 작품 항목 가운데 3분의 1 이상이 서곡·전주곡·아리아 같은 발췌다. 1.1은 한 프로그램에 오른 작품 하나를 한 번으로 세고(작품 연주 {H['ny_u1']:,}건), 그중 발췌가 아닌 것을 전곡 연주({H['ny_u2']:,}건)로 따로 센다. 작품 연주로 가장 많이 오른 것은 {esc(H['ny_all_top_composer'])}의 {esc(H['ny_all_top'])}({H['ny_all_top_n']:,}회)인데 전곡은 {H['ny_all_top_u2']}회뿐이고 나머지는 1막 전주곡 등 발췌다. 전곡 연주로는 {esc(H['ny_u2_top_composer'])}의 {esc(H['ny_u2_top'])}({H['ny_u2_top_n']:,}회)가 1위다. 바그너는 작품 연주로 {H['wag_rank_u1']}위, 전곡 연주로 {H['wag_rank_u2']}위다. 발췌 비율 자체도 1840년대 {H['dec_excerpt_1840']:.0%}(10년 중앙값)에서 1990년대 {H['dec_excerpt_1990']:.0%}까지 내려갔다가 2020년대 {H['dec_excerpt_2020']:.0%}로 올랐다.</p>
+<p><b>무엇을 한 번으로 세느냐가 먼저다.</b> 기록의 작품 항목 가운데 3분의 1 이상이 서곡·전주곡·아리아 같은 발췌다. 1.1은 한 프로그램에 오른 작품 하나를 한 번으로 세고(작품 연주 {H['ny_u1']:,}건), 그중 발췌가 아닌 것을 전곡 연주({H['ny_u2']:,}건)로 따로 센다. 작품 연주로 가장 많이 오른 것은 {esc(KO_NAME.get(H['ny_all_top_composer'], H['ny_all_top_composer']))}의 {esc(H['ny_all_top'])}(아카이브 표기, {H['ny_all_top_n']:,}회)인데 전곡은 {H['ny_all_top_u2']}회뿐이고 나머지는 1막 전주곡 등 발췌다. 전곡 연주로는 {esc(KO_NAME.get(H['ny_u2_top_composer'], H['ny_u2_top_composer']))}의 {esc(H['ny_u2_top'])}({H['ny_u2_top_n']:,}회)가 1위다. 바그너는 작품 연주로 {H['wag_rank_u1']}위, 전곡 연주로 {H['wag_rank_u2']}위다. 발췌 비율 자체도 1840년대 {H['dec_excerpt_1840']:.0%}(10년 중앙값)에서 1990년대 {H['dec_excerpt_1990']:.0%}까지 내려갔다가 2020년대 {H['dec_excerpt_2020']:.0%}로 올랐다.</p>
 {legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='시즌 작품 연주 점유율')}<figcaption>베토벤 점유율은 {H['ny_first_season']} 시즌 {H['ny_first_beet']:.1%}에서 {H['ny_last_season']} 시즌 {H['ny_last_beet']:.1%}로. 모차르트는 서거 200주년 전후(1990–91·1991–92)에 20%를 넘었다. 바흐는 시즌 중앙값 1.7%.</figcaption></figure>
 <figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='작곡가 집중도 (HHI)')}<figcaption>집중도는 {H['ny_first_hhi']:.3f}(작곡가 {H['ny_first_comp']}명)에서 {H['ny_last_hhi']:.3f}(작곡가 {H['ny_last_comp']}명)로. 해마다 오르내리지만 첫 시즌과 최근 시즌을 비교하면 레퍼토리는 크게 넓어졌다.</figcaption></figure>
 <p><b>넓어졌지만 오래된 쪽으로 넓어졌다.</b> 연주 시점에 살아 있던 작곡가의 몫은 1840년대 {H['dec_living_1840']:.0%}(10년 중앙값)에서 1990년대 {H['dec_living_1990']:.0%}까지 떨어졌다가 2020년대 {H['dec_living_2020']:.0%}로 올랐다. 연주된 음악의 작곡가가 사망한 지 몇 년 되었는지(작품 연주로 가중한 중앙값)는 {H['ny_first_season']} 시즌 {H['ny_first_age']:.0f}년에서 {H['ny_last_season']} 시즌 {H['ny_last_age']:.0f}년이다. 다만 최근 시즌은 생몰년을 확인하지 못한 신진 작곡가가 많아, {H['ny_last_season']} 시즌의 생존 작곡가 점유율 {H['ny_last_living']:.1%}는 하한 {H['ny_last_living_lo']:.1%}와 상한 {H['ny_last_living_hi']:.1%} 사이에 있다고 읽어야 한다.</p>
@@ -896,17 +927,17 @@ def main():
 <h2>5. 한계와 다음</h2>
 <p>이 판에 없는 것이 무엇인지가 있는 것만큼 중요하다. 베토벤 교향곡은 연주 지표만 있고 악보 지표가 없다(기계 판독 총보가 없어서다). 바흐의 녹음 데이터는 피아노 연주뿐이고, 시대악기 운동 전후의 연주 시간 변화는 아직 재지 못했다. 레퍼토리는 한 오케스트라의 기록이다. 각 지표의 한계 칸과 <a href="method.html">방법·출처</a> 면의 장기 과제 목록이 그 빈자리를 적어 둔다.</p>""")
         else:
-            body.append(f"""<p class="lead">Baseball reads its players through batting average and OPS. Classical music can do the same, as far as scores and recordings are open as data. This is the prose edition of the site's main results; definitions and full tables live under <a href="metrics/index.html">Metrics</a>.</p>
+            body.append(f"""<p class="lead">Baseball reads its players through batting average and OPS. Classical music can do the same, to the extent that scores and recordings are available as open data. This is the reading edition of the site's main results; definitions and full tables live under <a href="metrics/index.html">Metrics</a>.</p>
 <h2>1. Scores — {H['n_bach']} Bach, {H['n_beet']} Beethoven and {H['n_moz']} Mozart movements</h2>
 <p>From open annotated corpora: Bach's chorales, English and French Suites and solo works; Beethoven's complete string quartets and 28 piano sonatas (Nos. 22, 25, 27 and 28 are not in the corpus); Mozart's 18 piano sonatas — {H['n_notes']:,} notes, measured by one codebase. Medians by collection:</p>
 {table_html(medtab, mt_cols, 'medtab', lang, filt=False)}
-<p>Three things stand out. First, the <b>chromatic ratio</b> more than doubles from the chorales (0.06) to Beethoven's sonatas (0.15), yet Bach's unaccompanied solo works (0.11) and Beethoven's quartets (0.13) sit close together — the gap between composers can be smaller than the gap between forces, so this table alone cannot establish the cliché "Baroque diatonic, Classical chromatic" (it is not a genre-controlled comparison). Second, <b>harmonic rhythm</b> runs the other way: Bach's suites change chord about three times a bar, Beethoven fewer than twice. Third, the <b>top-line leap ratio</b> is lowest in chorale sopranos (0.14) and highest in Beethoven's sonatas (0.50): vocal line versus instrumental figuration, in one number.</p>
+<p>Three things stand out. First, the <b>chromatic ratio</b> more than doubles from the chorales (0.06) to Beethoven's sonatas (0.15), yet Bach's solo works (0.11) and Beethoven's quartets (0.13) sit close together — the gap between composers can be smaller than the gap between forces, so this table alone cannot establish the cliché "Baroque diatonic, Classical chromatic" (it is not a genre-controlled comparison). Second, <b>harmonic rhythm</b> runs the other way: Bach's suites change chord about three times a bar, Beethoven fewer than twice, so Beethoven holds each chord longer. Third, the <b>top-line leap ratio</b> is lowest in chorale sopranos (0.14) and highest in Beethoven's sonatas (0.50): vocal line versus instrumental figuration, in one number.</p>
 <p>Mozart's and Beethoven's piano sonatas share instrument and genre, which makes them the most controlled comparison on this site (Beethoven: 28 sonatas, 91 movements; harmony metrics on the 64 movements with harmony annotations). The chromatic ratio (Mozart {H['son_moz_chromatic_ratio']:.3f}, Beethoven {H['son_bee_chromatic_ratio']:.3f}), the applied-chord ratio ({H['son_moz_applied_chord_ratio']:.3f}, {H['son_bee_applied_chord_ratio']:.3f}) and the top-line leap ratio ({H['son_moz_top_leap_ratio']:.2f}, {H['son_bee_top_leap_ratio']:.2f}) are all higher in Beethoven. Yet Mozart changes local key more often: {H['son_moz_local_key_changes_per_100_measures']:.1f} times per 100 bars against {H['son_bee_local_key_changes_per_100_measures']:.1f}. He moves key more often while using fewer notes outside the signature. One could read this as frequent short-range modulation versus more chromaticism within a key, but the table alone does not establish that reading.</p>
-<div class="note">These numbers say what differs, not why or which is better. Instrumentation, genre and annotators all differ; the caveats column on each metric page says so.</div>
+<div class="note">These numbers say what differs, not why or which is better. Forces, genre and annotators all differ; the caveats column on each metric page says so.</div>
 <h2>2. Beethoven's metronome — how far below the marks do {H['n_cond']} conductors play?</h2>
-<p>Beethoven left metronome numbers for Symphonies 1–8, and for two centuries they have been called too fast. Martín-Castro and Ucar (2020) extracted tempi from {H['n_tracks']:,} tracks by 36 conductors. Re-aggregating their open data (Symphony 9 excluded, as in the paper):</p>
+<p>Beethoven left metronome marks for Symphonies 1–8, and for two centuries they have been called too fast. Martín-Castro and Ucar (2020) extracted tempi from {H['n_tracks']:,} tracks by 36 conductors. Re-aggregating their open data (Symphony 9 excluded, as in the paper):</p>
 <div class="wrap"><table><thead><tr><th>Performance style</th><th class="num">movement × conductor</th><th class="num">median (bpm)</th><th class="num">Q1</th><th class="num">Q3</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
-<p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor's median is faster than the marks.</b> Movement by movement, though, {H['faster_n']} of {H['faster_of']:,} readings ({H['faster_n']/H['faster_of']:.1%}) run faster — the distribution leans slow; not every performance is slow. The authors note that this gap of about 13 bpm matches the height of the weight on a Maelzel metronome of the period (15 mm on its scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that all 36 conductors are slower on average is in the data.</p>
+<p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor's median is faster than the marks.</b> Movement by movement, though, {H['faster_n']} of {H['faster_of']:,} readings ({H['faster_n']/H['faster_of']:.1%}) run faster — the distribution leans slow; not every performance is slow. The authors note that this gap of about 13 bpm matches the height of the weight on a Maelzel metronome of the period (15 mm on its scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that all 36 conductors are slower on average is borne out by the data.</p>
 {legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>Median per conductor over 33 movements, from the slowest (Böhm, −17.5) to the closest (Chailly, −1.0).</figcaption></figure>
 <h2>3. How differently do pianists play the same piece?</h2>
 <p>ASAP aligns {H['asap_bach_perf']} performances of {H['asap_bach_pieces']} Well-Tempered Clavier pieces and {H['asap_beet_perf']} performances of {H['asap_beet_pieces']} Beethoven sonata movements to their scores, beat by beat (12 of the 271 Beethoven performances whose beat counts do not match the score are left out). The performers are International Piano-e-Competition entrants. Mozart, added in 1.1, has only {H['asap_moz_pieces']} pieces and {H['asap_moz_perf']} performances, so it is left out of the comparison below and shown only in the metric tables.</p>
@@ -914,11 +945,11 @@ def main():
 <li><b>Beat-to-beat tempo change</b> (rubato): Bach {H['asap_bach_rub']:.3f}, Beethoven {H['asap_beet_rub']:.3f}. More stretching per beat in Beethoven.</li>
 <li><b>Dynamic spread</b> (velocity SD): Bach {H['asap_bach_vel']:.1f}, Beethoven {H['asap_beet_vel']:.1f}. Markedly wider dynamics in Beethoven.</li></ul>
 <h2>4. 180 years of repertoire — the New York Philharmonic</h2>
-<p>{H['ny_programs_complete']:,} programs are open from the first concert on 7 December 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
-<p><b>What counts as one comes first.</b> More than a third of the archive's work entries are excerpts — overtures, preludes, arias. Version 1.1 counts each work on a program once ({H['ny_u1']:,} work performances) and, separately, those that are not excerpts ({H['ny_u2']:,} complete performances). The most performed work is {esc(H['ny_all_top_composer'])}'s {esc(H['ny_all_top'])} ({H['ny_all_top_n']:,} times), but only {H['ny_all_top_u2']} of those were complete; the rest are excerpts such as the Act I prelude. By complete performances the leader is {esc(H['ny_u2_top_composer'])}'s {esc(H['ny_u2_top'])} ({H['ny_u2_top_n']:,}). Wagner ranks {ordinal(H['wag_rank_u1'])} by work performances and {ordinal(H['wag_rank_u2'])} by complete performances. The excerpt share itself fell from {H['dec_excerpt_1840']:.0%} in the 1840s (decade median) to {H['dec_excerpt_1990']:.0%} in the 1990s and rose to {H['dec_excerpt_2020']:.0%} in the 2020s.</p>
+<p>{H['ny_programs_complete']:,} programs are publicly available, from the first concert on 7 December 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
+<p><b>What counts as one comes first.</b> More than a third of the archive's work entries are excerpts — overtures, preludes, arias. Version 1.1 counts each work on a program once ({H['ny_u1']:,} work performances) and, separately, those that are not excerpts ({H['ny_u2']:,} complete performances). The most performed work is {esc(H['ny_all_top_composer'].split(',')[0])}'s {esc(H['ny_all_top'])} (as titled in the archive; {H['ny_all_top_n']:,} times), but only {H['ny_all_top_u2']} of those were complete; the rest are excerpts such as the Act I prelude. By complete performances the leader is {esc(H['ny_u2_top_composer'].split(',')[0])}'s {esc(H['ny_u2_top'])} ({H['ny_u2_top_n']:,}). Wagner ranks {ordinal(H['wag_rank_u1'])} by work performances and {ordinal(H['wag_rank_u2'])} by complete performances. The excerpt share itself fell from {H['dec_excerpt_1840']:.0%} in the 1840s (decade median) to {H['dec_excerpt_1990']:.0%} in the 1990s and rose to {H['dec_excerpt_2020']:.0%} in the 2020s.</p>
 {legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='share of work performances per season')}<figcaption>Beethoven's share falls from {H['ny_first_beet']:.1%} in {H['ny_first_season']} to {H['ny_last_beet']:.1%} in {H['ny_last_season']}. Mozart passed 20% around the bicentenary of his death (1990–91, 1991–92). Bach's season median is 1.7%.</figcaption></figure>
-<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers). It swings from season to season, but first and latest seasons compared, the repertoire has widened a great deal.</figcaption></figure>
-<p><b>Wider, but wider toward the past.</b> The share of composers alive at the time fell from {H['dec_living_1840']:.0%} in the 1840s (decade median) to {H['dec_living_1990']:.0%} in the 1990s and rose to {H['dec_living_2020']:.0%} in the 2020s. How long dead the composers are (median weighted by work performances) went from {H['ny_first_age']:.0f} years in {H['ny_first_season']} to {H['ny_last_age']:.0f} in {H['ny_last_season']}. Recent seasons include many emerging composers without dates, so the {H['ny_last_season']} living share of {H['ny_last_living']:.1%} should be read as lying between {H['ny_last_living_lo']:.1%} and {H['ny_last_living_hi']:.1%}.</p>
+<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers). It swings from season to season, but comparing the first season with the latest, the repertoire has widened considerably.</figcaption></figure>
+<p><b>Wider, but wider toward the past.</b> The share of composers alive at the time fell from {H['dec_living_1840']:.0%} in the 1840s (decade median) to {H['dec_living_1990']:.0%} in the 1990s and rose to {H['dec_living_2020']:.0%} in the 2020s. The time since the composers' deaths (median weighted by work performances) went from {H['ny_first_age']:.0f} years in {H['ny_first_season']} to {H['ny_last_age']:.0f} in {H['ny_last_season']}. Recent seasons include many emerging composers without dates, so the {H['ny_last_season']} living share of {H['ny_last_living']:.1%} should be read as lying between {H['ny_last_living_lo']:.1%} and {H['ny_last_living_hi']:.1%}.</p>
 <figure>{svg_lines([('living composers', ny_pts_l, 0), ('upper bound', ny_pts_lh, 1)], '.0%', ylabel='living-composer share')}<figcaption>Completed seasons. The upper bound treats composers without dates as living.</figcaption></figure>
 <p>The list of most-performed composers changes more than one might think. The median overlap (Jaccard) of each decade's top 10 with the previous decade's is {H['turn_med10']:.2f}: roughly seven of ten stay and three or four change (<a href="metrics/canon_turnover.html">canon turnover</a>).</p>
 <h2>5. Limits and next steps</h2>
@@ -939,7 +970,7 @@ def main():
         ]
         body = [f"<div class='hero'><h1>{t['site']}</h1><p class='lead'>{t['tagline']}</p></div><div class='stats'>" + "".join(f"<a class='stat' href='{h}'><span class='n'>{esc(v)}</span><small>{esc(d)}</small></a>" for v, d, h in cards) + "</div>"]
         body.append(("<p class='lead' style='margin-top:.4rem'>세이버메트릭스가 야구를 바꾼 것은 통계 그 자체가 아니라 <b>지표마다 정의·공식·표본·한계를 공개한 것</b>이었다. 이 사이트는 서양 고전 음악에 같은 틀을 적용한다. 공개 악보 코퍼스와 연주 데이터셋에서 수치를 뽑고, 지표 하나에 페이지 하나를 둔다. 바흐와 베토벤으로 시작해 1.1에서 모차르트와 뉴욕 필의 전 작곡가 레퍼토리를 더했다.</p>" if lang == "ko" else
-                     "<p class='lead' style='margin-top:.4rem'>What sabermetrics changed in baseball was not the statistics themselves but <b>publishing each metric's definition, formula, sample and caveats</b>. This site applies that frame to Western classical music: numbers extracted from open score corpora and performance datasets, one page per metric. It began with Bach and Beethoven; version 1.1 adds Mozart and the New York Philharmonic's repertoire across every composer.</p>"))
+                     "<p class='lead' style='margin-top:.4rem'>What sabermetrics changed in baseball was not the statistics themselves but <b>publishing each metric's definition, formula, sample and caveats</b>. This site applies that frame to Western classical music: numbers extracted from open score corpora and performance datasets, one page per metric. It began with Bach and Beethoven; version 1.1 added Mozart and the New York Philharmonic's repertoire covering every composer.</p>"))
         for lay in ("A", "C", "D"):
             body.append(f"<h2>{LAYERS[lay][lang]}</h2><div class='cards'>")
             for m in METRICS:
@@ -949,7 +980,7 @@ def main():
         body.append(f"<h2>{LAYERS['B'][lang]}</h2><div class='cards'>" + "".join(
             f"<a class='card layer-D' href='history.html#s{i}'><b>{esc(n)}</b><small>{esc(d)}</small></a>" for i, n, d in (
                 (1, "경력 띠" if lang == "ko" else "Career ribbons", "작곡가 10명이 해마다 쓴 작품을 장르별로" if lang == "ko" else "what ten composers wrote each year, by genre"),
-                (3, "쓴 시기와 연주되는 시기" if lang == "ko" else "Composed vs performed", "어느 시기 작품이 뉴욕 필에서 많이 연주되나" if lang == "ko" else "which periods of a composer's output the NY Phil plays"),
+                (3, "쓴 시기와 연주 비율" if lang == "ko" else "When it was written, how much it is played", "어느 시기 작품이 뉴욕 필에서 많이 연주되나" if lang == "ko" else "which periods of a composer's output the NY Phil plays"),
                 (5, "템포 지시어" if lang == "ko" else "Tempo markings", "교향곡 악장 줄의 템포어 구성과 자국어 지시어" if lang == "ko" else "tempo words in symphony movement lists, and vernacular markings"),
                 (6, "악기 사용 변천" if lang == "ko" else "Instrument use", "교향곡 편성란에 이름이 오른 악기의 비율" if lang == "ko" else "share of symphonies naming each instrument"),
                 (7, "A음 높이의 역사" if lang == "ko" else "The pitch of a′", "1361~1885년 소리굽쇠·오르간 측정값" if lang == "ko" else "forks and organ pipes measured, 1361–1885"))) + "</div>")

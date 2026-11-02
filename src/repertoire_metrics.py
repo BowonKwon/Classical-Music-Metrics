@@ -42,6 +42,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 FOCUS = {
     "bach": "Bach, Johann Sebastian",
     "beethoven": "Beethoven, Ludwig van",
@@ -96,7 +98,12 @@ def apply_aliases(df: pd.DataFrame, path: Path) -> pd.DataFrame:
 
 
 def to_pairs(df: pd.DataFrame) -> pd.DataFrame:
-    """One row per (program, work): the U1 unit. complete = no entry names a movement."""
+    """One row per (program, work): the U1 unit. complete = no entry names a movement.
+
+    Entries without a work ID are keyed by composer and title, so different works on one program are not merged."""
+    df = df.copy()
+    noid = df["work_id"].fillna("").astype(str).eq("")
+    df.loc[noid, "work_id"] = "noid:" + df.loc[noid, "composer"].astype(str) + "|" + df.loc[noid, "work_title"].astype(str)
     g = df.groupby(["program_id", "work_id"], sort=False)
     pairs = g.agg(
         season=("season", "first"),
@@ -157,9 +164,9 @@ def main():
     import sys
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default="data/raw")
-    ap.add_argument("--out", default="data/derived")
-    ap.add_argument("--aliases", default="data/aliases")
+    ap.add_argument("--raw", default=str(ROOT / "data/raw"))
+    ap.add_argument("--out", default=str(ROOT / "data/derived"))
+    ap.add_argument("--aliases", default=str(ROOT / "data/aliases"))
     a = ap.parse_args()
     raw, out, aldir = Path(a.raw), Path(a.out), Path(a.aliases)
     out.mkdir(parents=True, exist_ok=True)
@@ -177,7 +184,7 @@ def main():
     for c in [c for c in wide.columns if c.startswith(("perf_", "share_"))]:
         wide[c] = wide[c].fillna(0)
     wide = wide.sort_values(["season_start", "perf_u1"], ascending=[True, False])
-    wide.to_csv(out / "nyphil_composer_season.csv", index=False, encoding="utf-8")
+    wide.to_csv(out / "nyphil_composer_season.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # ---------------- season summary
     seasons = pairs.groupby(["season", "season_start"]).agg(
@@ -230,7 +237,7 @@ def main():
             )
         seasons = seasons.join(pd.DataFrame(rows).set_index("season"))
     seasons = seasons.reset_index().sort_values("season_start")
-    seasons.to_csv(out / "nyphil_season_summary.csv", index=False, encoding="utf-8")
+    seasons.to_csv(out / "nyphil_season_summary.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # ---------------- composer summary (career curve, excerpt share, ranks)
     comp = pairs.groupby(["composer", "flag"]).agg(
@@ -248,7 +255,7 @@ def main():
     if wd is not None:
         comp = comp.merge(wd[["composer", "wikidata_qid", "birth_year", "death_year", "status"]].rename(columns={"status": "wikidata_status"}), on="composer", how="left")
     comp = comp.sort_values(["perf_u1", "composer"], ascending=[False, True])
-    comp.to_csv(out / "nyphil_composer_summary.csv", index=False, encoding="utf-8")
+    comp.to_csv(out / "nyphil_composer_summary.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # ---------------- decade top 25 and canon turnover (persons, U1)
     pairs["decade"] = (pairs["season_start"] // 10 * 10).astype(int)
@@ -258,7 +265,7 @@ def main():
     dec = dec.sort_values(["decade", "perf_u1", "composer"], ascending=[True, False, True])
     dec["rank"] = dec.groupby("decade").cumcount() + 1
     top = dec[dec["rank"] <= 25]
-    top.to_csv(out / "nyphil_decade_top.csv", index=False, encoding="utf-8")
+    top.to_csv(out / "nyphil_decade_top.csv", index=False, encoding="utf-8", lineterminator="\n")
     trows, prev = [], None
     seasons_per_decade = pairs.groupby("decade")["season"].nunique()
     for d_, g in top.groupby("decade"):
@@ -273,7 +280,7 @@ def main():
                 row[f"new_in_top{k}"] = "; ".join(sorted(cur[k] - prev[k]))
         trows.append(row)
         prev = cur
-    pd.DataFrame(trows).to_csv(out / "nyphil_canon_turnover.csv", index=False, encoding="utf-8")
+    pd.DataFrame(trows).to_csv(out / "nyphil_canon_turnover.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     # ---------------- works
     wf = pairs.groupby(["composer", "work_id"]).agg(
@@ -282,14 +289,14 @@ def main():
         programs=("program_id", "nunique"), first_season=("season", "min"), last_season=("season", "max"),
     ).reset_index().sort_values(["performances", "work_id"], ascending=[False, True])
     wf["rank"] = range(1, len(wf) + 1)
-    wf.head(300).to_csv(out / "nyphil_work_frequency_all_top300.csv", index=False, encoding="utf-8")
+    wf.head(300).to_csv(out / "nyphil_work_frequency_all_top300.csv", index=False, encoding="utf-8", lineterminator="\n")
     focus = wf[wf["composer"].isin(FOCUS.values())].rename(columns={"rank": "rank_all_composers"})
-    focus.to_csv(out / "nyphil_work_frequency.csv", index=False, encoding="utf-8")
+    focus.to_csv(out / "nyphil_work_frequency.csv", index=False, encoding="utf-8", lineterminator="\n")
     top50 = comp.loc[(comp["flag"] == "person") & (comp["rank_u1"] <= 50), "composer"]
     w50 = wf[wf["composer"].isin(top50)].copy()
     w50["rank_in_composer"] = w50.groupby("composer").cumcount() + 1
-    w50[w50["rank_in_composer"] <= 15].to_csv(out / "nyphil_work_frequency_top50_composers.csv", index=False, encoding="utf-8")
-    df.groupby("orchestra")["program_id"].nunique().sort_values(ascending=False).rename("programs").reset_index().to_csv(out / "nyphil_orchestra_programs.csv", index=False, encoding="utf-8")
+    w50[w50["rank_in_composer"] <= 15].to_csv(out / "nyphil_work_frequency_top50_composers.csv", index=False, encoding="utf-8", lineterminator="\n")
+    df.groupby("orchestra")["program_id"].nunique().sort_values(ascending=False).rename("programs").reset_index().to_csv(out / "nyphil_orchestra_programs.csv", index=False, encoding="utf-8", lineterminator="\n")
 
     print("snapshot", snapshot, "programs", df["program_id"].nunique(), "seasons", df["season"].nunique())
     print("U0", int(pairs["u0"].sum()), "U1", int(pairs["u1"].sum()), "U2", int(pairs["u2"].sum()), "sub", int(pairs["sub"].sum()))

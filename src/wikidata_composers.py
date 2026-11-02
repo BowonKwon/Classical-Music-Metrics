@@ -28,6 +28,8 @@ from pathlib import Path
 import pandas as pd
 import requests
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 API = "https://www.wikidata.org/w/api.php"
 UA = {"User-Agent": "ClassicalMusicMetrics/1.1 (https://github.com/BowonKwon/Classical-Music-Metrics)"}
 HUMAN = "Q5"
@@ -162,8 +164,8 @@ def get(session, **params):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--min-perf", type=int, default=10)
-    ap.add_argument("--summary", default="data/derived/nyphil_composer_summary.csv")
-    ap.add_argument("--out", default="data/aliases/composer_wikidata_candidates.csv")
+    ap.add_argument("--summary", default=str(ROOT / "data/derived/nyphil_composer_summary.csv"))
+    ap.add_argument("--out", default=str(ROOT / "data/aliases/composer_wikidata_candidates.csv"))
     a = ap.parse_args()
     comp = pd.read_csv(a.summary)
     comp = comp[(comp["flag"] == "person") & (comp["perf_u1"] >= a.min_perf)]
@@ -236,7 +238,7 @@ def main():
         rows.append(row)
     out = pd.DataFrame(rows)
     Path(a.out).parent.mkdir(parents=True, exist_ok=True)
-    out.to_csv(a.out, index=False, encoding="utf-8")
+    out.to_csv(a.out, index=False, encoding="utf-8", lineterminator="\n")
     print(out["status"].value_counts())
 
 

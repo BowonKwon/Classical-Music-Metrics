@@ -16,6 +16,8 @@ from pathlib import Path
 
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
+
 METRICS = ["chromatic_ratio", "pitch_class_entropy", "rhythm_entropy", "offbeat_onset_ratio", "mean_simultaneity",
            "notes_per_quarter", "top_leap_ratio", "top_mean_interval_semitones", "pitch_range_semitones"]
 
@@ -40,10 +42,10 @@ def crosscheck(derived: Path) -> pd.DataFrame:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--derived", default="data/derived")
+    ap.add_argument("--derived", default=str(ROOT / "data/derived"))
     a = ap.parse_args()
     out = crosscheck(Path(a.derived))
-    out.to_csv(Path(a.derived) / "chorale_crosscheck_dcml_vs_kern.csv", index=False, encoding="utf-8")
+    out.to_csv(Path(a.derived) / "chorale_crosscheck_dcml_vs_kern.csv", index=False, encoding="utf-8", lineterminator="\n")
     print(out.to_string(index=False))
 
 
