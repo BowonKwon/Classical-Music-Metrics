@@ -61,7 +61,7 @@ CAUTION = {
                       "An old program that listed one concerto movement without marking it counts as complete. Early seasons have few work performances."),
     "hhi": ("정기공연만 세면 표본과 곡목 구성이 달라져 값도 달라진다(2025–26 정기공연만 0.016, 전체 0.011). 초기 시즌은 작품 연주 건수가 적다.",
             "Counting subscription concerts only changes the sample and the programme mix, and so the value (2025–26: 0.016 vs 0.011). Early seasons have few work performances."),
-    "distinct_composers": ("연주회 수가 늘면 함께 는다. 점유율·HHI와 같이 본다.", "Grows with the number of concerts; read with shares and HHI."),
+    "distinct_composers": ("연주회 수가 늘면 함께 늘어나므로 점유율·HHI와 같이 본다.", "Grows with the number of concerts, so read it with shares and HHI."),
     "living_share": ("생몰년 확인 비율이 2020년대 시즌에 72~81%로 떨어지고 미확인 작곡가는 대부분 생존해 있을 것이므로, 최근 값은 실제보다 낮을 가능성이 크다 — 상한과 함께 읽는다. 「시즌 시작 연도에 생존」은 연 단위 근사다.",
                      "Date coverage falls to 72–81% in the 2020s and most composers without dates are presumably alive, so recent values are likely too low — read them with the upper bound. 'Alive in the start year' is a year-level approximation."),
     "repertoire_age_median": ("작품의 작곡 연도가 아니라 작곡가의 사망 연도를 쓴다. 생몰년 미확인 작곡가는 빠지므로 최근 시즌은 값이 높게 나올 수 있다.",
@@ -82,6 +82,25 @@ CAUTION = {
                          "A whole-movement average, so tempo changes, rubato and fermatas are folded in. Repeat choices vary by recording and are not in the data, so 2× does not mean half the tempo."),
     "tempo_cv_across_performers": ("연주자는 국제 피아노 e-콩쿠르 참가자(MAESTRO)라 상업 음반 연주자 표본이 아니다. 곡당 연주 수가 1~25개로 고르지 않고, 연주가 하나뿐인 곡은 이 지표에서 빠진다.",
                                    "Performers are International Piano-e-Competition entrants (MAESTRO), not commercial recording artists. Performances per piece range from 1 to 25, and pieces with a single performance drop out of this metric."),
+    "pitch_mean_midi": ("편성과 악기 음역에 크게 좌우되어 같은 편성 안에서만 비교한다. 바흐 무반주 묶음은 바이올린(높음)과 첼로(낮음)가 섞여 분포가 둘로 갈린다.",
+                        "Driven by forces and instrument ranges; compare within the same forces only. Bach's solo group mixes violin (high) and cello (low), so its distribution splits in two."),
+    "pitch_sd_midi": ("편성에 따라 달라지므로 같은 편성 안에서만 비교한다.", "Depends on the forces; compare within the same forces only."),
+    "mean_chord_duration_qb": ("주석이 있는 코퍼스에만 있다(코랄 제외). 주석자의 분석 단위가 코퍼스마다 조금 다르다.",
+                               "Only for annotated corpora (not chorales). Annotation granularity differs slightly between corpora."),
+    "motif_repeat_ratio": ("이 사이트가 정한 정의다. 음정 열로 세므로 조옮김한 반복도 잡히지만 리듬은 보지 않고, 반복 기호는 펼치지 않는다.",
+                           "This site's own definition. Built on intervals, so transposed repeats count, but rhythm is ignored and repeat signs are not expanded."),
+    "dim7_ratio": ("주석이 있는 코퍼스에만 있다(코랄 제외). 이끈음 위 감7과 부속화음으로 쓰인 감7을 가리지 않는다.",
+                   "Only for annotated corpora (not chorales). Leading-tone and applied diminished sevenths are not separated."),
+    "cadences_per_100_measures": ("종지를 주석한 코퍼스·작품에만 있다: 베토벤 현악4중주는 주석이 없고, 바흐 무반주는 BWV 1009~1013만 주석이 있다(바이올린 작품·첼로 모음곡 1·2번은 비워 둔다). 마디 길이가 다른 묶음끼리는 차이를 덜어 읽는다.",
+                                  "Only where cadences are annotated: the Beethoven quartets have none, and among Bach's solo works only BWV 1009–1013 are annotated (the violin works and Cello Suites 1–2 are left blank). Discount differences between groups with different bar lengths."),
+    "chromatic_numeral_ratio": ("DCML 표기는 단조의 로마 숫자를 자연 단음계 기준으로 적어, 단조의 이끈음 화음(화성 단음계로는 온음계 화음)이 ♯vii 로 적혀 여기에 들어간다(모차르트 단조 구간 화음 2,304개 중 206개). 단조 비중이 큰 묶음은 값이 높게 나온다.",
+                                "DCML writes minor-key numerals against the natural minor scale, so minor-key leading-tone chords (diatonic in harmonic minor) appear as ♯vii and count here (206 of 2,304 minor-key chords in Mozart). Groups with more minor music score higher."),
+    "pac_ratio_of_cadences": ("종지 주석이 있는 악장에만 있다(종지 밀도와 같은 범위). 종지가 몇 개 안 되는 악장은 값이 거칠다.",
+                              "Only for movements with cadence annotation (same scope as cadence density). Movements with few cadences give coarse values."),
+    "phrase_4_8_ratio": ("악구 길이와 같은 한계(주석자 판단·못갖춘마디·옛 표기). 끝에서 끝까지의 간격이라 악구 안의 대칭성까지 보여 주지는 않는다.",
+                         "Same limits as phrase length (annotators' judgement, pickups, older convention). End-to-end gaps do not show symmetry within a phrase."),
+    "predominant_chromatic_ratio": ("주석이 있는 코퍼스에만 있다(코랄 제외). 나폴리 화음의 전위·부속 용법을 가리지 않는다.",
+                                    "Only for annotated corpora (not chorales). Inversions and applied uses of the Neapolitan are not separated."),
     "velocity_sd_median": ("MIDI velocity는 음량의 대리 지표이며 악기·녹음 환경에 따라 눈금이 다르다. 같은 데이터셋 안의 상대 비교에만 쓴다.",
                            "MIDI velocity is a proxy for loudness and its scale depends on instrument and setup. Use it only for relative comparison within this dataset."),
 }
@@ -97,7 +116,7 @@ def coll_label(name: str) -> str:
 
 def _join(items, lang):
     if lang == "ko":
-        return "·".join(items)
+        return (", " if any("·" in x for x in items) else "·").join(items)
     return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
 
 
@@ -108,15 +127,17 @@ def _score(m, lang, d, coll_names):
         v = g[m["id"]].astype(float).dropna()
         if len(v):
             cl = coll_label(coll_names[coll])
-            name = f"{KO[comp]} {cl}" if lang == "ko" else f"{comp}'s {cl if cl.startswith('English') else cl[0].lower() + cl[1:]}"
+            name = f"{KO[comp]} {cl}" if lang == "ko" else (f"{comp}'s works for solo violin, cello and flute" if coll == "solo_violin_cello_flute" else f"{comp}'s {cl if cl.startswith('English') else cl[0].lower() + cl[1:]}")
             meds.append((name, v.median(), len(v), comp, coll))
     meds.sort(key=lambda x: x[1], reverse=True)
     hi, lo = meds[0], meds[-1]
     fmt = m["fmt"]
+    hi_n = _join([x[0] for x in meds if x[1] == hi[1]], lang)  # exact ties are all named
+    lo_n = _join([x[0] for x in meds if x[1] == lo[1]], lang)
     if lang == "ko":
-        out = f"악장 중앙값이 가장 높은 묶음은 {hi[0]}({_f(hi[1], fmt)}), 가장 낮은 묶음은 {lo[0]}({_f(lo[1], fmt)})."
+        out = f"악장 중앙값이 가장 높은 묶음은 {hi_n}({_f(hi[1], fmt)}), 가장 낮은 묶음은 {lo_n}({_f(lo[1], fmt)})."
     else:
-        out = f"Across movements, {hi[0]} have the highest median ({_f(hi[1], fmt)}) and {lo[0]} the lowest ({_f(lo[1], fmt)})."
+        out = f"Across movements, {hi_n} have the highest median ({_f(hi[1], fmt)}) and {lo_n} the lowest ({_f(lo[1], fmt)})."
     son = {c: v for _, v, _, c, coll in meds if coll == "piano_sonatas"}
     if {"Beethoven", "Mozart"} <= son.keys():
         if lang == "ko":

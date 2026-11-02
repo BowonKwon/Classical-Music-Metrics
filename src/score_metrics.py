@@ -191,6 +191,7 @@ SEVENTH_FIGS = {"7", "65", "43", "2", "42"}
 
 def harmony_metrics(h: pd.DataFrame, n_measures: int, length_qb: float) -> dict:
     out: dict = {}
+    h_all = h  # cadence labels can sit on rows without a chord symbol; count them from every row
     h = h[h["chord"].notna() & (h["chord"] != "")].copy()
     out["n_chord_labels"] = int(len(h))
     if len(h) == 0 or n_measures == 0:
@@ -212,7 +213,7 @@ def harmony_metrics(h: pd.DataFrame, n_measures: int, length_qb: float) -> dict:
     out["local_key_vocabulary"] = int(lk.nunique())
     # cadence labels exist only in corpora whose annotation version records them;
     # a corpus-wide absence is reported as NaN by the caller (see dcml_corpus)
-    cad = h["cadence"].fillna("") if "cadence" in h else pd.Series([], dtype=str)
+    cad = h_all["cadence"].fillna("") if "cadence" in h_all else pd.Series([], dtype=str)
     n_cad = int((cad != "").sum())
     out["n_cadence_labels"] = n_cad
     out["cadences_per_100_measures"] = 100 * n_cad / n_measures
@@ -384,18 +385,32 @@ def main():
         print(folder, len(r), "pieces")
         rows += r
         manifest[folder] = {"git_head": git_head(raw / folder), "pieces": len(r), "license": lic}
-    if not a.skip_kern:
+    # The Humdrum chorales (kern) are a second encoding used only to cross-check the DCML chorales
+    # (src/chorale_crosscheck.py). They go to their own file and never into score_metrics_by_movement.csv.
+    man_path = out / "score_metrics_manifest.json"
+    old_manifest = json.loads(man_path.read_text(encoding="utf-8")) if man_path.exists() else {}
+    if a.skip_kern:
+        for folder, *_ in KERN_CORPORA:  # keep the record of the last kern run
+            if folder in old_manifest:
+                manifest[folder] = old_manifest[folder]
+    else:
+        kern_rows = []
         for folder, comp, coll, lic in KERN_CORPORA:
             r = kern_corpus(raw, folder, comp, coll, lic)
             print(folder, len(r), "pieces")
-            rows += r
+            kern_rows += r
             manifest[folder] = {"git_head": git_head(raw / folder), "pieces": len(r), "license": lic}
+        pd.DataFrame(kern_rows).to_csv(out / "score_metrics_kern370.csv", index=False, encoding="utf-8")
 
     df = pd.DataFrame(rows)
-    # corpora with no cadence labels at all: not annotated, not zero
+    # corpora or works with no cadence labels at all: not annotated, not zero
+    # (bach_solo annotates cadences only in BWV 1009-1013; the violin works and the
+    # first two cello suites carry none)
     if "n_cadence_labels" in df:
+        cad_cols = ["cadences_per_100_measures", "pac_ratio_of_cadences"]
         no_cad = df.groupby("corpus")["n_cadence_labels"].transform("sum") == 0
-        df.loc[no_cad, ["cadences_per_100_measures", "pac_ratio_of_cadences"]] = float("nan")
+        no_cad_work = df.groupby(["corpus", "work_number"], dropna=False)["n_cadence_labels"].transform("sum") == 0
+        df.loc[no_cad | no_cad_work, cad_cols] = float("nan")
     df.to_csv(out / "score_metrics_by_movement.csv", index=False, encoding="utf-8")
     (out / "score_metrics_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(df.groupby(["composer", "collection"]).size())

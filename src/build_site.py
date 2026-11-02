@@ -18,7 +18,7 @@ import pandas as pd
 import takeaways
 from registry import LAYERS, METRICS, SOURCES
 
-VERSION = "1.2.1"
+VERSION = "1.3"
 BUILD_DATE = "2026-11-02"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -27,8 +27,10 @@ CHANGELOG = [
      "Added Mozart's piano sonatas (54 movements, all 14 score metrics) and 16 ASAP Mozart performances. Widened the NY Phil repertoire layer to every composer, with five new metrics (Mozart share, excerpt share, living-composer share, repertoire age, canon turnover) and composer pages. The repertoire counting unit changed from 'work entry on a program' to 'work on a program', so 1.0 repertoire values changed (old values kept in a '1.0 unit' column)."),
     ("1.2", "2026-11-01", "「작품·역사」 면을 신설했다 — IMSLP 작품면으로 본 작곡가 10명의 작품 활동(경력 띠·나이별 작품면·쓴 시기와 연주되는 시기), 교향곡 편성, 템포 지시어 구성, 악기 사용 변천, 그리고 Ellis 측정표로 본 A음 높이의 역사(1361~1885). IMSLP 에서 온 표는 CC BY-SA 4.0 이다(다른 표와 라이선스가 다르다). 각 파일의 라이선스·출처는 data/datapackage.json 에 있다.",
      "New 'Works & history' page: ten composers' work activity from IMSLP work pages (career ribbons, work pages by age, composed vs performed), symphony orchestration, tempo markings, instrument use, and the history of the pitch of a′ from Ellis's tables (1361–1885). Tables derived from IMSLP are CC BY-SA 4.0 (a different licence from the other tables). Each file's licence and sources are listed in data/datapackage.json."),
-    ("1.2.1", BUILD_DATE, "지표 면 29개와 「작품·역사」 면 7개 절의 맨 위에 「한눈에 보기」 상자를 더했다 — 그 면의 표에서 계산한 수치 요약과 가장 중요한 한계. 반음계 비율·레퍼토리 집중도(HHI)의 한계 설명을 더 정확하게 고쳤다.",
+    ("1.2.1", "2026-11-02", "지표 면 29개와 「작품·역사」 면 7개 절의 맨 위에 「한눈에 보기」 상자를 더했다 — 그 면의 표에서 계산한 수치 요약과 가장 중요한 한계. 반음계 비율·레퍼토리 집중도(HHI)의 한계 설명을 더 정확하게 고쳤다.",
      "Added an 'At a glance' box at the top of the 29 metric pages and the seven sections of the Works & history page: a summary computed from the page's own tables and the most important limit. Made the caveats for the chromatic ratio and repertoire concentration (HHI) more precise."),
+    ("1.3", BUILD_DATE, "악보 지표를 14개에서 39개로 늘렸다. 이미 계산해 두었던 16개(최상성부 순차·반복 비율과 음역, 선율 윤곽 전환, 평균 음고·산포, 5도권 음이름 폭, 음가 종류·평균 음가, 평균 화음 길이, 반음계 화음, 전위 화음, 거치는 조의 수, 단조 구간 비율, 종지 밀도, 완전 정격 종지 비율)를 공개하고, 9개(리듬 대비 지수 nPVI, 도약 후 반진행, 박 넘김 당김음, 동기 반복률, 감7화음, 나폴리·증6화음, 페달 포인트, 악구 길이, 4·8마디 악구 비율)를 새로 계산했다. 종지를 주석하지 않은 작품(바흐 무반주 바이올린 작품·첼로 모음곡 1·2번)의 종지 밀도는 0 이 아니라 빈칸으로 고쳤다.",
+     "Score metrics grow from 14 to 39. Sixteen already computed are now published (top-line step and repeat ratios and range, melodic direction changes, mean pitch and spread, pitch-name vocabulary, duration vocabulary and mean length, mean chord length, chromatic chords, inversions, keys visited, minor-key share, cadence density, PAC share), and nine are new (nPVI rhythmic contrast, post-leap reversal, beat-crossing syncopation, motif repetition, diminished sevenths, Neapolitan and augmented sixths, pedal points, phrase length, 4- and 8-bar phrase share). Cadence density for works without cadence annotation (Bach's solo violin works and Cello Suites 1–2) is now blank rather than 0."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -81,7 +83,7 @@ T = {
         table="표", download="CSV 내려받기", n="표본", median="중앙값", q1="1사분위", q3="3사분위", min="최소", max="최대",
         collection="모음", composer="작곡가", movements="악장 수", by_collection="모음별 분포", top="상위", bottom="하위",
         all_rows="전체 행", ranking="순위표", license="라이선스", cite="인용", built="생성일", version="판", hub="공개 자료 전체",
-        coll={"chorales": "코랄(371)", "english_french_suites": "영국·프랑스 모음곡", "solo_violin_cello_flute": "무반주 바이올린·첼로·플루트",
+        coll={"chorales": "코랄", "english_french_suites": "영국·프랑스 모음곡", "solo_violin_cello_flute": "무반주 바이올린·첼로·플루트",
               "piano_sonatas": "피아노 소나타", "string_quartets": "현악4중주", "chorales_kern370": "코랄(Humdrum)"},
         ptype={"Romantic": "낭만파", "HI influence": "시대연주 영향", "HI": "시대연주"},
         dist_caption="점 하나가 악장 하나. 세로선은 모음의 중앙값.",
@@ -97,7 +99,7 @@ T = {
         table="Table", download="Download CSV", n="n", median="median", q1="Q1", q3="Q3", min="min", max="max",
         collection="Collection", composer="Composer", movements="movements", by_collection="Distribution by collection", top="Top", bottom="Bottom",
         all_rows="All rows", ranking="Ranking", license="License", cite="Citation", built="Built", version="Version", hub="All public materials",
-        coll={"chorales": "Chorales (371)", "english_french_suites": "English & French Suites", "solo_violin_cello_flute": "Solo violin, cello, flute",
+        coll={"chorales": "Chorales", "english_french_suites": "English & French Suites", "solo_violin_cello_flute": "Solo violin, cello and flute",
               "piano_sonatas": "Piano sonatas", "string_quartets": "String quartets", "chorales_kern370": "Chorales (Humdrum)"},
         ptype={"Romantic": "Romantic", "HI influence": "HIP-influenced", "HI": "Period (HIP)"},
         dist_caption="One dot per movement. Vertical bar = collection median.",
@@ -158,6 +160,7 @@ a.card:hover{text-decoration:none;transform:translateY(-2px);border-color:var(--
 .stat .n{font-family:var(--display);font-size:2rem;font-weight:600;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stat small{display:block;color:var(--fg2);margin-top:.35rem;font-size:.86rem;line-height:1.45}
 a.stat:hover{text-decoration:none;border-color:var(--fg3)}
+:lang(ko) p,:lang(ko) li,:lang(ko) .lead,:lang(ko) .glance dd,:lang(ko) .spec dd,:lang(ko) .card small,:lang(ko) figcaption,:lang(ko) .box{word-break:keep-all;overflow-wrap:anywhere}
 .glance{border-left:4px solid var(--accent);background:var(--bg2);border-radius:0 10px 10px 0;padding:.8rem 1.1rem;margin:.6rem 0 1.1rem;max-width:78ch}.glance-h{margin:0 0 .4rem;font-size:.82rem;font-weight:600;letter-spacing:.04em;color:var(--fg2)}.glance dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem}.glance dt{color:var(--fg2);font-size:.9rem;white-space:nowrap}.glance dd{margin:0}
 .spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0 1.4rem;box-shadow:var(--shadow)}
 dl{display:grid;grid-template-columns:max-content 1fr;gap:.55rem 1.4rem;margin:0}dt{color:var(--fg3);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding-top:.15rem}dd{margin:0;min-width:0}
@@ -167,7 +170,7 @@ table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
 th,td{border-bottom:1px solid var(--line2);padding:.42rem .6rem;text-align:left;vertical-align:top}
 thead th{color:var(--fg2);font-weight:600;font-size:.82rem;letter-spacing:.02em;cursor:pointer;white-space:nowrap;border-bottom:1px solid var(--line)}
 thead th:hover{color:var(--fg)}tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg2) 55%,transparent)}tbody tr:hover{background:var(--bg2)}
-td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}td:first-child{white-space:nowrap}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}td.nw{white-space:nowrap;font-variant-numeric:tabular-nums}td:first-child{white-space:nowrap}
 .wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:0 .3rem;margin:.6rem 0 1rem}.wrap table{margin:0}
 figure{margin:1.2rem 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1rem .8rem;box-shadow:var(--shadow)}
 figcaption{font-size:.86rem;color:var(--fg2);margin-top:.5rem;line-height:1.5}
@@ -362,6 +365,35 @@ def legend(entries: list[tuple[str, int]]) -> str:
 
 
 # ----------------------------------------------------------------- tables
+def missing_caption(score: pd.DataFrame, mid: str, lang: str) -> str:
+    """Name the composer x collection groups that have no value for this metric, and why."""
+    t = T[lang]
+    out = []
+    for (comp, coll), g in score.groupby(["composer", "collection"], sort=False):
+        if g[mid].notna().any():
+            continue
+        has_harm = g["n_chord_labels"].fillna(0).gt(0).any() if "n_chord_labels" in g else False
+        if mid in ("cadences_per_100_measures", "pac_ratio_of_cadences") and has_harm:
+            why = ("종지 주석이 없어", "no cadence annotation")
+        elif not has_harm:
+            why = ("화성 주석이 없어", "no harmony annotation")
+        else:
+            why = ("값이 없어", "no values")
+        name = f"{KO_GROUP.get(comp, comp)} {t['coll'][coll]}" if lang == "ko" else f"{comp}'s {t['coll'][coll].lower() if not t['coll'][coll].startswith('English') else t['coll'][coll]}"
+        out.append((name, why))
+    if not out:
+        return ""
+    if lang == "ko":
+        def topic(w):  # 은/는 by final consonant
+            ch = w[-1]
+            return w + ("은" if "가" <= ch <= "힣" and (ord(ch) - 0xAC00) % 28 else "는")
+        return " ".join(f"{topic(n)} {w[0]} 싣지 않았다." for n, w in out)
+    return " ".join(f"{n[0].upper() + n[1:]} {'are' if n.endswith('s') else 'is'} not shown: {w[1]}." for n, w in out)
+
+
+KO_GROUP = {"Bach": "바흐", "Beethoven": "베토벤", "Mozart": "모차르트"}
+
+
 def table_html(df: pd.DataFrame, cols: list[tuple[str, str, str | None]], tid: str, lang: str, numeric_class=True, filt=True) -> str:
     """cols: (column, header, fmt spec or None)."""
     t = T[lang]
@@ -379,7 +411,9 @@ def table_html(df: pd.DataFrame, cols: list[tuple[str, str, str | None]], tid: s
             if spec:
                 out.append(f'<td class="num" data-v="{"" if pd.isna(v) else v}">{fmt(v, spec)}</td>')
             else:
-                out.append(f"<td>{esc(v)}</td>")
+                sv = "" if v is None or (isinstance(v, float) and pd.isna(v)) else str(v)
+                nw = bool(sv) and all(ch.isdigit() or ch in "-–/., " for ch in sv)
+                out.append(f'<td class="nw">{esc(v)}</td>' if nw else f"<td>{esc(v)}</td>")
         out.append("</tr>")
     out.append("</tbody></table></div>")
     return "".join(out)
@@ -422,7 +456,7 @@ def write_datapackage(data_dir: Path, data_files: dict) -> None:
             "licenses": [{"name": lic, "path": LICENSE_URL[lic]}],
             "sources": [{"title": SOURCES[k]["en"].split(". ")[0][:160], "path": SOURCES[k]["url"], "license": SOURCES[k]["license"]} for k in keys],
         }
-        if f == "score_metrics_by_movement.csv":
+        if f in ("score_metrics_by_movement.csv", "score_metrics_13_by_movement.csv"):
             res["description"] = ("Mixed licence: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; "
                                   "all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column.")
         resources.append(res)
@@ -456,6 +490,8 @@ def main():
 
     score = pd.read_csv(D / "score_metrics_by_movement.csv")
     score = score[score["collection"] != "chorales_kern370"]
+    s13 = pd.read_csv(D / "score_metrics_13_by_movement.csv").drop(columns=["license"])  # 1.3 P2 metrics
+    score = score.merge(s13, on=["corpus", "piece_id"], how="left")
     cross = pd.read_csv(D / "chorale_crosscheck_dcml_vs_kern.csv")
     coda = pd.read_csv(D / "beethoven_symphony_coda_tempo.csv")
     cond = pd.read_csv(D / "beethoven_symphony_conductor_summary.csv")
@@ -477,12 +513,15 @@ def main():
     # public CSV copies
     DATA_FILES = {
         "score_metrics_by_movement.csv": ("dcml", "A"),
+        "score_metrics_13_by_movement.csv": ("dcml", "A"),
         "score_metrics_kern370.csv": ("kern370", "A"),
         "chorale_crosscheck_dcml_vs_kern.csv": ("kern370", "A"),
         "beethoven_symphony_coda_tempo.csv": ("bmetr", "C"),
         "beethoven_symphony_duration_ratio.csv": ("bmetr", "C"),
         "beethoven_symphony_conductor_summary.csv": ("bmetr", "C"),
         "beethoven_symphony_movement_summary.csv": ("bmetr", "C"),
+        "beethoven_symphony_marks.csv": ("bmetr", "C"),
+        "beethoven_symphony_recordings.csv": ("bmetr", "C"),
         "asap_performance_metrics.csv": ("asap", "C"),
         "asap_piece_summary.csv": ("asap", "C"),
         "nyphil_season_summary.csv": ("nyphil", "D"),
@@ -593,10 +632,10 @@ def main():
                 order = ["chorales", "english_french_suites", "solo_violin_cello_flute", "string_quartets", "piano_sonatas"]
                 groups.sort(key=lambda g: order.index(next(k for k in order if t["coll"][k] in g[0])))
                 summ.sort(key=lambda s: order.index(next(k for k in order if t["coll"][k] in s["group"])))
-                body.append(f"<h2>{t['by_collection']}</h2>{legend([(c, COMPOSER_COLOR[c]) for c in COMPOSERS])}<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'])}<figcaption>{t['dist_caption']} {t['no_harm'] if m['group']=='harmony' else ''}</figcaption></figure>")
+                body.append(f"<h2>{t['by_collection']}</h2>{legend([(c, COMPOSER_COLOR[c]) for c in COMPOSERS])}<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'])}<figcaption>{t['dist_caption']} {missing_caption(score, m['id'], lang)}</figcaption></figure>")
                 sdf = pd.DataFrame(summ)
                 body.append(table_html(sdf, [("group", t["collection"], None), ("n", t["n"], "d"), ("median", t["median"], m["fmt"]), ("q1", t["q1"], m["fmt"]), ("q3", t["q3"], m["fmt"]), ("mn", t["min"], m["fmt"]), ("mx", t["max"], m["fmt"])], f"s_{m['id']}", lang, filt=False))
-                rk = score.dropna(subset=[m["id"]]).sort_values(m["id"], ascending=False).copy()
+                rk = score.dropna(subset=[m["id"]]).sort_values([m["id"], "corpus", "piece_id"], ascending=[False, True, True], kind="mergesort").copy()
                 rk["work"] = rk["work"].where(rk["work"].notna() & (rk["work"] != ""), rk["piece_id"])
                 rk["composed_start"] = rk["composed_start"].astype(str).where(rk["composed_start"].astype(str).str.match(r"^\d{4}"), "")
                 body.append(f"<h2>{t['ranking']}</h2>" + table_html(rk, [("composer", t["composer"], None), ("work", t["work"], None), ("movement_title", t["mvt"], None), ("composed_start", t["year"], None), ("n_measures", t["bars"], "d"), (m["id"], ml["name"], m["fmt"])], f"r_{m['id']}", lang))
@@ -618,7 +657,7 @@ def main():
                 cap_ko = "점 하나가 곡 하나" + ("(연주 2개 이상인 곡만)" if two else "(연주가 하나인 곡은 그 연주의 값)") + ". 모차르트(6곡·연주 16개)는 소표본이라 차트에서 빼고 아래 표에만 둔다."
                 cap_en = "One dot per piece" + (" (pieces with two or more performances only)" if two else " (a single-performance piece shows that performance's value)") + ". Mozart (6 pieces, 16 performances) is too small a sample for the chart and appears only in the table below."
                 body.append(f"<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'])}<figcaption>{cap_ko if lang=='ko' else cap_en}</figcaption></figure>")
-                body.append(table_html(asap_piece.sort_values(m["id"], ascending=False), [("composer", t["composer"], None), ("title", "Piece", None), ("n_performances", "perf.", "d"), ("tempo_mean_bpm_median", "tempo (median)", ".0f"), (m["id"], ml["name"], m["fmt"])], "ap", lang))
+                body.append(table_html(asap_piece.sort_values([m["id"], "composer", "title"], ascending=[False, True, True], kind="mergesort"), [("composer", t["composer"], None), ("title", "Piece", None), ("n_performances", "perf.", "d"), ("tempo_mean_bpm_median", "tempo (median)", ".0f"), (m["id"], ml["name"], m["fmt"])], "ap", lang))
                 src = "asap"
             elif m["table"] == "nyphil_turnover":
                 tt = ny_turn.dropna(subset=["jaccard_top10"])
@@ -657,7 +696,7 @@ def main():
                     cols.append(("dated_coverage", t["coverage"], ".0%"))
                 body.append(table_html(ny_season.iloc[::-1], cols, "ny", lang))
                 if m.get("composer_col"):
-                    big = persons[persons["perf_u1"] >= 200].sort_values(m["composer_col"], ascending=False).copy()
+                    big = persons[persons["perf_u1"] >= 200].sort_values([m["composer_col"], "composer"], ascending=[False, True], kind="mergesort").copy()
                     big["name"] = big["composer"].map(lambda c: f"{KO_NAME[c]} ({c})" if lang == "ko" and c in KO_NAME else c)
                     body.append(f"<h2>{'작곡가별 (작품 연주 200회 이상)' if lang=='ko' else 'By composer (200+ work performances)'}</h2>")
                     body.append(table_html(big, [("name", t["composer"], None), ("perf_u1", t["perf_u1"], "d"), ("perf_u2", t["perf_u2"], "d"), (m["composer_col"], ml["name"], m["fmt"]), ("rank_u1", t["rank"] + " (U1)", ".0f"), ("rank_u2", t["rank"] + " (U2)", ".0f")], "bycomp", lang))
@@ -918,7 +957,7 @@ def main():
         (base / "index.html").write_text(page(lang, t["nav_home"], "".join(body), active="home"), encoding="utf-8")
 
     # root redirect by browser language
-    (OUT / "index.html").write_text("""<!DOCTYPE html><html><head><meta charset="utf-8"><title>Classical Music Metrics</title>
+    (OUT / "index.html").write_text("""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Classical Music Metrics</title>
 <script>var l=(navigator.language||'').toLowerCase().indexOf('ko')==0?'ko':'en';location.replace(l+'/index.html');</script>
 <meta http-equiv="refresh" content="1;url=en/index.html"></head><body><p><a href="ko/index.html">한국어</a> · <a href="en/index.html">English</a></p></body></html>""", encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")

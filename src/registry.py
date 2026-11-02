@@ -274,4 +274,10 @@ METRICS = [
                  caveat="The 1840s have 8 seasons and the 2020s 7 including the one in progress. Ties at the cut-off are broken alphabetically, so one name changing at the boundary moves the index a lot.")),
 ]
 
+# 1.3: score metrics already computed by score_metrics.py, published from 1.3 (definitions in registry_13.py)
+from registry_13 import METRICS_13  # noqa: E402
+
+_after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
+METRICS[_after_score:_after_score] = METRICS_13
+
 METRIC_BY_ID = {m["id"]: m for m in METRICS}
