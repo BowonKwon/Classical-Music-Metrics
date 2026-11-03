@@ -21,7 +21,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.3"
+VERSION = "1.4"
 BUILD_DATE = "2026-11-02"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -36,6 +36,8 @@ CHANGELOG = [
      "Score metrics grew from 14 to 39. Sixteen that had already been computed were published (top-line step and repeat ratios and range, melodic direction changes, mean pitch and spread, pitch-name vocabulary, duration vocabulary and mean length, mean chord length, chromatic chords, inversions, keys visited, minor-key share, cadence density, PAC share), and nine were new (nPVI rhythmic contrast, post-leap reversal, beat-crossing syncopation, motif repetition, diminished sevenths, Neapolitan and augmented sixths, pedal points, phrase length, 4- and 8-bar phrase share). Cadence density for works without cadence annotation (Bach's solo violin works and Cello Suites 1–2) was changed from 0 to blank."),
     ("1.3.1", BUILD_DATE, "지표 면 띠 그림의 중앙값 막대를 고쳤다 — 값이 짝수 개일 때 가운데 두 값의 평균이 아니라 위쪽 값을 그리고 있었다. 지표 38개 면의 띠 111줄에서 중앙값이 바뀌어 이제 같은 면 표의 중앙값과 맞는다(반올림 뒤 막대 위치나 툴팁 값이 달라진 것은 109줄. 예: 종지 밀도의 바흐 무반주 묶음 16.7 → 15.8). 표·요약 상자·CSV의 수치는 그대로다. 영어 면의 문장·용어·철자(미국식)·표 머리글 대소문자를 손보고, 원자료 커밋 기록(raw_manifest.json)에서 커밋이 없는 IMSLP 항목을 뺐다(작업 저장소의 커밋이 잘못 들어가 있었다).",
      "Fixed the median bar in the strip charts on metric pages: with an even number of values it showed the upper middle value instead of the mean of the two middle values. On 38 metric pages the median changes in 111 strip rows, which now match the median in the table on the same page (after rounding, the bar position or tooltip value differs in 109 of them; e.g. cadence density, Bach's solo works: 16.7 → 15.8). Numbers in tables, summary boxes and CSVs are unchanged. Revised wording, terms, spelling (now American) and table-header capitalization on the English pages, and removed the IMSLP entry from the record of input commits (raw_manifest.json): IMSLP has no commit, and the build repository's own commit had been recorded in its place."),
+    ("1.4", BUILD_DATE, "연주 지표 3개(녹음 연도별 템포 추이, 댐퍼 페달 사용 시간 비율, 소프트 페달 사용 연주 비율)와 레퍼토리 지표 3개(지휘자별 레퍼토리 구성, 신작 재연주율, 여성 작곡가 점유율 — Wikidata 성별 표 aliases/composer_gender.csv 로 하한·가운데 값·상한)를 더했다. 지휘자 이름 정규화표(aliases/nyphil_conductors.csv)와 작곡가 성별 표를 공개한다. 페달 지표는 한 녹음에서 잘린 여러 곡을 녹음 하나로 센다(ASAP 파일 456 → 녹음 359). 화면에 보이는 음수는 마이너스 기호(−)로, 생성 문장의 시즌 표기는 1842–43 처럼 줄표로 통일했다(표의 원자료 시즌 칸은 그대로). 정수 지표의 중앙값·사분위가 정수가 아니면 소수 첫째 자리까지 보인다(예: 음역, 바흐 무반주 30 → 29.5). 좁은 화면에서 표가 글자 단위로 꺾이지 않고 옆으로 넘기게, 차트 글자가 커지게 고쳤다. 지표·작곡가 면에 위치 표시줄, 같은 묶음의 다른 면 목록(넓은 화면은 왼쪽, 좁은 화면은 제목 위 접힘 상자), 이전·다음 링크(←·→ 키)를 넣었고, 언어 전환 링크가 같은 면으로 간다. 한국어 면의 연도 범위는 물결표(1842~2026; 시즌 이름 1842–43 은 그대로). 「열다섯 마디」를 「열네 마디」(100 ÷ 7)로 바로잡았다.",
+     "Added three performance metrics (tempo trend by recording year, damper pedal time share, soft pedal use) and three repertoire metrics (repertoire by conductor, new-work re-performance, women composers' share — lower bound, middle value and upper bound from the Wikidata gender table aliases/composer_gender.csv). The conductor-name normalization table (aliases/nyphil_conductors.csv) and the composer gender table are published. The pedal metrics count a recording cut into several pieces once (456 ASAP files → 359 recordings). Displayed negatives now use the minus sign (−) and seasons in generated text use the en dash (1842–43); raw season cells in tables are unchanged. Medians and quartiles of integer metrics are shown with one decimal place when they are not whole numbers (e.g. pitch range, Bach's solo works: 30 → 29.5). On narrow screens tables no longer break inside words but scroll sideways, and chart labels are larger. Metric and composer pages have a breadcrumb, a list of the other pages in the same group (a sidebar on wide screens, a collapsed box above the title on narrow ones) and previous/next links (arrow keys); the language link opens the same page. 'Every fifteen bars' is corrected to every 14 bars (100 ÷ 7). US spelling and dates in a few places; HIP labels without nested parentheses."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -106,7 +108,7 @@ T = {
         all_rows="All rows", ranking="Ranking", license="License", cite="Citation", built="Built", version="Version", hub="All public materials",
         coll={"chorales": "Chorales", "english_french_suites": "English and French Suites", "solo_violin_cello_flute": "Solo violin, cello and flute",
               "piano_sonatas": "Piano sonatas", "string_quartets": "String quartets", "chorales_kern370": "Chorales (Humdrum)"},
-        ptype={"Romantic": "Romantic", "HI influence": "HIP-influenced", "HI": "Period-instrument (HIP)"},
+        ptype={"Romantic": "Romantic", "HI influence": "HIP-influenced", "HI": "HIP"},
         dist_caption="One dot per movement. Vertical bar = collection median.",
         metric_list="All metrics", search="Filter", work="Work", mvt="Movement", year="Year", bars="Bars", no_harm="(blank for collections without harmony annotations)",
     ),
@@ -118,7 +120,7 @@ CSS = """
   --bg:#f8f7f4;--bg2:#efede8;--card:#ffffff;--line:#dedbd3;--line2:#ebe8e1;
   --fg:#1d1f24;--fg2:#5a5e68;--fg3:#8a8e98;
   --accent:#3f6a9e;--accent2:#b5833f;
-  --s1:#3a6fb0;--s2:#b5833f;--s3:#7f63ad;--grid:#e6e3dc;
+  --s1:#3a6fb0;--s2:#b5833f;--s3:#7f63ad;--s4:var(--fg3);--grid:#e6e3dc;
   --shadow:0 1px 2px rgba(30,32,40,.05),0 6px 18px rgba(30,32,40,.05);
   --display:"Noto Serif KR","Source Serif 4",Georgia,"Times New Roman",serif;
   --body:"Noto Sans KR",-apple-system,"Segoe UI","Apple SD Gothic Neo",Roboto,sans-serif}
@@ -177,6 +179,8 @@ thead th{color:var(--fg2);font-weight:600;font-size:.82rem;letter-spacing:.02em;
 thead th:hover{color:var(--fg)}tbody tr:nth-child(even){background:color-mix(in srgb,var(--bg2) 55%,transparent)}tbody tr:hover{background:var(--bg2)}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}td.nw{white-space:nowrap;font-variant-numeric:tabular-nums}td:first-child{white-space:nowrap}
 .wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:0 .3rem;margin:.6rem 0 1rem}.wrap table{margin:0}
+/* narrow screens: table text breaks between words, never inside one; a long text column keeps a minimum width and the box scrolls sideways */
+.wrap th,.wrap td{overflow-wrap:normal;word-break:normal}:lang(ko) .wrap td{word-break:keep-all}td.long{min-width:11em}
 figure{margin:1.2rem 0;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1rem .8rem;box-shadow:var(--shadow)}
 figcaption{font-size:.86rem;color:var(--fg2);margin-top:.5rem;line-height:1.5}
 svg{max-width:100%;height:auto;display:block}svg text{font-family:var(--body);fill:var(--fg2);font-size:11px}svg .ax{stroke:var(--line)}svg .grid{stroke:var(--grid)}
@@ -188,6 +192,8 @@ footer{border-top:1px solid var(--line);color:var(--fg3);font-size:.82rem;paddin
 .filter{margin:.5rem 0}.filter input{padding:.4rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);width:min(100%,340px);font:inherit;font-size:.9rem}
 .filter input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
 .links{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:2rem;font-size:.95rem}
+/* narrow screens: 900-wide charts keep a minimum width inside a sideways-scrolling figure, labels a little larger */
+@media(max-width:640px){figure{overflow-x:auto}figure svg[viewBox^="0 0 900 "]{min-width:640px}figure svg[viewBox^="0 0 900 "] text{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.card,a.card:hover{transition:none;transform:none}}
 """
 
@@ -209,11 +215,19 @@ def esc(s) -> str:
     return html.escape("" if s is None or (isinstance(s, float) and math.isnan(s)) else str(s))
 
 
+MINUS = "\u2212"  # displayed negatives use the minus sign; data-v attributes and CSVs keep ASCII
+
+
+def minus(s: str) -> str:
+    """Hyphen-minus in front of a number -> minus sign (U+2212). Only for numbers this code formats."""
+    return re.sub(r"(?<![\w.])-(?=\d)", MINUS, s)
+
+
 def fmt(v, spec) -> str:
     if v is None or (isinstance(v, float) and math.isnan(v)):
         return ""
     try:
-        return format(v, spec)
+        return minus(format(v, spec))
     except Exception:
         return str(v)
 
@@ -240,7 +254,61 @@ def sentence_case_labels(html: str) -> str:
     return re.sub(r'<div class="legend">.*?</div>', lambda b: re.sub(r"(<span\b[^>]*>)([a-z][^<]*)", _cap, b.group(0)), html, flags=re.S)
 
 
-def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", active: str = "") -> str:
+
+
+CSS += ' main.wide{max-width:1300px} .crumbs{font-size:.84rem;color:var(--fg3);margin:-.4rem 0 .9rem} .crumbs .sep{margin:0 .25rem} .crumbs [aria-current]{color:var(--fg2)} .leaf{display:grid;grid-template-columns:220px minmax(0,1fr);gap:2rem;align-items:start} .sibs{position:sticky;top:4.2rem;max-height:calc(100vh - 5rem);overflow:auto;font-size:.84rem;border-right:1px solid var(--line);padding-right:.8rem} .sibs ol,.sibs-m ol{list-style:none;margin:.2rem 0 .8rem;padding:0} .sibs li a,.sibs-m li a{display:block;padding:.18rem .4rem;border-radius:6px;color:var(--fg2)} .sibs li a:hover,.sibs-m li a:hover{background:var(--bg2);text-decoration:none} .sibs a[aria-current],.sibs-m a[aria-current]{background:var(--bg2);color:var(--fg);font-weight:600} .sibs summary,.sibs-m summary{cursor:pointer;font-weight:600;color:var(--fg);margin:.3rem 0} .sibs .sg{font-weight:600;margin:.2rem 0} .sibs-m{display:none;border:1px solid var(--line);border-radius:10px;padding:.4rem .8rem;margin:0 0 1rem;font-size:.9rem} .pn{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:2.4rem;padding-top:1rem;font-size:.92rem} .pn a[rel=next]{margin-left:auto;text-align:right} .pn small{display:block;color:var(--fg3)} @media(max-width:860px){.leaf{display:block}.sibs{display:none}.sibs-m{display:block}} @media print{.crumbs,.sibs,.sibs-m,.pn{display:none}.leaf{display:block}}'
+JS += ';document.addEventListener("keydown",function(e){if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;var t=e.target;if(t&&t.closest&&t.closest("input,textarea,select,[contenteditable]"))return;var a=null;if(e.key==="ArrowLeft")a=document.querySelector("a[rel=prev]");else if(e.key==="ArrowRight")a=document.querySelector("a[rel=next]");if(a){location.href=a.href}});var sb=document.querySelector(".sibs"),cu=sb&&sb.querySelector("a[aria-current]");if(cu){sb.scrollTop=cu.offsetTop-sb.clientHeight/2}'
+
+LEAF_T = {"ko": dict(crumbs="위치", sibs="같은 계열", others="이 계열의 다른 면", pn="이전·다음", prev="이전", next="다음", next_group="다음 계열"),
+          "en": dict(crumbs="Breadcrumb", sibs="In this series", others="Other pages in this series", pn="Previous and next", prev="Previous", next="Next", next_group="Next series")}
+
+
+def leaf_html(lang, leaf, body):
+    """Breadcrumb, same-series list (sidebar on wide screens, collapsed box on narrow ones) and previous/next links.
+    leaf = dict(crumbs=[(label, href)...], groups=[(group label, [(label, href), ...]), ...], cur=href of this page)."""
+    L = LEAF_T[lang]
+    flat = [(lab, href, gi, glab) for gi, (glab, items) in enumerate(leaf["groups"]) for lab, href in items]
+    idx = next(i for i, x in enumerate(flat) if x[1] == leaf["cur"])
+    cur_g = flat[idx][2]
+    crumbs = " <span class='sep' aria-hidden='true'>›</span> ".join(f'<a href="{h}">{esc(l)}</a>' for l, h in leaf["crumbs"])
+    crumbs += f" <span class='sep' aria-hidden='true'>›</span> <span aria-current='page'>{esc(flat[idx][0])}</span>"
+
+    def lists():
+        out = []
+        many = len(leaf["groups"]) > 1
+        for gi, (glab, items) in enumerate(leaf["groups"]):
+            lis = "".join(f'<li><a href="{h}"' + (' aria-current="page"' if h == leaf["cur"] else "") + f'>{esc(l)}</a></li>' for l, h in items)
+            if many:
+                out.append(f'<details{" open" if gi == cur_g else ""}><summary>{esc(glab)} <small>({len(items)})</small></summary><ol>{lis}</ol></details>')
+            else:
+                out.append(f'<p class="sg">{esc(glab)} <small>({len(items)})</small></p><ol>{lis}</ol>')
+        return "".join(out)
+
+    side = f'<aside class="sibs"><nav aria-label="{L["sibs"]}">{lists()}</nav></aside>'
+    mobile = f'<details class="sibs-m"><summary>{L["others"]} ({sum(len(i) for _, i in leaf["groups"])})</summary><nav aria-label="{L["sibs"]}">{lists()}</nav></details>'
+    pn = []
+    if idx > 0:
+        p = flat[idx - 1]
+        pn.append(f'<a rel="prev" href="{p[1]}">← {esc(p[0])}</a>')
+    if idx + 1 < len(flat):
+        n = flat[idx + 1]
+        note = f'<small>{L["next_group"]}: {esc(n[3])}</small> ' if n[2] != cur_g else ""
+        pn.append(f'<a rel="next" href="{n[1]}">{note}{esc(n[0])} →</a>')
+    pnav = f'<nav class="pn" aria-label="{L["pn"]}">{"".join(pn)}</nav>'
+    return (f'<nav class="crumbs" aria-label="{L["crumbs"]}">{crumbs}</nav><div class="leaf">{side}<div class="leafbody">{mobile}'
+            f'{body}{pnav}</div></div>')
+
+
+
+def metric_leaf(lang, mid):
+    t = T[lang]
+    groups = [(LAYERS[lay][lang], [(m[lang]["name"], f'{m["id"]}.html') for m in METRICS if m["layer"] == lay]) for lay in ("A", "C", "D")]
+    return dict(crumbs=[(t["nav_home"], "../index.html"), (t["nav_metrics"], "index.html")], cur=f"{mid}.html", groups=[g for g in groups if g[1]])
+
+
+def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", active: str = "", leaf=None) -> str:
+    if leaf:   # 1.4: breadcrumb, same-series list and previous/next on metric and composer pages
+        body = leaf_html(lang, leaf, body)
     t = T[lang]
     if lang == "en":
         body = sentence_case_labels(body)
@@ -262,8 +330,8 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
 <style>{CSS}</style></head><body>
 <header><a class="brand" href="{root}{lang}/index.html">{t['site']}</a>
 <nav>{navh}</nav>
-<div class="right"><button id="theme" class="theme" type="button" aria-label="theme">\u25D1</button><a class="lang" href="{root}{other}/index.html">{t['lang_other']}</a></div></header>
-<main>{body}</main>
+<div class="right"><button id="theme" class="theme" type="button" aria-label="{'테마' if lang == 'ko' else 'Theme'}">\u25D1</button><a class="lang" href="{root}{other}/index.html">{t['lang_other']}</a></div></header>
+<main{' class="wide"' if leaf else ''}>{body}</main>
 <footer>{t['site']} · {t['version']} {VERSION} · {t['built']} {BUILD_DATE} · <a href="{REPO}">GitHub</a> · {t['hub']} <a href="https://bowonkwon.github.io/{hub_path}">bowonkwon.github.io</a></footer>
 <script>{JS}</script></body></html>"""
 
@@ -285,8 +353,8 @@ def nice_ticks(lo: float, hi: float, n: int = 5) -> list[float]:
         v += step
     return ticks
 
-def svg_strip(groups: list[tuple[str, list[float], int]], spec: str, width=900, row_h=34, label_w=230, xlabel="") -> str:
-    """Horizontal strip plot: one row per group, dots jittered vertically, median bar."""
+def svg_strip(groups: list[tuple[str, list[float], int]], spec: str, width=900, row_h=34, label_w=230, xlabel="", med_label="median") -> str:
+    """Horizontal strip plot: one row per group, dots jittered vertically, median bar (tooltip word in the page language)."""
     vals = [v for _, vs, _ in groups for v in vs if not math.isnan(v)]
     if not vals:
         return ""
@@ -305,7 +373,7 @@ def svg_strip(groups: list[tuple[str, list[float], int]], spec: str, width=900, 
     # grid: 5 ticks
     for v in nice_ticks(lo, hi):
         out.append(f'<line class="grid" x1="{x(v):.1f}" y1="8" x2="{x(v):.1f}" y2="{h-30}"/>')
-        out.append(f'<text x="{x(v):.1f}" y="{h-14}" text-anchor="middle">{fmt(v, spec)}</text>')
+        out.append(f'<text x="{x(v):.1f}" y="{h-18}" text-anchor="middle">{fmt(v, spec)}</text>')
     if xlabel:
         out.append(f'<text x="{label_w+pw/2:.0f}" y="{h-2}" text-anchor="middle">{esc(xlabel)}</text>')
     import random
@@ -321,7 +389,7 @@ def svg_strip(groups: list[tuple[str, list[float], int]], spec: str, width=900, 
         if vs2:
             sv, mid = sorted(vs2), len(vs2) // 2
             med = sv[mid] if len(sv) % 2 else (sv[mid - 1] + sv[mid]) / 2
-            out.append(f'<rect x="{x(med)-1.5:.1f}" y="{cy-row_h*0.42:.1f}" width="3" height="{row_h*0.84:.1f}" fill="var(--fg)" rx="1.5"><title>median {fmt(med, spec)}</title></rect>')
+            out.append(f'<rect x="{x(med)-1.5:.1f}" y="{cy-row_h*0.42:.1f}" width="3" height="{row_h*0.84:.1f}" fill="var(--fg)" rx="1.5"><title>{esc(med_label)} {fmt(med, takeaways.stat_spec(med, spec))}</title></rect>')
     out.append("</svg>")
     return "".join(out)
 
@@ -366,6 +434,8 @@ def svg_lines(series: list[tuple[str, list[tuple[float, float]], int]], spec: st
 
 def svg_bars(items: list[tuple[str, float, int]], spec: str, width=900, row_h=22, label_w=240, xlabel="", zero_line=True) -> str:
     vals = [v for _, v, _ in items]
+    # room for the longest row label at the narrow-screen label size (13 units, ~0.58 em per character)
+    label_w = max(label_w, int(max(len(n) for n, _, _ in items) * 7.6) + 16)
     lo, hi = min(min(vals), 0.0), max(max(vals), 0.0)
     pad = (hi - lo) * 0.05 or 1
     lo, hi = lo - pad, hi + pad
@@ -377,7 +447,7 @@ def svg_bars(items: list[tuple[str, float, int]], spec: str, width=900, row_h=22
 
     out = [f'<svg viewBox="0 0 {width} {h}" role="img" aria-label="bar chart">']
     for v in nice_ticks(lo, hi):
-        out.append(f'<line class="grid" x1="{x(v):.1f}" y1="6" x2="{x(v):.1f}" y2="{h-30}"/><text x="{x(v):.1f}" y="{h-14}" text-anchor="middle">{fmt(v, spec)}</text>')
+        out.append(f'<line class="grid" x1="{x(v):.1f}" y1="6" x2="{x(v):.1f}" y2="{h-30}"/><text x="{x(v):.1f}" y="{h-18}" text-anchor="middle">{fmt(v, spec)}</text>')
     if zero_line:
         out.append(f'<line class="ax" x1="{x(0):.1f}" y1="6" x2="{x(0):.1f}" y2="{h-30}" stroke="var(--fg2)"/>')
     if xlabel:
@@ -387,6 +457,44 @@ def svg_bars(items: list[tuple[str, float, int]], spec: str, width=900, row_h=22
         x0, x1 = sorted([x(0), x(v)])
         out.append(f'<text x="{label_w-8}" y="{y+row_h*0.68:.1f}" text-anchor="end">{esc(name)}</text>')
         out.append(f'<rect x="{x0:.1f}" y="{y+2}" width="{max(x1-x0,1):.1f}" height="{row_h-6}" fill="var(--s{ci+1})" rx="3"><title>{esc(name)}: {fmt(v, spec)}</title></rect>')
+    out.append("</svg>")
+    return "".join(out)
+
+
+def svg_scatter(points: list[tuple[float, float, int, str]], spec: str, width=900, height=340, xlabel="", ylabel="", line=None) -> str:
+    """Scatter plot: (x, y, colour slot, tooltip label); optional fitted line (intercept, slope) over the x range."""
+    if not points:
+        return ""
+    xs, ys = [p[0] for p in points], [p[1] for p in points]
+    x0, x1 = min(xs), max(xs)
+    y0, y1 = min(ys + [0.0]), max(ys + [0.0])
+    padx, pady = (x1 - x0) * 0.04 or 1, (y1 - y0) * 0.08 or 1
+    x0, x1, y0, y1 = x0 - padx, x1 + padx, y0 - pady, y1 + pady
+    L, R, Tp, B = 60, 20, 16, 40
+    pw, ph = width - L - R, height - Tp - B
+
+    def X(v):
+        return L + (v - x0) / (x1 - x0) * pw
+
+    def Y(v):
+        return Tp + ph - (v - y0) / (y1 - y0) * ph
+
+    out = [f'<svg viewBox="0 0 {width} {height}" role="img" aria-label="scatter plot">']
+    for v in nice_ticks(y0, y1):
+        out.append(f'<line class="grid" x1="{L}" y1="{Y(v):.1f}" x2="{width-R}" y2="{Y(v):.1f}"/><text x="{L-6}" y="{Y(v)+4:.1f}" text-anchor="end">{fmt(v, spec)}</text>')
+    out.append(f'<line class="ax" x1="{L}" y1="{Y(0):.1f}" x2="{width-R}" y2="{Y(0):.1f}" stroke="var(--fg2)"/>')
+    for v in nice_ticks(x0, x1, 7):
+        out.append(f'<text x="{X(v):.1f}" y="{height-22}" text-anchor="middle">{fmt(v, ".0f")}</text>')
+    if xlabel:
+        out.append(f'<text x="{L+pw/2:.0f}" y="{height-4}" text-anchor="middle">{esc(xlabel)}</text>')
+    if ylabel:
+        out.append(f'<text x="{L}" y="10">{esc(ylabel)}</text>')
+    if line:
+        a, b = line
+        lx0, lx1 = min(xs), max(xs)
+        out.append(f'<line x1="{X(lx0):.1f}" y1="{Y(a+b*lx0):.1f}" x2="{X(lx1):.1f}" y2="{Y(a+b*lx1):.1f}" stroke="var(--fg2)" stroke-width="1.5" stroke-dasharray="5 4"/>')
+    for x, y, ci, lab in points:
+        out.append(f'<circle cx="{X(x):.1f}" cy="{Y(y):.1f}" r="4.5" fill="var(--s{ci+1})" fill-opacity=".75" stroke="var(--card)" stroke-width="1"><title>{esc(lab)}: {fmt(y, spec)}</title></circle>')
     out.append("</svg>")
     return "".join(out)
 
@@ -425,8 +533,11 @@ def missing_caption(score: pd.DataFrame, mid: str, lang: str) -> str:
 KO_GROUP = {"Bach": "바흐", "Beethoven": "베토벤", "Mozart": "모차르트"}
 
 
+LONG_TEXT = 20  # a text column whose longest value exceeds this many characters gets a minimum width (td.long)
+
+
 def table_html(df: pd.DataFrame, cols: list[tuple[str, str, str | None]], tid: str, lang: str, numeric_class=True, filt=True) -> str:
-    """cols: (column, header, fmt spec or None)."""
+    """cols: (column, header, fmt spec, a callable value -> spec, or None)."""
     t = T[lang]
     out = []
     if filt:
@@ -435,16 +546,19 @@ def table_html(df: pd.DataFrame, cols: list[tuple[str, str, str | None]], tid: s
     for c, hname, spec in cols:
         out.append(f'<th class="{"num" if spec else ""}">{esc(hname)}</th>')
     out.append("</tr></thead><tbody>")
+    long = {c for c, _, spec in cols if not spec and c in df and df[c].astype(str).str.len().max() > LONG_TEXT}
     for _, r in df.iterrows():
         out.append("<tr>")
         for c, hname, spec in cols:
             v = r.get(c)
             if spec:
-                out.append(f'<td class="num" data-v="{"" if pd.isna(v) else v}">{fmt(v, spec)}</td>')
+                sp = spec(v) if callable(spec) else spec  # callable: spec chosen per value (medians, see takeaways.stat_spec)
+                out.append(f'<td class="num" data-v="{"" if pd.isna(v) else v}">{fmt(v, sp)}</td>')
             else:
                 sv = "" if v is None or (isinstance(v, float) and pd.isna(v)) else str(v)
-                nw = bool(sv) and all(ch.isdigit() or ch in "-–/., " for ch in sv)
-                out.append(f'<td class="nw">{esc(v)}</td>' if nw else f"<td>{esc(v)}</td>")
+                # numbers, dates and seasons, and single words up to 24 characters (e.g. Piano_Sonatas_26-3) stay on one line
+                nw = bool(sv) and (all(ch.isdigit() or ch in "-–/., " for ch in sv) or (len(sv) <= 24 and not any(ch.isspace() for ch in sv)))
+                out.append(f'<td class="nw">{esc(v)}</td>' if nw else (f'<td class="long">{esc(v)}</td>' if c in long else f"<td>{esc(v)}</td>"))
         out.append("</tr>")
     out.append("</tbody></table></div>")
     return "".join(out)
@@ -538,6 +652,16 @@ def main():
     ny_dec = pd.read_csv(D / "nyphil_decade_top.csv")
     ny_turn = pd.read_csv(D / "nyphil_canon_turnover.csv")
     ny_w50 = pd.read_csv(D / "nyphil_work_frequency_top50_composers.csv")
+    # 1.4
+    trend = pd.read_csv(D / "beethoven_symphony_tempo_trend.csv")
+    cyear = pd.read_csv(D / "beethoven_symphony_conductor_year.csv")
+    pedal = pd.read_csv(D / "asap_pedal.csv")
+    pedal_sum = pd.read_csv(D / "asap_pedal_summary.csv")
+    pedal_rec = pd.read_csv(D / "asap_pedal_recordings.csv")
+    ny_cond = pd.read_csv(D / "nyphil_conductor_repertoire.csv")
+    surv = pd.read_csv(D / "nyphil_new_work_survival.csv")
+    surv_sum = pd.read_csv(D / "nyphil_new_work_survival_summary.csv")
+    women = pd.read_csv(D / "nyphil_women_share.csv")
     AL = Path(a.aliases)
     ny_done = ny_season[ny_season["season_complete"]]
 
@@ -564,8 +688,19 @@ def main():
         "nyphil_decade_top.csv": ("nyphil", "D"),
         "nyphil_canon_turnover.csv": ("nyphil", "D"),
         "nyphil_work_frequency_top50_composers.csv": ("nyphil", "D"),
+        "beethoven_symphony_tempo_trend.csv": ("bmetr", "C"),
+        "beethoven_symphony_conductor_year.csv": ("bmetr", "C"),
+        "asap_pedal.csv": ("asap", "C"),
+        "asap_pedal_summary.csv": ("asap", "C"),
+        "asap_pedal_recordings.csv": ("asap", "C"),
+        "nyphil_conductor_repertoire.csv": ("nyphil+wikidata", "D"),
+        "nyphil_new_work_survival.csv": ("nyphil+wikidata", "D"),
+        "nyphil_new_work_survival_summary.csv": ("nyphil+wikidata", "D"),
+        "nyphil_women_share.csv": ("nyphil+wikidata", "D"),
         "aliases/nyphil_composers.csv": ("nyphil", "D"),
+        "aliases/nyphil_conductors.csv": ("nyphil", "D"),
         "aliases/composer_wikidata.csv": ("wikidata", "D"),
+        "aliases/composer_gender.csv": ("wikidata", "D"),
     }
     import history_pages
     for f in history_pages.HISTORY_FILES:
@@ -588,7 +723,8 @@ def main():
     pt.columns = ["median", "n", "q1", "q3"]
     ny_first, ny_last = ny_done.iloc[0], ny_done.iloc[-1]  # first and last complete season
     persons = ny_comp[ny_comp["flag"] == "person"]
-    u2_top = ny_all.sort_values("complete_performances", ascending=False).iloc[0]
+    # ties on complete performances fall back to the file's own unique rank (U1 performances, then work_id)
+    u2_top = ny_all.sort_values(["complete_performances", "rank"], ascending=[False, True], kind="mergesort").iloc[0]
     wag = persons[persons["composer"] == "Wagner, Richard"].iloc[0]
     decade_med = ny_done.assign(dec=ny_done["season_start"] // 10 * 10).groupby("dec")[["living_share", "repertoire_age_median", "excerpt_share"]].median()
     asap_c = asap_piece.groupby("composer").agg(n_pieces=("title", "size"), n_perf=("n_performances", "sum"),
@@ -634,6 +770,8 @@ def main():
            for k in ("chromatic_ratio", "applied_chord_ratio", "local_key_changes_per_100_measures", "top_leap_ratio", "chords_per_measure", "pitch_range_semitones")},
     )
     (OUT / "data" / "headline.json").write_text(json.dumps(H, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
+    # display copies (generated sentences and labels): season 1842-43 -> 1842–43; the raw strings stay in tables and headline.json
+    H = dict(H, ny_first_season=takeaways.season(H["ny_first_season"]), ny_last_season=takeaways.season(H["ny_last_season"]))
 
     for lang in ("ko", "en"):
         t = T[lang]
@@ -642,7 +780,8 @@ def main():
         L = lambda m: m[lang]  # noqa: E731
 
         # ---------------- metric pages
-        glance_data = dict(score=score, ny_done=ny_done, ny_turn=ny_turn, cond=cond, mvsum=mvsum, asap_piece=asap_piece)
+        glance_data = dict(score=score, ny_done=ny_done, ny_turn=ny_turn, cond=cond, mvsum=mvsum, asap_piece=asap_piece,
+                           trend=trend, pedal_sum=pedal_sum, ny_cond=ny_cond, surv_sum=surv_sum, women=women)
         for m in METRICS:
             ml = L(m)
             body = [f'<div class="eyebrow"><span class="tag layer">{LAYERS[m["layer"]][lang]}</span><span class="tag">{t["unit"]}: {esc(m["unit"])}</span></div>',
@@ -663,9 +802,10 @@ def main():
                 order = ["chorales", "english_french_suites", "solo_violin_cello_flute", "string_quartets", "piano_sonatas"]
                 groups.sort(key=lambda g: order.index(next(k for k in order if t["coll"][k] in g[0])))
                 summ.sort(key=lambda s: order.index(next(k for k in order if t["coll"][k] in s["group"])))
-                body.append(f"<h2>{t['by_collection']}</h2>{legend([(c, COMPOSER_COLOR[c]) for c in COMPOSERS])}<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'])}<figcaption>{t['dist_caption']} {missing_caption(score, m['id'], lang)}</figcaption></figure>")
+                body.append(f"<h2>{t['by_collection']}</h2>{legend([(c, COMPOSER_COLOR[c]) for c in COMPOSERS])}<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'], med_label=t['median'])}<figcaption>{t['dist_caption']} {missing_caption(score, m['id'], lang)}</figcaption></figure>")
                 sdf = pd.DataFrame(summ)
-                body.append(table_html(sdf, [("group", t["collection"], None), ("n", t["n"], "d"), ("median", t["median"], m["fmt"]), ("q1", t["q1"], m["fmt"]), ("q3", t["q3"], m["fmt"]), ("mn", t["min"], m["fmt"]), ("mx", t["max"], m["fmt"])], f"s_{m['id']}", lang, filt=False))
+                st = lambda v, f=m["fmt"]: takeaways.stat_spec(v, f)  # noqa: E731
+                body.append(table_html(sdf, [("group", t["collection"], None), ("n", t["n"], "d"), ("median", t["median"], st), ("q1", t["q1"], st), ("q3", t["q3"], st), ("mn", t["min"], m["fmt"]), ("mx", t["max"], m["fmt"])], f"s_{m['id']}", lang, filt=False))
                 rk = score.dropna(subset=[m["id"]]).sort_values([m["id"], "corpus", "piece_id"], ascending=[False, True, True], kind="mergesort").copy()
                 rk["work"] = rk["work"].where(rk["work"].notna() & (rk["work"] != ""), rk["piece_id"])
                 rk["composed_start"] = rk["composed_start"].astype(str).where(rk["composed_start"].astype(str).str.match(r"^\d{4}"), "")
@@ -673,12 +813,12 @@ def main():
                 src = "dcml"
             elif m["table"] == "coda":
                 items = [(f"{r.conductor.split(',')[0]} ({t['ptype'][r.ptype]}, {str(r.date)[:4]})", r.median_diff_bpm, PTYPE_COLOR[r.ptype]) for r in cond.itertuples()]
-                body.append(legend([(t["ptype"][k], v) for k, v in PTYPE_COLOR.items()]))
+                body.append(legend([(t["ptype"][k], v) for k, v in PTYPE_COLOR.items()]) + ("" if lang == "ko" else "<p class='src'>HIP: historically informed performance (period instruments and practice).</p>"))
                 body.append(f"<figure>{svg_bars(items, '+.1f', xlabel='bpm')}<figcaption>{'지휘자별 중앙값(교향곡 1~8번 33악장). 녹음 연도는 괄호 안.' if lang=='ko' else 'Median per conductor over 33 movements of Symphonies 1–8; recording years in parentheses.'}</figcaption></figure>")
                 body.append(table_html(cond, [("conductor", "Conductor", None), ("ptype", "Style", None), ("date", "Rec.", None), ("n_movements", t["n"], "d"), ("median_diff_bpm", t["median"], "+.1f"), ("q1_diff_bpm", t["q1"], "+.1f"), ("q3_diff_bpm", t["q3"], "+.1f"), ("n_rectified", "rectified", "d")], "cond", lang))
                 src = "bmetr"
             elif m["table"] == "duration":
-                mv = mvsum.assign(label=mvsum["symphony"].astype(str) + "/" + mvsum["movement"].astype(str) + " " + mvsum["main_character"].fillna("") + " ♩=" + mvsum["main_mark"].astype(int).astype(str))
+                mv = mvsum.assign(label=mvsum["symphony"].astype(str) + "/" + mvsum["movement"].astype(str) + " " + mvsum["main_character"].astype(object).fillna("") + " ♩=" + mvsum["main_mark"].astype(int).astype(str))
                 body.append(f"<figure>{svg_bars([(r.label, r.ratio_no_rep_median, 1) for r in mv.itertuples()], '.2f', xlabel='×', zero_line=False)}<figcaption>{'악장별 중앙값(지휘자 36명), 반복 없음 가정.' if lang=='ko' else 'Median over 36 conductors per movement, assuming no repeats.'}</figcaption></figure>")
                 body.append(table_html(mv, [("label", "Movement", None), ("n", t["n"], "d"), ("duration_median_s", "sec (median)", ".0f"), ("ratio_no_rep_median", "no repeats", ".2f"), ("ratio_with_rep_median", "with repeats", ".2f")], "mv", lang))
                 src = "bmetr"
@@ -687,9 +827,105 @@ def main():
                 two = m["id"] == "tempo_cv_across_performers"
                 cap_ko = "점 하나가 곡 하나" + ("(연주 2개 이상인 곡만)" if two else "(연주가 하나인 곡은 그 연주의 값)") + ". 모차르트(6곡·연주 16개)는 소표본이라 차트에서 빼고 아래 표에만 둔다."
                 cap_en = "One dot per piece" + (" (pieces with two or more performances only)" if two else " (a single-performance piece shows that performance's value)") + ". Mozart (6 pieces, 16 performances) is too small a sample for the chart and appears only in the table below."
-                body.append(f"<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'])}<figcaption>{cap_ko if lang=='ko' else cap_en}</figcaption></figure>")
+                body.append(f"<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'], med_label=t['median'])}<figcaption>{cap_ko if lang=='ko' else cap_en}</figcaption></figure>")
                 body.append(table_html(asap_piece.sort_values([m["id"], "composer", "title"], ascending=[False, True, True], kind="mergesort"), [("composer", t["composer"], None), ("title", "Piece", None), ("n_performances", "perf.", "d"), ("tempo_mean_bpm_median", "tempo (median)", ".0f"), (m["id"], ml["name"], m["fmt"])], "ap", lang))
                 src = "asap"
+            elif m["table"] == "tempo_trend":
+                ko_ = lang == "ko"
+                fe = trend.set_index("model").loc["movement_fe"]
+                cy = cyear.sort_values(["rec_year_mid", "conductor"], kind="mergesort")
+                b_, a_ = float(fe["slope_bpm_per_decade"]) / 10, None
+                a_ = float(cy["median_diff_bpm"].mean() - b_ * cy["rec_year_mid"].mean())  # line through the conductor means, within-movement slope
+                pts = [(float(r.rec_year_mid), float(r.median_diff_bpm), PTYPE_COLOR[r.ptype], f"{r.conductor.split(',')[0]} ({t['ptype'][r.ptype]}, {r.date})") for r in cy.itertuples()]
+                body.append(legend([(t["ptype"][k], v) for k, v in PTYPE_COLOR.items()]) + ("" if lang == "ko" else "<p class='src'>HIP: historically informed performance (period instruments and practice).</p>"))
+                body.append(f"<figure>{svg_scatter(pts, '+.1f', xlabel=('녹음 연도(녹음 기간의 가운데 해)' if ko_ else 'recording year (midpoint of the recording dates)'), ylabel=('지휘자 중앙값, 측정 − 표기 (bpm)' if ko_ else 'conductor median, measured − mark (bpm)'), line=(a_, b_))}"
+                            f"<figcaption>{'점 하나가 지휘자(전집) 하나. 점선은 같은 악장 안 기울기(10년당 %s bpm)를 지휘자 평균점에 맞춰 그은 것이다. 지휘자와 녹음 연도는 한 쌍씩 묶여 있어 이 기울기를 연도의 영향으로 읽을 수 없다.' % fmt(fe['slope_bpm_per_decade'], '+.2f') if ko_ else 'One dot per conductor (cycle). The dashed line has the within-movement slope (%s bpm per decade), drawn through the conductors’ mean point. Each conductor comes with one recording period, so the slope cannot be read as an influence of the year.' % fmt(fe['slope_bpm_per_decade'], '+.2f')}</figcaption></figure>")
+                model_ko = {"movement_fe": "악장 내 기울기(가운데 해)", "movement_fe_start": "악장 내 기울기(녹음 첫해)", "movement_fe_ptype": "악장 내 기울기 + 연주 양식 절편", "conductor_median": "지휘자 중앙값 단순 회귀"}
+                model_en = {"movement_fe": "within movement (midpoint year)", "movement_fe_start": "within movement (first year)", "movement_fe_ptype": "within movement + style intercepts", "conductor_median": "conductor medians, simple regression"}
+                tr = trend.assign(label=trend["model"].map(model_ko if ko_ else model_en), se_lbl=trend["se_kind"].map(lambda k: ("지휘자 군집" if k.startswith("cluster") else "보통 최소제곱") if ko_ else ("conductor clusters" if k.startswith("cluster") else "classical OLS")))
+                body.append(table_html(tr, [("label", "모형" if ko_ else "Model", None), ("n_obs", t["n"], "d"), ("n_conductors", "지휘자" if ko_ else "conductors", "d"),
+                                            ("slope_bpm_per_decade", ml["name"], "+.2f"), ("se_bpm_per_decade", "표준오차" if ko_ else "SE", ".2f"), ("se_lbl", "표준오차 종류" if ko_ else "SE type", None),
+                                            ("ci95_low", "95% 하한" if ko_ else "95% low", "+.2f"), ("ci95_high", "95% 상한" if ko_ else "95% high", "+.2f")], "trend", lang, filt=False))
+                body.append(table_html(cy.assign(pt=cy["ptype"].map(t["ptype"])), [("conductor", "지휘자" if ko_ else "Conductor", None), ("pt", "양식" if ko_ else "Style", None), ("date", "녹음 기간(date)" if ko_ else "Recording dates (date)", None),
+                                            ("rec_year_mid", "가운데 해" if ko_ else "midpoint", ".1f"), ("n_movements", t["n"], "d"), ("median_diff_bpm", t["median"], "+.1f")], "cyear", lang))
+                src = "bmetr"
+            elif m["table"] == "asap_pedal":
+                ko_ = lang == "ko"
+                groups = [(c, pedal_rec[pedal_rec.composer == c]["sustain_ratio"].astype(float).tolist(), COMPOSER_COLOR[c]) for c in ("Bach", "Beethoven")]
+                _mz = pedal_sum.set_index("composer").loc["Mozart"]
+                body.append(f"<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'], med_label=t['median'])}<figcaption>{f'점 하나가 녹음 하나(여러 곡으로 잘린 녹음은 합쳐 하나). 모차르트({int(_mz.n_pieces)}곡·{int(_mz.n_performances)}녹음)는 표에만 둔다.' if ko_ else f'One dot per recording (a recording cut into several pieces counts once). Mozart ({int(_mz.n_pieces)} pieces, {int(_mz.n_performances)} recordings) is in the table only.'}</figcaption></figure>")
+                ps = pedal_sum.assign(name=pedal_sum["composer"].map(lambda c: ("전체" if ko_ else "all") if c == "all" else c))
+                body.append(table_html(ps, [("name", t["composer"], None), ("n_performances", "녹음" if ko_ else "Recordings", "d"), ("n_asap_files", "ASAP 파일" if ko_ else "ASAP files", "d"), ("n_pieces", "곡" if ko_ else "Pieces", "d"),
+                                            ("sustain_ratio_median", t["median"], ".3f"), ("sustain_ratio_q1", t["q1"], ".3f"), ("sustain_ratio_q3", t["q3"], ".3f"),
+                                            ("sustain_ratio_any_median", "반 페달 포함 중앙값" if ko_ else "median, any depth", ".3f")], "pedsum", lang, filt=False))
+                rk = pedal.sort_values(["sustain_ratio", "composer", "title", "performance"], ascending=[False, True, True, True], kind="mergesort")
+                body.append(f"<h2>{t['ranking']}</h2>" + table_html(rk, [("composer", t["composer"], None), ("title", "Piece", None), ("performance", "perf.", None), ("span_s", "sec", ".0f"),
+                                                                         ("sustain_ratio", ml["name"], ".3f"), ("sustain_ratio_any", "반 페달 포함" if ko_ else "any depth", ".3f")], "ped", lang))
+                src = "asap"
+            elif m["table"] == "asap_soft":
+                ko_ = lang == "ko"
+                ps = pedal_sum[pedal_sum.composer != "all"]
+                body.append(f"<figure>{svg_bars([(r.composer, float(r.soft_used_share), COMPOSER_COLOR[r.composer]) for r in ps.itertuples()], '.0%', xlabel=m['unit'], zero_line=False)}<figcaption>{'막대는 소프트 페달을 쓴 연주의 비율. 95% 구간은 아래 표에 있다(모차르트는 16연주라 구간이 넓다).' if ko_ else 'Bars: share of performances using the soft pedal. The 95% intervals are in the table (Mozart has 16 performances, so its interval is wide).'}</figcaption></figure>")
+                ps = pedal_sum.assign(name=pedal_sum["composer"].map(lambda c: ("전체" if ko_ else "all") if c == "all" else c))
+                body.append(table_html(ps, [("name", t["composer"], None), ("n_performances", "녹음" if ko_ else "Recordings", "d"), ("soft_used_n", "쓴 녹음" if ko_ else "Used", "d"),
+                                            ("soft_used_share", ml["name"], ".1%"), ("soft_used_ci95_low", "95% 하한" if ko_ else "95% low", ".1%"), ("soft_used_ci95_high", "95% 상한" if ko_ else "95% high", ".1%"),
+                                            ("soft_ratio_median_when_used", "쓴 연주의 밟은 시간 비율(중앙값)" if ko_ else "time share when used (median)", ".3f")], "softsum", lang, filt=False))
+                src = "asap"
+            elif m["table"] == "nyphil_conductor":
+                ko_ = lang == "ko"
+                pc = ny_cond[ny_cond["conductor_flag"] == "person"]
+                big = pc[pc["perf_u1"] >= 1000].sort_values(["first_season", "conductor"], kind="mergesort")
+                body.append(f"<figure>{svg_bars([(f'{r.conductor.split(chr(44))[0]} ({takeaways.season(r.first_season)[:4]}–{takeaways.season(r.last_season)[:4]})', float(r.living_share), 2) for r in big.itertuples()], '.0%', xlabel=('생존 작곡가 점유율' if ko_ else 'living-composer share'), zero_line=False)}"
+                            f"<figcaption>{'작품 연주 1,000건 이상인 지휘자 %d명, 첫 시즌 순. 괄호는 지휘한 첫·마지막 시즌의 시작 연도. 하한·상한은 표에 있다.' % len(big) if ko_ else '%d conductors with 1,000+ work performances, by first season; in parentheses the start years of their first and last seasons. Bounds are in the table.' % len(big)}</figcaption></figure>")
+                tab = ny_cond[ny_cond["perf_u1"] >= 200].copy()
+                tab["who"] = tab.apply(lambda r: r["conductor"] if r["conductor_flag"] == "person" else f"{r['conductor']} [{r['conductor_flag']}]", axis=1)
+                tab["first"] = tab["first_season"].map(takeaways.season)
+                tab["last"] = tab["last_season"].map(takeaways.season)
+                tab["top"] = tab["top_composer"].map(lambda c: KO_NAME.get(c, c.split(",")[0]) if ko_ else c.split(",")[0])
+                body.append(f"<h2>{'지휘자별 (작품 연주 200건 이상)' if ko_ else 'By conductor (200+ work performances)'}</h2>")
+                body.append(table_html(tab, [("who", "지휘자" if ko_ else "Conductor", None), ("first", t["first"], None), ("last", t["last"], None), ("perf_u1", t["perf_u1"], "d"),
+                                             ("distinct_composers", "작곡가 수" if ko_ else "composers", "d"), ("hhi", "HHI", ".3f"), ("top", "최다 작곡가" if ko_ else "Top composer", None),
+                                             ("top_composer_share", "그 점유율" if ko_ else "its share", ".1%"), ("beethoven_share", "베토벤" if ko_ else "Beethoven", ".1%"),
+                                             ("excerpt_share", t["excerpt"], ".1%"), ("living_share", "생존 작곡가" if ko_ else "living", ".1%"),
+                                             ("living_share_low", t["lower"], ".1%"), ("living_share_high", t["upper"], ".1%")], "condrep", lang))
+                src = ["nyphil", "wikidata"]
+            elif m["table"] == "nyphil_survival":
+                ko_ = lang == "ko"
+                coh = [("1843-1899", 0), ("1900-1949", 1), ("1950-1999", 2), ("2000-", 3)]  # slot 4 (--s4) = neutral grey
+                ser = []
+                for i, (c_, ci) in enumerate(coh):
+                    cv = surv[(surv["set"] == "living_composer") & (surv["cohort"] == c_)]
+                    pts = [(0, 0.0)] + [(int(r.t), 1 - float(r.surv)) for r in cv.itertuples() if r.t <= 30]
+                    ser.append((c_.replace("-", "–") if c_ != "2000-" else ("2000–" if ko_ else "2000 on"), pts, ci))
+                body.append(legend([(n, ci) for n, _, ci in ser]))
+                body.append(f"<figure>{svg_lines(ser, '.0%', ylabel=('재연주된 작품의 누적 비율' if ko_ else 'cumulative share re-performed'), end_labels=False)}"
+                            f"<figcaption>{'작곡가가 살아 있던 작품, 첫 연주 시기별. 가로축은 첫 시즌부터의 햇수(30년까지), 세로축은 1 − Kaplan–Meier 생존. 2000년 이후 선은 지켜본 기간이 짧아 뒤로 갈수록 작품 수가 적다.' if ko_ else 'Works by living composers, by period of first performance. Horizontal: years since the first season (up to 30); vertical: 1 − Kaplan–Meier survival. The 2000-on line has short follow-up, so few works remain at later years.'}</figcaption></figure>")
+                set_lbl = {"living_composer": ("작곡가 생존", "living composer"), "living_or_undated": ("생존 + 생몰년 미확인", "living + undated"), "all_works": ("모든 작품", "all works")}
+                ss = surv_sum.assign(set_name=surv_sum["set"].map(lambda k: set_lbl[k][0 if ko_ else 1]), coh=surv_sum["cohort"].map(lambda c: ("전체" if ko_ else "all") if c == "all" else c.replace("-", "–")))
+                body.append(table_html(ss, [("set_name", "묶음" if ko_ else "Set", None), ("coh", "첫 연주 시기" if ko_ else "First performed", None), ("n_works", "작품" if ko_ else "works", "d"),
+                                            ("n_left_truncated", "좌측 절단 제외" if ko_ else "left-truncated (out)", "d"), ("n_reperformed", "재연주됨" if ko_ else "re-performed", "d"),
+                                            ("reperf_10y_km", ml["name"], ".1%"), ("reperf_10y_ci95_low", "95% 하한" if ko_ else "95% low", ".1%"), ("reperf_10y_ci95_high", "95% 상한" if ko_ else "95% high", ".1%"),
+                                            ("n_full_10y_followup", "10년 다 지켜본 작품" if ko_ else "full 10-year follow-up", "d"), ("reperf_10y_naive", "그 작품 중 단순 비율" if ko_ else "plain share among them", ".1%")], "surv", lang, filt=False))
+                src = ["nyphil", "wikidata"]
+            elif m["table"] == "nyphil_women":
+                ko_ = lang == "ko"
+                wc = women[women["season_start"] <= ny_done["season_start"].max()].copy()
+                ser = [(("하한" if ko_ else "Lower bound"), [(int(r.season_start), float(r.women_share_low)) for r in wc.itertuples()], 0),
+                       (("가운데 값" if ko_ else "Middle value"), [(int(r.season_start), float(r.women_share)) for r in wc.itertuples() if r.women_share == r.women_share], 1),
+                       (("상한" if ko_ else "Upper bound"), [(int(r.season_start), float(r.women_share_high)) for r in wc.itertuples()], 2)]
+                body.append(legend([(n, c) for n, _, c in ser]) + f"<figure>{svg_lines(ser, '.0%', ylabel=('여성 작곡가 작품 연주 비율' if ko_ else 'share of work performances by women'), end_labels=False)}"
+                            f"<figcaption>{'완결 시즌별. 하한은 성별 미상 작곡가를 모두 여성이 아닌 것으로, 상한은 모두 여성으로 둔 값이다. 가운데 값은 성별이 확인된 작곡가만으로 냈다.' if ko_ else 'By completed season. The lower bound counts composers of unknown gender as not women, the upper bound as women; the middle value uses composers with a recorded gender only.'}</figcaption></figure>")
+                wc["decade"] = (wc["season_start"] // 10) * 10
+                rows = []
+                for dec, g in wc.groupby("decade"):
+                    u = g["person_u1"].astype(float); k = u * g["gender_coverage"]
+                    rows.append({"decade": f"{int(dec)}s" if not ko_ else f"{int(dec)}년대", "u1": int(u.sum()), "cov": float(k.sum() / u.sum()),
+                                 "low": float((g["women_share_low"] * u).sum() / u.sum()), "mid": float((g["women_share"].fillna(0) * k).sum() / k.sum()) if k.sum() else float("nan"),
+                                 "high": float((g["women_share_high"] * u).sum() / u.sum())})
+                body.append(table_html(pd.DataFrame(rows), [("decade", "시기" if ko_ else "Decade", None), ("u1", "작품 연주(사람 작곡가)" if ko_ else "Work performances (individuals)", ",d"),
+                                                            ("cov", "성별 확인 비율" if ko_ else "Gender coverage", ".1%"), ("low", "하한" if ko_ else "Lower bound", ".2%"),
+                                                            ("mid", "가운데 값" if ko_ else "Middle value", ".2%"), ("high", "상한" if ko_ else "Upper bound", ".2%")], "women", lang, filt=False))
+                src = ["nyphil", "wikidata"]
             elif m["table"] == "nyphil_turnover":
                 tt = ny_turn.dropna(subset=["jaccard_top10"])
                 ser = [("상위 10" if lang == "ko" else "top 10", [(int(r.decade), float(r.jaccard_top10)) for r in tt.itertuples()], 0),
@@ -714,7 +950,7 @@ def main():
                     ser = [(ml["name"], ser[0][1], 0), (t["lower"], [(int(r.season_start), float(r[lo])) for _, r in done.iterrows()], 2), (t["upper"], [(int(r.season_start), float(r[hi])) for _, r in done.iterrows()], 1)]
                 if len(ser) > 1:
                     body.append(legend([(n, ci) for n, _, ci in ser]))
-                cap = ('완결 시즌별(1842–43 ~ %s). 진행 중인 시즌은 표에만 있다.' % ny_last["season"]) if lang == "ko" else ('Completed seasons, 1842–43 to %s. The season in progress is in the table only.' % ny_last["season"])
+                cap = ('완결 시즌별(1842–43 ~ %s). 진행 중인 시즌은 표에만 있다.' % takeaways.season(ny_last["season"])) if lang == "ko" else ('Completed seasons, 1842–43 to %s. The season in progress is in the table only.' % takeaways.season(ny_last["season"]))
                 body.append(f"<figure>{svg_lines(ser, m['fmt'], ylabel=m['unit'], end_labels=False)}<figcaption>{cap}</figcaption></figure>")
                 cols = [("season", t["season"], None), ("n_programs", t["programs"], "d"), ("work_performances", t["perf_u1"], "d"), (m["id"], ml["name"], m["fmt"])]
                 if m.get("sub"):
@@ -739,7 +975,7 @@ def main():
                 body.append(f"<p class='src'>{esc(s[lang])} <a href='{s['url']}'>{s['url']}</a> · {t['license']}: {esc(s['license'])}</p>")
             files = [f for f, (sk, _) in DATA_FILES.items() if set(sk.split("+")) & set(srcs)]
             body.append("<p class='files'>" + "".join(f'<a href="../../data/{f}">{f}</a>' for f in files) + "</p>")
-            (base / "metrics" / f"{m['id']}.html").write_text(page(lang, ml["name"], "".join(body), depth=2, desc=ml["definition"], active="metrics"), encoding="utf-8")
+            (base / "metrics" / f"{m['id']}.html").write_text(page(lang, ml["name"], "".join(body), depth=2, desc=ml["definition"], active="metrics", leaf=metric_leaf(lang, m["id"])), encoding="utf-8")
 
         # ---------------- metrics index
         body = [f"<h1>{t['metric_list']}</h1>"]
@@ -762,17 +998,17 @@ def main():
 
         cdf["name_html"] = cdf["composer"].map(lambda c: f"<a href='{slug(c)}.html'>{esc(disp(c))}</a>" if c in top50 else esc(disp(c)))
         intro = ("뉴욕 필하모닉 공연 기록(1842–43 ~ %s)에 작품이 오른 모든 이름 %s개. 사람 작곡가 %s명과 전승곡·국가·작곡가 미상·공동 표기 등 사람이 아닌 표기를 구분했다. 순위는 사람 작곡가만 매긴다. 상위 50명은 이름을 누르면 프로필 면으로 간다. 작품 연주(U1)는 한 프로그램의 작품 하나 × 연주회 수, 전곡 연주(U2)는 그중 발췌가 아닌 것이다."
-                 % (ny_season.iloc[-1]["season"], f"{H['ny_strings']:,}", f"{H['ny_persons']:,}")) if lang == "ko" else (
+                 % (takeaways.season(ny_season.iloc[-1]["season"]), f"{H['ny_strings']:,}", f"{H['ny_persons']:,}")) if lang == "ko" else (
                  "Every name with a work in the New York Philharmonic Performance History (1842–43 to %s): %s names, of which %s are individual composers; traditional, anthem, unattributed and joint credits are labeled separately and not ranked. The top 50 link to profile pages. Work performances (U1) = one work on a program × its concerts; complete performances (U2) exclude excerpts."
-                 % (ny_season.iloc[-1]["season"], f"{H['ny_strings']:,}", f"{H['ny_persons']:,}"))
+                 % (takeaways.season(ny_season.iloc[-1]["season"]), f"{H['ny_strings']:,}", f"{H['ny_persons']:,}"))
         rows = []
         for r in cdf.itertuples():
             rows.append("<tr>" + "".join([
                 f"<td class='num' data-v='{'' if pd.isna(r.rank_u1) else int(r.rank_u1)}'>{'' if pd.isna(r.rank_u1) else int(r.rank_u1)}</td>",
-                f"<td>{r.name_html}</td><td>{esc(r.cat)}</td>",
+                f"<td class='long'>{r.name_html}</td><td>{esc(r.cat)}</td>",
                 f"<td class='num' data-v='{r.perf_u1}'>{int(r.perf_u1):,}</td><td class='num' data-v='{r.perf_u2}'>{int(r.perf_u2):,}</td>",
                 f"<td class='num' data-v='{r.excerpt_share}'>{r.excerpt_share:.0%}</td>",
-                f"<td>{esc(r.first_season)}</td><td>{esc(r.last_season)}</td><td class='num' data-v='{r.n_seasons}'>{int(r.n_seasons)}</td>",
+                f"<td class='nw'>{esc(r.first_season)}</td><td class='nw'>{esc(r.last_season)}</td><td class='num' data-v='{r.n_seasons}'>{int(r.n_seasons)}</td>",
                 f"<td class='num'>{'' if pd.isna(r.birth_year) else int(r.birth_year)}</td><td class='num'>{'' if pd.isna(r.death_year) else int(r.death_year)}</td>",
             ]) + "</tr>")
         heads = [(t["rank"], 1), (t["composer"], 0), (t["category"], 0), (t["perf_u1"], 1), (t["perf_u2"], 1), (t["excerpt"], 1), (t["first"], 0), (t["last"], 0), (t["n_seasons"], 1), (t["born"], 1), (t["died"], 1)]
@@ -785,6 +1021,7 @@ def main():
                 "<p class='files'>" + "".join(f'<a href="../../data/{f}">{f}</a>' for f in ("nyphil_composer_summary.csv", "aliases/nyphil_composers.csv", "aliases/composer_wikidata.csv")) + "</p>"]
         (base / "composers" / "index.html").write_text(page(lang, t["nav_composers"], "".join(body), depth=2, active="composers"), encoding="utf-8")
 
+        comp_leaf = [(disp(x), f"{slug(x)}.html") for x in sorted(top50, key=lambda x: int(persons.loc[persons["composer"] == x, "rank_u1"].iloc[0]))]
         for c in sorted(top50):
             r = persons[persons["composer"] == c].iloc[0]
             g = ny_cs[(ny_cs["composer"] == c)].set_index("season")
@@ -793,8 +1030,8 @@ def main():
             title = disp(c)
             life = "" if pd.isna(r.birth_year) else f"{int(r.birth_year)}–{'' if pd.isna(r.death_year) else int(r.death_year)}"
             facts = [(t["rank"] + " (U1 / U2)", f"{int(r.rank_u1)} / {int(r.rank_u2)}"), (t["perf_u1"], f"{int(r.perf_u1):,}"), (t["perf_u2"], f"{int(r.perf_u2):,}"),
-                     (t["excerpt"], f"{r.excerpt_share:.0%}"), (t["first"] + " – " + t["last"], f"{r.first_season} – {r.last_season}"), (t["n_seasons"], f"{int(r.n_seasons)}"),
-                     (t["peak"], f"{r.peak_season} ({r.peak_share:.1%})"), (t["born"] + " – " + t["died"], life or "—")]
+                     (t["excerpt"], f"{r.excerpt_share:.0%}"), (t["first"] + " – " + t["last"], f"{takeaways.season(r.first_season)}{' ~ ' if lang == 'ko' else ' to '}{takeaways.season(r.last_season)}"), (t["n_seasons"], f"{int(r.n_seasons)}"),
+                     (t["peak"], f"{takeaways.season(r.peak_season)} ({r.peak_share:.1%})"), (t["born"] + " – " + t["died"], life or "—")]
             body = [f"<div class='eyebrow'><span class='tag layer'>{LAYERS['D'][lang]}</span><span class='tag'>NY Phil</span></div><h1>{esc(title)}</h1>",
                     "<div class='spec'><dl>" + "".join(f"<dt>{esc(k)}</dt><dd>{esc(v)}</dd>" for k, v in facts) + "</dl></div>",
                     legend([(t["perf_u1"], 0), (t["perf_u2"] + (" (같은 분모)" if lang == "ko" else " (same denominator)"), 1)]),
@@ -806,7 +1043,9 @@ def main():
             ww = ny_w50[ny_w50["composer"] == c]
             body.append(f"<h2>{t['top_works']}</h2>" + table_html(ww, [("work_title", t["work"], None), ("performances", t["perf_u1"], "d"), ("complete_performances", t["perf_u2"], "d"), ("first_season", t["first"], None), ("last_season", t["last"], None), ("rank", t["rank"] + " (all)", "d")], "ww", lang, filt=False))
             body.append(f"<p class='links'><a href='index.html'>← {t['nav_composers']}</a><a href='../metrics/excerpt_share.html'>{esc(next(L(m)['name'] for m in METRICS if m['id']=='excerpt_share'))} →</a></p>")
-            (base / "composers" / f"{slug(c)}.html").write_text(page(lang, title, "".join(body), depth=2, desc=title, active="composers"), encoding="utf-8")
+            (base / "composers" / f"{slug(c)}.html").write_text(page(lang, title, "".join(body), depth=2, desc=title, active="composers", leaf=dict(
+                crumbs=[(t["nav_home"], "../index.html"), (t["nav_composers"], "index.html")], cur=f"{slug(c)}.html",
+                groups=[(("상위 50명(작품 연주 순)" if lang == "ko" else "Top 50 (by work performances)"), comp_leaf)])), encoding="utf-8")
 
         # ---------------- data page
         body = [f"<h1>{t['nav_data']}</h1>"]
@@ -820,6 +1059,17 @@ def main():
         body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the license the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that license forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
         body.append("<p>" + ("파일마다 이 표의 라이선스·원자료·원자료 라이선스를 기계가 읽을 수 있게 적은 목록: <a href='../data/datapackage.json'>datapackage.json</a>(Frictionless Data Package). CSV 만 따로 가져갈 때도 이 목록을 함께 두기 바란다." if lang == "ko" else
                             "A machine-readable list of each file's license, sources and source licenses: <a href='../data/datapackage.json'>datapackage.json</a> (Frictionless Data Package). Please keep it with any CSV you redistribute.") + "</p>")
+        # 1.4: two date columns of the bmetr recordings table, which are easy to confuse
+        rec_years = pd.read_csv(D / "beethoven_symphony_recordings.csv")["year"]
+        odd = sorted(int(v) for v in rec_years.dropna() if v > int(BUILD_DATE[:4]))
+        body.append("<h2>" + ("열 설명: 베토벤 교향곡 녹음 표" if lang == "ko" else "Columns: Beethoven symphony recordings") + "</h2><p>" + (
+            "beethoven_symphony_recordings.csv(및 이를 이어받은 coda_tempo·duration_ratio 표)의 <b>date</b> 열은 녹음 기간이다 — 원자료(bmetr)의 문자열 그대로이며, 한 해(「1995」)나 기간(「1977-1979」, 「1972- 1975」)으로 적혀 있다. "
+            "<b>year</b> 열은 녹음 연도가 아니라 그 전집 음반의 발매 연도다(bmetr 설명서: release date). 원자료의 year 에는 발매 연도로 있을 수 없는 값 %s 이 그대로 들어 있다. "
+            "이 사이트에서 녹음 시점이 필요한 곳은 date 를 쓴다: recording_year_start 는 date 의 첫해, 녹음 연도별 템포 추이(beethoven_symphony_conductor_year.csv)의 rec_year_first·rec_year_last·rec_year_mid 는 date 의 첫해·끝해·가운데 해다." % "·".join(map(str, odd))
+            if lang == "ko" else
+            "In beethoven_symphony_recordings.csv (and the coda_tempo and duration_ratio tables that carry it), <b>date</b> is the recording period, as written in the source (bmetr): a single year ('1995') or a range ('1977-1979', '1972- 1975'). "
+            "<b>year</b> is not the recording year but the release year of the album set (bmetr documentation: release date). The source's year column contains the values %s, which cannot be release years, unchanged. "
+            "Wherever this site needs the time of recording it uses date: recording_year_start is the first year in date, and rec_year_first, rec_year_last and rec_year_mid in the tempo-trend table (beethoven_symphony_conductor_year.csv) are its first, last and middle years." % " and ".join(map(str, odd))) + "</p>")
         (base / "data.html").write_text(page(lang, t["nav_data"], "".join(body), active="data"), encoding="utf-8")
 
         # ---------------- method page
@@ -862,8 +1112,8 @@ def main():
                     ("The Bach chorales were measured from two independent encodings (DCML MuseScore and Sapp Humdrum). On the %d chorales whose note counts agree within 2%%, the nine metrics correlate at r ≥ %.2f." % (H["cross_n"], H["cross_min_r"])))
         body.append(table_html(cross, [("metric", "metric", None), ("n", t["n"], "d"), ("dcml_median", "DCML", ".3f"), ("kern_median", "Humdrum", ".3f"), ("pearson_r", "r", ".3f"), ("median_abs_diff", "|diff| median", ".4f")], "cross", lang, filt=False))
         body.append("<h2>" + ("선행 연구와의 대조" if lang == "ko" else "Comparison with the source paper") + "</h2>")
-        body.append(("Martín-Castro & Ucar (2020)는 혼합효과 회귀로 시대연주·시대연주 영향·낭만파 지휘자가 표기보다 각각 6(2)·8(2)·13(2) bpm 느리다고 보고했다. 이 사이트의 단순 중앙값은 %.0f·%.0f·%.1f bpm 으로, 방법이 달라도 같은 그림이다." % (H["hi"], H["hii"], H["rom"])) if lang == "ko" else
-                    ("Martín-Castro & Ucar (2020) report, from a mixed-effects regression, that period-instrument (HIP), HIP-influenced and Romantic conductors fall below the marks by 6(2), 8(2) and 13(2) bpm. The plain medians here are %.0f, %.0f and %.1f bpm — the same picture by a simpler route." % (H["hi"], H["hii"], H["rom"])))
+        body.append(("Martín-Castro & Ucar (2020)는 혼합효과 회귀로 시대연주·시대연주 영향·낭만파 지휘자가 표기보다 각각 6(2)·8(2)·13(2) bpm 느리다고 보고했다. 이 사이트의 단순 중앙값은 %s·%s·%s bpm 으로, 방법이 달라도 같은 그림이다." % (fmt(H["hi"], ".0f"), fmt(H["hii"], ".0f"), fmt(H["rom"], ".1f"))) if lang == "ko" else
+                    ("Martín-Castro & Ucar (2020) report, from a mixed-effects regression, that period-instrument (HIP), HIP-influenced and Romantic conductors fall below the marks by 6(2), 8(2) and 13(2) bpm. The plain medians here are %s, %s and %s bpm — the same picture by a simpler route." % (fmt(H["hi"], ".0f"), fmt(H["hii"], ".0f"), fmt(H["rom"], ".1f"))))
         body.append("<h2>" + ("AI 사용 고지" if lang == "ko" else "AI disclosure") + "</h2><p>" + ("지표 설계·코드·본문 초고는 Claude(Anthropic)의 도움으로 작성했고, 엮은이가 원자료와 대조해 검증했다. 수치는 공개 코드로 재현할 수 있다." if lang == "ko" else "Metric design, code and draft text were produced with help from Claude (Anthropic) and verified by the editor against the source data. All numbers are reproducible from the published code.") + "</p>")
         body.append("<h2>" + ("아직 없는 것 (장기 과제)" if lang == "ko" else "Not yet here (long-term)") + "</h2><ul>" + ("".join(f"<li>{x}</li>" for x in ([
             "베토벤 교향곡의 악보 지표 — 기계 판독 총보가 공개돼 있지 않아 악보 인식(OMR)과 사람 교정이 필요하다.",
@@ -890,7 +1140,7 @@ def main():
             medtab.append(r)
         medtab = pd.DataFrame(medtab)
         mt_cols = [("group", t["collection"], None), ("n", t["movements"], "d")] + [(mid, L(next(m for m in METRICS if m["id"] == mid))["name"], next(m for m in METRICS if m["id"] == mid)["fmt"]) for mid in medtab.columns[2:]]
-        ptype_rows = "".join(f"<tr><td>{t['ptype'][k]}</td><td class='num'>{int(pt.loc[k,'n'])}</td><td class='num'>{pt.loc[k,'median']:+.1f}</td><td class='num'>{pt.loc[k,'q1']:+.1f}</td><td class='num'>{pt.loc[k,'q3']:+.1f}</td></tr>" for k in ("HI", "HI influence", "Romantic"))
+        ptype_rows = "".join(f"<tr><td>{t['ptype'][k]}</td><td class='num'>{int(pt.loc[k,'n'])}</td><td class='num'>{fmt(pt.loc[k,'median'], '+.1f')}</td><td class='num'>{fmt(pt.loc[k,'q1'], '+.1f')}</td><td class='num'>{fmt(pt.loc[k,'q3'], '+.1f')}</td></tr>" for k in ("HI", "HI influence", "Romantic"))
         ny_pts_b = [(int(r.season_start), float(r.beethoven_share)) for _, r in ny_done.iterrows()]
         ny_pts_j = [(int(r.season_start), float(r.bach_share)) for _, r in ny_done.iterrows()]
         ny_pts_m = [(int(r.season_start), float(r.mozart_share)) for _, r in ny_done.iterrows()]
@@ -909,7 +1159,7 @@ def main():
 <h2>2. 베토벤의 메트로놈 — 지휘자 {H['n_cond']}명은 표기보다 얼마나 느린가</h2>
 <p>베토벤은 교향곡 1~8번에 메트로놈 숫자를 남겼고, 그것이 너무 빠르다는 논란이 두 세기째다. Martín-Castro와 Ucar(2020)는 지휘자 36명의 전집 녹음 {H['n_tracks']:,}트랙에서 템포를 추출했다. 그 공개 데이터를 다시 집계하면 다음과 같다(교향곡 9번은 원저자처럼 제외).</p>
 <div class="wrap"><table><thead><tr><th>연주 양식</th><th class="num">악장·지휘자 조합</th><th class="num">중앙값 (bpm)</th><th class="num">1사분위</th><th class="num">3사분위</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
-<p>낭만파 지휘자는 중앙값으로 분당 {abs(H['rom']):.1f}박 느리고, 시대악기 지휘자도 {abs(H['hi']):.0f}박 느리다. <b>지휘자별 중앙값이 표기보다 빠른 사람은 36명 중 한 명도 없다.</b> 다만 악장 하나하나로 보면 {H['faster_n']}건({H['faster_n']/H['faster_of']:.1%})은 표기보다 빠르다 — 느린 쪽으로 치우친 것이지 모든 연주가 느린 것은 아니다. 원저자는 이 13 bpm 가량의 간격이 그 시대 멜첼 메트로놈 추의 높이(눈금에서 15 mm = 12 bpm)와 맞아떨어진다는 점에서 베토벤이 눈금을 잘못 읽었을 가능성을 제기했다. 그 해석의 옳고 그름과 무관하게, 「지휘자 36명이 모두 평균적으로 느리다」는 사실 자체는 데이터에서 확인된다.</p>
+<p>낭만파 지휘자는 중앙값으로 분당 {abs(H['rom']):.1f}박 느리고, 시대악기 지휘자도 {abs(H['hi']):.0f}박 느리다. <b>지휘자별 중앙값이 표기보다 빠른 사람은 36명 중 한 명도 없다.</b> 다만 악장 하나하나로 보면 {H['faster_of']:,}건 가운데 {H['faster_n']}건({H['faster_n']/H['faster_of']:.1%})은 표기보다 빠르다 — 느린 쪽으로 치우친 것이지 모든 연주가 느린 것은 아니다. 원저자는 이 13 bpm 가량의 간격이 그 시대 멜첼 메트로놈 추의 높이(눈금에서 15 mm = 12 bpm)와 맞아떨어진다는 점에서 베토벤이 눈금을 잘못 읽었을 가능성을 제기했다. 그 해석의 옳고 그름과 무관하게, 「지휘자 36명이 모두 평균적으로 느리다」는 사실 자체는 데이터에서 확인된다.</p>
 {legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>지휘자별 중앙값(33악장). 가장 느린 뵘(−17.5)부터 가장 가까운 샤이(−1.0)까지.</figcaption></figure>
 <h2>3. 피아니스트들은 같은 곡을 얼마나 다르게 치는가</h2>
 <p>ASAP 데이터셋에서 악보와 박 수가 맞는 연주는 바흐 평균율 {H['asap_bach_pieces']}곡({H['asap_bach_perf']}연주)과 베토벤 소나타 {H['asap_beet_pieces']}악장({H['asap_beet_perf']}연주, 원자료 271개 중 12개 제외)이다. 연주자는 국제 피아노 e-콩쿠르 참가자다. 1.1에서 더한 모차르트는 {H['asap_moz_pieces']}곡·{H['asap_moz_perf']}연주뿐이라 아래 비교에서 빼고 지표 면의 표에만 실었다.</p>
@@ -937,7 +1187,7 @@ def main():
 <h2>2. Beethoven's metronome — how far below the marks do {H['n_cond']} conductors play?</h2>
 <p>Beethoven left metronome marks for Symphonies 1–8, and for two centuries they have been called too fast. Martín-Castro and Ucar (2020) extracted tempi from {H['n_tracks']:,} tracks by 36 conductors. Re-aggregating their open data (Symphony 9 excluded, as in the paper):</p>
 <div class="wrap"><table><thead><tr><th>Performance style</th><th class="num">movement × conductor</th><th class="num">median (bpm)</th><th class="num">Q1</th><th class="num">Q3</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
-<p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor's median is faster than the marks.</b> Movement by movement, though, {H['faster_n']} of {H['faster_of']:,} readings ({H['faster_n']/H['faster_of']:.1%}) run faster — the distribution leans slow; not every performance is slow. The authors note that this gap of about 13 bpm matches the height of the weight on a Maelzel metronome of the period (15 mm on its scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that all 36 conductors are slower on average is borne out by the data.</p>
+<p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor's median is faster than the marks.</b> Movement by movement, though, {H['faster_n']} of {H['faster_of']:,} readings ({H['faster_n']/H['faster_of']:.1%}) run faster: the distribution leans slow, but not every performance is slow. The authors note that this gap of about 13 bpm matches the height of the weight on a Maelzel metronome of the period (15 mm on its scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that all 36 conductors are slower on average is borne out by the data.</p>
 {legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>Median per conductor over 33 movements, from the slowest (Böhm, −17.5) to the closest (Chailly, −1.0).</figcaption></figure>
 <h2>3. How differently do pianists play the same piece?</h2>
 <p>ASAP aligns {H['asap_bach_perf']} performances of {H['asap_bach_pieces']} Well-Tempered Clavier pieces and {H['asap_beet_perf']} performances of {H['asap_beet_pieces']} Beethoven sonata movements to their scores, beat by beat (12 of the 271 Beethoven performances whose beat counts do not match the score are left out). The performers are International Piano-e-Competition entrants. Mozart, added in 1.1, has only {H['asap_moz_pieces']} pieces and {H['asap_moz_perf']} performances, so it is left out of the comparison below and shown only in the metric tables.</p>
@@ -945,7 +1195,7 @@ def main():
 <li><b>Beat-to-beat tempo change</b> (rubato): Bach {H['asap_bach_rub']:.3f}, Beethoven {H['asap_beet_rub']:.3f}. More stretching per beat in Beethoven.</li>
 <li><b>Dynamic spread</b> (velocity SD): Bach {H['asap_bach_vel']:.1f}, Beethoven {H['asap_beet_vel']:.1f}. Markedly wider dynamics in Beethoven.</li></ul>
 <h2>4. 180 years of repertoire — the New York Philharmonic</h2>
-<p>{H['ny_programs_complete']:,} programs are publicly available, from the first concert on 7 December 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
+<p>{H['ny_programs_complete']:,} programs are publicly available, from the first concert on December 7, 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
 <p><b>What counts as one comes first.</b> More than a third of the archive's work entries are excerpts — overtures, preludes, arias. Version 1.1 counts each work on a program once ({H['ny_u1']:,} work performances) and, separately, those that are not excerpts ({H['ny_u2']:,} complete performances). The most performed work is {esc(H['ny_all_top_composer'].split(',')[0])}'s {esc(H['ny_all_top'])} (as titled in the archive; {H['ny_all_top_n']:,} times), but only {H['ny_all_top_u2']} of those were complete; the rest are excerpts such as the Act I prelude. By complete performances the leader is {esc(H['ny_u2_top_composer'].split(',')[0])}'s {esc(H['ny_u2_top'])} ({H['ny_u2_top_n']:,}). Wagner ranks {ordinal(H['wag_rank_u1'])} by work performances and {ordinal(H['wag_rank_u2'])} by complete performances. The excerpt share itself fell from {H['dec_excerpt_1840']:.0%} in the 1840s (decade median) to {H['dec_excerpt_1990']:.0%} in the 1990s and rose to {H['dec_excerpt_2020']:.0%} in the 2020s.</p>
 {legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='share of work performances per season')}<figcaption>Beethoven's share falls from {H['ny_first_beet']:.1%} in {H['ny_first_season']} to {H['ny_last_beet']:.1%} in {H['ny_last_season']}. Mozart passed 20% around the bicentenary of his death (1990–91, 1991–92). Bach's season median is 1.7%.</figcaption></figure>
 <figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers). It swings from season to season, but comparing the first season with the latest, the repertoire has widened considerably.</figcaption></figure>
@@ -964,7 +1214,7 @@ def main():
             (f"{H['n_movements']}", "악장 측정 (바흐 %d · 베토벤 %d · 모차르트 %d)" % (H['n_bach'], H['n_beet'], H['n_moz']) if lang == "ko" else "movements measured (Bach %d · Beethoven %d · Mozart %d)" % (H['n_bach'], H['n_beet'], H['n_moz']), "metrics/chromatic_ratio.html"),
             (f"{H['ny_persons']:,}", "뉴욕 필 1842~2026에 연주된 작곡가" if lang == "ko" else "composers performed by the NY Phil, 1842–2026", "composers/index.html"),
             ("1361–1885", "A음 높이의 역사 — Ellis 측정표 242건" if lang == "ko" else "the pitch of a′ — 242 measurements tabulated by Ellis", "history.html#s7"),
-            (f"{H['rom']:+.1f} bpm", "낭만파 지휘자의 베토벤 표기 대비 중앙값" if lang == "ko" else "Romantic conductors vs Beethoven's marks (median)", "metrics/coda_tempo_diff_bpm.html"),
+            (f"{fmt(H['rom'], '+.1f')} bpm", "낭만파 지휘자의 베토벤 표기 대비 중앙값" if lang == "ko" else "Romantic conductors vs Beethoven's marks (median)", "metrics/coda_tempo_diff_bpm.html"),
             (f"{H['asap_bach_perf']+H['asap_beet_perf']}", "박 단위 정렬된 피아노 연주" if lang == "ko" else "beat-aligned piano performances", "metrics/tempo_cv_across_performers.html"),
             (f"{H['ny_first_beet']:.0%} → {H['ny_last_beet']:.0%}", f"뉴욕 필 베토벤 점유율, {H['ny_first_season']} → {H['ny_last_season']}" if lang == "ko" else f"NY Phil Beethoven share, {H['ny_first_season']} → {H['ny_last_season']}", "metrics/beethoven_share.html"),
         ]
@@ -992,6 +1242,20 @@ def main():
 <script>var l=(navigator.language||'').toLowerCase().indexOf('ko')==0?'ko':'en';location.replace(l+'/index.html');</script>
 <meta http-equiv="refresh" content="1;url=en/index.html"></head><body><p><a href="ko/index.html">한국어</a> · <a href="en/index.html">English</a></p></body></html>""", encoding="utf-8")
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
+    # 1.4: language link to the same page in the other language; Korean pages write year ranges with a wave dash
+    # (seasons such as 1842–43 keep their dash — they name one season, not a range of years)
+    import re as _re
+    for lang, other in (("ko", "en"), ("en", "ko")):
+        for fp in (OUT / lang).rglob("*.html"):
+            rel = fp.relative_to(OUT / lang).as_posix()
+            h = fp.read_text(encoding="utf-8")
+            h, k = _re.subn(r'(class="lang" href="(?:\.\./)*)' + other + r'/index\.html"', lambda mm: mm.group(1) + other + "/" + rel + '"', h)
+            if k != 1:
+                raise SystemExit(f"language link not found once in {fp}")
+            if lang == "ko":
+                parts = _re.split(r"(<script\b.*?</script>|<style\b.*?</style>)", h, flags=_re.S)
+                h = "".join(p if p.startswith(("<script", "<style")) else _re.sub(r"(?<![\w./=\"-])(\d{4})[\u2013-](\d{4})(?![\w./-])", r"\1~\2", p) for p in parts)
+            fp.write_text(h, encoding="utf-8")
     print("built", OUT, "metrics", len(METRICS))
 
 

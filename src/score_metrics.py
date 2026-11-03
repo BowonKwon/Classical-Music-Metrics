@@ -39,6 +39,14 @@ KERN_CORPORA = [
 ]
 
 
+def blank_na(s: pd.Series) -> pd.Series:
+    """Missing labels as "" without filling a float column with a string (pandas 3.1 Pandas4Warning; an error later).
+
+    A label column that is empty in a whole file is read as float64 (all NaN); casting to object first keeps
+    every present value as it was read and turns only the missing ones into ""."""
+    return s.astype(object).fillna("")
+
+
 def frac(x) -> Fraction:
     if isinstance(x, Fraction):
         return x
@@ -202,20 +210,20 @@ def harmony_metrics(h: pd.DataFrame, n_measures: int, length_qb: float) -> dict:
     out["mean_chord_duration_qb"] = float(h["duration_qb"].astype(float).mean())
     out["chord_vocabulary"] = int(h["chord"].nunique())
     out["chord_vocabulary_per_100_labels"] = 100 * out["chord_vocabulary"] / len(h)
-    numeral = h["numeral"].fillna("")
+    numeral = blank_na(h["numeral"])
     out["chromatic_numeral_ratio"] = float(numeral.str.contains(r"[#b]").mean())
     out["applied_chord_ratio"] = float(h["relativeroot"].notna().mean())
-    fig = h["figbass"].fillna("").astype(str)
+    fig = blank_na(h["figbass"]).astype(str)
     out["seventh_chord_ratio"] = float(fig.isin(SEVENTH_FIGS).mean())
     out["inversion_ratio"] = float(fig.isin({"6", "64", "65", "43", "2", "42"}).mean())
-    lk = h["localkey"].fillna("")
+    lk = blank_na(h["localkey"])
     changes = (lk != lk.shift()).sum() - 1
     out["local_key_changes"] = int(max(changes, 0))
     out["local_key_changes_per_100_measures"] = 100 * out["local_key_changes"] / n_measures
     out["local_key_vocabulary"] = int(lk.nunique())
     # cadence labels exist only in corpora whose annotation version records them;
     # a corpus-wide absence is reported as NaN by the caller (see dcml_corpus)
-    cad = h_all["cadence"].fillna("") if "cadence" in h_all else pd.Series([], dtype=str)
+    cad = blank_na(h_all["cadence"]) if "cadence" in h_all else pd.Series([], dtype=str)
     n_cad = int((cad != "").sum())
     out["n_cadence_labels"] = n_cad
     out["cadences_per_100_measures"] = 100 * n_cad / n_measures

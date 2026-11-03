@@ -192,7 +192,7 @@ METRICS_13 += [
 ]
 
 
-# ---------------- shared caveats (1.3 Codex review)
+# ---------------- shared caveats
 _TOP_IDS = {"top_step_ratio", "top_repeat_ratio", "top_range_semitones", "top_direction_changes_per_note",
             "npvi_top", "post_leap_reversal", "motif_repeat_ratio"}
 _TOP_KO = " 최상성부 추출에서 같은 높이의 음이 겹치면 먼저 끝나는 음을 택하므로, 같은 높이의 새 시작이 빠질 수 있다."

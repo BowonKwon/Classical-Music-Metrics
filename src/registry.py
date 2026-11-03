@@ -161,9 +161,9 @@ METRICS = [
                  reading="Beethoven sonatas and quartets sit near 0.3, above Bach suites (0.24).", caveat="Ninths and added tones are not counted separately.")),
     dict(id="local_key_changes_per_100_measures", layer="A", group="harmony", table="score", unit="changes/100 bars", fmt=".1f", higher="more modulation",
          ko=dict(name="전조 빈도", definition="주석자가 표시한 지역 조(local key)가 바뀌는 횟수, 100마디당.", formula="100 × 지역 조 변경 수 / 마디 수",
-                 reading="7이면 열다섯 마디에 한 번꼴로 조가 바뀐다.", caveat="주석자의 조 판단에 좌우된다. 짧은 토니시제이션은 부속화음으로 처리되어 여기 들어가지 않는다."),
+                 reading="7이면 열네 마디(100 ÷ 7 ≈ 14.3)에 한 번꼴로 조가 바뀐다.", caveat="주석자의 조 판단에 좌우된다. 짧은 토니시제이션은 부속화음으로 처리되어 여기 들어가지 않는다."),
          en=dict(name="Modulation rate", definition="Number of changes of the annotated local key, per 100 bars.", formula="100 × local-key changes / bars",
-                 reading="7 means a key change roughly every fifteen bars.", caveat="Depends on the annotators' key reading. Brief tonicizations are labeled as applied chords and are not counted here.")),
+                 reading="7 means a key change roughly every 14 bars (100 ÷ 7 ≈ 14.3).", caveat="Depends on the annotators' key reading. Brief tonicizations are labeled as applied chords and are not counted here.")),
     # ---------------- C. performance: Beethoven symphonies
     dict(id="coda_tempo_diff_bpm", layer="C", group="symphony", table="coda", unit="bpm", fmt="+.1f", higher="faster than marked",
          ko=dict(name="메트로놈 대비 템포 차", definition="녹음의 악장 끝부분(코다)에서 측정한 템포에서 베토벤의 메트로놈 표기를 뺀 값.", formula="측정 템포 − 메트로놈 표기. 측정값이 표기의 0.6배 아래이거나 1.4배 위면 템포 추정기의 배수 오차로 보고 1/3·1/2·2/3·3/2·2·3 중 가장 가까운 배수로 바로잡았다(1,332건 중 17건 — 모두 요약에서 제외하는 교향곡 9번이라, 1~8번 1,188건에는 보정이 없다).",
@@ -279,5 +279,12 @@ from registry_13 import METRICS_13  # noqa: E402
 
 _after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
 METRICS[_after_score:_after_score] = METRICS_13
+
+# 1.4: P3 performance metrics after the other performance metrics, P4 repertoire metrics at the end
+from registry_14 import METRICS_14  # noqa: E402
+
+_after_perf = max(i for i, m in enumerate(METRICS) if m["layer"] == "C") + 1
+METRICS[_after_perf:_after_perf] = [m for m in METRICS_14 if m["layer"] == "C"]
+METRICS += [m for m in METRICS_14 if m["layer"] == "D"]
 
 METRIC_BY_ID = {m["id"]: m for m in METRICS}

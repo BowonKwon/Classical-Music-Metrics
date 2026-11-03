@@ -1,0 +1,519 @@
+composer,wikidata_qid,p21_qids,gender
+"Beethoven, Ludwig van",Q255,Q6581097,male
+"Wagner, Richard",Q1511,Q6581097,male
+"Mozart, Wolfgang Amadeus",Q254,Q6581097,male
+"Tchaikovsky, Pyotr Ilyich",Q7315,Q6581097,male
+"Brahms, Johannes",Q7294,Q6581097,male
+"Strauss, Richard",Q13894,Q6581097,male
+"Bach, Johann Sebastian",Q1339,Q6581097,male
+"Dvorak, Antonín",Q7298,Q6581097,male
+"Mendelssohn, Felix",Q46096,Q6581097,male
+"Ravel, Maurice",Q1178,Q6581097,male
+"Schubert, Franz",Q7312,Q6581097,male
+"Stravinsky, Igor",Q7314,Q6581097,male
+"Berlioz, Hector",Q1151,Q6581097,male
+"Debussy, Claude",Q4700,Q6581097,male
+"Schumann, Robert",Q7351,Q6581097,male
+"Haydn, Franz Joseph",Q7349,Q6581097,male
+"Prokofiev, Sergei",Q49481,Q6581097,male
+"Liszt, Franz",Q41309,Q6581097,male
+"Weber, Carl Maria von",Q154812,Q6581097,male
+"Sibelius, Jean",Q45682,Q6581097,male
+"Mahler, Gustav",Q7304,Q6581097,male
+"Strauss, Johann, II",Q83309,Q6581097,male
+"Saint-Saens [Saint-Saëns], Camille",Q150445,Q6581097,male
+"Gershwin, George",Q123829,Q6581097,male
+"Copland, Aaron",Q192185,Q6581097,male
+"Bernstein, Leonard",Q152505,Q6581097,male
+"Rachmaninoff, Sergei",Q131861,Q6581097,male
+"Handel, George Frideric",Q7302,Q6581097,male
+"Shostakovich, Dmitri",Q80135,Q6581097,male
+"Rimsky-Korsakov, Nikolai",Q93227,Q6581097,male
+"Bartok [Bartók], Béla",Q83326,Q6581097,male
+"Rossini, Gioachino",Q9726,Q6581097,male
+"Verdi, Giuseppe",Q7317,Q6581097,male
+"Musorgsky, Modest",Q132682,Q6581097,male
+"Chopin, Frédéric",Q1268,Q6581097,male
+"Bizet, Georges",Q56158,Q6581097,male
+"Bruckner, Anton",Q81752,Q6581097,male
+"Grieg, Edvard",Q80621,Q6581097,male
+"Elgar, Sir Edward",Q179631,Q6581097,male
+"Franck, César",Q50187,Q6581097,male
+"Barber, Samuel",Q216870,Q6581097,male
+"Falla, Manuel de",Q193283,Q6581097,male
+"Smetana, Bedrich",Q48173,Q6581097,male
+"Ives, Charles",Q309648,Q6581097,male
+"Respighi, Ottorino",Q243837,Q6581097,male
+"Vivaldi, Antonio",Q1340,Q6581097,male
+"Sousa, John Philip",Q295935,Q6581097,male
+"Bruch, Max",Q106434,Q6581097,male
+"Hindemith, Paul",Q57244,Q6581097,male
+"Britten, Benjamin",Q150767,Q6581097,male
+"Gluck, Christoph Willibald",Q130759,Q6581097,male
+"Puccini, Giacomo",Q7311,Q6581097,male
+"Dukas, Paul",Q215556,Q6581097,male
+"Schoenberg, Arnold",Q154770,Q6581097,male
+"Schuman, William",Q503225,Q6581097,male
+"Rodgers, Richard",Q269094,Q6581097,male
+"Vaughan Williams, Ralph",Q207947,Q6581097,male
+"Borodin, Alexander",Q164004,Q6581097,male
+"Lalo, Edouard",Q224002,Q6581097,male
+"Berg, Alban",Q78475,Q6581097,male
+"Webern, Anton von",Q190933,Q6581097,male
+"Williams, John",Q131285,Q6581097,male
+"Glinka, Mikhail",Q181885,Q6581097,male
+"Kodaly [Kodály], Zoltán",Q153008,Q6581097,male
+"Goldmark, Karl",Q239214,Q6581097,male
+"Chabrier, Emmanuel",Q313374,Q6581097,male
+"Purcell, Henry",Q9695,Q6581097,male
+"Walton, William",Q310939,Q6581097,male
+"Faure [Fauré], Gabriel-Urbain",Q104919,Q6581097,male
+"Glazunov, Alexander",Q25872,Q6581097,male
+"Rubinstein, Anton",Q87567,Q6581097,male
+"Paganini, Niccolò",Q66075,Q6581097,male
+"Honegger, Arthur",Q123164,Q6581097,male
+"Ellington, Duke",Q4030,Q6581097,male
+"Hadley, Henry Kimball",Q707340,Q6581097,male
+"Massenet, Jules",Q194436,Q6581097,male
+"Gounod, Charles",Q180278,Q6581097,male
+"Khachaturian, Aram",Q152293,Q6581097,male
+"Lehar [Lehár], Franz",Q191917,Q6581097,male
+"Nielsen, Carl",Q205139,Q6581097,male
+"Weill, Kurt",Q55004,Q6581097,male
+"Offenbach, Jacques",Q41555,Q6581097,male
+"Harris, Roy",Q959136,Q6581097,male
+"Delius, Frederick",Q312698,Q6581097,male
+"Scriabin, Alexander",Q185647,Q6581097,male
+"Lyadov, Anatoli",Q348282,Q6581097,male
+"Adams, John",Q84114,Q6581097,male
+"Villa-Lobos, Heitor",Q203514,Q6581097,male
+"Bloch, Ernest",Q123234,Q6581097,male
+"Gould, Morton",Q1352656,Q6581097,male
+"Kern, Jerome",Q313270,Q6581097,male
+"MacDowell, Edward A.",Q450467,Q6581097,male
+"Gabrieli, Giovanni",Q34624,Q6581097,male
+"Cherubini, Luigi",Q20721,Q6581097,male
+"Ligeti, György [Gyorgy]",Q154331,Q6581097,male
+"Herbert, Victor",Q1275145,Q6581097,male
+"Roussel, Albert",Q313376,Q6581097,male
+"Albeniz [Albéniz], Isaac",Q185812,Q6581097,male
+"Milhaud, Darius",Q186264,Q6581097,male
+"Janacek [Janácek], Leoš",Q184933,Q6581097,male
+"Martinu [Martinů], Bohuslav",Q223258,Q6581097,male
+"Poulenc, Francis",Q191408,Q6581097,male
+"Wolf, Hugo",Q215747,Q6581097,male
+"Chausson, Ernest",Q312368,Q6581097,male
+"Messiaen, Olivier",Q151593,Q6581097,male
+"Ippolitov-Ivanov, Mikhail",Q346815,Q6581097,male
+"Schelling, Ernest",Q983122,Q6581097,male
+"Wolf-Ferrari, Ermanno",Q57275,Q6581097,male
+"Humperdinck, Engelbert",Q55010,Q6581097,male
+"Ibert, Jacques",Q296828,Q6581097,male
+"Sondheim, Stephen",Q153579,Q6581097,male
+"Carter, Elliott",Q318835,Q6581097,male
+"Donizetti, Gaetano",Q101698,Q6581097,male
+"Kabalevsky, Dmitri",Q153776,Q6581097,male
+"Holst, Gustav",Q200867,Q6581097,male
+"Indy, Vincent d'",Q313584,Q6581097,male
+"Boccherini, Luigi",Q189766,Q6581097,male
+"Dohnanyi, Erno",Q78532,Q6581097,male
+"Reger, Max",Q57139,Q6581097,male
+"Sullivan, Sir Arthur Seymour",Q212692,Q6581097,male
+"Varese [Varèse], Edgard",Q57247,Q6581097,male
+"Anderson, Leroy",Q366756,Q6581097,male
+"Delibes, Léo",Q207951,Q6581097,male
+"Enescu, Georges",Q77177,Q6581097,male
+"Grainger, Percy",Q318354,Q6581097,male
+"Thomas, Ambroise",Q297717,Q6581097,male
+"Rouse, Christopher",Q125217,Q6581097,male
+"Lutoslawski [Lutosławski], Witold",Q156472,Q6581097,male
+"Menotti, Gian Carlo",Q270662,Q6581097,male
+"Porter, Cole",Q215120,Q6581097,male
+"Rameau, Jean-Philippe",Q1145,Q6581097,male
+"Weinberger, Jaromir",Q215828,Q6581097,male
+"Charpentier, Gustave",Q311663,Q6581097,male
+"Thomson, Virgil",Q544485,Q6581097,male
+"Kreisler, Fritz",Q78517,Q6581097,male
+"Piston, Walter",Q711052,Q6581097,male
+"Salonen, Esa-Pekka",Q314587,Q6581097,male
+"Corigliano, John, Jr.",Q450620,Q6581097,male
+"Berio, Luciano",Q221450,Q6581097,male
+"Foss, Lukas",Q213709,Q6581097,male
+"Raff, Joachim",Q547301,Q6581097,male
+"Szymanowski, Karol",Q295400,Q6581097,male
+"Korngold, Erich",Q313371,Q6581097,male
+"Berlin, Irving",Q128746,Q6581097,male
+"Druckman, Jacob",Q4352821,Q6581097,male
+"Moszkowski, Moritz",Q322427,Q6581097,male
+"Spohr, Louis",Q57226,Q6581097,male
+"Casella, Alfredo",Q337343,Q6581097,male
+"Ginastera, Alberto",Q311389,Q6581097,male
+"Chavez [Chávez], Carlos",Q357326,Q6581097,male
+"Coward, Noël",Q298388,Q6581097,male
+"Vieuxtemps, Henri",Q312790,Q6581097,male
+"Ponchielli, Amilcare",Q207390,Q6581097,male
+"Penderecki, Krzysztof",Q153469,Q6581097,male
+"Pollack, Lew",Q1568143,Q6581097,male
+"Boulez, Pierre",Q156193,Q6581097,male
+"Sarasate, Pablo de",Q204503,Q6581097,male
+"Chadwick, George Whitefield",Q542747,Q6581097,male
+"Lindberg, Magnus",Q503672,Q6581097,male
+"Meyerbeer, Giacomo",Q105237,Q6581097,male
+"Romberg, Sigmund",Q742945,Q6581097,male
+"Taylor, Deems",Q284386,Q6581097,male
+"Busoni, Ferruccio",Q219551,Q6581097,male
+"Wieniawski, Henri",Q272184,Q6581097,male
+"Monteverdi, Claudio",Q53068,Q6581097,male
+"Telemann, Georg Philipp",Q75854,Q6581097,male
+"Loeffler, Charles Martin",Q1065471,Q6581097,male
+"Still, William Grant",Q1397729,Q6581097,male
+"Dutilleux, Henri",Q318829,Q6581097,male
+"Gliere [Glière], Reinhold",Q316795,Q6581097,male
+"Griffes, Charles Tomlinson",Q477571,Q6581097,male
+"Stalling, Carl W.",Q598185,Q6581097,male
+"Bellini, Vincenzo",Q170209,Q6581097,male
+"Corelli, Arcangelo",Q164475,Q6581097,male
+"Schuller, Gunther",Q704154,Q6581097,male
+"Duparc, Henri",Q364983,Q6581097,male
+"Goldmark, Rubin",Q713765,Q6581097,male
+"Piazzolla, Astor",Q172505,Q6581097,male
+"Creston, Paul",Q922278,Q6581097,male
+"Nicolai, Otto",Q154602,Q6581097,male
+"Carpenter, John Alden",Q1699111,Q6581097,male
+"Gruber, Franz Xaver",Q513185,Q6581097,male
+"Mascagni, Pietro",Q181894,Q6581097,male
+"Herrmann, Bernard",Q296804,Q6581097,male
+"Strauss, Johann, Sr.",Q184178,Q6581097,male
+"Gubaidulina, Sofia",Q165668,Q6581072,female
+"Gretry [Grétry], Andre [André] Ernest Modeste",Q210962,Q6581097,male
+"Stolz, Robert",Q45095,Q6581097,male
+"Turina, Joaquin",Q318077,Q6581097,male
+"Damrosch, Walter",Q725579,Q6581097,male
+"Satie, Erik",Q187192,Q6581097,male
+"Suppe [Suppé], Franz Von",Q310431,Q6581097,male
+"Diamond, David",Q919140,Q6581097,male
+"Granados, Enrique",Q294225,Q6581097,male
+"Loewe, Frederick",Q551678,Q6581097,male
+"Kalman [Kálmán], Emmerich",Q153818,Q6581097,male
+"Bach, Johann Christian",Q106641,Q6581097,male
+"Schnittke, Alfred",Q158078,Q6581097,male
+"Turrin, Joseph",Q13739217,Q6581097,male
+"Damrosch, Leopold",Q213990,Q6581097,male
+"Previn, André",Q155712,Q6581097,male
+"Strauss, Josef",Q312941,Q6581097,male
+"Flotow, Friedrich Von",Q155425,Q6581097,male
+"Hanson, Howard",Q382748,Q6581097,male
+"Takemitsu, Toru",Q155467,Q6581097,male
+"Leoncavallo, Ruggero",Q189015,Q6581097,male
+"Pierne [Pierné], Gabriel",Q433749,Q6581097,male
+"Saariaho, Kaija",Q241432,Q6581072,female
+"Gottschalk, Louis Moreau",Q550701,Q6581097,male
+"Loesser, Frank",Q966018,Q6581097,male
+"Mennin, Peter",Q958720,Q6581097,male
+"Riegger, Wallingford",Q2143377,Q6581097,male
+"Ward, Samuel Augustus",Q2450043,Q6581097,male
+"Zwilich, Ellen Taaffe",Q457425,Q6581072,female
+"Franklyn, Milt",Q3090628,Q6581097,male
+"Pierpont, James Lord",Q1344188,Q6581097,male
+"Pizzetti, Ilderbando",Q379267,Q6581097,male
+"Couperin, Francois [François]",Q50186,Q6581097,male
+"Dallapiccola, Luigi",Q17575,Q6581097,male
+"Reznicek, Emil Nikolaus von",Q550639,Q6581097,male
+"Bax, Sir Arnold",Q143198,Q6581097,male
+"Rorem, Ned",Q733299,Q6581097,male
+"Sinigaglia, Leone",Q2250189,Q6581097,male
+"Carpenter, Mary Chapin",Q270765,Q6581072,female
+"Castelnuovo-Tedesco, Mario",Q377558,Q6581097,male
+"Henze, Hans Werner",Q76915,Q6581097,male
+"Hovhaness, Alan",Q542232,Q6581097,male
+"Kirchner, Leon",Q928971,Q6581097,male
+"Svendsen, Johan",Q336668,Q6581097,male
+"Ades [Adès], Thomas",Q439572,Q6581097,male
+"Arlen, Harold",Q448644,Q6581097,male
+"Bach, Carl Philipp Emanuel",Q76428,Q6581097,male
+"Martucci, Giuseppe",Q769966,Q6581097,male
+"Simon, Carlos",Q112114799,Q6581097,male
+"Coleridge-Taylor, Samuel",Q739229,Q6581097,male
+"Dubensky, Arkady",Q42617100,Q6581097,male
+"Paderewski, Ignace Jan",Q191957,Q6581097,male
+"Pergolesi, Giovanni Battista",Q185312,Q6581097,male
+"Stockhausen, Karlheinz",Q154556,Q6581097,male
+"Martin, Frank",Q123910,Q6581097,male
+"Crumb, George",Q356804,Q6581097,male
+"Grofe [Grofé], Ferde",Q375958,Q6581097,male
+"Kander, John",Q1685876,Q6581097,male
+"Montgomery, Jessie",Q62113600,Q6581072,female
+"Sheng, Bright",Q2203451,Q6581097,male
+"Waldteufel, Emil",Q286616,Q6581097,male
+"Bolcom, William",Q710714,Q6581097,male
+"Gade, Niels",Q154632,Q6581097,male
+"Godard, Benjamin",Q817524,Q6581097,male
+"Mason, Daniel Gregory",Q1160957,Q6581097,male
+"Stransky, Josef",Q2347963,Q6581097,male
+"Tiomkin, Dimitri",Q317033,Q6581097,male
+"Walker, George",Q1425389,Q6581097,male
+"Canteloube, Joseph",Q561141,Q6581097,male
+"Cornelius, Peter",Q57257,Q6581097,male
+"Orff, Carl",Q44086,Q6581097,male
+"Stanford, Sir Charles Villiers",Q368264,Q6581097,male
+"Hummel, Johann",Q151953,Q6581097,male
+"Newman, Randy",Q318475,Q6581097,male
+"Reich, Steve",Q262791,Q6581097,male
+"Sieczynski, Rudolf",Q376801,Q6581097,male
+"Stucky, Steven",Q3535299,Q6581097,male
+"Xenakis, Iannis",Q152880,Q6581097,male
+"Boulanger, Lili",Q230412,Q6581072,female
+"Cavalli, Francesco",Q108062,Q6581097,male
+"Fernandez [Fernândez], Oscar Lorenzo",Q1390036,Q6581097,male
+"Foster, Stephen Collins",Q305202,Q6581097,male
+"Goossens, Eugene",Q945833,Q6581097,male
+"Malipiero, Gian Francesco",Q318968,Q6581097,male
+"Rodrigo, Joaquín",Q151084,Q6581097,male
+"Adam, Adolphe Charles",Q189544,Q6581097,male
+"Bologne, Joseph Chevalier de Saint-Georges",Q726953,Q6581097,male
+"Byrd, William",Q208375,Q6581097,male
+"Cimarosa, Domenico",Q191775,Q6581097,male
+"Foote, Arthur",Q709384,Q6581097,male
+"Gilbert, Henry F.",Q946522,Q6581097,male
+"Glass, Philip",Q189729,Q6581097,male
+"Kay, Ulysses Simpson",Q463708,Q6581097,male
+"Krenek, Ernst",Q158436,Q6581097,male
+"Mulligan, Gerry",Q156535,Q6581097,male
+"Scarlatti, Domenico",Q167837,Q6581097,male
+"Skalkottas, Nikos",Q452352,Q6581097,male
+"Styne, Jule",Q587741,Q6581097,male
+"Tan, Dun",Q314176,Q6581097,male
+"Cowell, Henry Dixon",Q434610,Q6581097,male
+"Joplin, Scott",Q191499,Q6581097,male
+"Marsalis, Wynton",Q273076,Q6581097,male
+"Rabaud, Henri",Q503861,Q6581097,male
+"Rozsa [Rózsa], Miklós",Q319396,Q6581097,male
+"Tansman, Alexandre",Q550218,Q6581097,male
+"Toch, Ernst",Q213635,Q6581097,male
+"Volkmann, Friedrich Robert",Q467848,Q6581097,male
+"Wade, John Francis",Q1335565,Q6581097,male
+"Cage, John",Q180727,Q6581097,male
+"Dello Joio, Norman",Q724145,Q6581097,male
+"Fuleihan, Anis",Q4765281,Q6581097,male
+"Ganz, Rudolph",Q670140,Q6581097,male
+"Gretchaninoff, Alexander",Q508270,Q6581097,male
+"Kalinnikov, Vassili",Q368147,Q6581097,male
+"Muhly, Nico",Q3339870,Q6581097,male
+"Neikrug, Marc",Q1892728,Q6581097,male
+"Ruggles, Carl",Q958763,Q6581097,male
+"Steffe, William",Q8018769,Q6581097,male
+"Tower, Joan",Q293218,Q6581072,female
+"Weingartner, Felix",Q316920,Q6581097,male
+"Zemlinsky, Alexander",Q78524,Q6581097,male
+"Del Tredici, David",Q560635,Q6581097,male
+"Fine, Irving",Q706781,Q6581097,male
+"Leon [León], Tania",Q463308,Q6581072,female
+"Paine, John Knowles",Q1649745,Q6581097,male
+"Roger-Ducasse, Jean",Q649959,Q6581097,male
+"Sinding, Christian",Q364854,Q6581097,male
+"Strayhorn, Billy",Q380626,Q6581097,male
+"Thompson, Randall",Q1362347,Q6581097,male
+"Tommasini, Vincenzo",Q4013555,Q6581097,male
+"Cilea, Francesco",Q250952,Q6581097,male
+"Handy, William Christopher",Q352967,Q6581097,male
+"Kernis, Aaron Jay",Q302157,Q6581097,male
+"Knussen, Oliver",Q949003,Q6581097,male
+"Labate, Bruno",Q110040267,Q6581097,male
+"Powell, John",Q1701459,Q6581097,male
+"Rieti, Vittorio",Q3561375,Q6581097,male
+"Sessions, Roger",Q550632,Q6581097,male
+"Wolfe, Julia",Q6306853,Q6581072,female
+"Arensky, Anton Stepanovich",Q313970,Q6581097,male
+"Berezowsky, Nicolai",Q705759,Q6581097,male
+"Chasins, Abram",Q331034,Q6581097,male
+"Clark, Annie",Q238795,Q18116794,other:Q18116794
+"Harbison, John",Q2527585,Q6581097,male
+"Litolff, Henry Charles",Q383853,Q6581097,male
+"Popper, David",Q354927,Q6581097,male
+"Shaw, Caroline",Q15430653,Q6581072,female
+"Tippett, Michael",Q356499,Q6581097,male
+"Balakirev, Mily Alekseyevich",Q185040,Q6581097,male
+"Bayer, Joseph",Q99748565,Q6581097,male
+"Casadesus, Robert",Q558846,Q6581097,male
+"D'Albert, Eugen",Q57178,Q6581097,male
+"De Sabata, Victor",Q464890,Q6581097,male
+"Deak, Jon",Q6270606,Q6581097,male
+"Di Castri, Zosha",Q65718383,Q6581072,female
+"Guarnieri, Camargo",Q721439,Q6581097,male
+"Lang, David",Q3018260,Q6581097,male
+"Miaskovsky, Nikolai",Q312778,Q6581097,male
+"Sierra, Roberto",Q1369108,Q6581097,male
+"Suk, Josef",Q312700,Q6581097,male
+"Vilbac, Alphonse Charles Renaud de",Q1065884,Q6581097,male
+"Viotti, Giovanni Battista",Q313188,Q6581097,male
+"Auber, Daniel-François",Q157672,Q6581097,male
+"Birtwistle, Harrison",Q354335,Q6581097,male
+"Cadman, Charles Wakefield",Q1066383,Q6581097,male
+"Hartmann, Karl Amadeus",Q366100,Q6581097,male
+"Lekeu, Guillaume",Q450990,Q6581097,male
+"Li, Huanzhi",Q704755,Q6581097,male
+"Lopatnikoff, Nikolai",Q1739754,Q6581097,male
+"Lully, Jean Baptiste",Q1192,Q6581097,male
+"Maazel, Lorin",Q117710,Q6581097,male
+"Mazzoli, Missy",Q6879955,Q6581072,female
+"Pirani, Eugenio di",Q4363266,Q6581097,male
+"Price, Florence",Q520522,Q6581072,female
+"Puts, Kevin",Q6397282,Q6581097,male
+"Quilter, Roger",Q1971524,Q6581097,male
+"Reinecke, Carl",Q159569,Q6581097,male
+"Ruders, Poul",Q2429164,Q6581097,male
+"Schmitt, Florent",Q321630,Q6581097,male
+"Schulhoff, Erwin",Q89540,Q6581097,male
+"Schwantner, Joseph",Q323596,Q6581097,male
+"Susato, Tylman",Q547783,Q6581097,male
+"Tcherepnin, Nikolai",Q918647,Q6581097,male
+"Waller, Fats (Thomas)",Q310476,Q6581097,male
+"Ysaye, Eugène",Q312857,Q6581097,male
+"Alfven [Alfvén], Hugo",Q318840,Q6581097,male
+"Burt, Alfred Shaddick",Q4722391,Q6581097,male
+"Converse, Frederick S.",Q323613,Q6581097,male
+"Lecuona, Ernesto",Q345446,Q6581097,male
+"Moore, Douglas Stuart",Q958213,Q6581097,male
+"Persichetti, Vincent",Q1269450,Q6581097,male
+"Rogers, Bernard",Q822678,Q6581097,male
+"Rota, Nino",Q214665,Q6581097,male
+"Shchedrin, Rodion",Q165706,Q6581097,male
+"Sowerby, Leo",Q733341,Q6581097,male
+"Straus, Oscar",Q206667,Q6581097,male
+"Wagenaar, Bernard",Q822760,Q6581097,male
+"Aubert, Louis",Q962731,Q6581097,male
+"Bargiel, Woldemar",Q67025,Q6581097,male
+"Blon, Franz von",Q879897,Q6581097,male
+"Czibulka, Alphons",Q447124,Q6581097,male
+"Dubois, Theodore",Q259121,Q6581097,male
+"Giordano, Umberto",Q294826,Q6581097,male
+"Lane, Burton",Q364143,Q6581097,male
+"Lieberson, Peter",Q328103,Q6581097,male
+"MacMillan, James",Q714541,Q6581097,male
+"Marschner, Heinrich August",Q160063,Q6581097,male
+"Matthus, Siegfried",Q314654,Q6581097,male
+"McDonald, Harl",Q326046,Q6581097,male
+"Pfitzner, Hans",Q57358,Q6581097,male
+"Rector, Ben",Q4886334,Q6581097,male
+"Scharwenka, Franz Xaver",Q703370,Q6581097,male
+"Steiner, Max",Q350704,Q6581097,male
+"Stenhammar, Wilhelm",Q435688,Q6581097,male
+"Tobias, Charles",Q5082962,Q6581097,male
+"Youmans, Vincent",Q746951,Q6581097,male
+"Bachelet, Alfred (Georges)",Q1575391,Q6581097,male
+"Benjamin, Arthur",Q177229,Q6581097,male
+"Chapi (y Lorente), Ruperto",Q964682,Q6581097,male
+"Crawford [Seeger], Ruth Porter",Q451393,Q6581072,female
+"Di Lorenzo, Anthony",Q133707077,Q6581097,male
+"Dinicu, Grigoras",Q740461,Q6581097,male
+"Drigo, Riccardo",Q545830,Q6581097,male
+"Gotovak, Jakov",Q361122,Q6581097,male
+"Hamlisch, Marvin",Q337206,Q6581097,male
+"Husa, Karel",Q1729163,Q6581097,male
+"Rihm, Wolfgang",Q77031,Q6581097,male
+"Schreiner, Alexander",Q2012405,Q6581097,male
+"Tamberg, Eino",Q948134,Q6581097,male
+"Thorvaldsdottir, Anna",Q4767456,Q6581072,female
+"Andriessen, Louis",Q504743,Q6581097,male
+"Babbitt, Milton",Q318518,Q6581097,male
+"Bates, Mason",Q16165161,Q6581097,male
+"Ben-Haim, Paul",Q215982,Q6581097,male
+"Boito, Arrigo",Q219491,Q6581097,male
+"Boyce, William",Q313152,Q6581097,male
+"Chaplin, Charles",Q882,Q6581097,male
+"Chin, Unsuk",Q272236,Q6581072,female
+"Frank, Gabriela Lena",Q1489991,Q6581072,female
+"Franz, Robert",Q561967,Q6581097,male
+"Giacchino, Michael",Q155124,Q6581097,male
+"Kleinsinger, George",Q5541379,Q6581097,male
+"Kurtag [Kurtág], Georgy [György]",Q48184,Q6581097,male
+"Lindpaintner, Peter Von",Q214614,Q6581097,male
+"Maxwell Davies, Sir Peter",Q139223,Q6581097,male
+"Mehul [Méhul], Etienne Nicolas",Q364020,Q6581097,male
+"Mozart, Leopold",Q156280,Q6581097,male
+"Paert [Pärt], Arvo",Q189534,Q6581097,male
+"Pintscher, Matthias",Q65645,Q6581097,male
+"Saminsky, Lazare",Q969499,Q6581097,male
+"Schoenfield, Paul",Q374750,Q6581097,male
+"Schumann, Clara",Q132232,Q6581072,female
+"Starer, Robert",Q552927,Q6581097,male
+"Stojowski, Sigismond",Q1362743,Q6581097,male
+"Swanson, Howard",Q5921005,Q6581097,male
+"Tartini, Giuseppe",Q108555,Q6581097,male
+"Turnage, Mark-Anthony",Q528639,Q6581097,male
+"Vivanco, Moises",Q55990044,Q6581097,male
+"Whithorne, Emerson",Q1335589,Q6581097,male
+"Wuorinen, Charles",Q961861,Q6581097,male
+"Zandonai, Riccardo",Q258329,Q6581097,male
+"Benjamin, George",Q945633,Q6581097,male
+"Bliss, Arthur",Q508953,Q6581097,male
+"Brockway, Howard",Q1489379,Q6581097,male
+"Brown, Earle",Q1277459,Q6581097,male
+"Casals, Pablo",Q208537,Q6581097,male
+"Denza, Luigi",Q261781,Q6581097,male
+"Dowland, John",Q207355,Q6581097,male
+"Einem, Gottfried Von",Q434389,Q6581097,male
+"Geminiani, Francesco",Q311625,Q6581097,male
+"Gevaert, François-Auguste",Q682376,Q6581097,male
+"Gilmore, Patrick Sarsfield",Q3430910,Q6581097,male
+"Golijov, Osvaldo",Q701257,Q6581097,male
+"Gruber, HK",Q598959,Q6581097,male
+"Herold, Louis Joseph Ferdinand [Hérold]",Q362639,Q6581097,male
+"Keys, Alicia",Q121507,Q6581072,female
+"Kuhlau, Friedrich",Q157865,Q6581097,male
+"Maderna, Bruno",Q351383,Q6581097,male
+"Morricone, Ennio",Q23848,Q6581097,male
+"Negron [Negrón], Angelica [Angélica]",Q28404161,Q6581072,female
+"O'Connor, Mark",Q6769064,Q6581097,male
+"Perry, Julia",Q2754110,Q6581072,female
+"Petrassi, Goffredo",Q505806,Q6581097,male
+"Pick-Mangiagalli, Riccardo",Q3934587,Q6581097,male
+"Scott, Cyril",Q367717,Q6581097,male
+"Shankar, Ravi",Q103774,Q6581097,male
+"Siegmeister, Elie",Q715863,Q6581097,male
+"Smith, David Stanley",Q1176713,Q6581097,male
+"Widor, Charles Marie",Q215161,Q6581097,male
+"Wolfe, Jacques",Q6120944,Q6581097,male
+"Wolpe, Stefan",Q213905,Q6581097,male
+"Anastasio, Trey",Q466302,Q6581097,male
+"Andres, Timo",Q15429769,Q6581097,male
+"Bacewicz, Grazyna",Q230978,Q6581072,female
+"Baker, David J.",Q1173633,Q6581097,male
+"Barbirolli, John",Q346432,Q6581097,male
+"Blacher, Boris",Q455307,Q6581097,male
+"Bristow, George Frederick",Q322883,Q6581097,male
+"Burleigh, Henry [Harry] Thacker",Q1586825,Q6581097,male
+"Castellanos, Carlos",Q5749992,Q6581097,male
+"Chen, Yi",Q464813,Q6581072,female
+"Francaix [Françaix], Jean",Q39319,Q6581097,male
+"Gaye, Marvin",Q189758,Q6581097,male
+"Gillet, Ernest",Q288581,Q6581097,male
+"Gillis, Don",Q714525,Q6581097,male
+"Gruenberg, Louis",Q1374446,Q6581097,male
+"Hailstork, Adolphus",Q365999,Q6581097,male
+"Kancheli, Giya",Q348652,Q6581097,male
+"Kilar, Wojciech",Q319777,Q6581097,male
+"Lassen, Eduard",Q71383,Q6581097,male
+"Leclair, Jean Marie",Q348875,Q6581097,male
+"Lennertz, Christopher",Q938849,Q6581097,male
+"Leontovych, Mykola",Q467914,Q6581097,male
+"Luening, Otto",Q2039834,Q6581097,male
+"Marquina, Pasquale",Q1879998,Q6581097,male
+"Mendoza y Cortés, Quirino",Q6095384,Q6581097,male
+"Norman, Andrew",Q22007191,Q6581097,male
+"Paisiello, Giovanni",Q202303,Q6581097,male
+"Parker, Charlie (""Bird"")",Q103767,Q6581097,male
+"Pryor, Arthur",Q1043029,Q6581097,male
+"Revueltas, Silvestre",Q332421,Q6581097,male
+"Schickele, Peter",Q1354646,Q6581097,male
+"Schumann, Georg",Q534268,Q6581097,male
+"Scocca-Ho, Mack",Q139208640,Q6581097,male
+"Skilton, Charles Sanford",Q931581,Q6581097,male
+"Torke, Michael",Q724998,Q6581097,male
+"Tosti, Francesco Paolo",Q469467,Q6581097,male
+"Tovey, Bramwell",Q2603978,Q6581097,male
+"Turner, Charles",Q117035826,Q6581097,male
+"Wagenaar, Johan",Q209898,Q6581097,male
+"White, Paul",Q2063097,Q6581097,male
+"Willson, Meredith",Q1281750,Q6581097,male
+"Young, Victor",Q365199,Q6581097,male
