@@ -1,0 +1,37 @@
+conductor,ptype,date,rec_year_first,rec_year_last,rec_year_mid,n_movements,median_diff_bpm
+"Abbado, Claudio",HI influence,2000-2001,2000.0,2001.0,2000.5,33,-9.0
+"Barenboim, Daniel",Romantic,2011,2011.0,2011.0,2011.0,33,-15.0
+"Bernstein, Leonard",Romantic,1977-1979,1977.0,1979.0,1978.0,33,-11.666666669999998
+"Brüggen, Frans",HI,1984-1992,1984.0,1992.0,1988.0,33,-8.0
+"Böhm, Karl",Romantic,1969-1972,1969.0,1972.0,1970.5,33,-17.5
+"Chailly, Riccardo",HI influence,2007-2009,2007.0,2009.0,2008.0,33,-1.0
+"Cluytens, André",Romantic,1957-1960,1957.0,1960.0,1958.5,33,-14.0
+"Davis, Colin",Romantic,1995,1995.0,1995.0,1995.0,33,-16.0
+"Ferencsik, Janos",Romantic,1969-1976,1969.0,1976.0,1972.5,33,-16.0
+"Furtwängler, Wilhelm",Romantic,1947-1954,1947.0,1954.0,1950.5,33,-16.5
+"Gardiner, John Eliot",HI,1991-1994,1991.0,1994.0,1992.5,33,-2.0
+"Gielen, Michael",HI influence,1997-2000,1997.0,2000.0,1998.5,33,-8.0
+"Haitink, Bernard",Romantic,1985-1987,1985.0,1987.0,1986.0,33,-12.0
+"Harnoncourt, Nikolaus",HI influence,1990-1991,1990.0,1991.0,1990.5,33,-10.0
+"Hickox, Richard",HI influence,1984-1988,1984.0,1988.0,1986.0,33,-13.5
+"Hogwood, Christopher",HI,1985-1989,1985.0,1989.0,1987.0,33,-7.0
+"Hugget, M. and Goodman, R.",HI,1982-1988,1982.0,1988.0,1985.0,33,-7.0
+"Immerseel, Jos Van",HI,2005-2007,2005.0,2007.0,2006.0,33,-6.0
+"Jochum, Eugen",Romantic,1967-1969,1967.0,1969.0,1968.0,33,-15.0
+"Karajan, Herbert von",Romantic,1951-1955,1951.0,1955.0,1953.0,33,-12.0
+"Kegel, Herbert",Romantic,1982-1984,1982.0,1984.0,1983.0,33,-14.0
+"Klemperer, Otto",Romantic,1960,1960.0,1960.0,1960.0,33,-17.0
+"Leinsdorf, Erich",Romantic,1961-1969,1961.0,1969.0,1965.0,33,-11.0
+"Masur, Kurt",Romantic,1972- 1975,1972.0,1975.0,1973.5,33,-12.666666669999998
+"Mengelberg, Willem",Romantic,1940,1940.0,1940.0,1940.0,33,-7.0
+"Muti, Riccardo",Romantic,1985-1988,1985.0,1988.0,1986.5,33,-10.0
+"Norrington, Roger",HI,1987-1990,1987.0,1990.0,1988.5,33,-6.0
+"Pletnev, Mikhail",Romantic,2007,2007.0,2007.0,2007.0,33,-4.0
+"Polizzi, Antonino",Romantic,1986-1994,1986.0,1994.0,1990.0,33,-12.0
+"Rattle, Simon",HI influence,2002,2002.0,2002.0,2002.0,33,-8.0
+"Solti, Georg",Romantic,1986-1989,1986.0,1989.0,1987.5,33,-10.0
+"Szell, George",Romantic,1956-1964,1956.0,1964.0,1960.0,33,-12.666666669999998
+"Toscanini, Arturo",Romantic,1949-1952,1949.0,1952.0,1950.5,33,-7.0
+"Tremblay, Jean-Philippe",HI influence,2009,2009.0,2009.0,2009.0,33,-7.0
+"Walter, Bruno",Romantic,1958-1959,1958.0,1959.0,1958.5,33,-15.0
+"Wand, Günter",Romantic,1985-1988,1985.0,1988.0,1986.5,33,-12.0

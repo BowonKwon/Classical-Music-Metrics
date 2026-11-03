@@ -44,9 +44,9 @@ def harmony_13(h: pd.DataFrame) -> dict:
     h = h[h["chord"].notna() & (h["chord"] != "")].copy()
     if len(h) == 0:
         return out
-    ct = h["chord_type"].fillna("") if "chord_type" in h else pd.Series("", index=h.index)
+    ct = sm.blank_na(h["chord_type"]) if "chord_type" in h else pd.Series("", index=h.index)
     out["dim7_ratio"] = float((ct == "o7").mean())
-    out["neapolitan_ratio"] = float((h["numeral"].fillna("") == "bII").mean())
+    out["neapolitan_ratio"] = float((sm.blank_na(h["numeral"]) == "bII").mean())
     out["aug6_ratio"] = float(ct.isin(["Ger", "It", "Fr"]).mean())
     out["predominant_chromatic_ratio"] = out["neapolitan_ratio"] + out["aug6_ratio"]  # each alone is mostly 0 per movement
     out["pedal_ratio"] = float(h["pedal"].notna().mean()) if "pedal" in h else float("nan")

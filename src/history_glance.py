@@ -95,7 +95,7 @@ def boxes(hp, lang, W, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict[int, s
                 (f"템포어가 인식된 줄 가운데(인식 20줄·인식률 60% 이상인 첫 구간과 마지막 구간) 「빠름·매우 빠름」의 비율은 {a}~{a + 24}년 {fastish.get(a, 0):.0%}, {z}~{z + 24}년 {fastish.get(z, 0):.0%}이고, 「느림·보통 느림」은 {slowish.get(a, 0):.0%}, {slowish.get(z, 0):.0%}다. 이탈리아어가 아닌 템포어는 {int(ni_pk)}~{int(ni_pk) + 24}년에 {tl.loc[ni_pk, 'non_italian_share']:.0%}로 가장 많다." if ko else
                  f"Among lines with a recognized tempo word (first and last bins with at least 20 recognized lines and 60% recognition), fast or very fast: {fastish.get(a, 0):.0%} in {a}–{a + 24}, {fastish.get(z, 0):.0%} in {z}–{z + 24}; slow or moderately slow: {slowish.get(a, 0):.0%} and {slowish.get(z, 0):.0%}. Non-Italian tempo words peak at {tl.loc[ni_pk, 'non_italian_share']:.0%} in {int(ni_pk)}–{int(ni_pk) + 24}."),
                 ("적힌 지시어의 구성이지 연주 속도(BPM)가 아니다. 느린 서주가 있는 악장은 서주의 템포어로 잡힌다." if ko else
-                 "The make-up of written markings, not performed speed (BPM). A movement with a slow introduction is classed by the introduction."))
+                 "The make-up of written markings, not performed speed (bpm). A movement with a slow introduction is classed by the introduction."))
 
     # 6 — instrument use: instruments named in at least half of the symphonies, first vs last bin; biggest rise
     iu = IU[IU.bin.isin(okb2)].pivot(index="instrument", columns="bin", values="share")

@@ -14,8 +14,28 @@ import pandas as pd
 KO = {"Bach": "바흐", "Beethoven": "베토벤", "Mozart": "모차르트"}
 
 
+def minus(s: str) -> str:
+    """Hyphen-minus in front of a number -> minus sign (U+2212), as on the rest of the site."""
+    return re.sub(r"(?<![\w.])-(?=\d)", "\u2212", s)
+
+
+def stat_spec(v, fmt: str) -> str:
+    """Format spec for a median or quartile. Integer-valued metrics (fmt ".0f") keep whole numbers as integers,
+    but a median of an even count (29.5) or an interpolated quartile (57.75 -> 57.8) is shown with one decimal place instead of rounded
+    (rounding 29.5 to "30" made the box disagree with the table's definition of the median)."""
+    x = float(v)
+    if fmt != ".0f" or x != x or x.is_integer():
+        return fmt
+    return ".1f"   # 1.4 owner decision (2026-11-04): one decimal place (57.75 -> 57.8)
+
+
 def _f(v, fmt):
-    return format(float(v), fmt)
+    return minus(format(float(v), fmt))
+
+
+def _fs(v, fmt):
+    """A median/quartile: _f with stat_spec."""
+    return _f(v, stat_spec(v, fmt))
 
 
 def sentences(text: str, lang: str) -> list[str]:
@@ -135,15 +155,15 @@ def _score(m, lang, d, coll_names):
     hi_n = _join([x[0] for x in meds if x[1] == hi[1]], lang)  # exact ties are all named
     lo_n = _join([x[0] for x in meds if x[1] == lo[1]], lang)
     if lang == "ko":
-        out = f"악장 중앙값이 가장 높은 묶음은 {hi_n}({_f(hi[1], fmt)}), 가장 낮은 묶음은 {lo_n}({_f(lo[1], fmt)})."
+        out = f"악장 중앙값이 가장 높은 묶음은 {hi_n}({_fs(hi[1], fmt)}), 가장 낮은 묶음은 {lo_n}({_fs(lo[1], fmt)})."
     else:
-        out = f"Among the collections, {hi_n} have the highest median ({_f(hi[1], fmt)}) and {lo_n} the lowest ({_f(lo[1], fmt)})."
+        out = f"Among the collections, {hi_n} have the highest median ({_fs(hi[1], fmt)}) and {lo_n} the lowest ({_fs(lo[1], fmt)})."
     son = {c: v for _, v, _, c, coll in meds if coll == "piano_sonatas"}
     if {"Beethoven", "Mozart"} <= son.keys():
         if lang == "ko":
-            out += f" 같은 피아노 소나타끼리는 베토벤 {_f(son['Beethoven'], fmt)}, 모차르트 {_f(son['Mozart'], fmt)}."
+            out += f" 같은 피아노 소나타끼리는 베토벤 {_fs(son['Beethoven'], fmt)}, 모차르트 {_fs(son['Mozart'], fmt)}."
         else:
-            out += f" Within the piano sonatas: Beethoven {_f(son['Beethoven'], fmt)}, Mozart {_f(son['Mozart'], fmt)}."
+            out += f" Within the piano sonatas: Beethoven {_fs(son['Beethoven'], fmt)}, Mozart {_fs(son['Mozart'], fmt)}."
     return out
 
 
@@ -195,11 +215,11 @@ def _coda(m, lang, d):
     med = c["median_diff_bpm"].median()
     if lang == "ko":
         who = f"지휘자 {n}명 모두" if slow == n else f"지휘자 {n}명 가운데 {slow}명의"
-        return (f"교향곡 1~8번에서 {who} 중앙값이 메트로놈 표시보다 느리다. 지휘자별 중앙값의 중앙값은 {med:+.1f} bpm이고, "
-                f"표시와의 차이가 가장 작은 지휘자도 {top:+.1f} bpm.")
+        return (f"교향곡 1~8번에서 {who} 중앙값이 메트로놈 표시보다 느리다. 지휘자별 중앙값의 중앙값은 {_f(med, '+.1f')} bpm이고, "
+                f"표시와의 차이가 가장 작은 지휘자도 {_f(top, '+.1f')} bpm.")
     who = f"all {n} conductors have" if slow == n else f"{slow} of {n} conductors have"
-    return (f"In Symphonies 1–8, {who} a median slower than the metronome mark. The median of conductor medians is {med:+.1f} bpm; "
-            f"the conductor closest to the marks is still {top:+.1f} bpm.")
+    return (f"In Symphonies 1–8, {who} a median slower than the metronome mark. The median of conductor medians is {_f(med, '+.1f')} bpm; "
+            f"the conductor closest to the marks is still {_f(top, '+.1f')} bpm.")
 
 
 def _duration(m, lang, d):
@@ -229,6 +249,75 @@ def _asap(m, lang, d):
     return "Median over pieces: " + ", ".join(f"{n} {_f(v, fmt)} ({k} pieces)" for n, v, k in parts) + ". " + tail
 
 
+def _trend(m, lang, d):
+    tr = d["trend"].set_index("model")
+    fe, pt = tr.loc["movement_fe"], tr.loc["movement_fe_ptype"]
+    f = lambda v: _f(v, "+.2f")  # noqa: E731
+    if lang == "ko":
+        return (f"같은 악장 안에서 녹음이 10년 늦을수록 표기와의 차이는 {f(fe['slope_bpm_per_decade'])} bpm(95% 구간 {f(fe['ci95_low'])}~{f(fe['ci95_high'])}; "
+                f"{int(fe['n_obs']):,}행·지휘자 {int(fe['n_conductors'])}명) — 늦은 녹음과 덜 느린 템포가 함께 관찰된다. "
+                f"연주 양식을 함께 고려하면 {f(pt['slope_bpm_per_decade'])}({f(pt['ci95_low'])}~{f(pt['ci95_high'])})로 줄어 0과 구별되지 않는다.")
+    return (f"Within movements, each decade later in recording goes with {f(fe['slope_bpm_per_decade'])} bpm relative to the marks (95% interval {f(fe['ci95_low'])} to {f(fe['ci95_high'])}; "
+            f"{int(fe['n_obs']):,} rows, {int(fe['n_conductors'])} conductors): later recordings and less slow tempi are observed together. "
+            f"With performance style included it falls to {f(pt['slope_bpm_per_decade'])} ({f(pt['ci95_low'])} to {f(pt['ci95_high'])}), which cannot be told apart from 0.")
+
+
+def _pedal(m, lang, d):
+    ps = d["pedal_sum"].set_index("composer")
+    parts = [(KO[c] if lang == "ko" else c, ps.loc[c]) for c in ("Bach", "Beethoven", "Mozart") if c in ps.index]
+    if m["id"] == "sustain_ratio":
+        if lang == "ko":
+            return "연주별 중앙값은 " + ", ".join(f"{n} {_f(r['sustain_ratio_median'], '.2f')}({int(r['n_performances'])}연주)" for n, r in parts) + "."
+        return "Median over performances: " + ", ".join(f"{n} {_f(r['sustain_ratio_median'], '.2f')} ({int(r['n_performances'])} performances)" for n, r in parts) + "."
+    if lang == "ko":
+        return "소프트 페달을 쓴 연주는 " + ", ".join(f"{n} {_f(r['soft_used_share'], '.1%')}({int(r['soft_used_n'])}/{int(r['n_performances'])})" for n, r in parts) + "."
+    return "Performances using the soft pedal: " + ", ".join(f"{n} {_f(r['soft_used_share'], '.1%')} ({int(r['soft_used_n'])}/{int(r['n_performances'])})" for n, r in parts) + "."
+
+
+# 1.4 owner decision (2026-11-04): Korean spelling beside the archive name in the Korean box (conductors with 1,000+ work performances)
+KO_CONDUCTOR = {'Damrosch': '담로시', 'Stransky': '스트란스키', 'Bernstein': '번스타인', 'Mehta': '메타', 'Kostelanetz': '코스텔라네츠', 'Mitropoulos': '미트로풀로스', 'Masur': '마주어', 'Hoogstraten': '호흐스트라턴', 'Gilbert': '길버트', 'Maazel': '마젤', 'Barbirolli': '바비롤리', 'Toscanini': '토스카니니', 'Mengelberg': '멩엘베르크', 'Boulez': '불레즈', 'Leinsdorf': '라인스도르프', 'Rodzinski': '로진스키', 'Walter': '발터', 'Smallens': '스몰렌스', 'Schelling': '셸링', 'Slatkin': '슬래트킨'}
+
+
+def _conductor(m, lang, d):
+    c = d["ny_cond"]
+    big = c[(c["conductor_flag"] == "person") & (c["perf_u1"] >= 1000)]
+    hi, lo = big.loc[big["living_share"].idxmax()], big.loc[big["living_share"].idxmin()]
+    none = int(c.loc[c["conductor_flag"] == "none_recorded", "perf_u1"].sum())
+    nm = lambda r: r["conductor"].split(",")[0]  # noqa: E731
+    if lang == "ko":
+        nm = lambda r: (lambda sur: f"{KO_CONDUCTOR[sur]}({sur})" if sur in KO_CONDUCTOR else sur)(r["conductor"].split(",")[0])  # noqa: E731
+        return (f"작품 연주 1,000건 이상인 지휘자 {len(big)}명 가운데 생존 작곡가 점유율이 가장 높은 지휘자는 {nm(hi)}({_f(hi['living_share'], '.1%')}), "
+                f"가장 낮은 지휘자는 {nm(lo)}({_f(lo['living_share'], '.1%')}). 지휘자가 기록되지 않은 작품 연주는 {none:,}건.")
+    return (f"Among {len(big)} conductors with 1,000+ work performances, the living-composer share is highest for {nm(hi)} ({_f(hi['living_share'], '.1%')}) "
+            f"and lowest for {nm(lo)} ({_f(lo['living_share'], '.1%')}). {none:,} work performances have no conductor recorded.")
+
+
+def _survival(m, lang, d):
+    s = d["surv_sum"].set_index(["set", "cohort"])
+    a = s.loc[("living_composer", "all")]
+    e, l_ = s.loc[("living_composer", "1843-1899")], s.loc[("living_composer", "2000-")]
+    p = lambda v: _f(v, ".1%")  # noqa: E731
+    if lang == "ko":
+        return (f"작곡가가 살아 있던 작품 {int(a['n_used']):,}개 가운데 10년 안에 다른 시즌에 다시 연주된 비율은 {p(a['reperf_10y_km'])}"
+                f"({p(a['reperf_10y_ci95_low'])}~{p(a['reperf_10y_ci95_high'])}). 1843~1899년에 처음 연주된 작품은 {p(e['reperf_10y_km'])}, 2000년 이후는 {p(l_['reperf_10y_km'])}.")
+    return (f"Of {int(a['n_used']):,} works by living composers, {p(a['reperf_10y_km'])} were played again in another season within 10 years "
+            f"({p(a['reperf_10y_ci95_low'])}–{p(a['reperf_10y_ci95_high'])}). First performed 1843–1899: {p(e['reperf_10y_km'])}; since 2000: {p(l_['reperf_10y_km'])}.")
+
+
+
+def _women(m, lang, d):
+    w = d["women"]
+    w = w[w["season_start"] <= 2025].assign(dec=lambda x: (x["season_start"] // 10) * 10)
+    def dec(y):
+        g = w[w["dec"] == y]; u = g["person_u1"].astype(float); k = u * g["gender_coverage"]
+        return ((g["women_share_low"] * u).sum() / u.sum(), (g["women_share"].fillna(0) * k).sum() / k.sum(), (g["women_share_high"] * u).sum() / u.sum())
+    lo, mid, hi = dec(2020)
+    p = lambda v: _f(v, ".1%")  # noqa: E731
+    if lang == "ko":
+        return f"2000년대까지는 10년 단위 가운데 값이 1% 아래였다. 2020년대 완결 시즌은 {p(mid)}(하한 {p(lo)}~상한 {p(hi)}) — 성별 미상 작곡가가 늘어 폭이 넓다."
+    return f"Up to the 2000s the decade middle value stays below 1%. Completed seasons of the 2020s: {p(mid)} (lower bound {p(lo)}, upper bound {p(hi)}) — the range is wide, as more composers have no recorded gender."
+
+
 def caution_for(m, lang, by_id) -> str:
     if m["id"] in CAUTION:
         return CAUTION[m["id"]][0 if lang == "ko" else 1]
@@ -249,6 +338,16 @@ def box(m, lang, d, coll_names, by_id=None) -> str:
         seen = _duration(m, lang, d)
     elif kind == "asap_piece":
         seen = _asap(m, lang, d)
+    elif kind == "tempo_trend":
+        seen = _trend(m, lang, d)
+    elif kind in ("asap_pedal", "asap_soft"):
+        seen = _pedal(m, lang, d)
+    elif kind == "nyphil_conductor":
+        seen = _conductor(m, lang, d)
+    elif kind == "nyphil_survival":
+        seen = _survival(m, lang, d)
+    elif kind == "nyphil_women":
+        seen = _women(m, lang, d)
     else:
         return ""
     caution = caution_for(m, lang, by_id or {})

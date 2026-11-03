@@ -53,7 +53,7 @@ INSTR_KO = {"harpsichord / continuo": "하프시코드·통주저음", "oboe": "
             "trumpet": "트럼펫", "timpani": "팀파니", "clarinet": "클라리넷", "piccolo": "피콜로", "trombone": "트롬본",
             "contrabassoon": "콘트라바순", "English horn": "잉글리시 호른", "other percussion": "그 밖의 타악기", "harp": "하프",
             "tuba": "튜바", "bass clarinet": "베이스 클라리넷", "celesta": "첼레스타", "piano": "피아노", "organ": "오르간", "saxophone": "색소폰"}
-PITCH_KIND = [("church", "교회·오르간", "Church / organ", "var(--g1)"), ("theatre", "오페라·관현악·극장·악대", "Opera / orchestra / theatre / band", "var(--g2)"),
+PITCH_KIND = [("church", "교회·오르간", "Church / organ", "var(--g1)"), ("theatre", "오페라·관현악·극장·악대", "Opera / orchestra / theater / band", "var(--g2)"),
               ("other", "기타(소리굽쇠·악기 등)", "Other (forks, instruments)", "var(--g6)")]
 
 
@@ -287,11 +287,15 @@ def pitch_scatter(df, width=900, height=380):
     return "".join(o)
 
 
+LONG_CLS = " class='long'"
+
+
 def table(df, cols, tid):
     h = "".join(f"<th class='{'num' if f else ''}'>{esc(n)}</th>" for _, n, f in cols)
     rows = []
+    long = {c for c, _, f in cols if not f and df[c].astype(str).str.len().max() > 20}  # min width on narrow screens (td.long)
     for _, r in df.iterrows():
-        rows.append("<tr>" + "".join(f"<td class='num' data-v='{r[c]}'>{format(r[c], f) if pd.notna(r[c]) else ''}</td>" if f else f"<td>{esc(r[c]) if pd.notna(r[c]) else ''}</td>" for c, _, f in cols) + "</tr>")
+        rows.append("<tr>" + "".join(f"<td class='num' data-v='{r[c]}'>{format(r[c], f) if pd.notna(r[c]) else ''}</td>" if f else f"<td{LONG_CLS if c in long else ''}>{esc(r[c]) if pd.notna(r[c]) else ''}</td>" for c, _, f in cols) + "</tr>")
     return (f"<details><summary style='cursor:pointer;color:var(--fg2);font-size:.9rem;margin:.3rem 0'>{t('표 보기', 'Show table')} ({len(rows)})</summary>"
             f"<div class='wrap'><table class='sort' id='{tid}'><thead><tr>{h}</tr></thead><tbody>{''.join(rows)}</tbody></table></div></details>")
 
@@ -380,7 +384,7 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     okb = sorted(TL.loc[(TL.movements >= 20) & (TL.recognised_share >= 0.6), "bin"].astype(int).tolist())
     b.append(f"<h2 id='s5'>5. {t('템포 지시어의 구성 — 악장 줄에 어떤 템포어가 적혔나', 'Tempo markings — which tempo words the movement lists carry')}</h2>{GL[5]}<p>"
              + t("IMSLP 교향곡 범주(오르간 교향곡·여러 곡 묶음 면·목록 면 제외)의 악장 목록에서 줄마다 사전에 있는 첫 템포어(Adagio·Allegro·Vivo 등, 독일어·프랑스어 지시어 포함)를 뽑아 여섯 단계로 묶었다. <b>연주 속도(BPM)가 아니라 적힌 지시어의 구성</b>이다. 느린 서주가 있는 악장은 서주의 템포어로 잡히고, 판본이 둘 적힌 면은 두 판의 줄이 모두 들어간다. 25년 구간, 인식된 줄이 20개 이상이고 인식률(템포어가 잡힌 줄 / 목록 줄) 60% 이상인 구간만.",
-                 "From the movement lists of the IMSLP Symphonies category (organ symphonies, multi-symphony pages and list pages excluded), the first tempo word on each line that is in the site's dictionary (Adagio, Allegro, Vivo …, German and French words included), grouped into six classes. <b>This is the make-up of written markings, not performed speed (BPM).</b> A movement with a slow introduction is classed by the introduction; pages listing two versions contribute both. 25-year bins with at least 20 recognized lines and a recognition rate (lines with a tempo word / listed lines) of at least 60%.") + "</p>"
+                 "From the movement lists of the IMSLP Symphonies category (organ symphonies, multi-symphony pages and list pages excluded), the first tempo word on each line that is in the site's dictionary (Adagio, Allegro, Vivo …, German and French words included), grouped into six classes. <b>This is the make-up of written markings, not performed speed (bpm).</b> A movement with a slow introduction is classed by the introduction; pages listing two versions contribute both. 25-year bins with at least 20 recognized lines and a recognition rate (lines with a tempo word / listed lines) of at least 60%.") + "</p>"
              + '<div class="legend">' + "".join(f'<span style="--c:{c}">{tname(k)}</span>' for k, c in zip(TEMPO, TEMPO_C)) + f"</div><figure>{stacked100(TP, okb)}</figure>")
     tl = TL[TL.bin.isin(okb)]
     pts = [(int(r.bin), float(r.non_italian_share)) for r in tl.itertuples()]
