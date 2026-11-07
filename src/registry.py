@@ -16,6 +16,7 @@ LAYERS = {
     "C": {"ko": "연주 지표", "en": "Performance metrics"},
     "D": {"ko": "레퍼토리 지표", "en": "Repertoire metrics"},
     "B": {"ko": "작품 활동·역사", "en": "Works & history"},
+    "E": {"ko": "악단 비교", "en": "Orchestra comparison"},
 }
 
 SOURCES = {
@@ -66,6 +67,24 @@ SOURCES = {
         "en": "Helmholtz, On the Sensations of Tone, tr. A. J. Ellis, 3rd ed. (1895), Appendix XX, Section H: tables of historical pitch (Tables I and II), transcribed from the page images by the editor and checked against the 2nd edition (1885). Public domain. Added in 1.2.",
         "license": "Public domain",
         "url": "https://archive.org/details/onsensationsofto00helmrich",
+    },
+    "carnegie": {
+        "ko": "카네기홀 공연 기록(Carnegie Hall Data Lab, SPARQL). 1891년 이후 카네기홀 공연의 출연 단체와 연주 작품. 공연 31,317행·작품 129,338행을 요청 간격 11초로 받았다. 작곡가 이름은 뉴욕 필 표기에 맞춰 엮은이가 대조했다(orch_composer_xwalk.csv). 1.5에서 추가.",
+        "en": "Carnegie Hall performance history (Carnegie Hall Data Lab, SPARQL): performing ensembles and works for Carnegie Hall concerts since 1891. 31,317 performance rows and 129,338 work rows were fetched eleven seconds apart. Composer names were matched to NY Phil spellings by the editor (orch_composer_xwalk.csv). Added in 1.5.",
+        "license": "CC0 1.0",
+        "url": "https://data.carnegiehall.org/",
+    },
+    "gewandhaus": {
+        "ko": "Linus Hartmann-Enke, 라이프치히 게반트하우스 연주회 프로그램 1781–1895(Zenodo 5995965). 곡 단위 17,237행, 마지막 연주회는 1895년 3월 28일. 1.5에서 추가.",
+        "en": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895. Added in 1.5.",
+        "license": "CC BY 4.0",
+        "url": "https://doi.org/10.5281/zenodo.5995965",
+    },
+    "seoulphil": {
+        "ko": "서울시립교향악단 공연 정보(서울 열린데이터광장 OA-22909 국문·OA-22910 영문, 출처: 서울특별시). 곡목은 곡명 문자열이고 작곡가 칸이 없어, 엮은이가 곡명·작품번호·공연 페이지로 작곡가를 붙였다(seoulphil_works.csv·seoulphil_title_manual.csv). 예정 프로그램 기준이라 취소·변경된 공연이 섞여 있다. 1.5에서 추가.",
+        "en": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government). The programme field holds titles without composers; the editor attached composers from titles, opus numbers and concert pages (seoulphil_works.csv, seoulphil_title_manual.csv). The data list planned programmes, so cancelled or changed concerts are included. Added in 1.5.",
+        "license": "KOGL Type 1 (attribution)",
+        "url": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
     },
 }
 
