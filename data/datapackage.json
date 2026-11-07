@@ -2,8 +2,8 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.4",
- "created": "2026-11-02",
+ "version": "1.5",
+ "created": "2026-11-07",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
   {
@@ -707,7 +707,7 @@
    "mediatype": "text/csv",
    "encoding": "utf-8",
    "layer": "Repertoire metrics",
-   "rows": 92,
+   "rows": 93,
    "licenses": [
     {
      "name": "CC-BY-4.0",
@@ -1108,6 +1108,227 @@
      "title": "Helmholtz, On the Sensations of Tone, tr",
      "path": "https://archive.org/details/onsensationsofto00helmrich",
      "license": "Public domain"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_touring_profiles",
+   "path": "orch/orch_touring_profiles.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 21,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Carnegie Hall performance history (Carnegie Hall Data Lab, SPARQL): performing ensembles and works for Carnegie Hall concerts since 1891",
+     "path": "https://data.carnegiehall.org/",
+     "license": "CC0 1.0"
+    },
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_check_nyphil_two_sources",
+   "path": "orch/orch_check_nyphil_two_sources.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 14,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    },
+    {
+     "title": "Carnegie Hall performance history (Carnegie Hall Data Lab, SPARQL): performing ensembles and works for Carnegie Hall concerts since 1891",
+     "path": "https://data.carnegiehall.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_overlap_nyphil_gewandhaus",
+   "path": "orch/orch_overlap_nyphil_gewandhaus.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 6,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    },
+    {
+     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
+     "path": "https://doi.org/10.5281/zenodo.5995965",
+     "license": "CC BY 4.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_seoul_vs_nyphil",
+   "path": "orch/orch_seoul_vs_nyphil.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 368,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
+    },
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    },
+    {
+     "title": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570)",
+     "path": "https://www.wikidata.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-seoulphil_works",
+   "path": "orch/seoulphil_works.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 1998,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
+    }
+   ]
+  },
+  {
+   "name": "aliases-orch_composer_xwalk",
+   "path": "aliases/orch_composer_xwalk.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 10409,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    },
+    {
+     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
+     "path": "https://doi.org/10.5281/zenodo.5995965",
+     "license": "CC BY 4.0"
+    },
+    {
+     "title": "Carnegie Hall performance history (Carnegie Hall Data Lab, SPARQL): performing ensembles and works for Carnegie Hall concerts since 1891",
+     "path": "https://data.carnegiehall.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "aliases-orch_composer_manual",
+   "path": "aliases/orch_composer_manual.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 19,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "New York Philharmonic Performance History: works, composers and conductors on more than 15,000 programs from the first concert in December 1842 to the current s",
+     "path": "https://github.com/nyphilarchive/PerformanceHistory",
+     "license": "CC0 1.0"
+    },
+    {
+     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
+     "path": "https://doi.org/10.5281/zenodo.5995965",
+     "license": "CC BY 4.0"
+    },
+    {
+     "title": "Carnegie Hall performance history (Carnegie Hall Data Lab, SPARQL): performing ensembles and works for Carnegie Hall concerts since 1891",
+     "path": "https://data.carnegiehall.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "aliases-seoulphil_title_manual",
+   "path": "aliases/seoulphil_title_manual.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 300,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
     }
    ]
   }

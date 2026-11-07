@@ -21,8 +21,8 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.4"
-BUILD_DATE = "2026-11-02"
+VERSION = "1.5"
+BUILD_DATE = "2026-11-07"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
     ("1.0", "2026-10-31", "바흐·베토벤 악보 14지표, 연주 6지표, 뉴욕 필 레퍼토리 4지표.", "Bach and Beethoven: 14 score metrics, 6 performance metrics, 4 NY Phil repertoire metrics."),
@@ -32,12 +32,14 @@ CHANGELOG = [
      "New 'Works & history' page: ten composers' work activity from IMSLP work pages (career ribbons, work pages by age, composed vs performed), symphony orchestration, tempo markings, instrument use, and the history of the pitch of a′ from Ellis's tables (1361–1885). Tables derived from IMSLP are CC BY-SA 4.0 (a different license from the other tables). Each file's license and sources are listed in data/datapackage.json."),
     ("1.2.1", "2026-11-02", "지표 면 29개와 「작품·역사」 면 7개 절의 맨 위에 「한눈에 보기」 상자를 더했다 — 그 면의 표에서 계산한 수치 요약과 가장 중요한 한계. 반음계 비율·레퍼토리 집중도(HHI)의 한계 설명을 더 정확하게 고쳤다.",
      "Added an 'At a glance' box at the top of the 29 metric pages and the seven sections of the Works & history page: a summary computed from the page's own tables and the most important limit. Made the caveats for the chromatic ratio and repertoire concentration (HHI) more precise."),
-    ("1.3", BUILD_DATE, "악보 지표를 14개에서 39개로 늘렸다. 이미 계산해 두었던 16개(최상성부 순차·반복 비율과 음역, 선율 윤곽 전환, 평균 음고·산포, 5도권 음이름 폭, 음가 종류·평균 음가, 평균 화음 길이, 반음계 화음, 전위 화음, 거치는 조의 수, 단조 구간 비율, 종지 밀도, 완전 정격 종지 비율)를 공개하고, 9개(리듬 대비 지수 nPVI, 도약 후 반진행, 박 넘김 당김음, 동기 반복률, 감7화음, 나폴리·증6화음, 페달 포인트, 악구 길이, 4·8마디 악구 비율)를 새로 계산했다. 종지를 주석하지 않은 작품(바흐 무반주 바이올린 작품·첼로 모음곡 1·2번)의 종지 밀도는 0 이 아니라 빈칸으로 고쳤다.",
+    ("1.3", "2026-11-02", "악보 지표를 14개에서 39개로 늘렸다. 이미 계산해 두었던 16개(최상성부 순차·반복 비율과 음역, 선율 윤곽 전환, 평균 음고·산포, 5도권 음이름 폭, 음가 종류·평균 음가, 평균 화음 길이, 반음계 화음, 전위 화음, 거치는 조의 수, 단조 구간 비율, 종지 밀도, 완전 정격 종지 비율)를 공개하고, 9개(리듬 대비 지수 nPVI, 도약 후 반진행, 박 넘김 당김음, 동기 반복률, 감7화음, 나폴리·증6화음, 페달 포인트, 악구 길이, 4·8마디 악구 비율)를 새로 계산했다. 종지를 주석하지 않은 작품(바흐 무반주 바이올린 작품·첼로 모음곡 1·2번)의 종지 밀도는 0 이 아니라 빈칸으로 고쳤다.",
      "Score metrics grew from 14 to 39. Sixteen that had already been computed were published (top-line step and repeat ratios and range, melodic direction changes, mean pitch and spread, pitch-name vocabulary, duration vocabulary and mean length, mean chord length, chromatic chords, inversions, keys visited, minor-key share, cadence density, PAC share), and nine were new (nPVI rhythmic contrast, post-leap reversal, beat-crossing syncopation, motif repetition, diminished sevenths, Neapolitan and augmented sixths, pedal points, phrase length, 4- and 8-bar phrase share). Cadence density for works without cadence annotation (Bach's solo violin works and Cello Suites 1–2) was changed from 0 to blank."),
-    ("1.3.1", BUILD_DATE, "지표 면 띠 그림의 중앙값 막대를 고쳤다 — 값이 짝수 개일 때 가운데 두 값의 평균이 아니라 위쪽 값을 그리고 있었다. 지표 38개 면의 띠 111줄에서 중앙값이 바뀌어 이제 같은 면 표의 중앙값과 맞는다(반올림 뒤 막대 위치나 툴팁 값이 달라진 것은 109줄. 예: 종지 밀도의 바흐 무반주 묶음 16.7 → 15.8). 표·요약 상자·CSV의 수치는 그대로다. 영어 면의 문장·용어·철자(미국식)·표 머리글 대소문자를 손보고, 원자료 커밋 기록(raw_manifest.json)에서 커밋이 없는 IMSLP 항목을 뺐다(작업 저장소의 커밋이 잘못 들어가 있었다).",
+    ("1.3.1", "2026-11-02", "지표 면 띠 그림의 중앙값 막대를 고쳤다 — 값이 짝수 개일 때 가운데 두 값의 평균이 아니라 위쪽 값을 그리고 있었다. 지표 38개 면의 띠 111줄에서 중앙값이 바뀌어 이제 같은 면 표의 중앙값과 맞는다(반올림 뒤 막대 위치나 툴팁 값이 달라진 것은 109줄. 예: 종지 밀도의 바흐 무반주 묶음 16.7 → 15.8). 표·요약 상자·CSV의 수치는 그대로다. 영어 면의 문장·용어·철자(미국식)·표 머리글 대소문자를 손보고, 원자료 커밋 기록(raw_manifest.json)에서 커밋이 없는 IMSLP 항목을 뺐다(작업 저장소의 커밋이 잘못 들어가 있었다).",
      "Fixed the median bar in the strip charts on metric pages: with an even number of values it showed the upper middle value instead of the mean of the two middle values. On 38 metric pages the median changes in 111 strip rows, which now match the median in the table on the same page (after rounding, the bar position or tooltip value differs in 109 of them; e.g. cadence density, Bach's solo works: 16.7 → 15.8). Numbers in tables, summary boxes and CSVs are unchanged. Revised wording, terms, spelling (now American) and table-header capitalization on the English pages, and removed the IMSLP entry from the record of input commits (raw_manifest.json): IMSLP has no commit, and the build repository's own commit had been recorded in its place."),
-    ("1.4", BUILD_DATE, "연주 지표 3개(녹음 연도별 템포 추이, 댐퍼 페달 사용 시간 비율, 소프트 페달 사용 연주 비율)와 레퍼토리 지표 3개(지휘자별 레퍼토리 구성, 신작 재연주율, 여성 작곡가 점유율 — Wikidata 성별 표 aliases/composer_gender.csv 로 하한·가운데 값·상한)를 더했다. 지휘자 이름 정규화표(aliases/nyphil_conductors.csv)와 작곡가 성별 표를 공개한다. 페달 지표는 한 녹음에서 잘린 여러 곡을 녹음 하나로 센다(ASAP 파일 456 → 녹음 359). 화면에 보이는 음수는 마이너스 기호(−)로, 생성 문장의 시즌 표기는 1842–43 처럼 줄표로 통일했다(표의 원자료 시즌 칸은 그대로). 정수 지표의 중앙값·사분위가 정수가 아니면 소수 첫째 자리까지 보인다(예: 음역, 바흐 무반주 30 → 29.5). 좁은 화면에서 표가 글자 단위로 꺾이지 않고 옆으로 넘기게, 차트 글자가 커지게 고쳤다. 지표·작곡가 면에 위치 표시줄, 같은 묶음의 다른 면 목록(넓은 화면은 왼쪽, 좁은 화면은 제목 위 접힘 상자), 이전·다음 링크(←·→ 키)를 넣었고, 언어 전환 링크가 같은 면으로 간다. 한국어 면의 연도 범위는 물결표(1842~2026; 시즌 이름 1842–43 은 그대로). 「열다섯 마디」를 「열네 마디」(100 ÷ 7)로 바로잡았다.",
+    ("1.4", "2026-11-04", "연주 지표 3개(녹음 연도별 템포 추이, 댐퍼 페달 사용 시간 비율, 소프트 페달 사용 연주 비율)와 레퍼토리 지표 3개(지휘자별 레퍼토리 구성, 신작 재연주율, 여성 작곡가 점유율 — Wikidata 성별 표 aliases/composer_gender.csv 로 하한·가운데 값·상한)를 더했다. 지휘자 이름 정규화표(aliases/nyphil_conductors.csv)와 작곡가 성별 표를 공개한다. 페달 지표는 한 녹음에서 잘린 여러 곡을 녹음 하나로 센다(ASAP 파일 456 → 녹음 359). 화면에 보이는 음수는 마이너스 기호(−)로, 생성 문장의 시즌 표기는 1842–43 처럼 줄표로 통일했다(표의 원자료 시즌 칸은 그대로). 정수 지표의 중앙값·사분위가 정수가 아니면 소수 첫째 자리까지 보인다(예: 음역, 바흐 무반주 30 → 29.5). 좁은 화면에서 표가 글자 단위로 꺾이지 않고 옆으로 넘기게, 차트 글자가 커지게 고쳤다. 지표·작곡가 면에 위치 표시줄, 같은 묶음의 다른 면 목록(넓은 화면은 왼쪽, 좁은 화면은 제목 위 접힘 상자), 이전·다음 링크(←·→ 키)를 넣었고, 언어 전환 링크가 같은 면으로 간다. 한국어 면의 연도 범위는 물결표(1842~2026; 시즌 이름 1842–43 은 그대로). 「열다섯 마디」를 「열네 마디」(100 ÷ 7)로 바로잡았다.",
      "Added three performance metrics (tempo trend by recording year, damper pedal time share, soft pedal use) and three repertoire metrics (repertoire by conductor, new-work re-performance, women composers' share — lower bound, middle value and upper bound from the Wikidata gender table aliases/composer_gender.csv). The conductor-name normalization table (aliases/nyphil_conductors.csv) and the composer gender table are published. The pedal metrics count a recording cut into several pieces once (456 ASAP files → 359 recordings). Displayed negatives now use the minus sign (−) and seasons in generated text use the en dash (1842–43); raw season cells in tables are unchanged. Medians and quartiles of integer metrics are shown with one decimal place when they are not whole numbers (e.g. pitch range, Bach's solo works: 30 → 29.5). On narrow screens tables no longer break inside words but scroll sideways, and chart labels are larger. Metric and composer pages have a breadcrumb, a list of the other pages in the same group (a sidebar on wide screens, a collapsed box above the title on narrow ones) and previous/next links (arrow keys); the language link opens the same page. 'Every fifteen bars' is corrected to every 14 bars (100 ÷ 7). US spelling and dates in a few places; HIP labels without nested parentheses."),
+    ("1.5", BUILD_DATE, "「악단 비교」 면을 신설했다. 뉴욕 필하모닉, 카네기홀에 온 초청 악단(빈 필·베를린 필·콘세르트헤바우 등), 라이프치히 게반트하우스(1781–1895), 서울시립교향악단 정기공연(2009–2025)의 작곡가 점유율을 같은 단위로 견준다. 순위나 합성 점수는 내지 않는다. 서울시향 공연 정보의 곡목에는 작곡가가 없어 곡명·작품번호·공연 페이지로 작곡가를 붙였고(정기공연 85.9%), 그 귀속과 면의 사실 서술은 블라인드 교차 검증을 세 번 거쳤다. 데이터 면에 orch/ 표 5개와 악단 대조표 3개를 더했다. 뉴욕 필 작곡가 분류표에서 무대 공연의 막 표시 「ACT,」를 작품 아님으로 옮겼다(공개 지표 값 변화 없음).",
+     "New 'Orchestras' page: composer shares compared in one unit across the New York Philharmonic, visiting orchestras at Carnegie Hall (Vienna and Berlin Philharmonics, Concertgebouw and others), the Leipzig Gewandhaus (1781–1895) and the Seoul Philharmonic's subscription concerts (2009–2025). No ranking and no composite score. The Seoul data list titles without composers, so composers were attached from titles, opus numbers and concert pages (85.9% of subscription works); the attributions and the page's statements of fact went through three rounds of blind cross-checking. The data page adds five tables under orch/ and three orchestra matching tables. In the NY Phil composer table, the act marker 'ACT,' is now classed as not a work (no published metric value changes)."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -82,7 +84,7 @@ def slug(name: str) -> str:
 T = {
     "ko": dict(
         site="서양 고전 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐·베토벤·모차르트와 뉴욕 필 180년",
-        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
+        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         season="시즌", all_concerts="전체", subscription="정기공연만", v10="1.0 단위", coverage="생몰년 확인", lower="하한", upper="상한",
         perf_u1="작품 연주", perf_u2="전곡 연주", excerpt="발췌 비율", first="첫 시즌", last="마지막 시즌", n_seasons="연주된 시즌 수", born="출생", died="사망",
         rank="순위", category="구분", peak="최고 점유 시즌", top_works="많이 연주된 작품", decade_rank="10년 단위 순위", programs="프로그램",
@@ -98,7 +100,7 @@ T = {
     ),
     "en": dict(
         site="Classical Music Metrics", tagline="Reading scores and performances as numbers — Bach, Beethoven, Mozart and 180 years of the New York Philharmonic",
-        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
+        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
         season="Season", all_concerts="all", subscription="subscription only", v10="1.0 unit", coverage="dated", lower="lower", upper="upper",
         perf_u1="work perf.", perf_u2="complete perf.", excerpt="excerpt share", first="first season", last="last season", n_seasons="seasons played", born="born", died="died",
         rank="rank", category="type", peak="peak season", top_works="Most performed works", decade_rank="Rank by decade", programs="programs",
@@ -317,7 +319,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
     hub_path = "" if lang == "ko" else "en/"
     nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
            ("composers", f"{root}{lang}/composers/index.html", t["nav_composers"]),
-           ("history", f"{root}{lang}/history.html", t["nav_history"]),
+           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
     on_attr = ' class="on"'
     navh = "".join(f'<a href="{h}"{on_attr if k == active else ""}>{n}</a>' for k, h, n in nav)
@@ -707,11 +709,20 @@ def main():
         DATA_FILES[f"imslp/{f}"] = ("imslp+nyphil" if "nyphil" in f or "reception" in f else "imslp", "B")
     for f in history_pages.ELLIS_FILES:
         DATA_FILES[f"ellis/{f}"] = ("ellis", "B")
-    for sub in ("aliases", "imslp", "ellis"):
+    import orchestra_pages
+    ORCH_SRC = {"orch_touring_profiles.csv": "carnegie+nyphil", "orch_check_nyphil_two_sources.csv": "nyphil+carnegie",
+                "orch_overlap_nyphil_gewandhaus.csv": "nyphil+gewandhaus", "orch_seoul_vs_nyphil.csv": "seoulphil+nyphil+wikidata",
+                "seoulphil_works.csv": "seoulphil", "orch_composer_xwalk.csv": "nyphil+gewandhaus+carnegie",
+                "orch_composer_manual.csv": "nyphil+gewandhaus+carnegie", "seoulphil_title_manual.csv": "seoulphil"}
+    for f in orchestra_pages.ORCH_FILES:
+        DATA_FILES[f"orch/{f}"] = (ORCH_SRC[f], "E")
+    for f in orchestra_pages.ORCH_ALIAS_FILES:
+        DATA_FILES[f"aliases/{f}"] = (ORCH_SRC[f], "E")
+    for sub in ("aliases", "imslp", "ellis", "orch"):
         (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
         sub, _, nm = f.partition("/")
-        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm}.get(sub, D / f) if nm else D / f
+        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm}.get(sub, D / f) if nm else D / f
         shutil.copy(src_f, OUT / "data" / f)
     write_datapackage(OUT / "data", DATA_FILES)
 
@@ -1053,10 +1064,13 @@ def main():
         for f, (sk, lay) in DATA_FILES.items():
             n = len(pd.read_csv(OUT / "data" / f))
             derived = table_licence(sk.split("+")).replace("CC-BY-NC-SA-4.0", "CC BY-NC-SA 4.0").replace("CC-BY-SA-4.0", "CC BY-SA 4.0").replace("CC-BY-4.0", "CC BY 4.0")
-            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
+            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis', 'carnegie': 'Carnegie Hall', 'gewandhaus': 'Gewandhaus', 'seoulphil': 'Seoul Phil'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
             rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{src_lic}</td><td>{derived}</td></tr>")
         body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
         body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the license the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that license forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
+        body.append("<p>" + ("orch/ 의 표와 aliases/ 의 악단 대조표(1.5)는 뉴욕 필·카네기홀(CC0), 게반트하우스 자료(Hartmann-Enke, CC BY 4.0), 서울시향 공연 정보(공공누리 제1유형)에서 엮은이가 계산하거나 대조한 것으로 CC BY 4.0 이다. 서울시향에서 온 표(seoulphil_works.csv 등)를 쓸 때는 「출처: 서울특별시(서울 열린데이터광장)」를, 게반트하우스에서 온 표를 쓸 때는 원저자를 함께 밝혀 주기 바란다."
+                             if lang == "ko" else
+                             "Tables under orch/ and the orchestra matching tables under aliases/ (1.5) are the editor's computations and matches from the NY Phil and Carnegie Hall data (CC0), the Gewandhaus data (Hartmann-Enke, CC BY 4.0) and the Seoul Philharmonic data (KOGL Type 1), CC BY 4.0. When using tables derived from the Seoul data (seoulphil_works.csv and others), please credit \"Source: Seoul Metropolitan Government (Seoul Open Data Plaza)\"; for tables from the Gewandhaus data, please credit its author.") + "</p>")
         body.append("<p>" + ("파일마다 이 표의 라이선스·원자료·원자료 라이선스를 기계가 읽을 수 있게 적은 목록: <a href='../data/datapackage.json'>datapackage.json</a>(Frictionless Data Package). CSV 만 따로 가져갈 때도 이 목록을 함께 두기 바란다." if lang == "ko" else
                             "A machine-readable list of each file's license, sources and source licenses: <a href='../data/datapackage.json'>datapackage.json</a> (Frictionless Data Package). Please keep it with any CSV you redistribute.") + "</p>")
         # 1.4: two date columns of the bmetr recordings table, which are easy to confuse
@@ -1208,6 +1222,7 @@ def main():
 
         # ---------------- works & history (1.2)
         history_pages.build(lang, base / "history.html", page)
+        orchestra_pages.build(lang, base / "orchestras.html", page)
 
         # ---------------- home
         cards = [
