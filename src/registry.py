@@ -80,6 +80,12 @@ SOURCES = {
         "license": "CC BY 4.0",
         "url": "https://doi.org/10.5281/zenodo.5995965",
     },
+    "damusc": {
+        "ko": "음계 자료: McBride·Passmore·Tlusty(2023)의 음계 데이터베이스 DaMuSc(PLoS ONE 18(12): e0284851)에 정리된 실측값(자와 가믈란·우간다 하프·기니 실로폰)과, 원 논문에서 옮긴 값(Garzoli 2015 타이, Bozkurt 외 2009 터키, Shafiei 2021 페르시아, 유준희 외 2011 편경). 비율로 정의된 음률은 엮은이가 계산했다. 1.6에서 추가.",
+        "en": "Scale data: measured values compiled in DaMuSc, the scale database of McBride, Passmore & Tlusty (2023, PLoS ONE 18(12): e0284851) (Javanese gamelan, Ganda harp, Malinke xylophone), and values taken from the original papers (Garzoli 2015, Thai; Bozkurt et al. 2009, Turkish; Shafiei 2021, Persian; Yoo et al. 2011, Korean stone chimes). Ratio-defined tunings were computed by the editor. Added in 1.6.",
+        "license": "CC BY 4.0 (DaMuSc)",
+        "url": "https://github.com/jomimc/DaMuSc",
+    },
     "seoulphil": {
         "ko": "서울시립교향악단 공연 정보(서울 열린데이터광장 OA-22909 국문·OA-22910 영문, 출처: 서울특별시). 곡목은 곡명 문자열이고 작곡가 칸이 없어, 엮은이가 곡명·작품번호·공연 페이지로 작곡가를 붙였다(seoulphil_works.csv·seoulphil_title_manual.csv). 예정 프로그램 기준이라 취소·변경된 공연이 섞여 있다. 1.5에서 추가.",
         "en": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government). The programme field holds titles without composers; the editor attached composers from titles, opus numbers and concert pages (seoulphil_works.csv, seoulphil_title_manual.csv). The data list planned programmes, so cancelled or changed concerts are included. Added in 1.5.",

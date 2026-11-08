@@ -2,8 +2,8 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.5",
- "created": "2026-11-07",
+ "version": "1.6",
+ "created": "2026-11-08",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
   {
@@ -1329,6 +1329,116 @@
      "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
      "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
      "license": "KOGL Type 1 (attribution)"
+    }
+   ]
+  },
+  {
+   "name": "dlc-dlc_movement_metrics",
+   "path": "dlc/dlc_movement_metrics.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 1326,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "dlc-dlc_corpus_metrics",
+   "path": "dlc/dlc_corpus_metrics.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 40,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "dlc-dlc_period_metrics",
+   "path": "dlc/dlc_period_metrics.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 15,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "aliases-dlc_corpora",
+   "path": "aliases/dlc_corpora.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 40,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "scales-scales",
+   "path": "scales/scales.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 23,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Scale data: measured values compiled in DaMuSc, the scale database of McBride, Passmore & Tlusty (2023, PLoS ONE 18(12): e0284851) (Javanese gamelan, Ganda harp",
+     "path": "https://github.com/jomimc/DaMuSc",
+     "license": "CC BY 4.0 (DaMuSc)"
     }
    ]
   }
