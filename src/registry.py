@@ -81,10 +81,16 @@ SOURCES = {
         "url": "https://doi.org/10.5281/zenodo.5995965",
     },
     "damusc": {
-        "ko": "음계 자료: McBride·Passmore·Tlusty(2023)의 음계 데이터베이스 DaMuSc(PLoS ONE 18(12): e0284851)에 정리된 실측값(자와 가믈란·우간다 하프·기니 실로폰)과, 원 논문에서 옮긴 값(Garzoli 2015 타이, Bozkurt 외 2009 터키, Shafiei 2021 페르시아, 유준희 외 2011 편경). 비율로 정의된 음률은 엮은이가 계산했다. 1.6에서 추가.",
-        "en": "Scale data: measured values compiled in DaMuSc, the scale database of McBride, Passmore & Tlusty (2023, PLoS ONE 18(12): e0284851) (Javanese gamelan, Ganda harp, Malinke xylophone), and values taken from the original papers (Garzoli 2015, Thai; Bozkurt et al. 2009, Turkish; Shafiei 2021, Persian; Yoo et al. 2011, Korean stone chimes). Ratio-defined tunings were computed by the editor. Added in 1.6.",
-        "license": "CC BY 4.0 (DaMuSc)",
+        "ko": "음계 자료: McBride·Passmore·Tlusty(2023)의 음계 데이터베이스 DaMuSc(PLoS ONE 18(12): e0284851)에 정리된 실측값(자와 가믈란·우간다 하프·기니 실로폰)과, 원 논문에서 옮긴 값(Garzoli 2015 타이, Bozkurt 외 2009 터키, Shafiei 2021 페르시아, 유준희 외 2011 편경). 비율로 정의된 음률은 엮은이가 계산했다. 1.6에서 추가. 1.7에서 1차 출처에서 읽은 값을 더했다: Smith 1847(무샤카), 『나티야샤스트라』 Ghosh 영역 1961, 우에하라 1895, Ellis 1885, Tracey 1948·1958, 고유동 2021, 양수연 2013, 임경미 2013.",
+        "en": "Scale data: measured values compiled in DaMuSc, the scale database of McBride, Passmore & Tlusty (2023, PLoS ONE 18(12): e0284851) (Javanese gamelan, Ganda harp, Malinke xylophone), and values taken from the original papers (Garzoli 2015, Thai; Bozkurt et al. 2009, Turkish; Shafiei 2021, Persian; Yoo et al. 2011, Korean stone chimes). Ratio-defined tunings were computed by the editor. Added in 1.6. 1.7 added values read in primary sources: Smith 1847 (Mushāqa), the Nāṭyaśāstra tr. Ghosh 1961, Uehara 1895, Ellis 1885, Tracey 1948 and 1958, Ko 2021, Yang 2013, Lim 2013.",
+        "license": "CC BY 4.0",
         "url": "https://github.com/jomimc/DaMuSc",
+    },
+    "ordcc32": {
+        "ko": "Bozkurt(2025), 1932 카이로 아랍 음악 회의 녹음의 공개 연구 자료 ORD-CC32(arXiv:2506.14503, Zenodo 15682346). 음높이 추출값·주음 표시·히스토그램. 엮은이가 마캄·지역별로 주음 기준 히스토그램을 평균해 정점을 계산했다(src/cairo1932_peaks.py). 1.7에서 추가.",
+        "en": "Bozkurt (2025), ORD-CC32, an open research dataset of the 1932 Cairo Congress of Arab Music recordings (arXiv:2506.14503, Zenodo 15682346): pitch tracks, tonic labels and histograms. The editor averaged the tonic-aligned histograms by maqam and region and computed the peaks (src/cairo1932_peaks.py). Added in 1.7.",
+        "license": "CC BY-NC 4.0",
+        "url": "https://doi.org/10.5281/zenodo.15682346",
     },
     "seoulphil": {
         "ko": "서울시립교향악단 공연 정보(서울 열린데이터광장 OA-22909 국문·OA-22910 영문, 출처: 서울특별시). 곡목은 곡명 문자열이고 작곡가 칸이 없어, 엮은이가 곡명·작품번호·공연 페이지로 작곡가를 붙였다(seoulphil_works.csv·seoulphil_title_manual.csv). 예정 프로그램 기준이라 취소·변경된 공연이 섞여 있다. 1.5에서 추가.",

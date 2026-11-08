@@ -21,7 +21,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.6"
+VERSION = "1.7"
 BUILD_DATE = "2026-11-08"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -40,8 +40,10 @@ CHANGELOG = [
      "Added three performance metrics (tempo trend by recording year, damper pedal time share, soft pedal use) and three repertoire metrics (repertoire by conductor, new-work re-performance, women composers' share — lower bound, middle value and upper bound from the Wikidata gender table aliases/composer_gender.csv). The conductor-name normalization table (aliases/nyphil_conductors.csv) and the composer gender table are published. The pedal metrics count a recording cut into several pieces once (456 ASAP files → 359 recordings). Displayed negatives now use the minus sign (−) and seasons in generated text use the en dash (1842–43); raw season cells in tables are unchanged. Medians and quartiles of integer metrics are shown with one decimal place when they are not whole numbers (e.g. pitch range, Bach's solo works: 30 → 29.5). On narrow screens tables no longer break inside words but scroll sideways, and chart labels are larger. Metric and composer pages have a breadcrumb, a list of the other pages in the same group (a sidebar on wide screens, a collapsed box above the title on narrow ones) and previous/next links (arrow keys); the language link opens the same page. 'Every fifteen bars' is corrected to every 14 bars (100 ÷ 7). US spelling and dates in a few places; HIP labels without nested parentheses."),
     ("1.5", "2026-11-07", "「악단 비교」 면을 신설했다. 뉴욕 필하모닉, 카네기홀에 온 초청 악단(빈 필·베를린 필·콘세르트헤바우 등), 라이프치히 게반트하우스(1781–1895), 서울시립교향악단 정기공연(2009–2025)의 작곡가 점유율을 같은 단위로 견준다. 순위나 합성 점수는 내지 않는다. 서울시향 공연 정보의 곡목에는 작곡가가 없어 곡명·작품번호·공연 페이지로 작곡가를 붙였고(정기공연 85.9%), 그 귀속과 면의 사실 서술은 블라인드 교차 검증을 세 번 거쳤다. 데이터 면에 orch/ 표 5개와 악단 대조표 3개를 더했다. 뉴욕 필 작곡가 분류표에서 무대 공연의 막 표시 「ACT,」를 작품 아님으로 옮겼다(공개 지표 값 변화 없음).",
      "New 'Orchestras' page: composer shares compared in one unit across the New York Philharmonic, visiting orchestras at Carnegie Hall (Vienna and Berlin Philharmonics, Concertgebouw and others), the Leipzig Gewandhaus (1781–1895) and the Seoul Philharmonic's subscription concerts (2009–2025). No ranking and no composite score. The Seoul data list titles without composers, so composers were attached from titles, opus numbers and concert pages (85.9% of subscription works); the attributions and the page's statements of fact went through three rounds of blind cross-checking. The data page adds five tables under orch/ and three orchestra matching tables. In the NY Phil composer table, the act marker 'ACT,' is now classed as not a work (no published metric value changes)."),
-    ("1.6", BUILD_DATE, "「화성의 역사」 면과 「음계와 조율」 면을 신설했다. 「화성의 역사」는 DCML Distant Listening Corpus의 곡집 40개(1,326곡, 그중 화성 주석 1,283곡)를 1590~1931년 작곡 연대순으로 놓고 7화음·반음계·부속화음·화음 어휘를 50년 구간으로 견준다(곡집마다 한 표, 건반만의 선 따로). 「음계와 조율」은 서양 조율사·삼분손익·실측 음계 23개를 센트 자 위에 그리고 브라우저 합성음으로 들려준다. 두 면의 수치와 사실 서술은 블라인드 교차 검증을 거쳤다.",
+    ("1.6", "2026-11-08", "「화성의 역사」 면과 「음계와 조율」 면을 신설했다. 「화성의 역사」는 DCML Distant Listening Corpus의 곡집 40개(1,326곡, 그중 화성 주석 1,283곡)를 1590~1931년 작곡 연대순으로 놓고 7화음·반음계·부속화음·화음 어휘를 50년 구간으로 견준다(곡집마다 한 표, 건반만의 선 따로). 「음계와 조율」은 서양 조율사·삼분손익·실측 음계 23개를 센트 자 위에 그리고 브라우저 합성음으로 들려준다. 두 면의 수치와 사실 서술은 블라인드 교차 검증을 거쳤다.",
      "New 'History of harmony' and 'Scales and tuning' pages. The first sets the 40 collections of the DCML Distant Listening Corpus (1,326 pieces, 1,283 with harmony labels) in order of composition, 1590–1931, and compares seventh chords, chromaticism, applied chords and chord vocabulary by 50-year period (one vote per collection, with a separate keyboard-only line). The second draws 23 scales (Western tuning history, sanfen sunyi, measured scales) on a cent ruler and plays them with your browser's synthesiser. Both pages' numbers and statements of fact went through blind cross-checking."),
+    ("1.7", BUILD_DATE, "「음계와 조율」 면 2판. 음계를 23개에서 42개로 늘렸다 — 일본 음선·양선(우에하라 1895의 일현금 측정비, 올라갈 때와 내려갈 때 다른 음은 속이 빈 점), 고토 히라조시 조율(엘리스 1885의 이사와 보고와 두 연주자 실측), 아랍 라스트의 무샤카 24 4분음(스미스 영역 1847)과 1932 카이로 회의 녹음에서 다시 계산한 라스트·바야티(ORD-CC32), 인도 사드자 그라마의 22 슈루티(『나티야샤스트라』 28장)와 오늘날 노래의 실측 연구, 모잠비크 초피 팀빌라(트레이시 1948의 다섯 악단 평균과 1958의 한 대), 가야금 실측 8개(고유동 2021의 경기민요 고음반 4개, 양수연 2013의 산조 계면조 청과 꺾는 음 4개)와 임경미 2013의 유파·악조별 징–땅 음정 표. 새 값은 모두 1차 출처의 해당 쪽에서 읽었고, 원문을 열지 못한 자료(카이로 회의 기록집, 국악 관악기 실측 등)는 「아직 넣지 않은 것」에 이유와 함께 적었다. 카이로 회의 녹음에서 계산한 두 행과 scales_cairo1932.csv 는 원자료 조건을 따라 CC BY-NC 4.0 이다(scales.csv 의 license 열).",
+     "Second edition of the 'Scales and tuning' page: 42 scales instead of 23. New: the Japanese in and yō scales (Uehara 1895, monochord ratios; notes used only when descending are hollow dots), the koto's hira-jōshi tuning (Ellis 1885: Isawa's report and two measured players), Arabic Rast in Mushāqa's 24 quarter tones (tr. Smith 1847) and Rast and Bayati recomputed from the 1932 Cairo Congress recordings (ORD-CC32), the Indian ṣaḍja-grāma on 22 śrutis (Nāṭyaśāstra 28) with a measurement study of present-day singing, the Chopi timbila of Mozambique (the mean of five orchestras from Tracey 1948 and one instrument from Tracey 1958), and eight measured gayageum scales (four Gyeonggi folk-song records from Ko 2021; cheong and the bent notes of sanjo gyemyeonjo for four players from Yang 2013), with a table of jing–ttang intervals by school and mode from Lim 2013. Every new value was read on the cited page of its primary source; sources that could not be opened (the Cairo Congress proceedings, measurements of Korean wind instruments and others) are listed under 'Not yet included' with the reason. The two rows computed from the Cairo recordings and scales_cairo1932.csv follow the source's terms, CC BY-NC 4.0 (see the license column of scales.csv)."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -573,6 +575,7 @@ LICENSE_URL = {
     "CC-BY-4.0": "https://creativecommons.org/licenses/by/4.0/",
     "CC-BY-NC-SA-4.0": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
     "CC-BY-SA-4.0": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "CC-BY-NC-4.0": "https://creativecommons.org/licenses/by-nc/4.0/",
 }
 
 
@@ -582,6 +585,8 @@ def table_licence(keys) -> str:
         return "CC-BY-NC-SA-4.0"
     if "imslp" in keys:
         return "CC-BY-SA-4.0"
+    if "ordcc32" in keys:
+        return "CC-BY-NC-4.0"
     return "CC-BY-4.0"
 
 
@@ -605,6 +610,10 @@ def write_datapackage(data_dir: Path, data_files: dict) -> None:
             "licenses": [{"name": lic, "path": LICENSE_URL[lic]}],
             "sources": [{"title": SOURCES[k]["en"].split(". ")[0][:160], "path": SOURCES[k]["url"], "license": SOURCES[k]["license"]} for k in keys],
         }
+        if f == "scales/scales.csv":
+            res["description"] = ("Mixed license: the rows with license=CC-BY-NC-4.0 are rast_cairo and bayati_cairo, computed from ORD-CC32 (CC BY-NC 4.0), "
+                                  "and the eight gayageum rows (gy_*, sj_*) transcribed from two master's theses (CC BY-NC-ND 2.0 KR, CC BY-NC-SA 2.0 KR); "
+                                  "all other rows are CC BY 4.0. See the per-row 'license' column.")
         if f in ("score_metrics_by_movement.csv", "score_metrics_13_by_movement.csv"):
             res["description"] = ("Mixed license: rows with license=CC0-1.0 (DCML Bach chorales) carry no condition from the editor; "
                                   "all other rows are CC BY-NC-SA 4.0. See the per-row 'license' column.")
@@ -726,8 +735,9 @@ def main():
     for f in harmony_pages.HARMONY_ALIAS_FILES:
         DATA_FILES[f"aliases/{f}"] = ("dcml", "A")
     import scales_pages
-    for f in scales_pages.SCALE_FILES:
-        DATA_FILES[f"scales/{f}"] = ("damusc", "B")
+    DATA_FILES["scales/scales.csv"] = ("damusc+ordcc32", "B")
+    DATA_FILES["scales/scales_cairo1932.csv"] = ("ordcc32", "B")
+    assert set(scales_pages.SCALE_FILES) == {"scales.csv", "scales_cairo1932.csv"}
     for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales"):
         (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
@@ -1073,14 +1083,17 @@ def main():
         rows = []
         for f, (sk, lay) in DATA_FILES.items():
             n = len(pd.read_csv(OUT / "data" / f))
-            derived = table_licence(sk.split("+")).replace("CC-BY-NC-SA-4.0", "CC BY-NC-SA 4.0").replace("CC-BY-SA-4.0", "CC BY-SA 4.0").replace("CC-BY-4.0", "CC BY 4.0")
-            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis', 'carnegie': 'Carnegie Hall', 'gewandhaus': 'Gewandhaus', 'seoulphil': 'Seoul Phil', 'damusc': 'DaMuSc'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
+            derived = table_licence(sk.split("+")).replace("CC-BY-NC-SA-4.0", "CC BY-NC-SA 4.0").replace("CC-BY-SA-4.0", "CC BY-SA 4.0").replace("CC-BY-NC-4.0", "CC BY-NC 4.0").replace("CC-BY-4.0", "CC BY 4.0")
+            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis', 'carnegie': 'Carnegie Hall', 'gewandhaus': 'Gewandhaus', 'seoulphil': 'Seoul Phil', 'damusc': 'DaMuSc', 'ordcc32': 'ORD-CC32'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
             rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{src_lic}</td><td>{derived}</td></tr>")
         body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
         body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the license the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that license forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
         body.append("<p>" + ("orch/ 의 표와 aliases/ 의 악단 대조표(1.5)는 뉴욕 필·카네기홀(CC0), 게반트하우스 자료(Hartmann-Enke, CC BY 4.0), 서울시향 공연 정보(공공누리 제1유형)에서 엮은이가 계산하거나 대조한 것으로 CC BY 4.0 이다. 서울시향에서 온 표(seoulphil_works.csv 등)를 쓸 때는 「출처: 서울특별시(서울 열린데이터광장)」를, 게반트하우스에서 온 표를 쓸 때는 원저자를 함께 밝혀 주기 바란다."
                              if lang == "ko" else
                              "Tables under orch/ and the orchestra matching tables under aliases/ (1.5) are the editor's computations and matches from the NY Phil and Carnegie Hall data (CC0), the Gewandhaus data (Hartmann-Enke, CC BY 4.0) and the Seoul Philharmonic data (KOGL Type 1), CC BY 4.0. When using tables derived from the Seoul data (seoulphil_works.csv and others), please credit \"Source: Seoul Metropolitan Government (Seoul Open Data Plaza)\"; for tables from the Gewandhaus data, please credit its author.") + "</p>")
+        body.append("<p>" + ("scales/ 의 표(1.6·1.7)는 엮은이가 원 문헌에서 옮기거나 정의에서 계산한 값으로 CC BY 4.0 이다. 다만 1932 카이로 회의 녹음 자료 ORD-CC32(CC BY-NC 4.0)에서 계산한 scales_cairo1932.csv 와 scales.csv 의 두 행(rast_cairo·bayati_cairo)은 원자료 조건을 따라 CC BY-NC 4.0 이다. 석사학위논문 두 편(이용 조건 CC BY-NC-ND·CC BY-NC-SA 2.0 대한민국)에서 수치를 옮긴 가야금 8행(gy_*·sj_*)도 비영리 조건을 따라 CC BY-NC 4.0 으로 둔다. scales.csv 는 이 행들 때문에 파일 단위로 CC BY-NC 4.0 으로 표시하며, 행마다 license 열이 있다."
+                             if lang == "ko" else
+                             "Tables under scales/ (1.6, 1.7) are values the editor transcribed from the original publications or computed from definitions, CC BY 4.0. The exceptions are scales_cairo1932.csv and two rows of scales.csv (rast_cairo, bayati_cairo), computed from ORD-CC32, the 1932 Cairo Congress recording data (CC BY-NC 4.0), which carry that license; so do the eight gayageum rows (gy_*, sj_*), whose numbers are transcribed from two master's theses licensed CC BY-NC-ND and CC BY-NC-SA 2.0 Korea. Because of those rows scales.csv is marked CC BY-NC 4.0 as a file; each row has a license column.") + "</p>")
         body.append("<p>" + ("파일마다 이 표의 라이선스·원자료·원자료 라이선스를 기계가 읽을 수 있게 적은 목록: <a href='../data/datapackage.json'>datapackage.json</a>(Frictionless Data Package). CSV 만 따로 가져갈 때도 이 목록을 함께 두기 바란다." if lang == "ko" else
                             "A machine-readable list of each file's license, sources and source licenses: <a href='../data/datapackage.json'>datapackage.json</a> (Frictionless Data Package). Please keep it with any CSV you redistribute.") + "</p>")
         # 1.4: two date columns of the bmetr recordings table, which are easy to confuse

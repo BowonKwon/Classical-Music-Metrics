@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.6",
+ "version": "1.7",
  "created": "2026-11-08",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -1427,18 +1427,46 @@
    "mediatype": "text/csv",
    "encoding": "utf-8",
    "layer": "Works & history",
-   "rows": 23,
+   "rows": 42,
    "licenses": [
     {
-     "name": "CC-BY-4.0",
-     "path": "https://creativecommons.org/licenses/by/4.0/"
+     "name": "CC-BY-NC-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc/4.0/"
     }
    ],
    "sources": [
     {
      "title": "Scale data: measured values compiled in DaMuSc, the scale database of McBride, Passmore & Tlusty (2023, PLoS ONE 18(12): e0284851) (Javanese gamelan, Ganda harp",
      "path": "https://github.com/jomimc/DaMuSc",
-     "license": "CC BY 4.0 (DaMuSc)"
+     "license": "CC BY 4.0"
+    },
+    {
+     "title": "Bozkurt (2025), ORD-CC32, an open research dataset of the 1932 Cairo Congress of Arab Music recordings (arXiv:2506.14503, Zenodo 15682346): pitch tracks, tonic ",
+     "path": "https://doi.org/10.5281/zenodo.15682346",
+     "license": "CC BY-NC 4.0"
+    }
+   ],
+   "description": "Mixed license: the rows with license=CC-BY-NC-4.0 are rast_cairo and bayati_cairo, computed from ORD-CC32 (CC BY-NC 4.0), and the eight gayageum rows (gy_*, sj_*) transcribed from two master's theses (CC BY-NC-ND 2.0 KR, CC BY-NC-SA 2.0 KR); all other rows are CC BY 4.0. See the per-row 'license' column."
+  },
+  {
+   "name": "scales-scales_cairo1932",
+   "path": "scales/scales_cairo1932.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 27,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Bozkurt (2025), ORD-CC32, an open research dataset of the 1932 Cairo Congress of Arab Music recordings (arXiv:2506.14503, Zenodo 15682346): pitch tracks, tonic ",
+     "path": "https://doi.org/10.5281/zenodo.15682346",
+     "license": "CC BY-NC 4.0"
     }
    ]
   }
