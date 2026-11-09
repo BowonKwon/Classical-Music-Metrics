@@ -59,6 +59,9 @@ def nm(c, lang):
 @lru_cache(maxsize=1)
 def _load() -> pd.DataFrame:
     s = pd.read_csv(D / "sonata_metrics_by_movement.csv", low_memory=False)
+    p19 = D / "score_metrics_19_by_movement.csv"  # 1.9 metrics
+    if p19.exists():
+        s = s.merge(pd.read_csv(p19), on=["corpus", "piece_id"], how="left")
     ys = pd.to_numeric(s["composed_start"], errors="coerce")
     ye = pd.to_numeric(s["composed_end"], errors="coerce")
     s["year_mid"] = (ys + ye.fillna(ys)) / 2
@@ -144,9 +147,10 @@ def metric_section(m: dict, lang: str, svg_strip, legend, table_html, stat_spec)
 
 
 # ------------------------------------------------------------------ the comparison page
+N_SCORE = sum(m["table"] == "score" for m in METRICS)
 T = {
-    "ko": dict(title="고전기 건반 소나타", lead="스카를라티부터 베토벤까지, 같은 주석 규칙으로 분석한 건반 소나타 곡집 일곱 개를 악보 지표 39개로 나란히 본다."),
-    "en": dict(title="Classical-era keyboard sonatas", lead="From Scarlatti to Beethoven: seven keyboard-sonata collections analysed under one annotation standard, compared on the site's 39 score metrics."),
+    "ko": dict(title="고전기 건반 소나타", lead=f"스카를라티부터 베토벤까지, 같은 주석 규칙으로 분석한 건반 소나타 곡집 일곱 개를 악보 지표 {N_SCORE}개로 나란히 본다."),
+    "en": dict(title="Classical-era keyboard sonatas", lead=f"From Scarlatti to Beethoven: seven keyboard-sonata collections analysed under one annotation standard, compared on the site's {N_SCORE} score metrics."),
 }
 
 
@@ -236,7 +240,7 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
     cols = [("name", "작곡가" if k else "Composer", None), ("movements", "악장" if k else "movements", "d")] + [(mid, MET[mid][lang]["name"], MET[mid]["fmt"]) for mid in score_mids()]
     sm2 = sm.copy()
     sm2["name"] = [nm(x, lang) + ((" (연도 미확인)" if k else " (year unconfirmed)") if x in UNDATED else "") for x in sm2.composer]
-    b.append("<h2>5. 지표 39개의 중앙값</h2>" if k else "<h2>5. Medians of all 39 metrics</h2>")
+    b.append(f"<h2>5. 지표 {len(score_mids())}개의 중앙값</h2>" if k else f"<h2>5. Medians of all {len(score_mids())} metrics</h2>")
     b.append("<p class='src'>" + ("소나타 악장만. 화음 지표는 화성 주석이 있는 악장만 센다(베토벤은 91악장 중 64악장). 빈칸은 값 없음." if k else "Sonata movements only. Chord metrics count movements with harmony labels only (Beethoven: 64 of 91). Blank = no value.") + "</p>")
     b.append(table_html(sm2, cols, "son_all", lang, filt=False))
     b.append("<p class='src'>" + ("자료·출처: " if k else "Data and sources: ") +

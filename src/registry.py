@@ -187,9 +187,9 @@ METRICS = [
                  reading="0.2 means one chord in five points momentarily to another key.", caveat="Follows the DCML annotation standard's judgment.")),
     dict(id="seventh_chord_ratio", layer="A", group="harmony", table="score", unit="ratio", fmt=".3f", higher="more sevenths",
          ko=dict(name="7화음 비율", definition="7음이 들어 있는 화음의 비율.", formula="숫자저음이 7·65·43·2(또는 42) 인 기호 수 / 화음 기호 수",
-                 reading="베토벤 소나타·4중주는 0.3 안팎으로 바흐 모음곡(0.24)보다 높다.", caveat="9화음·부가음은 따로 세지 않았다."),
+                 reading="베토벤 소나타·4중주는 0.3 안팎으로 바흐 모음곡(0.24)보다 높다.", caveat="9화음·부가음은 따로 세지 않았다. 분모인 화음 기호에는 「화음 없음」 표지(@none)도 들어간다(드물다)."),
          en=dict(name="Seventh-chord ratio", definition="Share of chords containing a seventh.", formula="labels with figured bass 7, 65, 43 or 2 (also 42) / chord labels",
-                 reading="Beethoven sonatas and quartets sit near 0.3, above Bach suites (0.24).", caveat="Ninths and added tones are not counted separately.")),
+                 reading="Beethoven sonatas and quartets sit near 0.3, above Bach suites (0.24).", caveat="Ninths and added tones are not counted separately. The denominator of chord labels includes the rare no-chord label (@none).")),
     dict(id="local_key_changes_per_100_measures", layer="A", group="harmony", table="score", unit="changes/100 bars", fmt=".1f", higher="more modulation",
          ko=dict(name="전조 빈도", definition="주석자가 표시한 지역 조(local key)가 바뀌는 횟수, 100마디당.", formula="100 × 지역 조 변경 수 / 마디 수",
                  reading="7이면 열네 마디(100 ÷ 7 ≈ 14.3)에 한 번꼴로 조가 바뀐다.", caveat="주석자의 조 판단에 좌우된다. 짧은 토니시제이션은 부속화음으로 처리되어 여기 들어가지 않는다."),
@@ -310,6 +310,12 @@ from registry_13 import METRICS_13  # noqa: E402
 
 _after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
 METRICS[_after_score:_after_score] = METRICS_13
+
+# 1.9: four new score metrics (score_metrics_19.py), after the other score metrics
+from registry_19 import METRICS_19  # noqa: E402
+
+_after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
+METRICS[_after_score:_after_score] = METRICS_19
 
 # 1.4: P3 performance metrics after the other performance metrics, P4 repertoire metrics at the end
 from registry_14 import METRICS_14  # noqa: E402
