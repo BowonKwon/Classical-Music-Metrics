@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.8",
+ "version": "1.8.1",
  "created": "2026-11-09",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [

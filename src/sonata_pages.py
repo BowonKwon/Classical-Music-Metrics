@@ -211,7 +211,7 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
                  "<li>화음 지표는 사람이 붙인 화성 기호를 센 것이다. 곡집마다 주석자가 다르고, 코젤루흐 곡집은 주석 표준 2.1.0, 다른 곡집은 2.3.0이다(모차르트 곡집은 판 표시가 없다). 곡집 사이의 화음 지표 차이에는 작곡가의 차이와 주석자의 차이가 섞여 있다. 음표에서 바로 세는 지표(음역·반음계 비율·음표 밀도·음급 엔트로피 등)에는 주석자 문제가 없다. 다만 악보 판본과 인코딩의 차이는 남는다.</li>"
                  f"<li>{', '.join(nocad)} 곡집에는 종지 표지가 없어 종지 지표 두 개를 비워 두었다(0이 아니다).</li>"
                  f"<li>{', '.join(small)} 곡집은 악장이 10개가 안 되어 중앙값이 흔들리기 쉽다.</li>"
-                 "<li>스카를라티 소나타는 대부분 단악장 이분형식 하프시코드 곡이고, 베토벤 후기 소나타는 6옥타브가 넘는 피아노를 위한 곡이다. 같은 「건반 소나타」라도 악기와 형식이 다르다.</li>"
+                 "<li>스카를라티 소나타는 대부분 단악장 이분형식의 하프시코드 곡이고(Rodda 2020), 베토벤 소나타는 피아노를 위한 여러 악장짜리 곡이다. 같은 「건반 소나타」라도 악기와 형식이 다르다.</li>"
                  "<li>곡집은 연구자들이 주석한 것을 모은 것이지 시대를 대표하도록 뽑은 표본이 아니다. 하이든·클레멘티 같은 중요한 소나타 작곡가가 빠져 있다.</li></ul>")
     else:
         b.append("<h2>3. What the data show, and what to watch for</h2><ul>" + "".join(items) +
@@ -220,7 +220,7 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
                  "<li>Chord metrics count harmony labels that people added. Each collection has different annotators, and the Koželuh collection uses version 2.1.0 of the standard where the others use 2.3.0 (the Mozart collection gives no version). Differences in chord metrics between collections mix differences between composers with differences between annotators. Metrics counted straight from the notes (pitch range, chromatic ratio, note density, pitch-class entropy and so on) do not depend on annotators, though differences in score editions and encoding remain.</li>"
                  f"<li>The {', '.join(nocad)} collection carries no cadence labels, so the two cadence metrics are left blank there (not zero).</li>"
                  f"<li>{', '.join(small)} has fewer than 10 movements, so its medians move easily.</li>"
-                 "<li>Most Scarlatti sonatas are single-movement binary pieces for harpsichord; Beethoven's late sonatas were written for pianos of more than six octaves. 'Keyboard sonata' covers different instruments and forms.</li>"
+                 "<li>Most Scarlatti sonatas are single-movement pieces in binary form for harpsichord (Rodda 2020); Beethoven's are multi-movement sonatas for the piano. 'Keyboard sonata' covers different instruments and forms.</li>"
                  "<li>The collections are the ones researchers annotated, not a sample drawn to represent the period. Important sonata composers such as Haydn and Clementi are missing.</li></ul>")
 
     # 4. C. P. E. Bach by genre
@@ -239,7 +239,8 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
     b.append("<h2>5. 지표 39개의 중앙값</h2>" if k else "<h2>5. Medians of all 39 metrics</h2>")
     b.append("<p class='src'>" + ("소나타 악장만. 화음 지표는 화성 주석이 있는 악장만 센다(베토벤은 91악장 중 64악장). 빈칸은 값 없음." if k else "Sonata movements only. Chord metrics count movements with harmony labels only (Beethoven: 64 of 91). Blank = no value.") + "</p>")
     b.append(table_html(sm2, cols, "son_all", lang, filt=False))
-    b.append("<p class='src'>" + ("자료: " if k else "Data: ") +
+    b.append("<p class='src'>" + ("자료·출처: " if k else "Data and sources: ") +
+             "Rodda, K. (2020), <a href='https://blogs.loc.gov/nls-music-notes/2020/07/a-sonata-for-all-seasons-domenico-scarlatti/'>'A sonata for all seasons: Domenico Scarlatti'</a>, <i>NLS Music Notes</i>, Library of Congress, 23 July 2020; "
              "Hentschel, J., Rammos, Y., Neuwirth, M. & Rohrmeier, M. (2025), 'A corpus and a modular infrastructure for the empirical study of (an)notated music', <i>Scientific Data</i> 12:685; "
              "DCMLab corpora <a href='https://github.com/DCMLab/scarlatti_sonatas'>scarlatti_sonatas</a>, <a href='https://github.com/DCMLab/wf_bach_sonatas'>wf_bach_sonatas</a>, <a href='https://github.com/DCMLab/cpe_bach_keyboard'>cpe_bach_keyboard</a>, "
              "<a href='https://github.com/DCMLab/jc_bach_sonatas'>jc_bach_sonatas</a>, <a href='https://github.com/DCMLab/kozeluh_sonatas'>kozeluh_sonatas</a>, <a href='https://github.com/DCMLab/mozart_piano_sonatas'>mozart_piano_sonatas</a>, "

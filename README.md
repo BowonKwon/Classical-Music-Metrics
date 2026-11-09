@@ -4,7 +4,7 @@
 
 - **사이트:** https://bowonkwon.github.io/Classical-Music-Metrics/ ([한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/))
 - **읽기용 판:** 핵심 결과를 글로 읽는 판 — [한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/reading.html) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **판:** 1.8 (2026. 11. 9.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1., 1.2.1·1.3·1.3.1 은 2026. 11. 2., 1.4 는 2026. 11. 4., 1.5 는 2026. 11. 7., 1.6 은 2026. 11. 8., 1.7 은 2026. 11. 8., 1.7.1 은 2026. 11. 9.
+- **판:** 1.8.1 (2026. 11. 9.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1., 1.2.1·1.3·1.3.1 은 2026. 11. 2., 1.4 는 2026. 11. 4., 1.5 는 2026. 11. 7., 1.6 은 2026. 11. 8., 1.7 은 2026. 11. 8., 1.7.1·1.8 은 2026. 11. 9.
 - **다른 공개 자료:** https://bowonkwon.github.io/ — 법률 외국어 자습서·AI 자습서와 함께 한곳에 모았습니다.
 
 ## 무엇이 들어 있나
@@ -19,6 +19,11 @@
 | 화성의 역사 (1.6) | DCML Distant Listening Corpus 곡집 40개(1,326곡, 화성 주석 1,283곡, 1590~1931)의 7화음·반음계·부속화음·화음 어휘를 50년 구간으로(곡집마다 한 표, 건반만의 선 따로). 클라라 슈만 × 로베르트 슈만 | DCML Distant Listening Corpus(Hentschel 외 2025, CC BY-NC-SA 4.0) |
 | 고전기 건반 소나타 (1.8) | D. 스카를라티·W. F. 바흐·C. P. E. 바흐·J. C. 바흐·코젤루흐의 건반 소나타 곡집을 모차르트·베토벤과 함께(소나타 351악장) 악보 지표 39개로. C. P. E. 바흐의 판타지아·론도는 따로, 출판 연도만 있는 J. C. 바흐는 표에만 | DCML 코퍼스(Hentschel 외 2025, CC BY-NC-SA 4.0) |
 | 음계와 조율 (1.6, 2판 1.7) | 음계 45개를 센트 자 위에 그리고 브라우저 합성음으로 재생. 서양 조율사(피타고라스~평균율), 삼분손익 12율·평조·계면조와 편경으로 추정한 황종 높이, 일본 음선·양선(우에하라 1895)과 고토 조율(엘리스 1885), 가야금 실측(경기민요 고음반·산조 계면조)과 피리 녹음 실측(남운정 1998), 아랍 라스트·바야티(무샤카의 24 4분음과 1932 카이로 회의 녹음), 인도 22 슈루티, 가믈란·타이·페르시아·터키·우간다·기니·모잠비크 초피의 이론과 실측 | DaMuSc(McBride 외 2023, CC BY 4.0), ORD-CC32(Bozkurt 2025, CC BY-NC 4.0), 각 행의 1차 문헌 |
+
+## 1.8.1에서 바뀐 것
+
+- **음표 처리 규칙 명시.** 악보 지표 중 음표에서 세는 21개의 공식에 「꾸밈음은 빼고, 붙임줄로 이어진 뒷음은 앞 음에 합쳐 한 음으로 센다. 이어지는 앞 음을 찾지 못한 뒷음은 새 음으로 세지 않는다」를 적었습니다(리듬 엔트로피는 원래 적혀 있었습니다). 계산은 처음부터 그렇게 했으므로 수치는 바뀌지 않습니다.
+- **「고전기 건반 소나타」 출처.** 스카를라티 소나타의 형식·악기 서술에 미 의회도서관 NLS(Rodda 2020)를 달고, 근거를 확인하지 못한 베토벤 후기 피아노 음역 서술은 「피아노를 위한 여러 악장짜리 곡」으로 줄였습니다. J. C. 바흐 곡집의 작곡 연도는 공개 자료로 확인되지 않아 지금처럼 표에만 둡니다.
 
 ## 1.8에서 바뀐 것
 
@@ -122,7 +127,7 @@ src/    지표 정의(registry.py)·추출 스크립트·Wikidata 매칭 스크�
 An open data site that reads scores and performances as numbers. As in baseball's sabermetrics, **every metric carries its definition, formula, sample and caveats**, one page per metric, computed from open score corpora and performance datasets. It began with Bach and Beethoven; version 1.1 added Mozart and the New York Philharmonic's repertoire covering every composer, 1.2 added a 'Works & history' page on composers' work activity, symphonic orchestration, tempo markings, instrument use and the history of the pitch of a′, and 1.5 added an 'Orchestras' page comparing the repertoire of the New York Philharmonic, visiting orchestras at Carnegie Hall, the Leipzig Gewandhaus and the Seoul Philharmonic, and 1.6 added a 'History of harmony' page over 40 annotated collections and a 'Scales and tuning' page where scales from different periods and regions can be seen and heard, and 1.8 added a 'Classical-era keyboard sonatas' page comparing seven keyboard-sonata collections of the period.
 
 - **Site:** https://bowonkwon.github.io/Classical-Music-Metrics/en/ · **Reading edition:** [en/reading.html](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **Version:** 1.8 (Nov 9, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026; 1.2.1, 1.3 and 1.3.1 Nov 2, 2026; 1.4 Nov 4, 2026; 1.5 Nov 7, 2026; 1.6 Nov 8, 2026; 1.7 Nov 8, 2026; 1.7.1 Nov 9, 2026
+- **Version:** 1.8.1 (Nov 9, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026; 1.2.1, 1.3 and 1.3.1 Nov 2, 2026; 1.4 Nov 4, 2026; 1.5 Nov 7, 2026; 1.6 Nov 8, 2026; 1.7 Nov 8, 2026; 1.7.1 and 1.8 Nov 9, 2026
 - **Other public materials:** https://bowonkwon.github.io/en/ — the legal-language and AI handbooks, listed alongside this site.
 
 | Layer | Contents | Sources |
@@ -135,6 +140,8 @@ An open data site that reads scores and performances as numbers. As in baseball'
 | History of harmony (1.6) | Seventh chords, chromaticism, applied chords and chord vocabulary by 50-year period over the 40 collections of the DCML Distant Listening Corpus (1,326 pieces, 1,283 with harmony labels, 1590–1931), one vote per collection, with a keyboard-only line; Clara × Robert Schumann | DCML Distant Listening Corpus (Hentschel et al. 2025, CC BY-NC-SA 4.0) |
 | Classical-era keyboard sonatas (1.8) | Keyboard-sonata collections by D. Scarlatti, W. F. Bach, C. P. E. Bach, J. C. Bach and Koželuh beside Mozart and Beethoven (351 sonata movements) on the 39 score metrics. C. P. E. Bach's fantasias and rondos shown separately; J. C. Bach, with publication years only, in the tables only | DCML corpora (Hentschel et al. 2025, CC BY-NC-SA 4.0) |
 | Scales and tuning (1.6, second edition 1.7) | 45 scales on a cent ruler with browser playback: Western tuning history, sanfen sunyi, pyeongjo and gyemyeonjo with the pitch of hwangjong from stone chimes, the Japanese in and yō scales (Uehara 1895) and koto tuning (Ellis 1885), measured gayageum scales (Gyeonggi folk-song records, sanjo gyemyeonjo) and p'iri recordings (Nam 1998), Arabic Rast and Bayati (Mushāqa's 24 quarter tones and the 1932 Cairo Congress recordings), the Indian 22 śrutis, and theory and measurement for gamelan, Thai, Persian, Turkish, Ganda, Malinke and Chopi scales | DaMuSc (McBride et al. 2023, CC BY 4.0), ORD-CC32 (Bozkurt 2025, CC BY-NC 4.0), the primary source of each row |
+
+**What changed in 1.8.1.** The formulas of 21 score metrics counted from the notes now state the common rule: grace notes are left out, a tied continuation is merged into the note it continues, and a continuation whose preceding note cannot be found is not counted as a new note (rhythm entropy already said so). The computation always worked this way, so no values change. On the 'Classical-era keyboard sonatas' page the form and instrument of Scarlatti's sonatas now cite the Library of Congress NLS (Rodda 2020), and an unsupported statement about the compass of Beethoven's late-sonata pianos is reduced to 'multi-movement sonatas for the piano'. Composition years for the J. C. Bach collection could not be confirmed from open sources, so it stays in the tables only.
 
 **What changed in 1.8.** New 'Classical-era keyboard sonatas' page: seven keyboard-sonata collections that DCML analysed under one harmony annotation standard. New collections: D. Scarlatti (69 movements), W. F. Bach (9), C. P. E. Bach (50 sonata movements), J. C. Bach (29) and Koželuh (49); Mozart (54) and Beethoven (91) are unchanged, as are their existing values. The 10 fantasia and 6 rondo movements in the C. P. E. Bach collection are shown separately, not in the comparison. The J. C. Bach source data give only publication years, so that collection is left out of the date-ordered charts and shown in the tables. The Koželuh collection has no cadence labels, so its two cadence metrics are blank (not zero). Chord metrics count labels added by different annotators in each collection, and the page says so. Each score-metric page gets a 'Classical-era keyboard sonatas' section; the data are in `data/sonatas/sonata_metrics_by_movement.csv` (CC BY-NC-SA 4.0). The page's numbers and statements of fact went through blind cross-checking: 20 values from five sample movements were recomputed from the source data and all matched.
 

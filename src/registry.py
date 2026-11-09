@@ -319,3 +319,12 @@ METRICS[_after_perf:_after_perf] = [m for m in METRICS_14 if m["layer"] == "C"]
 METRICS += [m for m in METRICS_14 if m["layer"] == "D"]
 
 METRIC_BY_ID = {m["id"]: m for m in METRICS}
+
+# 1.8.1: state the common note preprocessing on every metric counted from the notes
+# (score_metrics.note_metrics: grace notes dropped, tied continuations merged into the note they continue)
+NOTE_RULE = {"ko": "음표는 꾸밈음을 빼고, 붙임줄로 이어진 뒷음은 앞 음에 합쳐 한 음으로 센다. 이어지는 앞 음을 찾지 못한 뒷음은 새 음으로 세지 않는다(최상성부 지표에서만 울리는 음으로 남는다).",
+             "en": "Grace notes are left out, and a tied continuation is merged into the note it continues and counted once. A continuation whose preceding note cannot be found is not counted as a new note (it remains a sounding note only for the top-line metrics)."}
+for _m in METRICS:
+    if _m.get("table") == "score" and _m.get("group") in ("pitch", "rhythm", "texture", "melody") and _m["id"] != "rhythm_entropy":  # rhythm_entropy states the tie handling itself
+        for _l in ("ko", "en"):
+            _m[_l]["formula"] = _m[_l]["formula"].rstrip() + " " + NOTE_RULE[_l]
