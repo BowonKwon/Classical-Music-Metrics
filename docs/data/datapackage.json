@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.7.1",
+ "version": "1.8",
  "created": "2026-11-09",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -1467,6 +1467,28 @@
      "title": "Bozkurt (2025), ORD-CC32, an open research dataset of the 1932 Cairo Congress of Arab Music recordings (arXiv:2506.14503, Zenodo 15682346): pitch tracks, tonic ",
      "path": "https://doi.org/10.5281/zenodo.15682346",
      "license": "CC BY-NC 4.0"
+    }
+   ]
+  },
+  {
+   "name": "sonatas-sonata_metrics_by_movement",
+   "path": "sonatas/sonata_metrics_by_movement.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 367,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
     }
    ]
   }

@@ -1,10 +1,10 @@
 # Classical Music Metrics — 서양 고전 음악 메트릭스
 
-악보와 연주를 숫자로 읽는 공개 데이터 사이트입니다. 야구의 세이버메트릭스처럼 **지표마다 정의·공식·표본·한계**를 함께 두고, 공개 악보 코퍼스와 연주 데이터셋에서 뽑은 수치를 지표 하나에 한 면씩 보여 줍니다. 바흐와 베토벤으로 시작해 1.1에서 모차르트와 뉴욕 필하모닉의 전 작곡가 레퍼토리를, 1.2에서 작곡가 작품 활동·교향곡 편성·템포 지시어·악기 사용 변천·A음 높이의 역사를 담은 「작품·역사」 면을, 1.5에서 뉴욕 필·카네기홀 초청 악단·게반트하우스·서울시향의 레퍼토리를 견주는 「악단 비교」 면을, 1.6에서 곡집 40개로 본 「화성의 역사」 면과 시대·지역별 음계를 보고 듣는 「음계와 조율」 면을 더했습니다.
+악보와 연주를 숫자로 읽는 공개 데이터 사이트입니다. 야구의 세이버메트릭스처럼 **지표마다 정의·공식·표본·한계**를 함께 두고, 공개 악보 코퍼스와 연주 데이터셋에서 뽑은 수치를 지표 하나에 한 면씩 보여 줍니다. 바흐와 베토벤으로 시작해 1.1에서 모차르트와 뉴욕 필하모닉의 전 작곡가 레퍼토리를, 1.2에서 작곡가 작품 활동·교향곡 편성·템포 지시어·악기 사용 변천·A음 높이의 역사를 담은 「작품·역사」 면을, 1.5에서 뉴욕 필·카네기홀 초청 악단·게반트하우스·서울시향의 레퍼토리를 견주는 「악단 비교」 면을, 1.6에서 곡집 40개로 본 「화성의 역사」 면과 시대·지역별 음계를 보고 듣는 「음계와 조율」 면을, 1.8에서 같은 시대의 건반 소나타 곡집 일곱 개를 견주는 「고전기 건반 소나타」 면을 더했습니다.
 
 - **사이트:** https://bowonkwon.github.io/Classical-Music-Metrics/ ([한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/))
 - **읽기용 판:** 핵심 결과를 글로 읽는 판 — [한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/reading.html) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **판:** 1.7.1 (2026. 11. 9.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1., 1.2.1·1.3·1.3.1 은 2026. 11. 2., 1.4 는 2026. 11. 4., 1.5 는 2026. 11. 7., 1.6 은 2026. 11. 8., 1.7 은 2026. 11. 8.
+- **판:** 1.8 (2026. 11. 9.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1., 1.2.1·1.3·1.3.1 은 2026. 11. 2., 1.4 는 2026. 11. 4., 1.5 는 2026. 11. 7., 1.6 은 2026. 11. 8., 1.7 은 2026. 11. 8., 1.7.1 은 2026. 11. 9.
 - **다른 공개 자료:** https://bowonkwon.github.io/ — 법률 외국어 자습서·AI 자습서와 함께 한곳에 모았습니다.
 
 ## 무엇이 들어 있나
@@ -17,7 +17,15 @@
 | 작품 활동·역사 (1.2) | 작곡가 10명의 경력 띠·나이별 작품면·쓴 시기와 연주 비율, 교향곡 편성, 템포 지시어 구성, 교향곡 편성란의 악기 사용 변천(25년 구간), A음 높이의 역사(1361~1885년 측정 242건) | IMSLP 작품면, NY Phil, Ellis 『On the Sensations of Tone』 부록(1885·1895, 퍼블릭 도메인) |
 | 악단 비교 (1.5) | 뉴욕 필 자체 기록과 카네기홀 기록의 대조, 카네기홀 초청 악단(빈 필·베를린 필·콘세르트헤바우 등)의 투어 프로그램 쏠림, 게반트하우스 × 뉴욕 필(1840~1890년대), 서울시향 × 뉴욕 필 정기공연(2009~2025). 순위·합성 점수 없음 | NY Phil, 카네기홀 공연 기록(CC0), Hartmann-Enke 게반트하우스 자료(CC BY 4.0), 서울시 열린데이터광장(공공누리 제1유형), Wikidata |
 | 화성의 역사 (1.6) | DCML Distant Listening Corpus 곡집 40개(1,326곡, 화성 주석 1,283곡, 1590~1931)의 7화음·반음계·부속화음·화음 어휘를 50년 구간으로(곡집마다 한 표, 건반만의 선 따로). 클라라 슈만 × 로베르트 슈만 | DCML Distant Listening Corpus(Hentschel 외 2025, CC BY-NC-SA 4.0) |
+| 고전기 건반 소나타 (1.8) | D. 스카를라티·W. F. 바흐·C. P. E. 바흐·J. C. 바흐·코젤루흐의 건반 소나타 곡집을 모차르트·베토벤과 함께(소나타 351악장) 악보 지표 39개로. C. P. E. 바흐의 판타지아·론도는 따로, 출판 연도만 있는 J. C. 바흐는 표에만 | DCML 코퍼스(Hentschel 외 2025, CC BY-NC-SA 4.0) |
 | 음계와 조율 (1.6, 2판 1.7) | 음계 45개를 센트 자 위에 그리고 브라우저 합성음으로 재생. 서양 조율사(피타고라스~평균율), 삼분손익 12율·평조·계면조와 편경으로 추정한 황종 높이, 일본 음선·양선(우에하라 1895)과 고토 조율(엘리스 1885), 가야금 실측(경기민요 고음반·산조 계면조)과 피리 녹음 실측(남운정 1998), 아랍 라스트·바야티(무샤카의 24 4분음과 1932 카이로 회의 녹음), 인도 22 슈루티, 가믈란·타이·페르시아·터키·우간다·기니·모잠비크 초피의 이론과 실측 | DaMuSc(McBride 외 2023, CC BY 4.0), ORD-CC32(Bozkurt 2025, CC BY-NC 4.0), 각 행의 1차 문헌 |
+
+## 1.8에서 바뀐 것
+
+- **「고전기 건반 소나타」 면 신설.** DCML이 같은 화성 주석 규칙으로 분석한 건반 소나타 곡집 일곱 개를 나란히 봅니다. 새로 더한 곡집은 D. 스카를라티 69악장, W. F. 바흐 9악장, C. P. E. 바흐 소나타 50악장, J. C. 바흐 29악장, 코젤루흐 49악장이고, 모차르트 54악장과 베토벤 91악장은 기존 그대로입니다(기존 수치는 바뀌지 않습니다).
+- **비교의 기준.** C. P. E. 바흐 곡집의 판타지아 10악장·론도 6악장은 비교에서 빼고 따로 보입니다. J. C. 바흐 곡집은 원자료에 출판 연도만 있어 작곡 연도순 그림에서 빼고 표에만 둡니다. 코젤루흐 곡집에는 종지 표지가 없어 종지 지표 두 개를 빈칸으로 둡니다(0이 아닙니다). 화음 지표는 곡집마다 다른 주석자가 붙인 기호를 세므로 주석자의 차이가 섞여 있다는 점을 면에 적었습니다.
+- **지표 면.** 악보 지표 면마다 「고전기 건반 소나타」 절을 더했습니다. 데이터는 `data/sonatas/sonata_metrics_by_movement.csv`(CC BY-NC-SA 4.0)입니다.
+- 면의 수치와 사실 서술은 블라인드 교차 검증을 거쳤습니다. 표본 5악장의 수치 20개를 원자료에서 다시 계산해 모두 일치했습니다.
 
 ## 1.7.1에서 바뀐 것
 
@@ -111,10 +119,10 @@ src/    지표 정의(registry.py)·추출 스크립트·Wikidata 매칭 스크�
 
 ## English
 
-An open data site that reads scores and performances as numbers. As in baseball's sabermetrics, **every metric carries its definition, formula, sample and caveats**, one page per metric, computed from open score corpora and performance datasets. It began with Bach and Beethoven; version 1.1 added Mozart and the New York Philharmonic's repertoire covering every composer, 1.2 added a 'Works & history' page on composers' work activity, symphonic orchestration, tempo markings, instrument use and the history of the pitch of a′, and 1.5 added an 'Orchestras' page comparing the repertoire of the New York Philharmonic, visiting orchestras at Carnegie Hall, the Leipzig Gewandhaus and the Seoul Philharmonic, and 1.6 added a 'History of harmony' page over 40 annotated collections and a 'Scales and tuning' page where scales from different periods and regions can be seen and heard.
+An open data site that reads scores and performances as numbers. As in baseball's sabermetrics, **every metric carries its definition, formula, sample and caveats**, one page per metric, computed from open score corpora and performance datasets. It began with Bach and Beethoven; version 1.1 added Mozart and the New York Philharmonic's repertoire covering every composer, 1.2 added a 'Works & history' page on composers' work activity, symphonic orchestration, tempo markings, instrument use and the history of the pitch of a′, and 1.5 added an 'Orchestras' page comparing the repertoire of the New York Philharmonic, visiting orchestras at Carnegie Hall, the Leipzig Gewandhaus and the Seoul Philharmonic, and 1.6 added a 'History of harmony' page over 40 annotated collections and a 'Scales and tuning' page where scales from different periods and regions can be seen and heard, and 1.8 added a 'Classical-era keyboard sonatas' page comparing seven keyboard-sonata collections of the period.
 
 - **Site:** https://bowonkwon.github.io/Classical-Music-Metrics/en/ · **Reading edition:** [en/reading.html](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **Version:** 1.7.1 (Nov 9, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026; 1.2.1, 1.3 and 1.3.1 Nov 2, 2026; 1.4 Nov 4, 2026; 1.5 Nov 7, 2026; 1.6 Nov 8, 2026; 1.7 Nov 8, 2026
+- **Version:** 1.8 (Nov 9, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026; 1.2.1, 1.3 and 1.3.1 Nov 2, 2026; 1.4 Nov 4, 2026; 1.5 Nov 7, 2026; 1.6 Nov 8, 2026; 1.7 Nov 8, 2026; 1.7.1 Nov 9, 2026
 - **Other public materials:** https://bowonkwon.github.io/en/ — the legal-language and AI handbooks, listed alongside this site.
 
 | Layer | Contents | Sources |
@@ -125,7 +133,10 @@ An open data site that reads scores and performances as numbers. As in baseball'
 | Works & history (1.2) | Career ribbons, work pages by age, and when works were written vs how much they are played, for ten composers; symphony orchestration; tempo markings; instruments named in symphony instrumentation by 25-year period; the pitch of a′ 1361–1885 (242 measurements) | IMSLP work pages, NY Phil, Ellis's appendix to *On the Sensations of Tone* (1885/1895, public domain) |
 | Orchestras (1.5) | The NY Phil's own records checked against Carnegie Hall's; how narrow visiting orchestras' Carnegie Hall programmes are (Vienna and Berlin Philharmonics, Concertgebouw and others); Gewandhaus × NY Phil (1840s–1890s); Seoul Philharmonic × NY Phil subscription concerts (2009–2025). No ranking and no composite score | NY Phil, Carnegie Hall performance history (CC0), Hartmann-Enke's Gewandhaus data (CC BY 4.0), Seoul Open Data Plaza (KOGL Type 1), Wikidata |
 | History of harmony (1.6) | Seventh chords, chromaticism, applied chords and chord vocabulary by 50-year period over the 40 collections of the DCML Distant Listening Corpus (1,326 pieces, 1,283 with harmony labels, 1590–1931), one vote per collection, with a keyboard-only line; Clara × Robert Schumann | DCML Distant Listening Corpus (Hentschel et al. 2025, CC BY-NC-SA 4.0) |
+| Classical-era keyboard sonatas (1.8) | Keyboard-sonata collections by D. Scarlatti, W. F. Bach, C. P. E. Bach, J. C. Bach and Koželuh beside Mozart and Beethoven (351 sonata movements) on the 39 score metrics. C. P. E. Bach's fantasias and rondos shown separately; J. C. Bach, with publication years only, in the tables only | DCML corpora (Hentschel et al. 2025, CC BY-NC-SA 4.0) |
 | Scales and tuning (1.6, second edition 1.7) | 45 scales on a cent ruler with browser playback: Western tuning history, sanfen sunyi, pyeongjo and gyemyeonjo with the pitch of hwangjong from stone chimes, the Japanese in and yō scales (Uehara 1895) and koto tuning (Ellis 1885), measured gayageum scales (Gyeonggi folk-song records, sanjo gyemyeonjo) and p'iri recordings (Nam 1998), Arabic Rast and Bayati (Mushāqa's 24 quarter tones and the 1932 Cairo Congress recordings), the Indian 22 śrutis, and theory and measurement for gamelan, Thai, Persian, Turkish, Ganda, Malinke and Chopi scales | DaMuSc (McBride et al. 2023, CC BY 4.0), ORD-CC32 (Bozkurt 2025, CC BY-NC 4.0), the primary source of each row |
+
+**What changed in 1.8.** New 'Classical-era keyboard sonatas' page: seven keyboard-sonata collections that DCML analysed under one harmony annotation standard. New collections: D. Scarlatti (69 movements), W. F. Bach (9), C. P. E. Bach (50 sonata movements), J. C. Bach (29) and Koželuh (49); Mozart (54) and Beethoven (91) are unchanged, as are their existing values. The 10 fantasia and 6 rondo movements in the C. P. E. Bach collection are shown separately, not in the comparison. The J. C. Bach source data give only publication years, so that collection is left out of the date-ordered charts and shown in the tables. The Koželuh collection has no cadence labels, so its two cadence metrics are blank (not zero). Chord metrics count labels added by different annotators in each collection, and the page says so. Each score-metric page gets a 'Classical-era keyboard sonatas' section; the data are in `data/sonatas/sonata_metrics_by_movement.csv` (CC BY-NC-SA 4.0). The page's numbers and statements of fact went through blind cross-checking: 20 values from five sample movements were recomputed from the source data and all matched.
 
 **What changed in 1.7.1.** Supplement to the 'Scales and tuning' page: three rows of average intervals that Unjung Nam (1998) measured in three solo p'iri recordings by Chung Chaekook, 45 scales in all. The five printed intervals do not sum to 1,200 cents, so the octave is not drawn and the page says so. Added Ramanathan's (1981) reading of the ancient texts to the śruti paragraph, and to the Chopi paragraph the New Grove (2001) 'Mozambique' article and how it compares with the 1948 measurements.
 

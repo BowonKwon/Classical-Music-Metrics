@@ -21,7 +21,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.7.1"
+VERSION = "1.8"
 BUILD_DATE = "2026-11-09"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -44,8 +44,10 @@ CHANGELOG = [
      "New 'History of harmony' and 'Scales and tuning' pages. The first sets the 40 collections of the DCML Distant Listening Corpus (1,326 pieces, 1,283 with harmony labels) in order of composition, 1590–1931, and compares seventh chords, chromaticism, applied chords and chord vocabulary by 50-year period (one vote per collection, with a separate keyboard-only line). The second draws 23 scales (Western tuning history, sanfen sunyi, measured scales) on a cent ruler and plays them with your browser's synthesiser. Both pages' numbers and statements of fact went through blind cross-checking."),
     ("1.7", "2026-11-08", "「음계와 조율」 면 2판. 음계를 23개에서 42개로 늘렸다 — 일본 음선·양선(우에하라 1895의 일현금 측정비, 올라갈 때와 내려갈 때 다른 음은 속이 빈 점), 고토 히라조시 조율(엘리스 1885의 이사와 보고와 두 연주자 실측), 아랍 라스트의 무샤카 24 4분음(스미스 영역 1847)과 1932 카이로 회의 녹음에서 다시 계산한 라스트·바야티(ORD-CC32), 인도 사드자 그라마의 22 슈루티(『나티야샤스트라』 28장)와 오늘날 노래의 실측 연구, 모잠비크 초피 팀빌라(트레이시 1948의 다섯 악단 평균과 1958의 한 대), 가야금 실측 8개(고유동 2021의 경기민요 고음반 4개, 양수연 2013의 산조 계면조 청과 꺾는 음 4개)와 임경미 2013의 유파·악조별 징–땅 음정 표. 새 값은 모두 1차 출처의 해당 쪽에서 읽었고, 원문을 열지 못한 자료(카이로 회의 기록집, 국악 관악기 실측 등)는 「아직 넣지 않은 것」에 이유와 함께 적었다. 카이로 회의 녹음에서 계산한 두 행과 scales_cairo1932.csv 는 원자료 조건을 따라 CC BY-NC 4.0 이다(scales.csv 의 license 열).",
      "Second edition of the 'Scales and tuning' page: 42 scales instead of 23. New: the Japanese in and yō scales (Uehara 1895, monochord ratios; notes used only when descending are hollow dots), the koto's hira-jōshi tuning (Ellis 1885: Isawa's report and two measured players), Arabic Rast in Mushāqa's 24 quarter tones (tr. Smith 1847) and Rast and Bayati recomputed from the 1932 Cairo Congress recordings (ORD-CC32), the Indian ṣaḍja-grāma on 22 śrutis (Nāṭyaśāstra 28) with a measurement study of present-day singing, the Chopi timbila of Mozambique (the mean of five orchestras from Tracey 1948 and one instrument from Tracey 1958), and eight measured gayageum scales (four Gyeonggi folk-song records from Ko 2021; cheong and the bent notes of sanjo gyemyeonjo for four players from Yang 2013), with a table of jing–ttang intervals by school and mode from Lim 2013. Every new value was read on the cited page of its primary source; sources that could not be opened (the Cairo Congress proceedings, measurements of Korean wind instruments and others) are listed under 'Not yet included' with the reason. The two rows computed from the Cairo recordings and scales_cairo1932.csv follow the source's terms, CC BY-NC 4.0 (see the license column of scales.csv)."),
-    ("1.7.1", BUILD_DATE, "「음계와 조율」 면 보충. 남운정(1998)이 정재국의 피리 독주 녹음 세 곡에서 잰 평균 음정을 3행으로 더해 45개가 되었다(인쇄된 다섯 음정의 합이 1200센트와 맞지 않아 옥타브는 그리지 않음). 인도 슈루티 문단에 라마나탄(1981)의 고대 문헌 해석을, 초피 문단에 『뉴 그로브』 2판(2001) 「모잠비크」 항목의 서술과 1948년 실측의 비교를 더했다.",
+    ("1.7.1", "2026-11-09", "「음계와 조율」 면 보충. 남운정(1998)이 정재국의 피리 독주 녹음 세 곡에서 잰 평균 음정을 3행으로 더해 45개가 되었다(인쇄된 다섯 음정의 합이 1200센트와 맞지 않아 옥타브는 그리지 않음). 인도 슈루티 문단에 라마나탄(1981)의 고대 문헌 해석을, 초피 문단에 『뉴 그로브』 2판(2001) 「모잠비크」 항목의 서술과 1948년 실측의 비교를 더했다.",
      "Supplement to the 'Scales and tuning' page: three rows of average intervals measured by Unjung Nam (1998) in three solo p'iri recordings by Chung Chaekook, 45 scales in all (the five printed intervals do not sum to 1,200 cents, so the octave is not drawn). Added Ramanathan's (1981) reading of the ancient texts to the śruti paragraph, and to the Chopi paragraph the New Grove (2001) 'Mozambique' article and how it compares with the 1948 measurements."),
+    ("1.8", BUILD_DATE, "「고전기 건반 소나타」 면을 신설했다. DCML이 같은 화성 주석 규칙으로 분석한 건반 소나타 곡집 일곱 개(D. 스카를라티·W. F. 바흐·C. P. E. 바흐·J. C. 바흐·코젤루흐에 모차르트·베토벤, 소나타 351악장)를 악보 지표 39개로 나란히 본다. C. P. E. 바흐 곡집의 판타지아·론도는 비교에서 빼고 따로 보이며, 원자료에 출판 연도만 있는 J. C. 바흐는 연도순 그림에서 빼고 표에만 둔다. 종지 표지가 없는 코젤루흐 곡집의 종지 지표는 빈칸이다. 악보 지표 면마다 같은 비교 절을 더했다. 모차르트·베토벤의 기존 수치는 바뀌지 않는다. 면의 수치와 사실 서술은 블라인드 교차 검증을 거쳤다(표본 5악장 20개 수치 재현).",
+     "New 'Classical-era keyboard sonatas' page: seven keyboard-sonata collections analysed by DCML under one harmony annotation standard (D. Scarlatti, W. F. Bach, C. P. E. Bach, J. C. Bach and Koželuh beside Mozart and Beethoven; 351 sonata movements), compared on the 39 score metrics. The fantasias and rondos in the C. P. E. Bach collection are shown separately, not in the comparison; J. C. Bach, whose source data give only publication years, is left out of the date-ordered charts and shown in the tables. The Koželuh collection has no cadence labels, so its cadence metrics are blank. Each score-metric page gets the same comparison section. Existing Mozart and Beethoven values are unchanged. The page's numbers and statements of fact went through blind cross-checking (20 values from five sample movements reproduced)."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -90,7 +92,7 @@ def slug(name: str) -> str:
 T = {
     "ko": dict(
         site="서양 고전 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐·베토벤·모차르트와 뉴욕 필 180년",
-        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_harmony="화성의 역사", nav_scales="음계와 조율", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
+        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_harmony="화성의 역사", nav_scales="음계와 조율", nav_sonatas="건반 소나타", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         season="시즌", all_concerts="전체", subscription="정기공연만", v10="1.0 단위", coverage="생몰년 확인", lower="하한", upper="상한",
         perf_u1="작품 연주", perf_u2="전곡 연주", excerpt="발췌 비율", first="첫 시즌", last="마지막 시즌", n_seasons="연주된 시즌 수", born="출생", died="사망",
         rank="순위", category="구분", peak="최고 점유 시즌", top_works="많이 연주된 작품", decade_rank="10년 단위 순위", programs="프로그램",
@@ -106,7 +108,7 @@ T = {
     ),
     "en": dict(
         site="Classical Music Metrics", tagline="Reading scores and performances as numbers — Bach, Beethoven, Mozart and 180 years of the New York Philharmonic",
-        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_harmony="Harmony", nav_scales="Scales", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
+        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_harmony="Harmony", nav_scales="Scales", nav_sonatas="Keyboard sonatas", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
         season="Season", all_concerts="all", subscription="subscription only", v10="1.0 unit", coverage="dated", lower="lower", upper="upper",
         perf_u1="work perf.", perf_u2="complete perf.", excerpt="excerpt share", first="first season", last="last season", n_seasons="seasons played", born="born", died="died",
         rank="rank", category="type", peak="peak season", top_works="Most performed works", decade_rank="Rank by decade", programs="programs",
@@ -325,7 +327,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
     hub_path = "" if lang == "ko" else "en/"
     nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
            ("composers", f"{root}{lang}/composers/index.html", t["nav_composers"]),
-           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("harmony", f"{root}{lang}/harmony.html", t["nav_harmony"]), ("scales", f"{root}{lang}/scales.html", t["nav_scales"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
+           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("harmony", f"{root}{lang}/harmony.html", t["nav_harmony"]), ("scales", f"{root}{lang}/scales.html", t["nav_scales"]), ("sonatas", f"{root}{lang}/sonatas.html", t["nav_sonatas"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
     on_attr = ' class="on"'
     navh = "".join(f'<a href="{h}"{on_attr if k == active else ""}>{n}</a>' for k, h, n in nav)
@@ -740,11 +742,14 @@ def main():
     DATA_FILES["scales/scales.csv"] = ("damusc+ordcc32", "B")
     DATA_FILES["scales/scales_cairo1932.csv"] = ("ordcc32", "B")
     assert set(scales_pages.SCALE_FILES) == {"scales.csv", "scales_cairo1932.csv"}
-    for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales"):
+    import sonata_pages
+    for f in sonata_pages.SONATA_FILES:
+        DATA_FILES[f"sonatas/{f}"] = ("dcml", "A")
+    for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales", "sonatas"):
         (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
         sub, _, nm = f.partition("/")
-        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm, "dlc": D / nm, "scales": D / nm}.get(sub, D / f) if nm else D / f
+        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm, "dlc": D / nm, "scales": D / nm, "sonatas": D / nm}.get(sub, D / f) if nm else D / f
         shutil.copy(src_f, OUT / "data" / f)
     write_datapackage(OUT / "data", DATA_FILES)
 
@@ -842,6 +847,7 @@ def main():
                 rk = score.dropna(subset=[m["id"]]).sort_values([m["id"], "corpus", "piece_id"], ascending=[False, True, True], kind="mergesort").copy()
                 rk["work"] = rk["work"].where(rk["work"].notna() & (rk["work"] != ""), rk["piece_id"])
                 rk["composed_start"] = rk["composed_start"].astype(str).where(rk["composed_start"].astype(str).str.match(r"^\d{4}"), "")
+                body.append(sonata_pages.metric_section(m, lang, svg_strip, legend, table_html, takeaways.stat_spec))
                 body.append(f"<h2>{t['ranking']}</h2>" + table_html(rk, [("composer", t["composer"], None), ("work", t["work"], None), ("movement_title", t["mvt"], None), ("composed_start", t["year"], None), ("n_measures", t["bars"], "d"), (m["id"], ml["name"], m["fmt"])], f"r_{m['id']}", lang))
                 src = "dcml"
             elif m["table"] == "coda":
@@ -1250,6 +1256,7 @@ def main():
         orchestra_pages.build(lang, base / "orchestras.html", page)
         harmony_pages.build(lang, base / "harmony.html", page)
         scales_pages.build(lang, base / "scales.html", page)
+        sonata_pages.build(lang, base / "sonatas.html", page, svg_strip, legend, table_html, takeaways.stat_spec)
 
         # ---------------- home
         cards = [
