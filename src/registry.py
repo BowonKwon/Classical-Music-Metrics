@@ -117,10 +117,10 @@ METRICS = [
                  reading="0.06 means 6 of every 100 notes lie outside the key signature. Movements that modulate often or move chromatically score higher.",
                  caveat="Keyed to the signature, so in a modulation without a signature change, notes of the new key that lie outside the original signature count as chromatic. The DCML chorale encoding warns of accidental errors; it was cross-checked against the Humdrum encoding (r = 0.98).")),
     dict(id="pitch_class_entropy", layer="A", group="pitch", table="score", unit="bits", fmt=".2f", higher="more even",
-         ko=dict(name="음급 엔트로피", definition="12개 음급(옥타브를 무시한 음이름)이 얼마나 고르게 쓰였는가.", formula="H = −Σ pᵢ log₂ pᵢ, pᵢ 는 음급 i 의 빈도. 최대 log₂12 ≈ 3.58.",
+         ko=dict(name="음고류 엔트로피", definition="12개 음고류(pitch class, 옥타브를 무시한 음이름)가 얼마나 고르게 쓰였는가.", formula="H = −Σ pᵢ log₂ pᵢ, pᵢ 는 음표 가운데 음고류 i 인 것의 비율(음 길이로 가중하지 않는다). 최대 log₂12 ≈ 3.58.",
                  reading="온음계 7음만 고르게 쓰면 약 2.8, 12음을 다 고르게 쓰면 3.58. 값이 클수록 음재료가 넓다.",
                  caveat="음의 길이를 무시하고 음표 수로만 센다."),
-         en=dict(name="Pitch-class entropy", definition="How evenly the twelve pitch classes are used.", formula="H = −Σ pᵢ log₂ pᵢ over pitch-class frequencies; maximum log₂12 ≈ 3.58.",
+         en=dict(name="Pitch-class entropy", definition="How evenly the twelve pitch classes are used.", formula="H = −Σ pᵢ log₂ pᵢ, where pᵢ is the share of notes on pitch class i (not weighted by duration); maximum log₂12 ≈ 3.58.",
                  reading="Seven diatonic notes used evenly give about 2.8; all twelve evenly give 3.58. Higher means a wider pitch vocabulary.",
                  caveat="Counts notes, not durations.")),
     # ---------------- A. score: rhythm
@@ -322,6 +322,12 @@ from registry_110 import METRICS_110  # noqa: E402
 
 _after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
 METRICS[_after_score:_after_score] = METRICS_110
+
+# 1.12: semitone clustering and root-motion variety (score_metrics_112.py; the two candidates that passed gates_112.py)
+from registry_112 import METRICS_112  # noqa: E402
+
+_after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
+METRICS[_after_score:_after_score] = METRICS_112
 
 # 1.4: P3 performance metrics after the other performance metrics, P4 repertoire metrics at the end
 from registry_14 import METRICS_14  # noqa: E402

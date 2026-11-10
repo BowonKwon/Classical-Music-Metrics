@@ -79,6 +79,9 @@ def _frames():
     p110 = D / "score_metrics_110_by_movement.csv"  # 1.10 metrics
     if p110.exists():
         c19 = c19.merge(pd.read_csv(p110), on=["corpus", "piece_id"], how="left")
+    p112 = D / "score_metrics_112_by_movement.csv"  # 1.12 metrics
+    if p112.exists():
+        c19 = c19.merge(pd.read_csv(p112)[["corpus", "piece_id", "root_motion_entropy"]], on=["corpus", "piece_id"], how="left")
     c19["year_mid"] = _year(c19)
     sonatas = son.load()
     sonatas = sonatas[sonatas["in_cohort"]].copy()
@@ -304,7 +307,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
              + "DCMLab corpora " + ", ".join(f"<a href='https://github.com/DCMLab/{c}'>{c}</a>" for c in ["chopin_mazurkas", "schumann_kinderszenen", "liszt_pelerinage", "grieg_lyric_pieces", "tchaikovsky_seasons", "dvorak_silhouettes", "medtner_tales", "pleyel_quartets", "mendelssohn_quartets", "ABC"]) + " (CC BY-NC-SA 4.0); "
              + kk + (" — 조성 명료도의 조성 프로필; " if k else " — tonal profiles for key clarity; ")
              + "Machado, G. M., Oliveira, M. M. & Fernandes, L. A. F. (2009), 'A physiologically-based model for simulation of color vision deficiency', <i>IEEE Transactions on Visualization and Computer Graphics</i> 15(6): 1291–1298" + (" — 조성 지도 색의 색각 이상 모의; " if k else " — colour-vision-deficiency simulation for the key-map colours; ")
-             + "Viaccoz, C., Harasim, D., Moss, F. C. & Rohrmeier, M. (2022), 'Wavescapes', <i>Musicae Scientiae</i> 27(2): 390–427; Palmer, S. E., Schloss, K. B., Xu, Z. & Prado-León, L. R. (2013), 'Music–color associations are mediated by emotion', <i>PNAS</i> 110(22): 8836–8841."
+             + "Viaccoz, C., Harasim, D., Moss, F. C. & Rohrmeier, M. (2023; online 2022), 'Wavescapes', <i>Musicae Scientiae</i> 27(2): 390–427; Palmer, S. E., Schloss, K. B., Xu, Z. & Prado-León, L. R. (2013), 'Music–color associations are mediated by emotion', <i>PNAS</i> 110(22): 8836–8841."
              + (" 지표 정의는 <a href='metrics/index.html'>지표</a> 면과 같다. 표의 데이터는 <a href='../data/romantic/collections_19_by_movement.csv'>CSV</a>와 <a href='../data/romantic/score_metrics_19_by_movement.csv'>새 지표 CSV</a>로 내려받을 수 있다."
                 if k else " Metric definitions are those of the <a href='metrics/index.html'>Metrics</a> pages. The data are downloadable as a <a href='../data/romantic/collections_19_by_movement.csv'>CSV</a> and a <a href='../data/romantic/score_metrics_19_by_movement.csv'>CSV of the new metrics</a>.")
              + "</p>")

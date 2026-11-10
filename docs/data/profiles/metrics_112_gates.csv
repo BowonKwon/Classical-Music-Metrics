@@ -1,0 +1,23 @@
+candidate,check,against,n,value,limit,passed,spearman
+dft_mag_5,missing,,1182,0.0,0.3,True,
+dft_mag_5,length,log length_qb,1182,-0.5750566703486464,0.5,False,
+dft_mag_5,overlap,key_clarity,1182,0.4253370771997183,0.9,True,0.3788500558097605
+dft_mag_5,overlap,chromatic_ratio,1182,-0.7995339176071891,0.9,True,-0.8360144291182627
+dft_mag_5,overlap,pitch_class_entropy,1182,-0.8825947011747318,0.9,True,-0.8978764623611803
+dft_mag_5,overlap,dft_mag_1,1182,0.05292618896495886,0.9,True,0.03407746734988942
+dft_mag_1,missing,,1182,0.0,0.3,True,
+dft_mag_1,length,log length_qb,1182,-0.11654774413192968,0.5,True,
+dft_mag_1,overlap,key_clarity,1182,-0.16778050029833053,0.9,True,-0.14116074826404126
+dft_mag_1,overlap,chromatic_ratio,1182,0.0035612753679858454,0.9,True,-0.058526062917569226
+dft_mag_1,overlap,pitch_class_entropy,1182,-0.16669745957757723,0.9,True,-0.12951302945739265
+dft_mag_1,overlap,dft_mag_5,1182,0.05292618896495886,0.9,True,0.03407746734988942
+root_motion_entropy,missing,,793,0.030264817150063017,0.3,True,
+root_motion_entropy,length,log length_qb,769,0.19495564543031946,0.5,True,
+root_motion_entropy,length,log n_root_steps,769,0.24054657411661448,0.5,True,
+root_motion_entropy,overlap,fifth_root_motion_ratio,769,-0.8150459910060429,0.9,True,-0.8375178399955306
+chromatic_window_sd,missing,,1182,0.21319796954314718,0.3,True,
+chromatic_window_sd,length,log length_qb,930,0.6102803763939458,0.5,False,
+chromatic_window_sd,overlap,chromatic_ratio,930,0.7134440670707209,0.9,True,0.6878987138597435
+density_window_cv,missing,,1182,0.21319796954314718,0.3,True,
+density_window_cv,length,log length_qb,930,0.7078678784898633,0.5,False,
+density_window_cv,overlap,notes_per_quarter,930,0.1944826803539446,0.9,True,0.1533886474058166

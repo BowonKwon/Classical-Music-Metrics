@@ -68,7 +68,9 @@ def all_movements() -> pd.DataFrame:
 
 
 def metric_groups() -> tuple[list[str], list[str]]:
-    sc = [m for m in METRICS if m["table"] == "score"]
+    from registry_112 import METRICS_112  # the map is the 1.10 map: metrics added in 1.12 are not candidates for it
+    later = {m["id"] for m in METRICS_112}
+    sc = [m for m in METRICS if m["table"] == "score" and m["id"] not in later]
     notes = [m["id"] for m in sc if m["group"] in NOTE_GROUPS]
     harm = [m["id"] for m in sc if m["group"] == "harmony"]
     return notes, harm

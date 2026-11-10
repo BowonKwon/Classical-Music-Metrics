@@ -65,6 +65,9 @@ def _load() -> pd.DataFrame:
     p110 = D / "score_metrics_110_by_movement.csv"  # 1.10 metrics
     if p110.exists():
         s = s.merge(pd.read_csv(p110), on=["corpus", "piece_id"], how="left")
+    p112 = D / "score_metrics_112_by_movement.csv"  # 1.12 metrics
+    if p112.exists():
+        s = s.merge(pd.read_csv(p112)[["corpus", "piece_id", "root_motion_entropy"]], on=["corpus", "piece_id"], how="left")
     ys = pd.to_numeric(s["composed_start"], errors="coerce")
     ye = pd.to_numeric(s["composed_end"], errors="coerce")
     s["year_mid"] = (ys + ye.fillna(ys)) / 2
@@ -215,7 +218,7 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
         b.append("<h2>3. 데이터가 보여 주는 것, 주의할 점</h2><ul>" + "".join(items) +
                  f"<li>음역 중앙값은 연도가 가장 이른 {nm(rng_first.composer, lang)} 곡집이 {rng_first.pitch_range_semitones:.0f}반음, 가장 늦은 {nm(rng_last.composer, lang)} 곡집이 {rng_last.pitch_range_semitones:.0f}반음이고, 그 사이 곡집은 {mid_lo:.0f}~{mid_hi:.0f}반음이다. 건반 악기의 음역이 넓어진 것과 맞물리지만, 이 표만으로 악기 때문이라고 단정할 수는 없다.</li></ul>"
                  "<p><b>주의할 점.</b></p><ul>"
-                 "<li>화음 지표는 사람이 붙인 화성 기호를 센 것이다. 곡집마다 주석자가 다르고, 코젤루흐 곡집은 주석 표준 2.1.0, 다른 곡집은 2.3.0이다(모차르트 곡집은 판 표시가 없다). 곡집 사이의 화음 지표 차이에는 작곡가의 차이와 주석자의 차이가 섞여 있다. 음표에서 바로 세는 지표(음역·반음계 비율·음표 밀도·음급 엔트로피 등)에는 주석자 문제가 없다. 다만 악보 판본과 인코딩의 차이는 남는다.</li>"
+                 "<li>화음 지표는 사람이 붙인 화성 기호를 센 것이다. 곡집마다 주석자가 다르고, 코젤루흐 곡집은 주석 표준 2.1.0, 다른 곡집은 2.3.0이다(모차르트 곡집은 판 표시가 없다). 곡집 사이의 화음 지표 차이에는 작곡가의 차이와 주석자의 차이가 섞여 있다. 음표에서 바로 세는 지표(음역·반음계 비율·음표 밀도·음고류 엔트로피 등)에는 주석자 문제가 없다. 다만 악보 판본과 인코딩의 차이는 남는다.</li>"
                  f"<li>{', '.join(nocad)} 곡집에는 종지 표지가 없어 종지 지표 두 개를 비워 두었다(0이 아니다).</li>"
                  f"<li>{', '.join(small)} 곡집은 악장이 10개가 안 되어 중앙값이 흔들리기 쉽다.</li>"
                  "<li>스카를라티 소나타는 대부분 단악장 이분형식의 하프시코드 곡이고(Rodda 2020), 베토벤 소나타는 피아노를 위한 여러 악장짜리 곡이다. 같은 「건반 소나타」라도 악기와 형식이 다르다.</li>"

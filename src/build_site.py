@@ -21,7 +21,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.11"
+VERSION = "1.12"
 BUILD_DATE = "2026-11-10"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -52,10 +52,12 @@ CHANGELOG = [
      "The formulas of the score metrics counted from the notes now state the common rule (grace notes are left out; a tied continuation is merged into the note it continues, and one whose preceding note cannot be found is not counted as a new note); rhythm entropy already said so, which leaves 21. The computation always worked this way, so no values change. On the 'Classical-era keyboard sonatas' page the statement on the form and instrument of Scarlatti's sonatas now cites a source (Library of Congress NLS, Rodda 2020), and the unsupported 'Beethoven's late sonatas were written for pianos of more than six octaves' is reduced to 'multi-movement sonatas for the piano'. Composition years for the J. C. Bach collection could not be confirmed from open sources, so it stays out of the date-ordered charts."),
     ("1.9", "2026-11-10", "「낭만기 피아노 소품」 면을 신설했다. DCML이 주석한 낭만기 피아노 곡집 일곱(쇼팽 마주르카·슈만 어린이 정경·리스트 순례의 해·그리그 서정 소품·차이콥스키 사계·드보르자크 실루엣·메트너 옛 이야기, 197곡)을 1.8의 고전기 건반 소나타 뒤에 이어 「건반 음악 1740~1925」로 보고, 플레옐·베토벤·멘델스존의 현악 4중주를 나란히 본다. 악보 지표 4개를 새로 더했다(조성 명료도·5도 하행 근음 진행 비율·전조 거리·5옥타브 밖 음 비율). 이제 악보 지표는 43개다. 기존 곡집의 기존 수치는 바뀌지 않는다. 악장마다 국소 조를 조표 색으로 칠한 「조성 지도」(으뜸조 기준과 실제 조 기준을 단추로 전환)와 곡집×지표 열지도를 더했다. 지표 면마다 「건반 음악 1740~1925」와 「현악 4중주」 절을 더했다.",
      "New 'Romantic piano miniatures' page: seven DCML-annotated collections of Romantic piano music (Chopin's mazurkas, Schumann's Kinderszenen, Liszt's Années de pèlerinage, Grieg's Lyric Pieces, Tchaikovsky's The Seasons, Dvořák's Silhouettes, Medtner's Tales; 197 pieces) set after the Classical-era sonatas of 1.8 as 'Keyboard music, 1740–1925', and string quartets by Pleyel, Beethoven and Mendelssohn side by side. Four new score metrics (key clarity, falling-fifth root motion, key-change distance, notes outside five octaves) bring the score metrics to 43. Existing values for existing collections are unchanged. Key maps colour each movement's local keys by key signature (toggle between distance from the home key and the actual key), and a heatmap compares the collections. Each metric page gets 'Keyboard music, 1740–1925' and 'String quartets' sections."),
-    ("1.10", "2026-11-10", "「곡 지도」 면을 신설했다. 사이트의 악장마다 악보 지표 벡터를 표준화해 주성분 분석으로 평면에 놓은 지도 둘(화음 주석이 있는 793악장에 지표 34개, 음표 지표만으로 1,179악장에 13개)과, 점을 누르면 나오는 악장의 「지문」을 더했다. 점은 작곡 연도로 칠하고 곡집 강조 필터를 두었다. 축에는 이름을 붙이지 않고 적재값과 안정성(부트스트랩·곡집 빼기)을 적었다. 화음 지도의 1성분(반음계·음급 엔트로피·7화음 등)은 작곡 연도와의 순위 상관이 0.63이다. 넣을 지표는 계산 전에 정한 규칙으로 골랐고, 첫 계산 뒤 더한 규칙 하나(정의상 일부 곡집에만 값이 있는 지표 제외)를 면에 밝혔다. 악보 지표 3개를 새로 더했다(으뜸조 이탈도·으뜸조 밖 시간 비율·최대 이탈; 이제 악보 지표 46개). 음표만으로 조를 추정한 대조판과의 순위 상관은 0.44다.",
+    ("1.10", "2026-11-10", "「곡 지도」 면을 신설했다. 사이트의 악장마다 악보 지표 벡터를 표준화해 주성분 분석으로 평면에 놓은 지도 둘(화음 주석이 있는 793악장에 지표 34개, 음표 지표만으로 1,179악장에 13개)과, 점을 누르면 나오는 악장의 「지문」을 더했다. 점은 작곡 연도로 칠하고 곡집 강조 필터를 두었다. 축에는 이름을 붙이지 않고 적재값과 안정성(부트스트랩·곡집 빼기)을 적었다. 화음 지도의 1성분(반음계·음고류 엔트로피·7화음 등)은 작곡 연도와의 순위 상관이 0.63이다. 넣을 지표는 계산 전에 정한 규칙으로 골랐고, 첫 계산 뒤 더한 규칙 하나(정의상 일부 곡집에만 값이 있는 지표 제외)를 면에 밝혔다. 악보 지표 3개를 새로 더했다(으뜸조 이탈도·으뜸조 밖 시간 비율·최대 이탈; 이제 악보 지표 46개). 음표만으로 조를 추정한 대조판과의 순위 상관은 0.44다.",
      "New 'Piece map' page: each movement's vector of score metrics, standardized and laid out by principal component analysis, in two maps (793 movements with harmony labels on 34 metrics; 1,179 movements on 13 note metrics), with a fingerprint of any movement you click. Points are coloured by composition year with a filter to highlight one collection. Axes are not named; loadings and stability (bootstrap and leave-one-collection-out) are given. Component 1 of the harmony map (chromaticism, pitch-class entropy, sevenths and others) has a rank correlation of 0.63 with composition year. Metrics were chosen by rules fixed before computing; one rule added after the first run (leave out metrics defined only for some collections) is stated on the page. Three new score metrics: departure from the home key, time away from the home key, furthest key (46 score metrics in all). Their rank correlation with a note-only version that finds keys without annotation is 0.44."),
-    ("1.11", BUILD_DATE, "「작곡가와 장르」 면을 신설했다. 작곡가를 10명에서 30명으로 늘리고(몬테베르디·퍼셀·비발디·헨델·텔레만·글루크·멘델스존·파니 헨젤·클라라 슈만·쇼팽·리스트·로베르트 슈만·베르디·바그너·브루크너·생상스·포레·림스키코르사코프·드뷔시·라벨), IMSLP 작품면 10,180개를 큰 갈래 여섯(관현악·세속 성악·실내악·건반·종교 성악·무대)과 세부 장르 21개로 나눴다. 작곡가마다 나이별 장르 흐름을 작은 그림으로 놓고, 범례에서 갈래를 누르면 그 갈래만 세부 장르로 펼쳐진다. 25년 구간별 세부 장르 비율은 작곡가 한 사람이 한 표다. 작곡 연도가 없는 작품은 생전 출판 연도로 두고 빗금으로 구별했다. 기존 10명의 분류와 「작품·역사」 면의 수치는 바뀌지 않는다.",
+    ("1.11", "2026-11-10", "「작곡가와 장르」 면을 신설했다. 작곡가를 10명에서 30명으로 늘리고(몬테베르디·퍼셀·비발디·헨델·텔레만·글루크·멘델스존·파니 헨젤·클라라 슈만·쇼팽·리스트·로베르트 슈만·베르디·바그너·브루크너·생상스·포레·림스키코르사코프·드뷔시·라벨), IMSLP 작품면 10,180개를 큰 갈래 여섯(관현악·세속 성악·실내악·건반·종교 성악·무대)과 세부 장르 21개로 나눴다. 작곡가마다 나이별 장르 흐름을 작은 그림으로 놓고, 범례에서 갈래를 누르면 그 갈래만 세부 장르로 펼쳐진다. 25년 구간별 세부 장르 비율은 작곡가 한 사람이 한 표다. 작곡 연도가 없는 작품은 생전 출판 연도로 두고 빗금으로 구별했다. 기존 10명의 분류와 「작품·역사」 면의 수치는 바뀌지 않는다.",
      "New 'Composers and genres' page: composers grow from 10 to 30 (Monteverdi, Purcell, Vivaldi, Handel, Telemann, Gluck, Mendelssohn, Fanny Hensel, Clara Schumann, Chopin, Liszt, Robert Schumann, Verdi, Wagner, Bruckner, Saint-Saëns, Fauré, Rimsky-Korsakov, Debussy, Ravel), and 10,180 IMSLP work pages are sorted into six big groups (orchestral, secular vocal, chamber, keyboard, sacred vocal, stage) and 21 sub-genres. Each composer gets a small chart of genres by age; clicking a group in the legend expands just that group into its sub-genres. Sub-genre shares by 25-year period give one vote per composer. Works without a composition year are placed at a first publication within the composer's life and hatched. The classification of the ten earlier composers and the numbers on the 'Works & history' page are unchanged."),
+    ("1.12", BUILD_DATE, "「음 분포와 화음 진행」 면을 신설했다. 악장마다 열두 음고류(옥타브를 무시한 음이름)의 분포와 그 이산 푸리에 변환 계수 여섯의 크기를 냈고, 화성 주석이 있는 19곡집에서 근음이 어디서 어디로 가는지를 장·단조별 12×12 전이 행렬로 세어 전이 엔트로피를 냈다(표본 크기를 400쌍으로 맞춘 값). 표본 57악장은 국소 조 띠, 마디끼리의 자기 유사 행렬, 4마디 창별 음표 밀도·반음계 비율을 한 화면에서 볼 수 있다. 악장 단위 수치 다섯을 지표 후보로 두고 계산 전에 정한 조건(악장 길이와의 상관, 기존 지표와의 겹침, 빈칸 비율)으로 가려, 근음 진행 다양도 하나를 지표로 냈다(악보 지표 47개, 전체 68개). 셋은 악장 길이와의 상관이 커서, 하나(반음 군집도)는 조건은 지났으나 읽는 법을 쓸 수 없어서 그 면과 CSV에만 실었다. 한국어판에서 pitch class의 번역어를 「음급」에서 국내 음악이론 문헌이 쓰는 「음고류」로 고쳤다(지표 이름은 「음고류 엔트로피」). 기존 지표의 수치는 바뀌지 않는다.",
+     "New 'Pitch classes and chord progressions' page: for each movement, the distribution over the twelve pitch classes and the magnitudes of its six discrete Fourier coefficients; for the 19 collections with harmony labels, 12 × 12 root-transition matrices by major and minor local key with a transition entropy (at a common sample size of 400 transitions). For 57 sample movements one view shows the local-key strip, the self-similarity matrix of the measures, and note density and chromatic ratio by 4-bar window. Five movement-level numbers were candidates for metrics under conditions fixed before computing (correlation with movement length, overlap with existing metrics, share of blanks); one became a metric: root-motion variety (47 score metrics, 68 in all). Three correlate strongly with movement length, and one (semitone clustering) met the conditions but its values cannot be given a reading; these appear only on the page and in the CSV. The Korean edition now uses a different term for pitch class. Existing metric values are unchanged."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -100,7 +102,7 @@ def slug(name: str) -> str:
 T = {
     "ko": dict(
         site="서양 고전 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐·베토벤·모차르트와 뉴욕 필 180년",
-        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_harmony="화성의 역사", nav_scales="음계와 조율", nav_sonatas="건반 소나타", nav_romantic="낭만기 소품", nav_map="곡 지도", nav_genres="작곡가와 장르", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
+        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_harmony="화성의 역사", nav_scales="음계와 조율", nav_sonatas="건반 소나타", nav_romantic="낭만기 소품", nav_map="곡 지도", nav_genres="작곡가와 장르", nav_profiles="음 분포·화음 진행", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         season="시즌", all_concerts="전체", subscription="정기공연만", v10="1.0 단위", coverage="생몰년 확인", lower="하한", upper="상한",
         perf_u1="작품 연주", perf_u2="전곡 연주", excerpt="발췌 비율", first="첫 시즌", last="마지막 시즌", n_seasons="연주된 시즌 수", born="출생", died="사망",
         rank="순위", category="구분", peak="최고 점유 시즌", top_works="많이 연주된 작품", decade_rank="10년 단위 순위", programs="프로그램",
@@ -116,7 +118,7 @@ T = {
     ),
     "en": dict(
         site="Classical Music Metrics", tagline="Reading scores and performances as numbers — Bach, Beethoven, Mozart and 180 years of the New York Philharmonic",
-        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_harmony="Harmony", nav_scales="Scales", nav_sonatas="Keyboard sonatas", nav_romantic="Romantic pieces", nav_map="Piece map", nav_genres="Composers & genres", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
+        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_harmony="Harmony", nav_scales="Scales", nav_sonatas="Keyboard sonatas", nav_romantic="Romantic pieces", nav_map="Piece map", nav_genres="Composers & genres", nav_profiles="Pitch classes & progressions", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
         season="Season", all_concerts="all", subscription="subscription only", v10="1.0 unit", coverage="dated", lower="lower", upper="upper",
         perf_u1="work perf.", perf_u2="complete perf.", excerpt="excerpt share", first="first season", last="last season", n_seasons="seasons played", born="born", died="died",
         rank="rank", category="type", peak="peak season", top_works="Most performed works", decade_rank="Rank by decade", programs="programs",
@@ -335,7 +337,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
     hub_path = "" if lang == "ko" else "en/"
     nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
            ("composers", f"{root}{lang}/composers/index.html", t["nav_composers"]),
-           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("harmony", f"{root}{lang}/harmony.html", t["nav_harmony"]), ("scales", f"{root}{lang}/scales.html", t["nav_scales"]), ("sonatas", f"{root}{lang}/sonatas.html", t["nav_sonatas"]), ("romantic", f"{root}{lang}/romantic.html", t["nav_romantic"]), ("map", f"{root}{lang}/map.html", t["nav_map"]), ("genres", f"{root}{lang}/genres.html", t["nav_genres"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
+           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("harmony", f"{root}{lang}/harmony.html", t["nav_harmony"]), ("scales", f"{root}{lang}/scales.html", t["nav_scales"]), ("sonatas", f"{root}{lang}/sonatas.html", t["nav_sonatas"]), ("romantic", f"{root}{lang}/romantic.html", t["nav_romantic"]), ("map", f"{root}{lang}/map.html", t["nav_map"]), ("profiles", f"{root}{lang}/profiles.html", t["nav_profiles"]), ("genres", f"{root}{lang}/genres.html", t["nav_genres"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
     on_attr = ' class="on"'
     navh = "".join(f'<a href="{h}"{on_attr if k == active else ""}>{n}</a>' for k, h, n in nav)
@@ -666,7 +668,9 @@ def main():
     score = score.merge(s19, on=["corpus", "piece_id"], how="left")
     s110 = pd.read_csv(D / "score_metrics_110_by_movement.csv")  # 1.10 departure from the home key
     score = score.merge(s110, on=["corpus", "piece_id"], how="left")
-    cross = pd.read_csv(D / "chorale_crosscheck_dcml_vs_kern.csv")
+    s112 = pd.read_csv(D / "score_metrics_112_by_movement.csv")[["corpus", "piece_id", "root_motion_entropy"]]  # 1.12 metrics
+    score = score.merge(s112, on=["corpus", "piece_id"], how="left")
+    cross =pd.read_csv(D / "chorale_crosscheck_dcml_vs_kern.csv")
     coda = pd.read_csv(D / "beethoven_symphony_coda_tempo.csv")
     cond = pd.read_csv(D / "beethoven_symphony_conductor_summary.csv")
     mvsum = pd.read_csv(D / "beethoven_symphony_movement_summary.csv")
@@ -766,11 +770,16 @@ def main():
     import genre_pages
     for f in genre_pages.FILES:
         DATA_FILES[f"genres/{f}"] = ("imslp", "B")
-    for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales", "sonatas", "romantic", "map", "genres"):
+    import profile_pages
+    for f in profile_pages.FILES:
+        DATA_FILES[f"profiles/{f}"] = ("dcml", "A")
+    for r in pd.read_csv(D / "ssm_112_index.csv").itertuples():  # one file per sample movement, read by the page on demand
+        DATA_FILES[f"profiles/ssm_112/{r.corpus}__{r.piece_id}.json"] = ("dcml", "A")
+    for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales", "sonatas", "romantic", "map", "genres", "profiles", "profiles/ssm_112"):
         (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
         sub, _, nm = f.partition("/")
-        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm, "dlc": D / nm, "scales": D / nm, "sonatas": D / nm, "romantic": D / nm, "map": D / nm, "genres": D / nm}.get(sub, D / f) if nm else D / f
+        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm, "dlc": D / nm, "scales": D / nm, "sonatas": D / nm, "romantic": D / nm, "map": D / nm, "genres": D / nm, "profiles": D / nm}.get(sub, D / f) if nm else D / f
         shutil.copy(src_f, OUT / "data" / f)
     write_datapackage(OUT / "data", DATA_FILES)
 
@@ -1282,6 +1291,7 @@ def main():
         romantic_pages.build(lang, base / "romantic.html", page, svg_strip, legend, table_html, takeaways.stat_spec)
         piecemap_pages.build(lang, base / "map.html", page, svg_strip, legend, table_html, takeaways.stat_spec)
         genre_pages.build(lang, base / "genres.html", page, table_html)
+        profile_pages.build(lang, base / "profiles.html", page, table_html)
 
         # ---------------- home
         cards = [
