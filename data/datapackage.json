@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.10",
+ "version": "1.11",
  "created": "2026-11-10",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -1709,6 +1709,94 @@
      "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
      "path": "https://github.com/DCMLab",
      "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "genres-genre_life_works",
+   "path": "genres/genre_life_works.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 10180,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "genres-genre_life_age",
+   "path": "genres/genre_life_age.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 1883,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "genres-genre_life_era",
+   "path": "genres/genre_life_era.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 352,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
+    }
+   ]
+  },
+  {
+   "name": "genres-genre_life_validation",
+   "path": "genres/genre_life_validation.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 480,
+   "licenses": [
+    {
+     "name": "CC-BY-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and t",
+     "path": "https://imslp.org/",
+     "license": "CC BY-SA 4.0"
     }
    ]
   }
