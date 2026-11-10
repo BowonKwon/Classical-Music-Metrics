@@ -62,6 +62,9 @@ def _load() -> pd.DataFrame:
     p19 = D / "score_metrics_19_by_movement.csv"  # 1.9 metrics
     if p19.exists():
         s = s.merge(pd.read_csv(p19), on=["corpus", "piece_id"], how="left")
+    p110 = D / "score_metrics_110_by_movement.csv"  # 1.10 metrics
+    if p110.exists():
+        s = s.merge(pd.read_csv(p110), on=["corpus", "piece_id"], how="left")
     ys = pd.to_numeric(s["composed_start"], errors="coerce")
     ye = pd.to_numeric(s["composed_end"], errors="coerce")
     s["year_mid"] = (ys + ye.fillna(ys)) / 2

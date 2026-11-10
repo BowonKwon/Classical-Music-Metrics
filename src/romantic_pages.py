@@ -76,6 +76,9 @@ def _year(df):
 def _frames():
     s19 = pd.read_csv(D / "score_metrics_19_by_movement.csv")
     c19 = pd.read_csv(D / "collections_19_by_movement.csv", low_memory=False).merge(s19, on=["corpus", "piece_id"], how="left")
+    p110 = D / "score_metrics_110_by_movement.csv"  # 1.10 metrics
+    if p110.exists():
+        c19 = c19.merge(pd.read_csv(p110), on=["corpus", "piece_id"], how="left")
     c19["year_mid"] = _year(c19)
     sonatas = son.load()
     sonatas = sonatas[sonatas["in_cohort"]].copy()

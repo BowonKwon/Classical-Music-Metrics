@@ -21,7 +21,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.9"
+VERSION = "1.10"
 BUILD_DATE = "2026-11-10"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -50,8 +50,10 @@ CHANGELOG = [
      "New 'Classical-era keyboard sonatas' page: seven keyboard-sonata collections analysed by DCML under one harmony annotation standard (D. Scarlatti, W. F. Bach, C. P. E. Bach, J. C. Bach and Koželuh beside Mozart and Beethoven; 351 sonata movements), compared on the 39 score metrics. The fantasias and rondos in the C. P. E. Bach collection are shown separately, not in the comparison; J. C. Bach, whose source data give only publication years, is left out of the date-ordered charts and shown in the tables. The Koželuh collection has no cadence labels, so its cadence metrics are blank. Each score-metric page gets the same comparison section. Existing Mozart and Beethoven values are unchanged. The page's numbers and statements of fact went through blind cross-checking (20 values from five sample movements reproduced)."),
     ("1.8.1", "2026-11-09", "악보 지표 중 음표에서 세는 지표의 공식에 공통 처리 규칙(꾸밈음은 빼고, 붙임줄로 이어진 뒷음은 앞 음에 합쳐 한 음으로 세며, 앞 음을 찾지 못한 뒷음은 새 음으로 세지 않는다)을 적었다(이미 적혀 있던 리듬 엔트로피는 빼고 21개). 계산은 처음부터 그렇게 했으므로 수치는 바뀌지 않는다. 「고전기 건반 소나타」 면에서 스카를라티 소나타의 형식·악기 서술에 출처(미 의회도서관 NLS, Rodda 2020)를 달고, 근거를 확인하지 못한 「베토벤 후기 소나타는 6옥타브가 넘는 피아노를 위한 곡」을 「피아노를 위한 여러 악장짜리 곡」으로 줄였다. J. C. 바흐 곡집의 작곡 연도는 공개 자료로 확인되지 않아 지금처럼 연도순 그림에서 뺀다.",
      "The formulas of the score metrics counted from the notes now state the common rule (grace notes are left out; a tied continuation is merged into the note it continues, and one whose preceding note cannot be found is not counted as a new note); rhythm entropy already said so, which leaves 21. The computation always worked this way, so no values change. On the 'Classical-era keyboard sonatas' page the statement on the form and instrument of Scarlatti's sonatas now cites a source (Library of Congress NLS, Rodda 2020), and the unsupported 'Beethoven's late sonatas were written for pianos of more than six octaves' is reduced to 'multi-movement sonatas for the piano'. Composition years for the J. C. Bach collection could not be confirmed from open sources, so it stays out of the date-ordered charts."),
-    ("1.9", BUILD_DATE, "「낭만기 피아노 소품」 면을 신설했다. DCML이 주석한 낭만기 피아노 곡집 일곱(쇼팽 마주르카·슈만 어린이 정경·리스트 순례의 해·그리그 서정 소품·차이콥스키 사계·드보르자크 실루엣·메트너 옛 이야기, 197곡)을 1.8의 고전기 건반 소나타 뒤에 이어 「건반 음악 1740~1925」로 보고, 플레옐·베토벤·멘델스존의 현악 4중주를 나란히 본다. 악보 지표 4개를 새로 더했다(조성 명료도·5도 하행 근음 진행 비율·전조 거리·5옥타브 밖 음 비율). 이제 악보 지표는 43개다. 기존 곡집의 기존 수치는 바뀌지 않는다. 악장마다 국소 조를 조표 색으로 칠한 「조성 지도」(으뜸조 기준과 실제 조 기준을 단추로 전환)와 곡집×지표 열지도를 더했다. 지표 면마다 「건반 음악 1740~1925」와 「현악 4중주」 절을 더했다.",
+    ("1.9", "2026-11-10", "「낭만기 피아노 소품」 면을 신설했다. DCML이 주석한 낭만기 피아노 곡집 일곱(쇼팽 마주르카·슈만 어린이 정경·리스트 순례의 해·그리그 서정 소품·차이콥스키 사계·드보르자크 실루엣·메트너 옛 이야기, 197곡)을 1.8의 고전기 건반 소나타 뒤에 이어 「건반 음악 1740~1925」로 보고, 플레옐·베토벤·멘델스존의 현악 4중주를 나란히 본다. 악보 지표 4개를 새로 더했다(조성 명료도·5도 하행 근음 진행 비율·전조 거리·5옥타브 밖 음 비율). 이제 악보 지표는 43개다. 기존 곡집의 기존 수치는 바뀌지 않는다. 악장마다 국소 조를 조표 색으로 칠한 「조성 지도」(으뜸조 기준과 실제 조 기준을 단추로 전환)와 곡집×지표 열지도를 더했다. 지표 면마다 「건반 음악 1740~1925」와 「현악 4중주」 절을 더했다.",
      "New 'Romantic piano miniatures' page: seven DCML-annotated collections of Romantic piano music (Chopin's mazurkas, Schumann's Kinderszenen, Liszt's Années de pèlerinage, Grieg's Lyric Pieces, Tchaikovsky's The Seasons, Dvořák's Silhouettes, Medtner's Tales; 197 pieces) set after the Classical-era sonatas of 1.8 as 'Keyboard music, 1740–1925', and string quartets by Pleyel, Beethoven and Mendelssohn side by side. Four new score metrics (key clarity, falling-fifth root motion, key-change distance, notes outside five octaves) bring the score metrics to 43. Existing values for existing collections are unchanged. Key maps colour each movement's local keys by key signature (toggle between distance from the home key and the actual key), and a heatmap compares the collections. Each metric page gets 'Keyboard music, 1740–1925' and 'String quartets' sections."),
+    ("1.10", BUILD_DATE, "「곡 지도」 면을 신설했다. 사이트의 악장마다 악보 지표 벡터를 표준화해 주성분 분석으로 평면에 놓은 지도 둘(화음 주석이 있는 793악장에 지표 34개, 음표 지표만으로 1,179악장에 13개)과, 점을 누르면 나오는 악장의 「지문」을 더했다. 점은 작곡 연도로 칠하고 곡집 강조 필터를 두었다. 축에는 이름을 붙이지 않고 적재값과 안정성(부트스트랩·곡집 빼기)을 적었다. 화음 지도의 1성분(반음계·음급 엔트로피·7화음 등)은 작곡 연도와의 순위 상관이 0.63이다. 넣을 지표는 계산 전에 정한 규칙으로 골랐고, 첫 계산 뒤 더한 규칙 하나(정의상 일부 곡집에만 값이 있는 지표 제외)를 면에 밝혔다. 악보 지표 3개를 새로 더했다(으뜸조 이탈도·으뜸조 밖 시간 비율·최대 이탈; 이제 악보 지표 46개). 음표만으로 조를 추정한 대조판과의 순위 상관은 0.44다.",
+     "New 'Piece map' page: each movement's vector of score metrics, standardized and laid out by principal component analysis, in two maps (793 movements with harmony labels on 34 metrics; 1,179 movements on 13 note metrics), with a fingerprint of any movement you click. Points are coloured by composition year with a filter to highlight one collection. Axes are not named; loadings and stability (bootstrap and leave-one-collection-out) are given. Component 1 of the harmony map (chromaticism, pitch-class entropy, sevenths and others) has a rank correlation of 0.63 with composition year. Metrics were chosen by rules fixed before computing; one rule added after the first run (leave out metrics defined only for some collections) is stated on the page. Three new score metrics: departure from the home key, time away from the home key, furthest key (46 score metrics in all). Their rank correlation with a note-only version that finds keys without annotation is 0.44."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -96,7 +98,7 @@ def slug(name: str) -> str:
 T = {
     "ko": dict(
         site="서양 고전 음악 메트릭스", tagline="악보와 연주를 숫자로 읽는다 — 바흐·베토벤·모차르트와 뉴욕 필 180년",
-        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_harmony="화성의 역사", nav_scales="음계와 조율", nav_sonatas="건반 소나타", nav_romantic="낭만기 소품", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
+        nav_home="홈", nav_metrics="지표", nav_composers="작곡가", nav_history="작품·역사", nav_orch="악단 비교", nav_harmony="화성의 역사", nav_scales="음계와 조율", nav_sonatas="건반 소나타", nav_romantic="낭만기 소품", nav_map="곡 지도", nav_reading="읽기용 판", nav_data="데이터", nav_method="방법·출처", lang_other="English",
         season="시즌", all_concerts="전체", subscription="정기공연만", v10="1.0 단위", coverage="생몰년 확인", lower="하한", upper="상한",
         perf_u1="작품 연주", perf_u2="전곡 연주", excerpt="발췌 비율", first="첫 시즌", last="마지막 시즌", n_seasons="연주된 시즌 수", born="출생", died="사망",
         rank="순위", category="구분", peak="최고 점유 시즌", top_works="많이 연주된 작품", decade_rank="10년 단위 순위", programs="프로그램",
@@ -112,7 +114,7 @@ T = {
     ),
     "en": dict(
         site="Classical Music Metrics", tagline="Reading scores and performances as numbers — Bach, Beethoven, Mozart and 180 years of the New York Philharmonic",
-        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_harmony="Harmony", nav_scales="Scales", nav_sonatas="Keyboard sonatas", nav_romantic="Romantic pieces", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
+        nav_home="Home", nav_metrics="Metrics", nav_composers="Composers", nav_history="Works & history", nav_orch="Orchestras", nav_harmony="Harmony", nav_scales="Scales", nav_sonatas="Keyboard sonatas", nav_romantic="Romantic pieces", nav_map="Piece map", nav_reading="Reading edition", nav_data="Data", nav_method="Method & sources", lang_other="한국어",
         season="Season", all_concerts="all", subscription="subscription only", v10="1.0 unit", coverage="dated", lower="lower", upper="upper",
         perf_u1="work perf.", perf_u2="complete perf.", excerpt="excerpt share", first="first season", last="last season", n_seasons="seasons played", born="born", died="died",
         rank="rank", category="type", peak="peak season", top_works="Most performed works", decade_rank="Rank by decade", programs="programs",
@@ -331,7 +333,7 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
     hub_path = "" if lang == "ko" else "en/"
     nav = [("home", f"{root}{lang}/index.html", t["nav_home"]), ("metrics", f"{root}{lang}/metrics/index.html", t["nav_metrics"]),
            ("composers", f"{root}{lang}/composers/index.html", t["nav_composers"]),
-           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("harmony", f"{root}{lang}/harmony.html", t["nav_harmony"]), ("scales", f"{root}{lang}/scales.html", t["nav_scales"]), ("sonatas", f"{root}{lang}/sonatas.html", t["nav_sonatas"]), ("romantic", f"{root}{lang}/romantic.html", t["nav_romantic"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
+           ("history", f"{root}{lang}/history.html", t["nav_history"]), ("harmony", f"{root}{lang}/harmony.html", t["nav_harmony"]), ("scales", f"{root}{lang}/scales.html", t["nav_scales"]), ("sonatas", f"{root}{lang}/sonatas.html", t["nav_sonatas"]), ("romantic", f"{root}{lang}/romantic.html", t["nav_romantic"]), ("map", f"{root}{lang}/map.html", t["nav_map"]), ("orchestras", f"{root}{lang}/orchestras.html", t["nav_orch"]),
            ("reading", f"{root}{lang}/reading.html", t["nav_reading"]), ("data", f"{root}{lang}/data.html", t["nav_data"]), ("method", f"{root}{lang}/method.html", t["nav_method"])]
     on_attr = ' class="on"'
     navh = "".join(f'<a href="{h}"{on_attr if k == active else ""}>{n}</a>' for k, h, n in nav)
@@ -660,6 +662,8 @@ def main():
     score = score.merge(s13, on=["corpus", "piece_id"], how="left")
     s19 = pd.read_csv(D / "score_metrics_19_by_movement.csv")  # 1.9 metrics (key clarity, root motion, key-change distance, compass)
     score = score.merge(s19, on=["corpus", "piece_id"], how="left")
+    s110 = pd.read_csv(D / "score_metrics_110_by_movement.csv")  # 1.10 departure from the home key
+    score = score.merge(s110, on=["corpus", "piece_id"], how="left")
     cross = pd.read_csv(D / "chorale_crosscheck_dcml_vs_kern.csv")
     coda = pd.read_csv(D / "beethoven_symphony_coda_tempo.csv")
     cond = pd.read_csv(D / "beethoven_symphony_conductor_summary.csv")
@@ -754,11 +758,14 @@ def main():
     import romantic_pages
     for f in romantic_pages.FILES:
         DATA_FILES[f"romantic/{f}"] = ("dcml", "A")
-    for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales", "sonatas", "romantic"):
+    import piecemap_pages
+    for f in piecemap_pages.FILES:
+        DATA_FILES[f"map/{f}"] = ("dcml", "A")
+    for sub in ("aliases", "imslp", "ellis", "orch", "dlc", "scales", "sonatas", "romantic", "map"):
         (OUT / "data" / sub).mkdir(exist_ok=True)
     for f in DATA_FILES:
         sub, _, nm = f.partition("/")
-        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm, "dlc": D / nm, "scales": D / nm, "sonatas": D / nm, "romantic": D / nm}.get(sub, D / f) if nm else D / f
+        src_f = {"aliases": AL / nm, "imslp": D / nm, "ellis": (ROOT / "data/proto") / nm, "orch": D / nm, "dlc": D / nm, "scales": D / nm, "sonatas": D / nm, "romantic": D / nm, "map": D / nm}.get(sub, D / f) if nm else D / f
         shutil.copy(src_f, OUT / "data" / f)
     write_datapackage(OUT / "data", DATA_FILES)
 
@@ -1268,6 +1275,7 @@ def main():
         scales_pages.build(lang, base / "scales.html", page)
         sonata_pages.build(lang, base / "sonatas.html", page, svg_strip, legend, table_html, takeaways.stat_spec)
         romantic_pages.build(lang, base / "romantic.html", page, svg_strip, legend, table_html, takeaways.stat_spec)
+        piecemap_pages.build(lang, base / "map.html", page, svg_strip, legend, table_html, takeaways.stat_spec)
 
         # ---------------- home
         cards = [

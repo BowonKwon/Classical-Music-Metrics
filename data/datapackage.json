@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.9",
+ "version": "1.10",
  "created": "2026-11-10",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -1544,6 +1544,160 @@
    "encoding": "utf-8",
    "layer": "Score metrics",
    "rows": 452,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-piecemap_110_points",
+   "path": "map/piecemap_110_points.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 1972,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-piecemap_110_loadings",
+   "path": "map/piecemap_110_loadings.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 47,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-piecemap_110_stability",
+   "path": "map/piecemap_110_stability.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 2,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-piecemap_110_selection",
+   "path": "map/piecemap_110_selection.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 70,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-piecemap_110_z",
+   "path": "map/piecemap_110_z.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 793,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-piecemap_110_departure",
+   "path": "map/piecemap_110_departure.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 1,
+   "licenses": [
+    {
+     "name": "CC-BY-NC-SA-4.0",
+     "path": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "DCML corpora (Digital and Cognitive Musicology Lab, EPFL): Beethoven string quartets (ABC; Neuwirth, Harasim, Moss & Rohrmeier 2018), Beethoven piano sonatas (H",
+     "path": "https://github.com/DCMLab",
+     "license": "CC BY-NC-SA 4.0 (chorales: CC0 1.0)"
+    }
+   ]
+  },
+  {
+   "name": "map-score_metrics_110_by_movement",
+   "path": "map/score_metrics_110_by_movement.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Score metrics",
+   "rows": 1182,
    "licenses": [
     {
      "name": "CC-BY-NC-SA-4.0",

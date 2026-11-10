@@ -317,6 +317,12 @@ from registry_19 import METRICS_19  # noqa: E402
 _after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
 METRICS[_after_score:_after_score] = METRICS_19
 
+# 1.10: departure from the home key (score_metrics_110.py)
+from registry_110 import METRICS_110  # noqa: E402
+
+_after_score = max(i for i, m in enumerate(METRICS) if m["layer"] == "A") + 1
+METRICS[_after_score:_after_score] = METRICS_110
+
 # 1.4: P3 performance metrics after the other performance metrics, P4 repertoire metrics at the end
 from registry_14 import METRICS_14  # noqa: E402
 
