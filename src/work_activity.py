@@ -101,8 +101,8 @@ def large_ensemble(tags: str) -> bool:
 
 
 def small_scoring(tags: str) -> bool:
-    """1.12.3: True if the tags give scorings made only of instrument codes and every one of them is for nine players
-    or fewer, with no orchestra, strings or band ('concertos ; 2vn va bc', 'concertos ; 4vn')."""
+    """1.12.3: True if the tags give scorings made only of instrument codes and every one of them has nine parts or
+    fewer (a code counts as its number, continuo as one part: parts, not players), with no orchestra, strings or band ('concertos ; 2vn va bc', 'concertos ; 4vn')."""
     found = False
     for seg in OPEN_PART.sub(" open ", (tags or "").lower()).split(";"):
         toks = seg.replace(",", " ").split()
