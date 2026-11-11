@@ -64,7 +64,7 @@ SUB = [
     ("chamber_other", "그 밖의 실내악", "Other chamber", "chamber", r"."),
     ("organ", "오르간", "Organ", "keyboard", None),  # decided from the tags only (see subgenre_of)
     ("kb_sonata", "건반 소나타", "Keyboard sonatas", "keyboard", r"\bsonat(as?|inas?)\b"),
-    ("kb_counterpoint", "변주곡·푸가·전주곡 등", "Variations, fugues, preludes etc.", "keyboard", r"\b(variations?|fugues?|preludes?|fantasias?|fantasies|toccatas?|inventions?|canons?|ricercars?)\b"),
+    ("kb_counterpoint", "변주곡·푸가·전주곡 등", "Variations, fugues, preludes etc.", "keyboard", r"\b(variations?|fugues?|fughettas?|preludes?|fantasias?|fantasies|toccatas?|inventions?|canons?|ricercars?)\b"),
     ("kb_pieces", "소품·춤곡", "Pieces, dances", "keyboard", r"."),
     ("other", "기타", "Other", "other", r"."),
 ]
@@ -74,11 +74,12 @@ SUB_INFO = {s[0]: s for s in SUB}
 def group_of(tags: str, instr: str, title: str = "") -> str:
     g = wa.classify(tags, instr, title)
     if g == "vocal":
-        return "sacred" if SACRED.search(wa.effective_tags(tags, title, instr).lower()) else "secular"
+        t = re.sub(r"\bsecular (oratorios?|hymns?)\b", " ", wa.effective_tags(tags, title, instr).lower())  # 1.12.3: 'secular oratorios' and 'secular hymns' are not sacred markers
+        return "sacred" if SACRED.search(t) else "secular"
     return g
 
 
-PLAYER = re.compile(r"^(\d*)(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|tbn|rec|viol|vdg|gui|lute|pf|hpd|kbd|org|bc|harp|hp|mand|ehn|eh|bsthn|fife|bcl|cbn|bfl|open)$")
+PLAYER = re.compile(r"^(\d*)(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|tbn|rec|viol|vdg|gui|gtr|lute|pf|hpd|kbd|org|bc|harp|hp|mand|ehn|eh|bsthn|fife|bcl|cbn|bfl|open|bryt|vda|vap|arpg|oda|cm|asax|crtt|ghca)$")
 CHOIR = re.compile(r"(^|\s)(ch|mch|wch|fch|uch|cch|chorus|\d+(sop|mez|alt|ten|bar|bass|vv|v))(\s|$)")
 
 
@@ -95,9 +96,18 @@ def players(tags: str) -> int:
     return best
 
 
+def first_players(tags: str) -> int:
+    """Player count of the first scoring in the tags made only of instrument codes; 0 if none."""
+    for seg in (tags or "").lower().replace("open bass", "db").split(";"):
+        toks = seg.split()
+        if toks and all(PLAYER.match(x) for x in toks):
+            return sum(int(PLAYER.match(x).group(1) or 1) for x in toks)
+    return 0
+
+
 VOICE_CODE = re.compile(r"^(\d*)(v|vv|sop|mez|alt|ten|bar|bass)$")
 ACCOMPANIMENT = {"pf", "kbd", "hpd", "org", "bc", "gui", "harp", "lute"}  # keyboard, continuo, guitar, harp
-CANTATA_NAMES = re.compile(r"\b(secular cantatas?|cantatas?|serenatas?|odes?)\b")
+CANTATA_NAMES = re.compile(r"\b(secular cantatas?|cantatas?|serenatas?|odes?|secular oratorios?)\b")  # secular oratorios: 1.12.3
 CHORAL_NAMES = re.compile(r"\b(madrigals?|part ?songs?|glees?|catches|secular choruses|choruses|canons?|rounds)\b")
 SONG_NAMES = re.compile(r"\b(lieder|(folk)?songs?|chansons?|m[eé]lodies|romances?)\b")
 ARIA_NAMES = re.compile(r"\b(arias?|scenas?)\b")
@@ -133,8 +143,8 @@ def secular_subgenre(t: str) -> str:
         return "secular_choral"
     if SONG_NAMES.search(t):
         return "song"
-    if ARIA_NAMES.search(t):
-        return "secular_cantata"
+    if ARIA_NAMES.search(t) and not (segs and all(n == 1 and not {"orch", "str"} & set(rest) for n, rest in segs)):
+        return "secular_cantata"  # 1.12.3: an aria for one voice without orchestra falls through to the next two rules (a song)
     if any({"orch", "str"} & set(rest) for _, rest in segs):
         return "secular_cantata"
     if segs or MORE_SONG_NAMES.search(t):
@@ -148,8 +158,19 @@ def subgenre_of(group: str, tags: str, instr: str, title: str = "") -> str:
     when the tags say organ; sonatinas are sonatas."""
     t = wa.effective_tags(tags, title, instr).lower()
     text = " " + t.replace(";", " ").replace(",", " ") + " " + (instr or "").lower() + " "
+    if group == "chamber" and re.search(r"(^|;)\s*2vn va vc\s*(;|$)", t):
+        return "string_quartet"  # 1.12.3: the scoring of a string quartet, whatever the name ('minuets ; 2vn va vc')
+    if group == "chamber" and re.search(r"\bsonatas?\b", t) and first_players(t) == 2:
+        return "duo"  # 1.12.3: a sonata whose first scoring is for two players, with a larger one as an alternative ('sonatas ; vn pf ; vn vc pf', cello ad libitum)
     if group == "chamber" and not re.search(r"(?=.*\bquartets?\b)(?=.*\b2vn va vc\b)", text) and players(t) >= 3:
         return "ensemble"
+    if group == "chamber" and not t.strip():  # 1.12.3: no tags: count the players named in the instrumentation ('cello, piano')
+        items = [x.strip() for x in re.sub(r"\([^)]*\)", "", (instr or "").lower()).split(",") if x.strip()]
+        n = sum(int(m.group()) if (m := re.match(r"\d+", x)) else 1 for x in items)
+        if n == 2:
+            return "duo"
+        if n >= 3:
+            return "ensemble"
     if group == "chamber" and players(t) == 2:
         return "duo"  # 1.12.2: two players, whatever the name ('minuets ; 2hn')
     if group == "chamber" and players(t) == 1:
@@ -205,8 +226,8 @@ def build_works() -> pd.DataFrame:
         tags, instr = r.get("Tags") or "", r.get("Instrumentation") or ""
         g = group_of(tags, instr, r["page"])
         sub = subgenre_of(g, tags, instr, r["page"])
-        if not tags.strip() and re.search(r"\bTWV 1:\d", r["page"]):
-            g, sub = "sacred", "sacred_cantata"  # 1.12.1: TWV 1 is the catalogue's category of church cantatas; these pages have no tags
+        if re.search(r"\bTWV 1:\d", r["page"]):
+            g, sub = "sacred", "sacred_cantata"  # TWV 1 is the catalogue's category of church cantatas (1.12.1: pages without tags; 1.12.3: all of them)
         rows.append(dict(composer=comp, page=r["page"], revid=r["revid"], work_title=r.get("Work Title"), birth=int(b), death=int(d),
                          year_raw=r.get("Year/Date of Composition"), year_start=ys, year_end=ye,
                          year_kind=kind if ys is not None else None, age_start=(ys - b) if ys is not None else None,

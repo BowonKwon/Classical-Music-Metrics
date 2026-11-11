@@ -42,13 +42,13 @@ STAGE = re.compile(r"\b(operas?|singspiele?|ballets?|incidental music|melodramas
                    r"|lyric (dramas?|tragedies|comedies)|dramm[ai] giocos[oi]|masques?|farces?|musicals|pantomimes?|theatrical works?)\b")  # second line: 1.12.1
 VOCAL_GENRE = re.compile(r"\b(lieder|songs?|arias?|cantatas?|masses|mass|requiems?|oratorios?|motets?|chorales|choruses|hymns?|psalms?|magnificats?|sacred|canons? for voices|partsongs?|madrigals?)\b")  # madrigals: 1.12.2
 ORCH = re.compile(r"\b(symphonies|concertos?|overtures?|serenades for orch|orch)\b")
-CHAMBER = re.compile(r"\b(trios?|quartets?|quintets?|sextets?|septets?|octets?|nonets?|duets?|duos?|divertimentos?)\b|(^|\s)\d*(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|tbn|gui|lute|vdg|viol|rec|eh|bsthn|fife|bc)\s")  # a number in front ("2vn bc") and tbn, viol, eh, bsthn, fife, bc: 1.12.2
+CHAMBER = re.compile(r"\b(trios?|quartets?|quintets?|sextets?|septets?|octets?|nonets?|duets?|duos?|divertimentos?)\b|(^|\s)\d*(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|tbn|gui|gtr|lute|mand|vdg|viol|vda|vap|bryt|arpg|rec|eh|oda|cm|bsthn|asax|crtt|fife|bc)\s")  # a number in front ("2vn bc") and tbn, viol, eh, bsthn, fife, bc: 1.12.2; mand, gtr, vda, vap, bryt, arpg, oda, cm, asax, crtt: 1.12.3
 KEYBOARD = re.compile(r"(^|\s)(pf|pf4h|2pf|kbd|org|hpd|clavichord|chorale preludes?|inventions?)(\s|$|,)")
 
 
 OPEN_PART = re.compile(r"\bopen( \d*(sop|mez|alt|ten|bar|bass))+\b")  # "open 2sop": 1.12.2
-INSTR_CODE = re.compile(r"^\d*(vn|va|vc|db|vlne|viol|vdg|vie|bryt|fl|picc|ob|eh|cl|bcl|bn|cbn|hn|tpt|tbn|btbn|tba|cor|fife|rec|timp|perc|gui|lute|mand|harp|hp|bsthn|pf|pf4h|2?pf\dh|hpd|clvd|kbd|org|harm|bc|orch|str|ww|br|open)$")
-KB_CODE = re.compile(r"^\d*(pf|pf4h|2?pf\dh|hpd|clvd|kbd|org|harm)$")
+INSTR_CODE = re.compile(r"^\d*(vn|va|vc|db|vlne|viol|vdg|vda|vap|arpg|vie|bryt|oda|cm|asax|crtt|gtr|ghca|phys|org4h|pflh|cont|fl|picc|ob|eh|cl|bcl|bn|cbn|hn|tpt|tbn|btbn|tba|cor|fife|rec|timp|perc|gui|lute|mand|harp|hp|bsthn|pf|pf4h|2?pf\dh|hpd|clvd|kbd|org|harm|bc|orch|str|ww|br|open)$")
+KB_CODE = re.compile(r"^\d*(pf|pf4h|2?pf\dh|pflh|hpd|clvd|kbd|org|org4h|harm|phys)$")
 ENSEMBLE_CODE = {"str", "ww", "br"}  # string orchestra, wind band
 
 
@@ -100,6 +100,20 @@ def large_ensemble(tags: str) -> bool:
     return big and not small
 
 
+def small_scoring(tags: str) -> bool:
+    """1.12.3: True if the tags give scorings made only of instrument codes and every one of them is for nine players
+    or fewer, with no orchestra, strings or band ('concertos ; 2vn va bc', 'concertos ; 4vn')."""
+    found = False
+    for seg in OPEN_PART.sub(" open ", (tags or "").lower()).split(";"):
+        toks = seg.replace(",", " ").split()
+        if not toks or not all(INSTR_CODE.match(x) for x in toks):
+            continue
+        if {"orch", "str", "ww", "br"} & set(toks) or sum(int(re.match(r"\d*", x).group() or 1) for x in toks) > 9:
+            return False
+        found = True
+    return found
+
+
 def effective_tags(tags: str, title: str, instr: str) -> str:
     """1.12.2: the tags the rules read. When a page has no tags, or only scorings marked '(arr)' (arrangements),
     the page title stands in for the two names it can settle: a concerto (when the instrumentation is empty or
@@ -142,7 +156,11 @@ def classify(tags: str, instr: str, title: str = "") -> str:
         return "keyboard"  # 1.12.2: every scoring in the tags is for keyboard alone, whatever the genre name (concertos for solo keyboard, keyboard overtures, duets for one piano)
     if re.fullmatch(r"\s*mech\s*", ";".join(seg for seg in t.split(";") if all(INSTR_CODE.match(x) or x == "mech" for x in seg.split()) and seg.strip())):
         return "other"  # 1.12.2: mechanical instruments (musical clocks, music boxes)
-    if ORCH.search(t) or large_ensemble(t) or "orchestra" in i:
+    orch_name = ORCH.search(t)
+    if orch_name and not re.search(r"\b(symphonies|overtures?|serenades for orch|orch)\b", t) and small_scoring(t) \
+            and not re.search(r"\bbrandenburg concerto\b", (title or "").lower()):  # owner decision 11-11: the six Brandenburg Concertos stay together as concertos
+        orch_name = None  # 1.12.3: 'concertos' on a scoring for a few players (Telemann's Concerti à 4, Vivaldi's chamber concertos)
+    if orch_name or large_ensemble(t) or re.search(r"\borchestras?\b", i):  # the word, not 'orchestration' (1.12.3)
         return "orchestral"
     # a solo keyboard instrumentation wins over "duets/trios" in the tags (voices, not players: BWV 802-805)
     if re.fullmatch(r"\s*(keyboard|organ|harpsichord|piano|clavichord)(\s*\([^)]*\))?\s*", i):

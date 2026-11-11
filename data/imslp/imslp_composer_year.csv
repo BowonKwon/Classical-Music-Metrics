@@ -206,8 +206,8 @@ composer,year,genre,works
 "Beethoven, Ludwig van",1795,other,1.0
 "Beethoven, Ludwig van",1795,stage,1.0
 "Beethoven, Ludwig van",1795,vocal,5.0625
-"Beethoven, Ludwig van",1796,chamber,9.21111111111111
-"Beethoven, Ludwig van",1796,keyboard,8.166666666666666
+"Beethoven, Ludwig van",1796,chamber,13.21111111111111
+"Beethoven, Ludwig van",1796,keyboard,4.166666666666667
 "Beethoven, Ludwig van",1796,orchestral,0.25
 "Beethoven, Ludwig van",1796,vocal,3.0625
 "Beethoven, Ludwig van",1797,chamber,4.511111111111111
@@ -718,19 +718,19 @@ composer,year,genre,works
 "Haydn, Franz Joseph",1787,other,0.4632034632034632
 "Haydn, Franz Joseph",1787,stage,0.041666666666666664
 "Haydn, Franz Joseph",1787,vocal,1.0
-"Haydn, Franz Joseph",1788,chamber,7.5
-"Haydn, Franz Joseph",1788,orchestral,4.666666666666666
+"Haydn, Franz Joseph",1788,chamber,9.166666666666666
+"Haydn, Franz Joseph",1788,orchestral,3.0
 "Haydn, Franz Joseph",1788,other,0.4632034632034632
 "Haydn, Franz Joseph",1788,stage,0.041666666666666664
-"Haydn, Franz Joseph",1789,chamber,1.5
+"Haydn, Franz Joseph",1789,chamber,3.1666666666666665
 "Haydn, Franz Joseph",1789,keyboard,1.5
-"Haydn, Franz Joseph",1789,orchestral,3.6666666666666665
+"Haydn, Franz Joseph",1789,orchestral,2.0
 "Haydn, Franz Joseph",1789,other,0.4632034632034632
 "Haydn, Franz Joseph",1789,stage,0.041666666666666664
 "Haydn, Franz Joseph",1789,vocal,1.0
-"Haydn, Franz Joseph",1790,chamber,9.0
+"Haydn, Franz Joseph",1790,chamber,10.666666666666666
 "Haydn, Franz Joseph",1790,keyboard,2.5
-"Haydn, Franz Joseph",1790,orchestral,3.6666666666666665
+"Haydn, Franz Joseph",1790,orchestral,2.0
 "Haydn, Franz Joseph",1790,other,0.4632034632034632
 "Haydn, Franz Joseph",1790,stage,0.041666666666666664
 "Haydn, Franz Joseph",1791,keyboard,0.2
@@ -1024,8 +1024,8 @@ composer,year,genre,works
 "Schubert, Franz",1823,keyboard,4.920634920634921
 "Schubert, Franz",1823,stage,2.5
 "Schubert, Franz",1823,vocal,21.0
-"Schubert, Franz",1824,chamber,4.0
-"Schubert, Franz",1824,keyboard,9.80952380952381
+"Schubert, Franz",1824,chamber,5.0
+"Schubert, Franz",1824,keyboard,8.80952380952381
 "Schubert, Franz",1824,vocal,9.0
 "Schubert, Franz",1825,keyboard,7.309523809523809
 "Schubert, Franz",1825,orchestral,0.25

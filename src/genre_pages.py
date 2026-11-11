@@ -222,7 +222,7 @@ def render(lang, table_html):
 
     SEC = ["song", "secular_cantata", "secular_choral"]
     acc, sec = {}, {}
-    for part in (V[V["round"] <= 4], V[V["round"] >= 5]):  # rounds added later are drawn after the earlier ones, so the published intervals stay as they were
+    for part in [V[V["round"] <= 4]] + [V[V["round"] == r] for r in sorted(set(V["round"])) if r > 4]:  # rounds added later are drawn after the earlier ones, so the published intervals stay as they were
         acc.update({r: dict(big=agree(g.g), sub=agree(g.s)) for r, g in part[part.stratum == "main"].groupby("round")})  # the main sample: 40 pages per big group
         sec.update({(r, sg): agree(g.s) for (r, sg), g in part[(part.group_rules == "secular") & (part["round"] >= 3)].groupby(["round", "subgenre_rules"])})  # main + extra
     v2 = V[V["round"] == 2]
@@ -231,12 +231,14 @@ def render(lang, table_html):
     c4_sacred = int((c4.subgenre_blind == "sacred_cantata").sum())
     tg = W.tags.fillna("")
     n_other = int((W.group == "other").sum())
-    left_secular = int(((W.group == "sacred") & tg.str.contains(r"\bsecular (?:oratorios?|hymns?)\b")).sum())  # faults left as they are: see the text
-    left_quartet = int(((W.subgenre == "ensemble") & tg.str.contains(r"(?:^|;)\s*2vn va vc\s*(?:;|$)")).sum())
+    r6c = None  # set below
+    d7 = V[(V["round"] == 7) & ~V.s]
+    d7_sacred = int(((d7.group_rules == "secular") & (d7.group_blind == "sacred")).sum())  # sacred by text, secular by tag
+    d7_opera = int(((d7.subgenre_rules == "secular_cantata") & (d7.subgenre_blind == "opera")).sum())  # arias written for insertion into operas
     cell = lambda d: f"{d['a']:.1f}% ({d['lo']:.1f}{'~' if k else '–'}{d['hi']:.1f})"  # noqa: E731
     scell = lambda d: f"{d['a']:.1f}% ({d['lo']:.1f}{'~' if k else '–'}{d['hi']:.1f}; {d['n']})"  # noqa: E731
     rules_lab = {1: ("1.11 초안", "1.11 draft"), 2: ("1.11", "1.11"), 3: ("1.12.1 첫 수정", "1.12.1, first revision"), 4: ("1.12.1", "1.12.1"),
-                 5: ("1.12.2 (지금의 분류)", "1.12.2 (the present classification)")}
+                 5: ("1.12.2", "1.12.2"), 6: ("1.12.3 첫 수정", "1.12.3, first revision"), 7: ("1.12.3 (지금의 분류)", "1.12.3 (the present classification)")}
     vrows = "".join(
         f"<tr><td>{r}</td><td>{rules_lab[r][0 if k else 1]}</td><td class='num'>{int((V['round'] == r).sum())}</td><td class='num'>{cell(acc[r]['big'])}</td><td class='num'>{cell(acc[r]['sub'])}</td>"
         + "".join(f"<td class='num'>{scell(sec[(r, sg)]) if (r, sg) in sec else '—'}</td>" for sg in SEC) + "</tr>" for r in sorted(acc))
@@ -248,8 +250,9 @@ def render(lang, table_html):
     cant_ko, cant_en = gl.SUB_INFO["secular_cantata"][1], gl.SUB_INFO["secular_cantata"][2]
     ens_ko, ens_en = gl.SUB_INFO["ensemble"][1], gl.SUB_INFO["ensemble"][2]
     r3c = sec[(3, "secular_choral")]
+    r6c = sec[(6, "secular_cantata")]
     val_ko = ("<li><b>분류 정확도.</b> 독립 검토자(Codex)가 우리 분류를 보지 않고 같은 체계로 작품면을 다시 분류했고, 그 답이 규칙의 분류와 같은 비율(일치율)을 쟀다. "
-              "계산 전에 정한 기준은 큰 갈래 95%, 세부 장르 85%이고, 1.12.1에서 세속 성악의 세부 장르 셋에도 각각 85%를 두었다. 다섯 번 쟀다. 회차마다 앞 회차에 쓴 면을 빼고 새로 뽑았고, 규칙은 표본을 뽑기 전에 고쳤다."
+              "계산 전에 정한 기준은 큰 갈래 95%, 세부 장르 85%이고, 1.12.1에서 세속 성악의 세부 장르 셋에도 각각 85%를 두었다. 일곱 번 쟀다. 회차마다 앞 회차에 쓴 면을 빼고 새로 뽑았고, 규칙은 표본을 뽑기 전에 고쳤다."
               + vtab +
               "<p style='font-size:.9rem'>큰 갈래·세부 장르는 큰 갈래마다 40면씩 뽑은 주 표본 240면의 일치율이다. 오른쪽 세 칸은 규칙이 그 세부 장르로 분류한 면(주 표본과, 세속 성악에서 세부 장르마다 40면씩 더 뽑은 보강 표본) 가운데 검토자가 같은 답을 낸 비율이다. 괄호 안은 95% 구간(부트스트랩)이고 세미콜론 뒤는 면 수다.</p>"
               "<p><b>1.11(1·2차).</b> 1차에서 규칙의 체계적 결함 다섯 가지(트리오 소나타, 서곡-모음곡, 합창이 붙은 가곡, 오르간 판정, 소나티나)를 고쳤다. "
@@ -261,14 +264,21 @@ def render(lang, table_html):
               "<p><b>1.12.2(5차).</b> 4차의 불일치에서 본 결함을 고쳤다. 원칙은 태그의 편성 표기가 장르 이름보다 앞선다는 것이다. "
               "편성이 건반뿐이면 장르 이름이 협주곡·서곡이어도 건반으로 보냈다(49면. 바흐의 건반 독주 협주곡, 텔레만의 건반 서곡 등). "
               f"<code>2vn bc</code>처럼 숫자가 붙은 편성 코드를 읽지 못해 「기타」에 있던 트리오 소나타 등을 실내악으로 보냈다(「기타」 247면 → {n_other}면). "
-              "현악 합주와 관악 합주는 관현악으로, 기계 악기(플루트 시계, 뮤직 박스)는 기타로, 목소리가 없는 무대 모음곡(「호두까기 인형」 모음곡 등 5면)은 관현악으로 보냈다. 태그가 없는 면은 제목의 Concerto와 Requiem만 읽는다. 5차가 지금 분류의 측정값이다.</p>"
+              "현악 합주와 관악 합주는 관현악으로, 기계 악기(플루트 시계, 뮤직 박스)는 기타로, 목소리가 없는 무대 모음곡(「호두까기 인형」 모음곡 등 5면)은 관현악으로 보냈다. 태그가 없는 면은 제목의 Concerto와 Requiem만 읽는다. 이 분류를 5차로 쟀다.</p>"
+              "<p><b>1.12.3(6·7차).</b> 5차의 불일치에서 본 결함을 고쳤다. 편성이 현악 4중주(바이올린 둘·비올라·첼로)이면 이름이 달라도 현악 4중주로 보냈다(22면). "
+              "이름은 협주곡인데 편성이 아홉 명 이하의 소편성이면 실내악으로 보냈다(텔레만의 4성부 협주곡, 비발디의 실내 협주곡 등 56면). 텔레만 작품 번호 TWV 1(교회 칸타타)의 면은 태그와 관계없이 종교 칸타타로(18면), 통주저음·건반 반주의 독창 아리아는 가곡으로(9면) 보냈다. "
+              "태그가 secular oratorios·secular hymns인 29면은 이름의 oratorios·hymns 때문에 종교 성악에 있었는데, 세속 성악으로 옮겼다. "
+              f"6차에서 「{cant_ko}」가 {r6c['n']}면 중 {r6c['a']:.1f}%로 기준에 못 미쳤다. 어긋난 7면 중 5면이 이 세부 장르로 보낸 세속 오라토리오였다. 분류 체계에 세속 오라토리오의 자리가 없어 검토자의 답이 갈렸다. "
+              f"그래서 「{cant_ko}」의 뜻에 세속 오라토리오를 적어 넣고(지시문 한 줄), 6차에서 본 작은 결함 14면(편성 설명의 낱말을 잘못 읽어 관현악에 있던 하이든의 노투르노 5면 등)을 고친 뒤 7차로 다시 쟀다. 7차가 지금 분류의 측정값이고, 6차 값은 고치기 전의 측정값이다. "
+              "다만 세속 오라토리오 16면 가운데 7면은 5·6차 표본에 이미 쓰여서 7차 표본에는 1면만 들었다. 7차는 그 자리를 고친 효과를 거의 재지 못한다.</p>"
               f"<p><b>남은 한계.</b> 규칙은 IMSLP 태그를 따른다. 4차에서 「{cant_ko}」의 불일치 {len(c4)}면 중 {c4_sacred}면은 태그가 secular cantatas인데 검토자가 가사와 용도를 보고 종교 칸타타로 판단한 작품이었다(바흐와 멘델스존). "
-              f"5차의 불일치에서 본 결함 둘은 고치지 않았다. 태그가 secular oratorios·secular hymns인 {left_secular}면이 이름의 oratorios·hymns 때문에 종교 성악에 있고, 편성은 현악 4중주(바이올린 둘·비올라·첼로)인데 이름이 4중주가 아닌 {left_quartet}면이 「{ens_ko}」에 있다. "
+              f"7차의 불일치 {len(d7)}면 가운데 {d7_sacred}면은 태그가 세속(songs, arias, secular cantatas, carols 등)인데 검토자가 가사를 보고 종교 성악으로 판단한 곡이고, {d7_opera}면은 오페라에 넣으려고 쓴 아리아(태그는 arias)를 검토자가 무대 작품으로 본 경우다. 이런 곡은 태그 규칙으로 가릴 수 없다. "
+              "브란덴부르크 협주곡 6번은 태그의 편성이 여섯 성부와 통주저음뿐이지만, 여섯 곡을 함께 두려고 협주곡에 남겼다. "
               "합창이 붙은 무대 모음곡(「다프니스와 클로에」 모음곡 등)은 무대에 남아 있다. 분류 체계에 관악 합주와 기계 악기의 자리가 따로 없어 각각 관현악과 기타로 보냈다. "
-              "3차부터의 지시문은 세속 세부 장르 셋의 경계(중창과 캐논은 합창 쪽, 관현악 반주의 독창 아리아는 칸타타 쪽)를 2차보다 분명하게 적었다. 그래서 세속 세부 장르의 값은 2차와 같은 조건의 비교가 아니다. 세부 장르별 표본은 수십 면이어서 구간이 넓다. "
-              "다섯 차례의 검증표는 <a href='../data/genres/genre_life_validation.csv'>CSV</a>로 공개한다. 일치율은 검토자와 규칙이 같은 답을 낸 비율이지 정답률이 아니다.</p></li>")
+              "3차부터의 지시문은 세속 세부 장르 셋의 경계(중창과 캐논은 합창 쪽, 관현악 반주의 독창 아리아는 칸타타 쪽)를 2차보다 분명하게 적었고, 7차의 지시문은 세속 오라토리오 한 줄이 더 있다. 그래서 세속 세부 장르의 값은 회차끼리 같은 조건의 비교가 아니다. 세부 장르별 표본은 수십 면이어서 구간이 넓다. "
+              "일곱 차례의 검증표는 <a href='../data/genres/genre_life_validation.csv'>CSV</a>로 공개한다. 일치율은 검토자와 규칙이 같은 답을 낸 비율이지 정답률이 아니다.</p></li>")
     val_en = ("<li><b>Classification accuracy.</b> An independent reviewer (Codex) reclassified work pages blind under the same scheme, and agreement is the share of pages where the reviewer's answer equals the rules'. "
-              "The thresholds fixed beforehand were 95% for big groups and 85% for sub-genres; 1.12.1 added 85% for each of the three secular vocal sub-genres. There were five rounds. Each drew a fresh sample that left out the pages of earlier rounds, and the rules were revised before the sample was drawn."
+              "The thresholds fixed beforehand were 95% for big groups and 85% for sub-genres; 1.12.1 added 85% for each of the three secular vocal sub-genres. There were seven rounds. Each drew a fresh sample that left out the pages of earlier rounds, and the rules were revised before the sample was drawn."
               + vtab +
               "<p style='font-size:.9rem'>Big groups and sub-genres: agreement on the main sample of 240 pages, 40 from each big group. The three columns on the right: among pages the rules put in that sub-genre (the main sample plus 40 extra pages per secular sub-genre), the share where the reviewer gave the same answer. In brackets, the bootstrap 95% interval and, after the semicolon, the number of pages.</p>"
               "<p><b>1.11 (rounds 1 and 2).</b> The first round led to fixes for five systematic faults (trio sonatas, overture-suites, songs with chorus, organ, sonatinas). "
@@ -280,12 +290,19 @@ def render(lang, table_html):
               "<p><b>1.12.2 (round 5).</b> The faults seen in the fourth round's disagreements were fixed, on one principle: the scoring in the tags comes before the genre name. "
               "A keyboard-only scoring makes a keyboard work even when the name is concerto or overture (49 pages: Bach's concertos for solo keyboard, Telemann's keyboard overtures and others). "
               f"Scoring codes with a number in front, such as <code>2vn bc</code>, were not being read, which had left trio sonatas and the like in 'Other'; they are now chamber music ('Other' goes from 247 pages to {n_other}). "
-              "String orchestra and wind band go to orchestral, mechanical instruments (flute clocks, music boxes) to other, and suites without voices drawn from stage works (the Nutcracker suite and four more) to orchestral. For pages without tags, only 'Concerto' and 'Requiem' are read from the title. The fifth round measures the present classification.</p>"
+              "String orchestra and wind band go to orchestral, mechanical instruments (flute clocks, music boxes) to other, and suites without voices drawn from stage works (the Nutcracker suite and four more) to orchestral. For pages without tags, only 'Concerto' and 'Requiem' are read from the title. The fifth round measured this classification.</p>"
+              "<p><b>1.12.3 (rounds 6 and 7).</b> The faults seen in the fifth round's disagreements were fixed. A work scored for string quartet (two violins, viola, cello) is a string quartet whatever its name (22 pages). "
+              "A work named concerto but scored for nine players or fewer is chamber music (56 pages: Telemann's concertos in four parts, Vivaldi's chamber concertos and others). Pages with the Telemann catalogue number TWV 1 (church cantatas) are sacred cantatas whatever their tags (18 pages), and arias for one voice with continuo or keyboard are songs (9 pages). "
+              "The 29 pages tagged 'secular oratorios' or 'secular hymns' had been in sacred vocal because of the words 'oratorios' and 'hymns'; they moved to secular vocal. "
+              f"In the sixth round '{cant_en}' fell short at {r6c['a']:.1f}% of {r6c['n']} pages. Five of the seven disagreements were secular oratorios, which the revision had sent to this sub-genre: the scheme had no place for them, and the reviewer's answers went different ways. "
+              f"So secular oratorios were written into the meaning of '{cant_en}' (one line of the instructions), 14 pages with small faults seen in the sixth round were fixed (among them five Haydn notturni that sat in orchestral because a word in the instrumentation was misread), and a seventh round measured the result. The seventh round measures the present classification; the sixth-round figures are from before the fix. "
+              "Of the 16 secular oratorios, however, 7 had already been used in rounds five and six, and only one fell into the seventh sample, so the seventh round says almost nothing about the effect of that change.</p>"
               f"<p><b>What remains.</b> The rules follow the IMSLP tags. In the fourth round, {c4_sacred} of the {len(c4)} disagreements in '{cant_en}' were works tagged 'secular cantatas' that the reviewer judged sacred from their texts and occasions (Bach and Mendelssohn). "
-              f"Two faults seen in the fifth round's disagreements are left as they are: {left_secular} pages tagged 'secular oratorios' or 'secular hymns' sit in sacred vocal because of the words 'oratorios' and 'hymns', and {left_quartet} pages scored for string quartet (two violins, viola, cello) but not named quartets sit in '{ens_en}'. "
+              f"Of the {len(d7)} disagreements in the seventh round, {d7_sacred} are works with secular tags (songs, arias, secular cantatas, carols and others) that the reviewer judged sacred from their texts, and {d7_opera} are arias written for insertion into operas (tagged 'arias') that the reviewer placed under stage. Tag rules cannot tell these apart. "
+              "Brandenburg Concerto No. 6 is scored for six parts and continuo only, but was kept as a concerto so that the six stay together. "
               "Suites with chorus drawn from stage works (the Daphnis et Chloé suites and others) remain under stage. The scheme has no place of its own for wind band or mechanical instruments, which went to orchestral and other. "
-              "From round three on, the instructions spelled out the borders of the three secular sub-genres more clearly than in round two (vocal ensembles and canons with choral; solo arias with orchestra with cantatas), so the secular sub-genre figures are not a like-for-like comparison with round two. With a few dozen pages per sub-genre the intervals are wide. "
-              "All five rounds are published as a <a href='../data/genres/genre_life_validation.csv'>CSV</a>. Agreement is the share where the reviewer and the rules gave the same answer, not a rate of correct answers.</p></li>")
+              "From round three on, the instructions spelled out the borders of the three secular sub-genres more clearly than in round two (vocal ensembles and canons with choral; solo arias with orchestra with cantatas), and round seven added the line on secular oratorios, so the secular sub-genre figures are not like-for-like comparisons across rounds. With a few dozen pages per sub-genre the intervals are wide. "
+              "All seven rounds are published as a <a href='../data/genres/genre_life_validation.csv'>CSV</a>. Agreement is the share where the reviewer and the rules gave the same answer, not a rate of correct answers.</p></li>")
     b.append(("<h2>4. 분류 방법과 한계</h2><ul>"
               "<li>큰 갈래는 1.2 「작품·역사」 면의 분류(IMSLP 장르 태그와 편성)를 그대로 쓰고, 성악만 종교·세속으로 나눴다. 세부 장르는 태그 규칙으로 정했다(규칙은 <code>genre_life_111.py</code>의 SUB). 각 갈래의 마지막 세부 장르(「… 등」)는 앞의 규칙에 걸리지 않은 작품이다. "
               f"어느 갈래에도 들지 않은 「기타」는 {other * 100:.1f}%다.</li>"
