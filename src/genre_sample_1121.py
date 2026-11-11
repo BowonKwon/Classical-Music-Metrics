@@ -1,5 +1,6 @@
-"""1.12.1: third and fourth validation samples for the genre classification (design 72, section 3 E), each drawn after
-the rules it measures were fixed. Round 4 follows the two faults found in round 3 and leaves out its pages too.
+"""1.12.1 and 1.12.2: third to fifth validation samples for the genre classification (design 72, section 3 E), each
+drawn after the rules it measures were fixed. Round 4 follows the two faults found in round 3, round 5 the faults
+found in round 4 (third revision); each leaves out the pages of all earlier rounds.
 
 Frame: the 10,180 work pages minus the pages of all earlier rounds (genre_life_validation.csv).
   main           40 pages from each of the six big groups as classified by the revised rules (240)
@@ -7,15 +8,15 @@ Frame: the 10,180 work pages minus the pages of all earlier rounds (genre_life_v
                  round had only 14 pages in the weakest sub-genre, too few to judge it
 The 360 pages are shuffled and numbered; the reviewer sees composer, page, title, tags and instrumentation only.
 
-Usage: python src/genre_sample_1121.py <folder for the blind file> <round: 3 or 4>
+Usage: python src/genre_sample_1121.py <folder for the blind file> <round: 3, 4 or 5>
        python src/genre_sample_1121.py merge <round> <the reviewer's classification.csv>
 The first writes <folder>/classification_sample.csv and the key (strata and the rules' labels) to
 data/derived/audit_C<round>_key.csv, which is not published until the round is over. The second appends the finished
 round to genre_life_validation.csv (the key joined to the reviewer's labels).
 
-Round 4 can be drawn again from the published tables: genre_life_works.csv holds the classification it was drawn
-from, and rounds 1 to 3 are in genre_life_validation.csv. Round 3 cannot: it was drawn from the classification
-before the second revision, which survives only as the rules' labels of that round in the validation table.
+The latest round can be drawn again from the published tables: genre_life_works.csv holds the classification it was
+drawn from, and the earlier rounds are in genre_life_validation.csv. Rounds 3 and 4 cannot: they were drawn from
+earlier classifications, which survive only as the rules' labels of those rounds in the validation table.
 """
 from __future__ import annotations
 
@@ -26,9 +27,9 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 D = ROOT / "data/derived"
-SEEDS = {3: 1913, 4: 1914}
+SEEDS = {3: 1913, 4: 1914, 5: 1915}
 PER_GROUP, PER_SUB = 40, 40
-RULES_VERSION = {3: "1.12.1 first revision", 4: "1.12.1 second revision"}
+RULES_VERSION = {3: "1.12.1 first revision", 4: "1.12.1 second revision", 5: "1.12.2"}
 COLS = ["round", "sample_id", "page", "group_rules", "subgenre_rules", "group_blind", "subgenre_blind", "confidence", "rules_version", "stratum"]
 
 

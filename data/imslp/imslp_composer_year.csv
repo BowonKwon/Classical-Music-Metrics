@@ -7,13 +7,11 @@ composer,year,genre,works
 "Bach, Johann Sebastian",1700,keyboard,3.5166666666666666
 "Bach, Johann Sebastian",1701,keyboard,0.35
 "Bach, Johann Sebastian",1702,keyboard,0.35
-"Bach, Johann Sebastian",1703,keyboard,6.75
-"Bach, Johann Sebastian",1703,orchestral,1.0
+"Bach, Johann Sebastian",1703,keyboard,7.75
 "Bach, Johann Sebastian",1703,vocal,1.0
 "Bach, Johann Sebastian",1704,keyboard,9.5
 "Bach, Johann Sebastian",1704,vocal,2.25
-"Bach, Johann Sebastian",1705,keyboard,18.75
-"Bach, Johann Sebastian",1705,orchestral,1.0
+"Bach, Johann Sebastian",1705,keyboard,19.75
 "Bach, Johann Sebastian",1705,vocal,1.25
 "Bach, Johann Sebastian",1706,keyboard,6.95
 "Bach, Johann Sebastian",1706,vocal,1.25
@@ -31,13 +29,11 @@ composer,year,genre,works
 "Bach, Johann Sebastian",1712,keyboard,9.695238095238096
 "Bach, Johann Sebastian",1712,vocal,0.24285714285714285
 "Bach, Johann Sebastian",1713,chamber,0.41666666666666663
-"Bach, Johann Sebastian",1713,keyboard,12.295238095238096
-"Bach, Johann Sebastian",1713,orchestral,4.5
+"Bach, Johann Sebastian",1713,keyboard,16.795238095238094
 "Bach, Johann Sebastian",1713,other,1.0
 "Bach, Johann Sebastian",1713,vocal,4.033766233766234
 "Bach, Johann Sebastian",1714,chamber,0.6666666666666666
-"Bach, Johann Sebastian",1714,keyboard,20.045238095238094
-"Bach, Johann Sebastian",1714,orchestral,4.5
+"Bach, Johann Sebastian",1714,keyboard,24.545238095238094
 "Bach, Johann Sebastian",1714,vocal,5.7468975468975465
 "Bach, Johann Sebastian",1715,chamber,0.6666666666666666
 "Bach, Johann Sebastian",1715,keyboard,11.052020202020202
@@ -90,87 +86,81 @@ composer,year,genre,works
 "Bach, Johann Sebastian",1729,chamber,0.16666666666666666
 "Bach, Johann Sebastian",1729,keyboard,0.8523809523809524
 "Bach, Johann Sebastian",1729,vocal,13.803968253968254
-"Bach, Johann Sebastian",1730,chamber,0.3666666666666667
-"Bach, Johann Sebastian",1730,keyboard,14.99280303030303
-"Bach, Johann Sebastian",1730,orchestral,2.3111111111111113
+"Bach, Johann Sebastian",1730,chamber,0.6393939393939394
+"Bach, Johann Sebastian",1730,keyboard,14.657575757575758
+"Bach, Johann Sebastian",1730,orchestral,2.3736111111111113
 "Bach, Johann Sebastian",1730,vocal,4.423015873015873
-"Bach, Johann Sebastian",1731,chamber,0.3666666666666667
-"Bach, Johann Sebastian",1731,keyboard,1.9261363636363638
-"Bach, Johann Sebastian",1731,orchestral,0.3111111111111111
+"Bach, Johann Sebastian",1731,chamber,0.6393939393939394
+"Bach, Johann Sebastian",1731,keyboard,1.5909090909090908
+"Bach, Johann Sebastian",1731,orchestral,0.3736111111111111
 "Bach, Johann Sebastian",1731,vocal,6.944444444444445
-"Bach, Johann Sebastian",1732,chamber,0.3666666666666667
-"Bach, Johann Sebastian",1732,keyboard,0.5261363636363636
-"Bach, Johann Sebastian",1732,orchestral,0.3111111111111111
+"Bach, Johann Sebastian",1732,chamber,0.6393939393939394
+"Bach, Johann Sebastian",1732,keyboard,0.19090909090909092
+"Bach, Johann Sebastian",1732,orchestral,0.3736111111111111
 "Bach, Johann Sebastian",1732,vocal,5.611111111111111
-"Bach, Johann Sebastian",1733,chamber,0.2
-"Bach, Johann Sebastian",1733,keyboard,0.5261363636363636
-"Bach, Johann Sebastian",1733,orchestral,1.4777777777777779
+"Bach, Johann Sebastian",1733,chamber,0.4727272727272728
+"Bach, Johann Sebastian",1733,keyboard,0.8575757575757575
+"Bach, Johann Sebastian",1733,orchestral,0.8736111111111111
 "Bach, Johann Sebastian",1733,vocal,5.257575757575758
-"Bach, Johann Sebastian",1734,chamber,0.2
-"Bach, Johann Sebastian",1734,keyboard,0.5261363636363636
-"Bach, Johann Sebastian",1734,orchestral,1.4777777777777779
+"Bach, Johann Sebastian",1734,chamber,0.4727272727272728
+"Bach, Johann Sebastian",1734,keyboard,0.8575757575757575
+"Bach, Johann Sebastian",1734,orchestral,0.8736111111111111
 "Bach, Johann Sebastian",1734,other,1.0
 "Bach, Johann Sebastian",1734,vocal,6.714718614718615
-"Bach, Johann Sebastian",1735,keyboard,1.5261363636363636
-"Bach, Johann Sebastian",1735,orchestral,0.9595959595959596
+"Bach, Johann Sebastian",1735,chamber,0.2727272727272727
+"Bach, Johann Sebastian",1735,keyboard,1.8575757575757574
+"Bach, Johann Sebastian",1735,orchestral,0.35542929292929293
 "Bach, Johann Sebastian",1735,vocal,72.71471861471862
-"Bach, Johann Sebastian",1736,chamber,4.0
-"Bach, Johann Sebastian",1736,keyboard,0.5261363636363636
-"Bach, Johann Sebastian",1736,orchestral,2.292929292929293
-"Bach, Johann Sebastian",1736,other,0.16666666666666666
+"Bach, Johann Sebastian",1736,chamber,4.4393939393939394
+"Bach, Johann Sebastian",1736,keyboard,0.19090909090909092
+"Bach, Johann Sebastian",1736,orchestral,2.355429292929293
 "Bach, Johann Sebastian",1736,vocal,6.014718614718615
-"Bach, Johann Sebastian",1737,chamber,1.0
-"Bach, Johann Sebastian",1737,keyboard,1.5261363636363636
-"Bach, Johann Sebastian",1737,orchestral,0.29292929292929293
-"Bach, Johann Sebastian",1737,other,0.16666666666666666
+"Bach, Johann Sebastian",1737,chamber,1.4393939393939394
+"Bach, Johann Sebastian",1737,keyboard,1.190909090909091
+"Bach, Johann Sebastian",1737,orchestral,0.35542929292929293
 "Bach, Johann Sebastian",1737,vocal,3.4313852813852814
-"Bach, Johann Sebastian",1738,chamber,0.25
-"Bach, Johann Sebastian",1738,keyboard,1.7261363636363636
-"Bach, Johann Sebastian",1738,orchestral,8.126262626262626
-"Bach, Johann Sebastian",1738,other,0.16666666666666666
+"Bach, Johann Sebastian",1738,chamber,0.6893939393939393
+"Bach, Johann Sebastian",1738,keyboard,1.3909090909090909
+"Bach, Johann Sebastian",1738,orchestral,8.188762626262626
 "Bach, Johann Sebastian",1738,vocal,6.181385281385282
-"Bach, Johann Sebastian",1739,chamber,0.25
-"Bach, Johann Sebastian",1739,keyboard,2.4761363636363636
-"Bach, Johann Sebastian",1739,orchestral,1.0151515151515151
-"Bach, Johann Sebastian",1739,other,0.16666666666666666
+"Bach, Johann Sebastian",1739,chamber,0.6893939393939393
+"Bach, Johann Sebastian",1739,keyboard,2.140909090909091
+"Bach, Johann Sebastian",1739,orchestral,1.0776515151515151
 "Bach, Johann Sebastian",1739,vocal,2.0813852813852813
-"Bach, Johann Sebastian",1740,chamber,0.41666666666666663
-"Bach, Johann Sebastian",1740,keyboard,36.56704545454546
-"Bach, Johann Sebastian",1740,orchestral,0.5151515151515151
-"Bach, Johann Sebastian",1740,other,0.16666666666666666
+"Bach, Johann Sebastian",1740,chamber,0.8560606060606061
+"Bach, Johann Sebastian",1740,keyboard,36.231818181818184
+"Bach, Johann Sebastian",1740,orchestral,0.5776515151515151
 "Bach, Johann Sebastian",1740,vocal,0.5813852813852813
-"Bach, Johann Sebastian",1741,chamber,1.4166666666666667
-"Bach, Johann Sebastian",1741,keyboard,2.103409090909091
-"Bach, Johann Sebastian",1741,orchestral,0.18181818181818182
-"Bach, Johann Sebastian",1741,other,0.16666666666666666
+"Bach, Johann Sebastian",1741,chamber,1.5833333333333333
+"Bach, Johann Sebastian",1741,keyboard,2.040909090909091
+"Bach, Johann Sebastian",1741,orchestral,0.24431818181818182
 "Bach, Johann Sebastian",1741,vocal,0.5813852813852813
 "Bach, Johann Sebastian",1742,chamber,0.16666666666666666
-"Bach, Johann Sebastian",1742,keyboard,2.303409090909091
-"Bach, Johann Sebastian",1742,orchestral,0.38181818181818183
+"Bach, Johann Sebastian",1742,keyboard,2.240909090909091
+"Bach, Johann Sebastian",1742,orchestral,0.44431818181818183
 "Bach, Johann Sebastian",1742,vocal,1.9742424242424244
 "Bach, Johann Sebastian",1743,chamber,0.16666666666666666
-"Bach, Johann Sebastian",1743,keyboard,0.3534090909090909
-"Bach, Johann Sebastian",1743,orchestral,0.38181818181818183
+"Bach, Johann Sebastian",1743,keyboard,0.2909090909090909
+"Bach, Johann Sebastian",1743,orchestral,0.44431818181818183
 "Bach, Johann Sebastian",1743,vocal,0.9742424242424244
 "Bach, Johann Sebastian",1744,chamber,0.16666666666666666
-"Bach, Johann Sebastian",1744,keyboard,0.3534090909090909
-"Bach, Johann Sebastian",1744,orchestral,0.38181818181818183
+"Bach, Johann Sebastian",1744,keyboard,0.2909090909090909
+"Bach, Johann Sebastian",1744,orchestral,0.44431818181818183
 "Bach, Johann Sebastian",1744,vocal,0.26190476190476186
 "Bach, Johann Sebastian",1745,chamber,0.16666666666666666
-"Bach, Johann Sebastian",1745,keyboard,0.3534090909090909
-"Bach, Johann Sebastian",1745,orchestral,0.38181818181818183
+"Bach, Johann Sebastian",1745,keyboard,0.2909090909090909
+"Bach, Johann Sebastian",1745,orchestral,0.44431818181818183
 "Bach, Johann Sebastian",1745,vocal,0.5238095238095237
 "Bach, Johann Sebastian",1746,keyboard,0.2909090909090909
 "Bach, Johann Sebastian",1746,orchestral,0.2
 "Bach, Johann Sebastian",1746,vocal,0.5238095238095237
-"Bach, Johann Sebastian",1747,chamber,1.0
+"Bach, Johann Sebastian",1747,chamber,2.0
 "Bach, Johann Sebastian",1747,keyboard,10.590909090909092
-"Bach, Johann Sebastian",1747,other,1.0
 "Bach, Johann Sebastian",1747,vocal,0.5238095238095237
 "Bach, Johann Sebastian",1748,keyboard,13.59090909090909
 "Bach, Johann Sebastian",1748,vocal,0.19047619047619047
+"Bach, Johann Sebastian",1749,chamber,1.0
 "Bach, Johann Sebastian",1749,keyboard,1.0909090909090908
-"Bach, Johann Sebastian",1749,other,1.0
 "Bach, Johann Sebastian",1749,vocal,0.047619047619047616
 "Bach, Johann Sebastian",1750,keyboard,1.0909090909090908
 "Bach, Johann Sebastian",1750,other,1.0
@@ -202,34 +192,31 @@ composer,year,genre,works
 "Beethoven, Ludwig van",1792,keyboard,1.3333333333333333
 "Beethoven, Ludwig van",1792,orchestral,0.5833333333333333
 "Beethoven, Ludwig van",1792,vocal,4.395833333333333
-"Beethoven, Ludwig van",1793,chamber,2.1444444444444444
+"Beethoven, Ludwig van",1793,chamber,3.1444444444444444
 "Beethoven, Ludwig van",1793,keyboard,1.3333333333333333
 "Beethoven, Ludwig van",1793,orchestral,0.25
-"Beethoven, Ludwig van",1793,other,1.0
 "Beethoven, Ludwig van",1793,vocal,1.0625
 "Beethoven, Ludwig van",1794,chamber,2.1444444444444444
 "Beethoven, Ludwig van",1794,keyboard,1.3333333333333333
 "Beethoven, Ludwig van",1794,orchestral,0.25
 "Beethoven, Ludwig van",1794,vocal,1.3958333333333333
-"Beethoven, Ludwig van",1795,chamber,6.977777777777778
+"Beethoven, Ludwig van",1795,chamber,7.977777777777778
 "Beethoven, Ludwig van",1795,keyboard,4.166666666666666
 "Beethoven, Ludwig van",1795,orchestral,3.25
-"Beethoven, Ludwig van",1795,other,2.0
+"Beethoven, Ludwig van",1795,other,1.0
 "Beethoven, Ludwig van",1795,stage,1.0
 "Beethoven, Ludwig van",1795,vocal,5.0625
 "Beethoven, Ludwig van",1796,chamber,9.21111111111111
 "Beethoven, Ludwig van",1796,keyboard,8.166666666666666
 "Beethoven, Ludwig van",1796,orchestral,0.25
 "Beethoven, Ludwig van",1796,vocal,3.0625
-"Beethoven, Ludwig van",1797,chamber,4.011111111111111
+"Beethoven, Ludwig van",1797,chamber,4.511111111111111
 "Beethoven, Ludwig van",1797,keyboard,5.166666666666666
 "Beethoven, Ludwig van",1797,orchestral,0.25
-"Beethoven, Ludwig van",1797,other,0.5
 "Beethoven, Ludwig van",1797,vocal,1.2291666666666667
-"Beethoven, Ludwig van",1798,chamber,4.677777777777778
+"Beethoven, Ludwig van",1798,chamber,5.177777777777778
 "Beethoven, Ludwig van",1798,keyboard,3.333333333333333
 "Beethoven, Ludwig van",1798,orchestral,1.4166666666666665
-"Beethoven, Ludwig van",1798,other,0.5
 "Beethoven, Ludwig van",1798,vocal,0.22916666666666666
 "Beethoven, Ludwig van",1799,chamber,5.677777777777778
 "Beethoven, Ludwig van",1799,keyboard,6.0
@@ -275,76 +262,67 @@ composer,year,genre,works
 "Beethoven, Ludwig van",1808,vocal,2.6666666666666665
 "Beethoven, Ludwig van",1809,chamber,1.138095238095238
 "Beethoven, Ludwig van",1809,keyboard,4.5
-"Beethoven, Ludwig van",1809,orchestral,0.5
-"Beethoven, Ludwig van",1809,other,0.5
+"Beethoven, Ludwig van",1809,orchestral,1.0
 "Beethoven, Ludwig van",1809,stage,0.5
 "Beethoven, Ludwig van",1809,vocal,5.166666666666667
 "Beethoven, Ludwig van",1810,chamber,1.138095238095238
 "Beethoven, Ludwig van",1810,keyboard,1.5
-"Beethoven, Ludwig van",1810,orchestral,0.5
-"Beethoven, Ludwig van",1810,other,3.5769230769230766
+"Beethoven, Ludwig van",1810,orchestral,4.076923076923077
 "Beethoven, Ludwig van",1810,stage,0.5
 "Beethoven, Ludwig van",1810,vocal,1.5833333333333333
 "Beethoven, Ludwig van",1811,chamber,1.0714285714285714
-"Beethoven, Ludwig van",1811,orchestral,0.5
-"Beethoven, Ludwig van",1811,other,0.07692307692307693
+"Beethoven, Ludwig van",1811,orchestral,0.5769230769230769
 "Beethoven, Ludwig van",1811,stage,1.0833333333333333
 "Beethoven, Ludwig van",1811,vocal,2.4166666666666665
-"Beethoven, Ludwig van",1812,chamber,2.071428571428571
-"Beethoven, Ludwig van",1812,orchestral,1.5
-"Beethoven, Ludwig van",1812,other,1.0769230769230769
+"Beethoven, Ludwig van",1812,chamber,3.071428571428571
+"Beethoven, Ludwig van",1812,orchestral,1.5769230769230769
 "Beethoven, Ludwig van",1812,stage,0.08333333333333333
 "Beethoven, Ludwig van",1812,vocal,1.9166666666666667
 "Beethoven, Ludwig van",1813,chamber,0.07142857142857142
-"Beethoven, Ludwig van",1813,orchestral,1.0
-"Beethoven, Ludwig van",1813,other,0.07692307692307693
+"Beethoven, Ludwig van",1813,orchestral,1.0769230769230769
 "Beethoven, Ludwig van",1813,stage,1.0833333333333333
 "Beethoven, Ludwig van",1813,vocal,4.25
 "Beethoven, Ludwig van",1814,chamber,0.07142857142857142
 "Beethoven, Ludwig van",1814,keyboard,2.0
-"Beethoven, Ludwig van",1814,orchestral,1.0
-"Beethoven, Ludwig van",1814,other,0.07692307692307693
+"Beethoven, Ludwig van",1814,orchestral,1.0769230769230769
 "Beethoven, Ludwig van",1814,stage,1.0833333333333333
 "Beethoven, Ludwig van",1814,vocal,8.083333333333334
 "Beethoven, Ludwig van",1815,chamber,2.0714285714285716
 "Beethoven, Ludwig van",1815,keyboard,0.5
-"Beethoven, Ludwig van",1815,orchestral,1.0
-"Beethoven, Ludwig van",1815,other,0.07692307692307693
+"Beethoven, Ludwig van",1815,orchestral,1.0769230769230769
 "Beethoven, Ludwig van",1815,stage,2.0833333333333335
 "Beethoven, Ludwig van",1815,vocal,6.5
 "Beethoven, Ludwig van",1816,chamber,1.0714285714285714
 "Beethoven, Ludwig van",1816,keyboard,0.5
-"Beethoven, Ludwig van",1816,other,1.0769230769230769
+"Beethoven, Ludwig van",1816,orchestral,1.0769230769230769
 "Beethoven, Ludwig van",1816,stage,0.08333333333333333
 "Beethoven, Ludwig van",1816,vocal,7.0
 "Beethoven, Ludwig van",1817,chamber,3.0
 "Beethoven, Ludwig van",1817,keyboard,0.5
-"Beethoven, Ludwig van",1817,other,0.07692307692307693
+"Beethoven, Ludwig van",1817,orchestral,0.07692307692307693
 "Beethoven, Ludwig van",1817,stage,0.08333333333333333
 "Beethoven, Ludwig van",1817,vocal,3.166666666666667
 "Beethoven, Ludwig van",1818,chamber,1.0
 "Beethoven, Ludwig van",1818,keyboard,1.5
-"Beethoven, Ludwig van",1818,other,0.07692307692307693
+"Beethoven, Ludwig van",1818,orchestral,0.07692307692307693
 "Beethoven, Ludwig van",1818,stage,0.08333333333333333
 "Beethoven, Ludwig van",1818,vocal,1.9166666666666667
 "Beethoven, Ludwig van",1819,chamber,1.0
 "Beethoven, Ludwig van",1819,keyboard,0.2
-"Beethoven, Ludwig van",1819,orchestral,2.0
-"Beethoven, Ludwig van",1819,other,0.07692307692307693
+"Beethoven, Ludwig van",1819,orchestral,2.0769230769230766
 "Beethoven, Ludwig van",1819,stage,0.08333333333333333
 "Beethoven, Ludwig van",1819,vocal,2.3666666666666667
 "Beethoven, Ludwig van",1820,keyboard,1.2
-"Beethoven, Ludwig van",1820,other,0.07692307692307693
+"Beethoven, Ludwig van",1820,orchestral,0.07692307692307693
 "Beethoven, Ludwig van",1820,stage,0.08333333333333333
 "Beethoven, Ludwig van",1820,vocal,3.3666666666666667
 "Beethoven, Ludwig van",1821,keyboard,2.7
-"Beethoven, Ludwig van",1821,other,0.07692307692307693
+"Beethoven, Ludwig van",1821,orchestral,0.07692307692307693
 "Beethoven, Ludwig van",1821,stage,0.08333333333333333
 "Beethoven, Ludwig van",1821,vocal,1.2
 "Beethoven, Ludwig van",1822,chamber,1.0
 "Beethoven, Ludwig van",1822,keyboard,1.7
-"Beethoven, Ludwig van",1822,orchestral,2.25
-"Beethoven, Ludwig van",1822,other,0.07692307692307693
+"Beethoven, Ludwig van",1822,orchestral,2.3269230769230766
 "Beethoven, Ludwig van",1822,stage,1.0833333333333333
 "Beethoven, Ludwig van",1822,vocal,1.5333333333333332
 "Beethoven, Ludwig van",1823,chamber,0.8333333333333333
@@ -537,8 +515,7 @@ composer,year,genre,works
 "Dvorak, Antonín",1874,orchestral,2.0
 "Dvorak, Antonín",1874,stage,1.0
 "Dvorak, Antonín",1875,chamber,3.0
-"Dvorak, Antonín",1875,orchestral,1.0
-"Dvorak, Antonín",1875,other,2.0
+"Dvorak, Antonín",1875,orchestral,3.0
 "Dvorak, Antonín",1875,stage,1.0
 "Dvorak, Antonín",1875,vocal,0.5
 "Dvorak, Antonín",1876,chamber,2.0
@@ -583,10 +560,10 @@ composer,year,genre,works
 "Dvorak, Antonín",1885,vocal,1.6111111111111112
 "Dvorak, Antonín",1886,orchestral,1.0
 "Dvorak, Antonín",1886,vocal,1.6111111111111112
-"Dvorak, Antonín",1887,chamber,4.0
+"Dvorak, Antonín",1887,chamber,5.0
 "Dvorak, Antonín",1887,keyboard,1.0
 "Dvorak, Antonín",1887,stage,0.5
-"Dvorak, Antonín",1887,vocal,1.2777777777777777
+"Dvorak, Antonín",1887,vocal,0.2777777777777778
 "Dvorak, Antonín",1888,keyboard,1.0
 "Dvorak, Antonín",1888,stage,0.5
 "Dvorak, Antonín",1888,vocal,2.1666666666666665
@@ -622,16 +599,16 @@ composer,year,genre,works
 "Haydn, Franz Joseph",1751,keyboard,0.6666666666666666
 "Haydn, Franz Joseph",1752,keyboard,0.6666666666666666
 "Haydn, Franz Joseph",1753,keyboard,0.6666666666666666
-"Haydn, Franz Joseph",1754,chamber,1.0
 "Haydn, Franz Joseph",1754,keyboard,0.6666666666666666
+"Haydn, Franz Joseph",1754,orchestral,1.0
 "Haydn, Franz Joseph",1755,keyboard,0.6666666666666666
 "Haydn, Franz Joseph",1756,orchestral,1.0
 "Haydn, Franz Joseph",1757,chamber,2.0
 "Haydn, Franz Joseph",1757,orchestral,1.569047619047619
 "Haydn, Franz Joseph",1758,chamber,2.0
 "Haydn, Franz Joseph",1758,orchestral,1.569047619047619
-"Haydn, Franz Joseph",1759,chamber,3.0
-"Haydn, Franz Joseph",1759,orchestral,2.569047619047619
+"Haydn, Franz Joseph",1759,chamber,2.0
+"Haydn, Franz Joseph",1759,orchestral,3.569047619047619
 "Haydn, Franz Joseph",1760,chamber,5.0
 "Haydn, Franz Joseph",1760,keyboard,1.3928571428571428
 "Haydn, Franz Joseph",1760,orchestral,3.935714285714286
@@ -641,23 +618,22 @@ composer,year,genre,works
 "Haydn, Franz Joseph",1762,chamber,3.0
 "Haydn, Franz Joseph",1762,keyboard,0.39285714285714285
 "Haydn, Franz Joseph",1762,orchestral,7.685714285714286
-"Haydn, Franz Joseph",1763,chamber,2.0
 "Haydn, Franz Joseph",1763,keyboard,0.39285714285714285
-"Haydn, Franz Joseph",1763,orchestral,6.019047619047619
+"Haydn, Franz Joseph",1763,orchestral,8.019047619047619
 "Haydn, Franz Joseph",1764,chamber,1.0
 "Haydn, Franz Joseph",1764,keyboard,0.39285714285714285
 "Haydn, Franz Joseph",1764,orchestral,6.733333333333333
 "Haydn, Franz Joseph",1764,vocal,3.0
-"Haydn, Franz Joseph",1765,chamber,13.0
+"Haydn, Franz Joseph",1765,chamber,12.0
 "Haydn, Franz Joseph",1765,keyboard,4.059523809523809
-"Haydn, Franz Joseph",1765,orchestral,7.783333333333333
-"Haydn, Franz Joseph",1766,chamber,6.0
+"Haydn, Franz Joseph",1765,orchestral,8.783333333333333
+"Haydn, Franz Joseph",1766,chamber,5.0
 "Haydn, Franz Joseph",1766,keyboard,2.0595238095238093
-"Haydn, Franz Joseph",1766,orchestral,3.25
+"Haydn, Franz Joseph",1766,orchestral,4.25
 "Haydn, Franz Joseph",1766,vocal,2.0
-"Haydn, Franz Joseph",1767,chamber,7.5
+"Haydn, Franz Joseph",1767,chamber,6.5
 "Haydn, Franz Joseph",1767,keyboard,2.1666666666666665
-"Haydn, Franz Joseph",1767,orchestral,3.25
+"Haydn, Franz Joseph",1767,orchestral,4.25
 "Haydn, Franz Joseph",1767,vocal,1.0
 "Haydn, Franz Joseph",1768,chamber,1.5
 "Haydn, Franz Joseph",1768,keyboard,0.25
@@ -672,96 +648,106 @@ composer,year,genre,works
 "Haydn, Franz Joseph",1771,keyboard,2.033333333333333
 "Haydn, Franz Joseph",1771,orchestral,2.0
 "Haydn, Franz Joseph",1771,vocal,1.0
-"Haydn, Franz Joseph",1772,chamber,17.463203463203463
+"Haydn, Franz Joseph",1772,chamber,11.0
 "Haydn, Franz Joseph",1772,keyboard,1.0333333333333332
 "Haydn, Franz Joseph",1772,orchestral,4.5
+"Haydn, Franz Joseph",1772,other,6.463203463203463
 "Haydn, Franz Joseph",1772,vocal,1.0
-"Haydn, Franz Joseph",1773,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1773,keyboard,7.033333333333333
 "Haydn, Franz Joseph",1773,orchestral,1.8333333333333333
-"Haydn, Franz Joseph",1774,chamber,0.4632034632034632
+"Haydn, Franz Joseph",1773,other,0.4632034632034632
 "Haydn, Franz Joseph",1774,keyboard,2.3666666666666667
 "Haydn, Franz Joseph",1774,orchestral,6.5
-"Haydn, Franz Joseph",1775,chamber,2.463203463203463
+"Haydn, Franz Joseph",1774,other,0.4632034632034632
+"Haydn, Franz Joseph",1775,chamber,2.0
 "Haydn, Franz Joseph",1775,keyboard,2.1666666666666665
 "Haydn, Franz Joseph",1775,orchestral,2.5
+"Haydn, Franz Joseph",1775,other,0.4632034632034632
 "Haydn, Franz Joseph",1775,stage,1.0
 "Haydn, Franz Joseph",1775,vocal,1.1
-"Haydn, Franz Joseph",1776,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1776,keyboard,2.0
 "Haydn, Franz Joseph",1776,orchestral,2.1666666666666665
+"Haydn, Franz Joseph",1776,other,0.4632034632034632
 "Haydn, Franz Joseph",1776,vocal,0.1
-"Haydn, Franz Joseph",1777,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1777,orchestral,2.6666666666666665
+"Haydn, Franz Joseph",1777,other,0.4632034632034632
 "Haydn, Franz Joseph",1777,stage,0.5
 "Haydn, Franz Joseph",1777,vocal,0.1
-"Haydn, Franz Joseph",1778,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1778,keyboard,1.0
 "Haydn, Franz Joseph",1778,orchestral,1.1666666666666665
+"Haydn, Franz Joseph",1778,other,0.4632034632034632
 "Haydn, Franz Joseph",1778,stage,0.5
 "Haydn, Franz Joseph",1778,vocal,0.1
-"Haydn, Franz Joseph",1779,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1779,orchestral,1.6666666666666665
+"Haydn, Franz Joseph",1779,other,0.4632034632034632
 "Haydn, Franz Joseph",1779,stage,0.041666666666666664
 "Haydn, Franz Joseph",1779,vocal,0.1
-"Haydn, Franz Joseph",1780,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1780,orchestral,1.0
+"Haydn, Franz Joseph",1780,other,0.4632034632034632
 "Haydn, Franz Joseph",1780,stage,0.041666666666666664
 "Haydn, Franz Joseph",1780,vocal,0.1
-"Haydn, Franz Joseph",1781,chamber,7.463203463203463
+"Haydn, Franz Joseph",1781,chamber,8.0
 "Haydn, Franz Joseph",1781,orchestral,1.5
-"Haydn, Franz Joseph",1781,other,1.0
+"Haydn, Franz Joseph",1781,other,0.4632034632034632
 "Haydn, Franz Joseph",1781,stage,0.041666666666666664
 "Haydn, Franz Joseph",1781,vocal,12.1
-"Haydn, Franz Joseph",1782,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1782,orchestral,3.0
+"Haydn, Franz Joseph",1782,other,0.4632034632034632
 "Haydn, Franz Joseph",1782,stage,0.041666666666666664
 "Haydn, Franz Joseph",1782,vocal,2.1
-"Haydn, Franz Joseph",1783,chamber,0.4632034632034632
+"Haydn, Franz Joseph",1783,chamber,1.0
 "Haydn, Franz Joseph",1783,orchestral,1.0
-"Haydn, Franz Joseph",1783,other,1.0
+"Haydn, Franz Joseph",1783,other,0.4632034632034632
 "Haydn, Franz Joseph",1783,stage,1.0416666666666667
 "Haydn, Franz Joseph",1783,vocal,0.1
-"Haydn, Franz Joseph",1784,chamber,9.963203463203463
+"Haydn, Franz Joseph",1784,chamber,9.5
 "Haydn, Franz Joseph",1784,keyboard,3.0
 "Haydn, Franz Joseph",1784,orchestral,3.0
+"Haydn, Franz Joseph",1784,other,0.4632034632034632
 "Haydn, Franz Joseph",1784,stage,0.041666666666666664
 "Haydn, Franz Joseph",1784,vocal,12.1
-"Haydn, Franz Joseph",1785,chamber,4.963203463203463
+"Haydn, Franz Joseph",1785,chamber,4.5
 "Haydn, Franz Joseph",1785,orchestral,4.5
+"Haydn, Franz Joseph",1785,other,0.4632034632034632
 "Haydn, Franz Joseph",1785,stage,0.041666666666666664
-"Haydn, Franz Joseph",1786,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1786,orchestral,3.5
+"Haydn, Franz Joseph",1786,other,0.4632034632034632
 "Haydn, Franz Joseph",1786,stage,0.041666666666666664
-"Haydn, Franz Joseph",1787,chamber,6.463203463203463
+"Haydn, Franz Joseph",1787,chamber,6.0
 "Haydn, Franz Joseph",1787,orchestral,2.0
+"Haydn, Franz Joseph",1787,other,0.4632034632034632
 "Haydn, Franz Joseph",1787,stage,0.041666666666666664
 "Haydn, Franz Joseph",1787,vocal,1.0
-"Haydn, Franz Joseph",1788,chamber,7.963203463203463
+"Haydn, Franz Joseph",1788,chamber,7.5
 "Haydn, Franz Joseph",1788,orchestral,4.666666666666666
+"Haydn, Franz Joseph",1788,other,0.4632034632034632
 "Haydn, Franz Joseph",1788,stage,0.041666666666666664
-"Haydn, Franz Joseph",1789,chamber,1.9632034632034632
+"Haydn, Franz Joseph",1789,chamber,1.5
 "Haydn, Franz Joseph",1789,keyboard,1.5
 "Haydn, Franz Joseph",1789,orchestral,3.6666666666666665
+"Haydn, Franz Joseph",1789,other,0.4632034632034632
 "Haydn, Franz Joseph",1789,stage,0.041666666666666664
 "Haydn, Franz Joseph",1789,vocal,1.0
-"Haydn, Franz Joseph",1790,chamber,9.463203463203463
+"Haydn, Franz Joseph",1790,chamber,9.0
 "Haydn, Franz Joseph",1790,keyboard,2.5
 "Haydn, Franz Joseph",1790,orchestral,3.6666666666666665
+"Haydn, Franz Joseph",1790,other,0.4632034632034632
 "Haydn, Franz Joseph",1790,stage,0.041666666666666664
-"Haydn, Franz Joseph",1791,chamber,0.4632034632034632
 "Haydn, Franz Joseph",1791,keyboard,0.2
 "Haydn, Franz Joseph",1791,orchestral,4.0
+"Haydn, Franz Joseph",1791,other,0.4632034632034632
 "Haydn, Franz Joseph",1791,stage,1.0416666666666667
 "Haydn, Franz Joseph",1791,vocal,1.0
-"Haydn, Franz Joseph",1792,chamber,13.463203463203463
+"Haydn, Franz Joseph",1792,chamber,5.0
 "Haydn, Franz Joseph",1792,keyboard,0.2
 "Haydn, Franz Joseph",1792,orchestral,4.0
+"Haydn, Franz Joseph",1792,other,8.463203463203463
 "Haydn, Franz Joseph",1792,stage,0.041666666666666664
 "Haydn, Franz Joseph",1792,vocal,1.0
-"Haydn, Franz Joseph",1793,chamber,12.772727272727273
+"Haydn, Franz Joseph",1793,chamber,6.5
 "Haydn, Franz Joseph",1793,keyboard,1.2
 "Haydn, Franz Joseph",1793,orchestral,1.5
+"Haydn, Franz Joseph",1793,other,6.2727272727272725
 "Haydn, Franz Joseph",1793,stage,0.041666666666666664
 "Haydn, Franz Joseph",1794,chamber,7.5
 "Haydn, Franz Joseph",1794,keyboard,2.2
@@ -873,22 +859,21 @@ composer,year,genre,works
 "Mozart, Wolfgang Amadeus",1770,chamber,0.25
 "Mozart, Wolfgang Amadeus",1770,keyboard,1.1666666666666667
 "Mozart, Wolfgang Amadeus",1770,orchestral,7.75
-"Mozart, Wolfgang Amadeus",1770,other,1.0
 "Mozart, Wolfgang Amadeus",1770,stage,1.0
-"Mozart, Wolfgang Amadeus",1770,vocal,7.0
+"Mozart, Wolfgang Amadeus",1770,vocal,8.0
 "Mozart, Wolfgang Amadeus",1771,chamber,0.25
 "Mozart, Wolfgang Amadeus",1771,keyboard,2.166666666666667
 "Mozart, Wolfgang Amadeus",1771,orchestral,11.25
 "Mozart, Wolfgang Amadeus",1771,stage,2.0
 "Mozart, Wolfgang Amadeus",1771,vocal,3.0
-"Mozart, Wolfgang Amadeus",1772,chamber,10.75
+"Mozart, Wolfgang Amadeus",1772,chamber,10.25
 "Mozart, Wolfgang Amadeus",1772,keyboard,1.6666666666666667
-"Mozart, Wolfgang Amadeus",1772,orchestral,11.75
+"Mozart, Wolfgang Amadeus",1772,orchestral,12.25
 "Mozart, Wolfgang Amadeus",1772,stage,1.0
 "Mozart, Wolfgang Amadeus",1772,vocal,8.0
-"Mozart, Wolfgang Amadeus",1773,chamber,16.75
+"Mozart, Wolfgang Amadeus",1773,chamber,16.25
 "Mozart, Wolfgang Amadeus",1773,keyboard,4.666666666666667
-"Mozart, Wolfgang Amadeus",1773,orchestral,10.0
+"Mozart, Wolfgang Amadeus",1773,orchestral,10.5
 "Mozart, Wolfgang Amadeus",1773,vocal,5.0
 "Mozart, Wolfgang Amadeus",1774,keyboard,5.041666666666667
 "Mozart, Wolfgang Amadeus",1774,orchestral,7.5
@@ -899,10 +884,10 @@ composer,year,genre,works
 "Mozart, Wolfgang Amadeus",1775,orchestral,8.833333333333334
 "Mozart, Wolfgang Amadeus",1775,stage,1.5
 "Mozart, Wolfgang Amadeus",1775,vocal,6.0
-"Mozart, Wolfgang Amadeus",1776,chamber,12.5
-"Mozart, Wolfgang Amadeus",1776,keyboard,2.541666666666667
-"Mozart, Wolfgang Amadeus",1776,orchestral,11.333333333333334
-"Mozart, Wolfgang Amadeus",1776,vocal,5.5
+"Mozart, Wolfgang Amadeus",1776,chamber,11.5
+"Mozart, Wolfgang Amadeus",1776,keyboard,1.5416666666666667
+"Mozart, Wolfgang Amadeus",1776,orchestral,12.333333333333334
+"Mozart, Wolfgang Amadeus",1776,vocal,6.5
 "Mozart, Wolfgang Amadeus",1777,chamber,7.0
 "Mozart, Wolfgang Amadeus",1777,keyboard,4.541666666666667
 "Mozart, Wolfgang Amadeus",1777,orchestral,5.166666666666666
@@ -922,43 +907,38 @@ composer,year,genre,works
 "Mozart, Wolfgang Amadeus",1780,orchestral,3.0
 "Mozart, Wolfgang Amadeus",1780,stage,1.0
 "Mozart, Wolfgang Amadeus",1780,vocal,5.75
-"Mozart, Wolfgang Amadeus",1781,chamber,8.75
+"Mozart, Wolfgang Amadeus",1781,chamber,9.75
 "Mozart, Wolfgang Amadeus",1781,keyboard,4.708333333333333
-"Mozart, Wolfgang Amadeus",1781,orchestral,2.5
-"Mozart, Wolfgang Amadeus",1781,other,1.0
+"Mozart, Wolfgang Amadeus",1781,orchestral,2.0
 "Mozart, Wolfgang Amadeus",1781,stage,2.0
-"Mozart, Wolfgang Amadeus",1781,vocal,4.0
-"Mozart, Wolfgang Amadeus",1782,chamber,8.0
+"Mozart, Wolfgang Amadeus",1781,vocal,4.5
+"Mozart, Wolfgang Amadeus",1782,chamber,12.0
 "Mozart, Wolfgang Amadeus",1782,keyboard,13.208333333333334
-"Mozart, Wolfgang Amadeus",1782,orchestral,7.333333333333333
-"Mozart, Wolfgang Amadeus",1782,other,4.0
+"Mozart, Wolfgang Amadeus",1782,orchestral,6.833333333333333
 "Mozart, Wolfgang Amadeus",1782,stage,0.5
-"Mozart, Wolfgang Amadeus",1782,vocal,10.5
-"Mozart, Wolfgang Amadeus",1783,chamber,6.666666666666666
+"Mozart, Wolfgang Amadeus",1782,vocal,11.0
+"Mozart, Wolfgang Amadeus",1783,chamber,7.166666666666666
 "Mozart, Wolfgang Amadeus",1783,keyboard,7.791666666666667
 "Mozart, Wolfgang Amadeus",1783,orchestral,5.333333333333333
-"Mozart, Wolfgang Amadeus",1783,other,0.5
 "Mozart, Wolfgang Amadeus",1783,stage,2.5
 "Mozart, Wolfgang Amadeus",1783,vocal,15.25
-"Mozart, Wolfgang Amadeus",1784,chamber,4.166666666666666
+"Mozart, Wolfgang Amadeus",1784,chamber,4.666666666666666
 "Mozart, Wolfgang Amadeus",1784,keyboard,5.291666666666667
 "Mozart, Wolfgang Amadeus",1784,orchestral,9.366666666666667
-"Mozart, Wolfgang Amadeus",1784,other,0.5
 "Mozart, Wolfgang Amadeus",1784,stage,0.5
 "Mozart, Wolfgang Amadeus",1784,vocal,2.25
-"Mozart, Wolfgang Amadeus",1785,chamber,6.166666666666666
+"Mozart, Wolfgang Amadeus",1785,chamber,7.166666666666667
 "Mozart, Wolfgang Amadeus",1785,keyboard,1.2916666666666667
 "Mozart, Wolfgang Amadeus",1785,orchestral,5.033333333333333
-"Mozart, Wolfgang Amadeus",1785,other,1.0
 "Mozart, Wolfgang Amadeus",1785,vocal,14.25
 "Mozart, Wolfgang Amadeus",1786,chamber,8.916666666666666
 "Mozart, Wolfgang Amadeus",1786,keyboard,6.125
 "Mozart, Wolfgang Amadeus",1786,orchestral,5.033333333333333
 "Mozart, Wolfgang Amadeus",1786,stage,2.0
 "Mozart, Wolfgang Amadeus",1786,vocal,5.25
-"Mozart, Wolfgang Amadeus",1787,chamber,12.416666666666666
+"Mozart, Wolfgang Amadeus",1787,chamber,11.416666666666666
 "Mozart, Wolfgang Amadeus",1787,keyboard,6.208333333333333
-"Mozart, Wolfgang Amadeus",1787,orchestral,3.4
+"Mozart, Wolfgang Amadeus",1787,orchestral,4.4
 "Mozart, Wolfgang Amadeus",1787,stage,1.0
 "Mozart, Wolfgang Amadeus",1787,vocal,13.2
 "Mozart, Wolfgang Amadeus",1788,chamber,6.916666666666667
@@ -971,14 +951,15 @@ composer,year,genre,works
 "Mozart, Wolfgang Amadeus",1789,stage,0.5
 "Mozart, Wolfgang Amadeus",1789,vocal,7.2
 "Mozart, Wolfgang Amadeus",1790,chamber,4.0
-"Mozart, Wolfgang Amadeus",1790,keyboard,3.0416666666666665
+"Mozart, Wolfgang Amadeus",1790,keyboard,2.0416666666666665
 "Mozart, Wolfgang Amadeus",1790,orchestral,1.2
+"Mozart, Wolfgang Amadeus",1790,other,1.0
 "Mozart, Wolfgang Amadeus",1790,stage,0.5
 "Mozart, Wolfgang Amadeus",1790,vocal,2.2
 "Mozart, Wolfgang Amadeus",1791,chamber,4.0
-"Mozart, Wolfgang Amadeus",1791,keyboard,2.5416666666666665
+"Mozart, Wolfgang Amadeus",1791,keyboard,1.5416666666666665
 "Mozart, Wolfgang Amadeus",1791,orchestral,13.2
-"Mozart, Wolfgang Amadeus",1791,other,1.0
+"Mozart, Wolfgang Amadeus",1791,other,2.0
 "Mozart, Wolfgang Amadeus",1791,stage,2.0
 "Mozart, Wolfgang Amadeus",1791,vocal,10.2
 "Schubert, Franz",1809,vocal,1.0
@@ -995,10 +976,9 @@ composer,year,genre,works
 "Schubert, Franz",1812,other,3.0
 "Schubert, Franz",1812,stage,1.0
 "Schubert, Franz",1812,vocal,15.0
-"Schubert, Franz",1813,chamber,8.0
+"Schubert, Franz",1813,chamber,9.0
 "Schubert, Franz",1813,keyboard,12.0
 "Schubert, Franz",1813,orchestral,1.0
-"Schubert, Franz",1813,other,1.0
 "Schubert, Franz",1813,stage,0.5
 "Schubert, Franz",1813,vocal,38.0
 "Schubert, Franz",1814,chamber,3.0
@@ -1012,8 +992,8 @@ composer,year,genre,works
 "Schubert, Franz",1815,vocal,180.0
 "Schubert, Franz",1816,chamber,11.0
 "Schubert, Franz",1816,keyboard,11.11111111111111
-"Schubert, Franz",1816,orchestral,3.333333333333333
-"Schubert, Franz",1816,other,2.0
+"Schubert, Franz",1816,orchestral,4.333333333333333
+"Schubert, Franz",1816,other,1.0
 "Schubert, Franz",1816,stage,1.0
 "Schubert, Franz",1816,vocal,143.0
 "Schubert, Franz",1817,chamber,2.0
@@ -1024,8 +1004,8 @@ composer,year,genre,works
 "Schubert, Franz",1818,orchestral,1.8333333333333333
 "Schubert, Franz",1818,vocal,18.25
 "Schubert, Franz",1819,chamber,1.0
-"Schubert, Franz",1819,keyboard,2.253968253968254
-"Schubert, Franz",1819,orchestral,2.0
+"Schubert, Franz",1819,keyboard,3.253968253968254
+"Schubert, Franz",1819,orchestral,1.0
 "Schubert, Franz",1819,stage,1.5
 "Schubert, Franz",1819,vocal,26.5
 "Schubert, Franz",1820,chamber,1.0
@@ -1042,11 +1022,10 @@ composer,year,genre,works
 "Schubert, Franz",1822,stage,1.5
 "Schubert, Franz",1822,vocal,30.25
 "Schubert, Franz",1823,keyboard,4.920634920634921
-"Schubert, Franz",1823,other,1.0
 "Schubert, Franz",1823,stage,2.5
-"Schubert, Franz",1823,vocal,20.0
-"Schubert, Franz",1824,chamber,5.0
-"Schubert, Franz",1824,keyboard,8.80952380952381
+"Schubert, Franz",1823,vocal,21.0
+"Schubert, Franz",1824,chamber,4.0
+"Schubert, Franz",1824,keyboard,9.80952380952381
 "Schubert, Franz",1824,vocal,9.0
 "Schubert, Franz",1825,keyboard,7.309523809523809
 "Schubert, Franz",1825,orchestral,0.25
@@ -1065,7 +1044,8 @@ composer,year,genre,works
 "Schubert, Franz",1828,chamber,2.0
 "Schubert, Franz",1828,keyboard,9.666666666666666
 "Schubert, Franz",1828,orchestral,1.25
-"Schubert, Franz",1828,vocal,20.333333333333332
+"Schubert, Franz",1828,other,1.0
+"Schubert, Franz",1828,vocal,19.333333333333332
 "Stravinsky, Igor",1903,keyboard,0.5
 "Stravinsky, Igor",1904,keyboard,0.5
 "Stravinsky, Igor",1905,orchestral,0.3333333333333333
@@ -1116,8 +1096,7 @@ composer,year,genre,works
 "Stravinsky, Igor",1919,stage,0.1111111111111111
 "Stravinsky, Igor",1919,vocal,1.0
 "Stravinsky, Igor",1920,chamber,1.0
-"Stravinsky, Igor",1920,orchestral,1.1111111111111112
-"Stravinsky, Igor",1920,other,1.0
+"Stravinsky, Igor",1920,orchestral,2.111111111111111
 "Stravinsky, Igor",1920,stage,0.1111111111111111
 "Stravinsky, Igor",1921,keyboard,1.0
 "Stravinsky, Igor",1921,orchestral,1.1111111111111112
@@ -1141,13 +1120,13 @@ composer,year,genre,works
 "Stravinsky, Igor",1931,chamber,0.5
 "Stravinsky, Igor",1931,orchestral,1.0
 "Stravinsky, Igor",1932,chamber,0.5
-"Stravinsky, Igor",1932,orchestral,0.25
+"Stravinsky, Igor",1932,keyboard,0.25
 "Stravinsky, Igor",1932,vocal,1.0
-"Stravinsky, Igor",1933,orchestral,0.25
+"Stravinsky, Igor",1933,keyboard,0.25
 "Stravinsky, Igor",1933,stage,0.5
-"Stravinsky, Igor",1934,orchestral,0.25
+"Stravinsky, Igor",1934,keyboard,0.25
 "Stravinsky, Igor",1934,stage,0.5
-"Stravinsky, Igor",1935,orchestral,0.25
+"Stravinsky, Igor",1935,keyboard,0.25
 "Stravinsky, Igor",1936,chamber,0.05555555555555555
 "Stravinsky, Igor",1936,stage,0.5
 "Stravinsky, Igor",1937,chamber,0.05555555555555555
@@ -1218,8 +1197,8 @@ composer,year,genre,works
 "Stravinsky, Igor",1962,vocal,1.5
 "Stravinsky, Igor",1963,orchestral,0.5
 "Stravinsky, Igor",1963,vocal,0.5
+"Stravinsky, Igor",1964,chamber,1.0
 "Stravinsky, Igor",1964,orchestral,0.5
-"Stravinsky, Igor",1964,other,1.0
 "Stravinsky, Igor",1964,vocal,1.0
 "Stravinsky, Igor",1965,orchestral,1.0
 "Stravinsky, Igor",1965,vocal,1.5
@@ -1228,15 +1207,13 @@ composer,year,genre,works
 "Tchaikovsky, Pyotr Ilyich",1860,vocal,0.6666666666666666
 "Tchaikovsky, Pyotr Ilyich",1861,vocal,0.6666666666666666
 "Tchaikovsky, Pyotr Ilyich",1862,vocal,0.16666666666666666
-"Tchaikovsky, Pyotr Ilyich",1863,chamber,3.5
+"Tchaikovsky, Pyotr Ilyich",1863,chamber,4.5
 "Tchaikovsky, Pyotr Ilyich",1863,keyboard,1.0
-"Tchaikovsky, Pyotr Ilyich",1863,orchestral,2.0
-"Tchaikovsky, Pyotr Ilyich",1863,other,1.5
+"Tchaikovsky, Pyotr Ilyich",1863,orchestral,2.5
 "Tchaikovsky, Pyotr Ilyich",1863,vocal,0.6666666666666666
-"Tchaikovsky, Pyotr Ilyich",1864,chamber,3.5
+"Tchaikovsky, Pyotr Ilyich",1864,chamber,4.5
 "Tchaikovsky, Pyotr Ilyich",1864,keyboard,1.0
-"Tchaikovsky, Pyotr Ilyich",1864,orchestral,3.0
-"Tchaikovsky, Pyotr Ilyich",1864,other,1.5
+"Tchaikovsky, Pyotr Ilyich",1864,orchestral,3.5
 "Tchaikovsky, Pyotr Ilyich",1864,vocal,0.6666666666666666
 "Tchaikovsky, Pyotr Ilyich",1865,chamber,1.0
 "Tchaikovsky, Pyotr Ilyich",1865,keyboard,1.0
@@ -1289,8 +1266,7 @@ composer,year,genre,works
 "Tchaikovsky, Pyotr Ilyich",1879,orchestral,1.0
 "Tchaikovsky, Pyotr Ilyich",1879,stage,0.5
 "Tchaikovsky, Pyotr Ilyich",1879,vocal,0.25
-"Tchaikovsky, Pyotr Ilyich",1880,orchestral,2.5
-"Tchaikovsky, Pyotr Ilyich",1880,other,1.0
+"Tchaikovsky, Pyotr Ilyich",1880,orchestral,3.5
 "Tchaikovsky, Pyotr Ilyich",1880,vocal,2.25
 "Tchaikovsky, Pyotr Ilyich",1881,chamber,0.5
 "Tchaikovsky, Pyotr Ilyich",1881,stage,0.3333333333333333
@@ -1303,8 +1279,7 @@ composer,year,genre,works
 "Tchaikovsky, Pyotr Ilyich",1883,stage,0.3333333333333333
 "Tchaikovsky, Pyotr Ilyich",1883,vocal,1.3333333333333333
 "Tchaikovsky, Pyotr Ilyich",1884,keyboard,1.0
-"Tchaikovsky, Pyotr Ilyich",1884,orchestral,2.0
-"Tchaikovsky, Pyotr Ilyich",1884,other,1.0
+"Tchaikovsky, Pyotr Ilyich",1884,orchestral,3.0
 "Tchaikovsky, Pyotr Ilyich",1884,vocal,1.5
 "Tchaikovsky, Pyotr Ilyich",1885,orchestral,2.0
 "Tchaikovsky, Pyotr Ilyich",1885,stage,1.3333333333333333
@@ -1330,8 +1305,8 @@ composer,year,genre,works
 "Tchaikovsky, Pyotr Ilyich",1891,stage,2.0
 "Tchaikovsky, Pyotr Ilyich",1891,vocal,1.0
 "Tchaikovsky, Pyotr Ilyich",1892,keyboard,1.0
-"Tchaikovsky, Pyotr Ilyich",1892,orchestral,0.25
-"Tchaikovsky, Pyotr Ilyich",1892,stage,2.0
+"Tchaikovsky, Pyotr Ilyich",1892,orchestral,1.25
+"Tchaikovsky, Pyotr Ilyich",1892,stage,1.0
 "Tchaikovsky, Pyotr Ilyich",1893,keyboard,2.0
 "Tchaikovsky, Pyotr Ilyich",1893,orchestral,3.0
 "Tchaikovsky, Pyotr Ilyich",1893,vocal,2.0

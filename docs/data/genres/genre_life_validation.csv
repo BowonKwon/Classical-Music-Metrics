@@ -1199,3 +1199,363 @@ round,sample_id,page,group_rules,subgenre_rules,group_blind,subgenre_blind,confi
 4,358,"Canons for 2 or 3 Voices, K.508a (Mozart, Wolfgang Amadeus)",secular,secular_choral,secular,secular_choral,low,1.12.1 second revision,secular_extra
 4,359,"Leonore Prohaska, WoO 96 (Beethoven, Ludwig van)",stage,stage_other,stage,stage_other,high,1.12.1 second revision,main
 4,360,"Canon for 3 Voices in F major, K.507 (Mozart, Wolfgang Amadeus)",secular,secular_choral,secular,secular_choral,high,1.12.1 second revision,secular_extra
+5,1,"Se pari è la tua fè, HWV 158c (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,2,"Atalanta, HWV 35 (Handel, George Frideric)",stage,opera,stage,opera,high,1.12.2,main
+5,3,"Inter natos mulierum, K.72/74f (Mozart, Wolfgang Amadeus)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,4,"String Quartet in B-flat major, Hob.III:62 (Haydn, Joseph)",chamber,string_quartet,chamber,string_quartet,high,1.12.2,main
+5,5,"Symphony No.88 in G major, Hob.I:88 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,6,"Bassoon Concerto in B-flat major, RV 504 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,7,"Mein Stern! (Schumann, Clara)",secular,song,secular,song,high,1.12.2,secular_extra
+5,8,"Prelude and Fugue in F-sharp minor, BWV 883 (Bach, Johann Sebastian)",keyboard,kb_counterpoint,keyboard,kb_counterpoint,high,1.12.2,main
+5,9,"Atys, D.585 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,10,"Edone, D.445 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,11,"Underneath this Myrtle Shade, Z.516 (Purcell, Henry)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,12,"L'attente (Saint-Saëns, Camille)",secular,song,secular,song,high,1.12.2,secular_extra
+5,13,"Concerto for 2 Pianos, K058 (Stravinsky, Igor)",keyboard,kb_pieces,chamber,duo,low,1.12.2,main
+5,14,"Zefiro torna e'l bel tempo rimena, SV 108 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,15,"Sonata in F major 'Golden Sonata', Z.810 (Purcell, Henry)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,16,"Piano Sonata, K043 (Stravinsky, Igor)",keyboard,kb_sonata,keyboard,kb_sonata,high,1.12.2,main
+5,17,"5 Lieder, Op.41 (Brahms, Johannes)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,18,"Symphony No.1 in D major, Hob.I:1 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,19,"Le tombeau de Couperin, M.68a (Ravel, Maurice)",stage,stage_other,orchestral,orch_other,low,1.12.2,main
+5,20,"Die Seligkeiten, S.25 (Liszt, Franz)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,21,"Non sospirar, non piangere, HWV 141 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,22,"Rimanti in pace a la dolente e bella Fillida, SV 74 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,23,"Dite almeno, in che mancai, K.479 (Mozart, Wolfgang Amadeus)",secular,secular_choral,stage,opera,low,1.12.2,secular_extra
+5,24,"So gehst du nun mein Jesu hin, TWV 1:1744 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,25,"Triumphierender Versöhner, TWV 1:1422 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,26,"Violin Sonata in B-flat major, K.8 (Mozart, Wolfgang Amadeus)",chamber,duo,chamber,duo,high,1.12.2,main
+5,27,"An Mignon, D.161 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,28,"Symphonic Etudes, Op.13 (Schumann, Robert)",keyboard,kb_counterpoint,keyboard,kb_counterpoint,high,1.12.2,main
+5,29,"Abdelazer, Z.570 (Purcell, Henry)",stage,stage_other,stage,stage_other,high,1.12.2,main
+5,30,"O lasst mich einen Augenblick noch hier, MWV H 7 (Mendelssohn, Felix)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,31,"The Voyevoda (opera), Op.3 (Tchaikovsky, Pyotr)",stage,opera,stage,opera,high,1.12.2,main
+5,32,"Adagio, TH 160 (Tchaikovsky, Pyotr)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,33,"Gesang der Geister über den Wassern, D.705 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,34,"Dessen Fahne Donnerstürme wallte, D.58 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,35,"Violin Concerto in A minor, RV 355 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,36,"Ah, crudel! nel pianto mio, HWV 78 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,37,"6 Minuets, K.104/61e (Mozart, Wolfgang Amadeus)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,38,"Sollt ich meinem Gott nicht singen, BWV 413 (Bach, Johann Sebastian)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,39,"Der Ring des Nibelungen, WWV 86 (Wagner, Richard)",stage,opera,stage,opera,high,1.12.2,main
+5,40,"Keyboard Concerto in C major, Hob.XVIII:5 (Haydn, Joseph)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,41,"Baryton Trio in G major, Hob.XI:77 (Haydn, Joseph)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,42,"String Symphony No.9 in C major, MWV N 9 (Mendelssohn, Felix)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,43,"Geduld! Wenn Menschen sich zum Teufeln machen, TWV 1:589 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,44,"Kantate zum Geburtstag des Sängers Johann Michael Vogl, D.666 (Schubert, Franz)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,45,"Zefiro torna e di soavi accenti, SV 251 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,46,"Violin Concerto in G major, RV 302 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,47,"Minuet in A minor, HWV 548 (Handel, George Frideric)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,48,"A Poor Blind Woman, ZD 171 (Purcell, Henry)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,49,"Abraham and Isaac, K101 (Stravinsky, Igor)",secular,secular_cantata,sacred,sacred_other,high,1.12.2,secular_extra
+5,50,"Liebster Jesu, wir sind hier, BWV 754 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,51,"The Indian Queen, Z.630 (Purcell, Henry)",stage,opera,stage,opera,high,1.12.2,main
+5,52,"Armide, Wq.45 (Gluck, Christoph Willibald)",stage,opera,stage,opera,high,1.12.2,main
+5,53,"Violin Concerto in B-flat major, RV 366 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,54,"Siehe, der Hüter Israel, BWV 1148 (Bach, Johann Sebastian)",secular,secular_cantata,secular,secular_cantata,low,1.12.2,secular_extra
+5,55,"Antiphon in D minor, HWV 272 (Handel, George Frideric)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,56,"2 Mélodies, Op.46 (Fauré, Gabriel)",secular,song,secular,song,high,1.12.2,main
+5,57,"String Duo in A major, Hob.VI:2 (Haydn, Joseph)",chamber,duo,chamber,duo,high,1.12.2,main
+5,58,"Carco sempre di gloria, HWV 87 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,59,"6 Lieder, Op.57 (Mendelssohn, Felix)",secular,song,secular,song,high,1.12.2,secular_extra
+5,60,"Ariel, H.435 (Hensel, Fanny)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,61,"Das Liebesverbot, WWV 38 (Wagner, Richard)",stage,opera,stage,opera,high,1.12.2,main
+5,62,"All'or che lo sguardo, RV 650 (Vivaldi, Antonio)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,63,"Der Abendhimmel, WAB 56 (Bruckner, Anton)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,64,"I Resolve Against Cringing, Z.386 (Purcell, Henry)",secular,song,secular,song,high,1.12.2,main
+5,65,"Seid nüchtern und wachet, TWV 1:1276 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,66,"Concerto for 2 Cellos in G minor, RV 531 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,67,"Schmücke dich, o liebe Seele, BWV 180 (Bach, Johann Sebastian)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,68,"Fantasia in C minor, Z.738 (Purcell, Henry)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,69,"Cuopre tal volta il cielo, HWV 98 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,main
+5,70,"7 Lieder, Op.62 (Brahms, Johannes)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,71,"Prométhée, Op.82 (Fauré, Gabriel)",stage,opera,stage,opera,high,1.12.2,main
+5,72,"I due Foscari (Verdi, Giuseppe)",stage,opera,stage,opera,high,1.12.2,main
+5,73,"Kyrie, Gott Vater in Ewigkeit, BWV 669 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,74,"Sì ch’io vorrei morire hora ch’io bacio amore, SV 89 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,75,"Rêves, M.79 (Ravel, Maurice)",secular,song,secular,song,high,1.12.2,main
+5,76,"Elysium, D.584 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,77,"Alessandro, HWV 21 (Handel, George Frideric)",stage,opera,stage,opera,high,1.12.2,main
+5,78,"Pater noster II, S.29 (Liszt, Franz)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,79,"Les morts, S.112/1 (Liszt, Franz)",secular,secular_cantata,secular,secular_cantata,low,1.12.2,secular_extra
+5,80,"Dido and Aeneas, Z.626 (Purcell, Henry)",stage,opera,stage,opera,high,1.12.2,main
+5,81,"So oft ich meine Tobackspfeife, BWV 515 (Bach, Johann Sebastian)",secular,secular_cantata,secular,song,high,1.12.2,secular_extra
+5,82,"Zur Namensfeier des Vaters, D.80 (Schubert, Franz)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,83,"O lucenti, o sereni occhi, HWV 144 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,84,"Le feu céleste, Op.115 (Saint-Saëns, Camille)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,85,"Esther, HWV 50a (Handel, George Frideric)",stage,stage_other,sacred,oratorio,low,1.12.2,main
+5,86,"Nacht, H.259 (Hensel, Fanny)",secular,song,secular,song,high,1.12.2,secular_extra
+5,87,"Grosse Städte, grosse Sünden, TWV 1:702 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,88,"Les cinq doigts, K037 (Stravinsky, Igor)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,89,"Wie bist du, Frühling, gut und treu, WAB 58 (Bruckner, Anton)",secular,song,secular,song,high,1.12.2,secular_extra
+5,90,"Symphony No.31 in D major, Hob.I:31 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,91,"When First My Shepherdess and I, Z.431 (Purcell, Henry)",secular,song,secular,song,high,1.12.2,main
+5,92,"3 Nocturnes, Op.33 (Fauré, Gabriel)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,93,"Sosarme, re di Media, HWV 30 (Handel, George Frideric)",stage,opera,stage,opera,high,1.12.2,main
+5,94,"Rienzi, WWV 49 (Wagner, Richard)",stage,opera,stage,opera,high,1.12.2,main
+5,95,"Scènes de ballet, K069 (Stravinsky, Igor)",stage,stage_other,stage,stage_other,high,1.12.2,main
+5,96,"Church Sonata in C major, K.328/317c (Mozart, Wolfgang Amadeus)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,97,"Khamma, CD 132 (Debussy, Claude)",stage,stage_other,stage,stage_other,high,1.12.2,main
+5,98,"Sarabande in F major (Handel, George Frideric)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,99,"Selma und Selmar, D.286 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,100,"O dolce anima mia, SV 63 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,101,"Violin Concerto in B-flat major, RV 364 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,102,"Since Women So False (Purcell, Henry)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,103,"Valse-Impromptu, S.213 (Liszt, Franz)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,104,"Die Opfer, die Gott gefallen, TWV 1:353 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,105,"Suite in D major (Telemann, Georg Philipp)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,106,"Menzognere speranze, HWV 131 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,107,"4 Gesänge aus 'Wilhelm Meister', D.877 (Schubert, Franz)",secular,secular_choral,secular,song,low,1.12.2,secular_extra
+5,108,"Pan Voyevoda (suite), Op.59 (Rimsky-Korsakov, Nikolay)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,109,"Canon for 12 Voices in G major, K.348/382g (Mozart, Wolfgang Amadeus)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,110,"L'oca del Cairo, K.422 (Mozart, Wolfgang Amadeus)",stage,opera,stage,opera,high,1.12.2,main
+5,111,"Schwestergruss, D.762 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,112,"Rondo in C major, K.373 (Mozart, Wolfgang Amadeus)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,113,"Mein Sünd mich werden kränken sehr, TWV 1:deest (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,114,"Trio Sonata in F major, RV 70 (Vivaldi, Antonio)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,115,"Celebrate this Festival, Z.321 (Purcell, Henry)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,116,"Der Jüngling an der Quelle, D.300 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,117,"An Chloe, K.524 (Mozart, Wolfgang Amadeus)",secular,song,secular,song,high,1.12.2,main
+5,118,"Komm, Gott Schöpfer, heiliger Geist, BWV 631 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,119,"Es ist umsonst, daß ihr früh aufsteht, TWV 1:515 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,120,"Diane au bois, CD 48 (Debussy, Claude)",stage,opera,stage,opera,low,1.12.2,main
+5,121,"Piano Trio, M.67 (Ravel, Maurice)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,122,"Singet dem Herrn ein neues Lied, BWV 190 (Bach, Johann Sebastian)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,123,"Teuzzone, RV 736 (Vivaldi, Antonio)",stage,opera,stage,opera,high,1.12.2,main
+5,124,"Der Schatzgräber, D.256 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,125,"Lob der Tränen, D.711 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,126,"Duo for 2 Flutes, WoO 26 (Beethoven, Ludwig van)",chamber,duo,chamber,duo,high,1.12.2,main
+5,127,"Jesu Leiden, Pein und Tod, BWV Anh.57 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,128,"Udite il mio consiglio, HWV 172 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,129,"Namensfeier für Franz Michael Vierthaler, D.294 (Schubert, Franz)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,130,"4 Romances, Op.39 (Rimsky-Korsakov, Nikolay)",secular,song,secular,song,high,1.12.2,main
+5,131,"Violin Sonata in G minor, RV 757 (Vivaldi, Antonio)",chamber,duo,chamber,duo,high,1.12.2,main
+5,132,"O salutaris hostia I, S.40 (Liszt, Franz)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,133,"Das Dörfchen, D.598 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,134,"Il Gelsomino, HWV 164b (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,135,"Grazie agl'inganni tuoi, K.532/Anh.A 54 (Mozart, Wolfgang Amadeus)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,136,"Violin Concerto in D major, RV 217 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,137,"Ah, lo previdi, K.272 (Mozart, Wolfgang Amadeus)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,main
+5,138,"Die Weisheit ruft, und keiner hört, TWV 1:370 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,139,"Herr, streu' in mich des Wortes Samen, TWV 1:771a (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,140,"Suite in C major, Z.665 (Purcell, Henry)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,141,"Sylvia, Now Your Scorn Give Over, Z.420 (Purcell, Henry)",secular,song,secular,song,high,1.12.2,secular_extra
+5,142,"Der Tod Oskars, D.375 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,143,"Vengo a voi, luci adorate, RV 682 (Vivaldi, Antonio)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,144,"Trio Sonata, TWV 42:e6 (Telemann, Georg Philipp)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,145,"Trio Sonata, TWV 42:a5 (Telemann, Georg Philipp)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,146,"Der Wanderer, D.649 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,147,"3 Volkslieder, WoO 11 (Mendelssohn, Felix)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,148,"Der blinde Sänger, S.350 (Liszt, Franz)",secular,song,stage,stage_other,low,1.12.2,main
+5,149,"Nocturnes, Op.15 (Chopin, Frédéric)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,150,"String Quartet in D major, Hob.III:3 (Haydn, Joseph)",chamber,string_quartet,chamber,string_quartet,high,1.12.2,main
+5,151,"Judas Maccabaeus, HWV 63 (Handel, George Frideric)",sacred,oratorio,sacred,oratorio,high,1.12.2,main
+5,152,"Aimons-nous et dormons, CD 7 (Debussy, Claude)",secular,song,secular,song,high,1.12.2,main
+5,153,"Via Crucis, S.53 (Liszt, Franz)",sacred,oratorio,sacred,oratorio,high,1.12.2,main
+5,154,"5 Songs, Op.71 (Brahms, Johannes)",secular,song,secular,song,high,1.12.2,main
+5,155,"Wie schön wirds nicht im Himmel sein, TWV 1:1640 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,156,"O lieb so lang du lieben kannst, S.298 (Liszt, Franz)",secular,song,secular,song,high,1.12.2,main
+5,157,"Bastien und Bastienne, K.50/46b (Mozart, Wolfgang Amadeus)",stage,opera,stage,opera,high,1.12.2,main
+5,158,"Neujahrslied, Op.144 (Schumann, Robert)",secular,secular_choral,secular,secular_choral,low,1.12.2,secular_extra
+5,159,"Der Fürst vom Berge, H.359 (Hensel, Fanny)",secular,song,secular,song,high,1.12.2,main
+5,160,"Die erste Walpurgisnacht, Op.60 (Mendelssohn, Felix)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,161,"Chorus of Flowers and Insects, TH 71 (Tchaikovsky, Pyotr)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,162,"Stanco di più soffrire, HWV 167a (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,163,"Troppo ben può questo tiranno Amore, SV 102 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,164,"2 Romances, CD 65-66 (Debussy, Claude)",secular,song,secular,song,high,1.12.2,secular_extra
+5,165,"La mer, CD 111 (Debussy, Claude)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,166,"11 Wiener Tänze (Beethoven, Ludwig van)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,167,"Wer die steile Sternenbahn, D.63 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,168,"I Envy Not a Monarch's Fate, Z.376 (Purcell, Henry)",secular,song,secular,song,high,1.12.2,secular_extra
+5,169,"Aux conquérants de l'air, Op.164 (Saint-Saëns, Camille)",sacred,sacred_other,secular,secular_choral,high,1.12.2,main
+5,170,"Trio Sonata in C major, HWV 403 (Handel, George Frideric)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,171,"Dalla guerra amorosa, HWV 102a (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,172,"Waltz in A major, S.210b (Liszt, Franz)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,173,"Der glorreiche Augenblick, Op.136 (Beethoven, Ludwig van)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,174,"Nachklänge, D.873a (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,175,"Violin Concerto, TWV 51:G4 (Telemann, Georg Philipp)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,176,"Ouverture-Suite, TWV 55:e1 (Telemann, Georg Philipp)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,177,"Salve Regina, S.66 (Liszt, Franz)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,178,"Falstaff (Verdi, Giuseppe)",stage,opera,stage,opera,high,1.12.2,main
+5,179,"Bardengesang, D.147 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,180,"Concerto a quattro in D major (Handel, George Frideric)",orchestral,concerto,chamber,ensemble,low,1.12.2,main
+5,181,"Baryton Trio in A minor, Hob.XI:87 (Haydn, Joseph)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,182,"Lass fahren hin das Allzuflüchtige, H.360 (Hensel, Fanny)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,183,"Sì t'amo fedele, HWV Anh.B6 (Handel, George Frideric)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,184,"Der Alpenjäger, D.524 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,185,"Mon coeur soupire, H.52 (Hensel, Fanny)",secular,song,secular,song,high,1.12.2,main
+5,186,"A Page from Homer, Op.60 (Rimsky-Korsakov, Nikolay)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,187,"La Sofonisba, Wq.5 (Gluck, Christoph Willibald)",stage,opera,stage,opera,high,1.12.2,main
+5,188,"Valse pour les enfants, KN16 (Stravinsky, Igor)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,189,"Le cadi dupé, Wq.29 (Gluck, Christoph Willibald)",stage,opera,stage,opera,high,1.12.2,main
+5,190,"Die Erscheinung, D.229 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,191,"Cello Concerto No.1 in C major, Hob.VIIb:1 (Haydn, Joseph)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,192,"Symphony No.97 in C major, Hob.I:97 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,193,"Lamento d'Arianna, SV 107 (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,194,"Piano Sonata in F major, K.Anh.30/590b (Mozart, Wolfgang Amadeus)",keyboard,kb_sonata,keyboard,kb_sonata,high,1.12.2,main
+5,195,"Fly, Bold Rebellion, Z.324 (Purcell, Henry)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,196,"Wehmut, D.772 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,197,"Ein feste Burg ist unser Gott, BWV Anh.49 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,198,"Praise Ye the Lord, Op.127 (Saint-Saëns, Camille)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,199,"Tango, K062 (Stravinsky, Igor)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,200,"Marche funèbre, Op.72 No.2 (Chopin, Frédéric)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,201,"Le Cinesi, Wq.18 (Gluck, Christoph Willibald)",stage,opera,stage,opera,high,1.12.2,main
+5,202,"Gott in der Natur, D.757 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,low,1.12.2,main
+5,203,"Pflügerlied, D.392 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,204,"Minuet in D major, D.86 (Schubert, Franz)",chamber,ensemble,chamber,string_quartet,high,1.12.2,main
+5,205,"Publio Cornelio Scipione, HWV 20 (Handel, George Frideric)",stage,opera,stage,opera,high,1.12.2,main
+5,206,"La chasse, K.Anh.103/299d (Mozart, Wolfgang Amadeus)",stage,stage_other,stage,stage_other,low,1.12.2,main
+5,207,"Festmarsch zur Goethe-Jubiläumfeier, S.115 (Liszt, Franz)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,208,"Baryton Trio in C major, Hob.XI:109 (Haydn, Joseph)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,209,"6 Fugues, Op.161 (Saint-Saëns, Camille)",keyboard,kb_counterpoint,keyboard,kb_counterpoint,high,1.12.2,main
+5,210,"Voi avete un cor fedele, K.217 (Mozart, Wolfgang Amadeus)",secular,secular_cantata,secular,secular_cantata,low,1.12.2,secular_extra
+5,211,"What Shall Be Done in Behalf of the Man, Z.341 (Purcell, Henry)",secular,secular_choral,secular,secular_cantata,low,1.12.2,main
+5,212,"2 Choruses, Op.53 (Saint-Saëns, Camille)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,213,"Regenlied, WoO 23 (Brahms, Johannes)",secular,song,secular,song,high,1.12.2,secular_extra
+5,214,"By the Sea, Op.46 (Rimsky-Korsakov, Nikolay)",secular,song,secular,song,high,1.12.2,secular_extra
+5,215,"E partirai, mia vita, HWV 111 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,main
+5,216,"Rinaldo, HWV 7a (Handel, George Frideric)",stage,opera,stage,opera,high,1.12.2,main
+5,217,"Des Mädchens Klage, D.6 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,218,"Die Rose, D.745 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,219,"Violin Concerto in B-flat major, RV 383a (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,220,"Ouverture-Suite, TWV 55:D7 (Telemann, Georg Philipp)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,221,"Piano Concerto in G major, M.83 (Ravel, Maurice)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,222,"Piano Quartet No.2, Op.2 (Mendelssohn, Felix)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,223,"String Quartet in D minor, Hob.III:76 (Haydn, Joseph)",chamber,string_quartet,chamber,string_quartet,high,1.12.2,main
+5,224,"La nuit, M.33 (Ravel, Maurice)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,225,"Tis Wine Was Made to Rule the Day, Z.546 (Purcell, Henry)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,226,"String Quartet in E-flat major, H.277 (Hensel, Fanny)",chamber,string_quartet,chamber,string_quartet,high,1.12.2,main
+5,227,"Christus, der uns selig macht, BWV 747 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,228,"Lyksalig Tvillung-Rige!, TWV 12:10 (Telemann, Georg Philipp)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,229,"Violin Concerto in B minor, RV 388 (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,230,"Dixit Dominus in D major, RV 807 (Vivaldi, Antonio)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,231,"Alessandro Severo, HWV A13 (Handel, George Frideric)",stage,opera,stage,opera,high,1.12.2,main
+5,232,"An den Mond in einer Herbstnacht, D.614 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,233,"Oboe Concerto, TWV 51:e1 (Telemann, Georg Philipp)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,234,"Dioclesian, Z.627 (Purcell, Henry)",stage,opera,stage,opera,high,1.12.2,main
+5,235,"Methodical Sonata, TWV 41:E5 (Telemann, Georg Philipp)",chamber,duo,chamber,duo,high,1.12.2,main
+5,236,"Orpheus, K076 (Stravinsky, Igor)",stage,stage_other,stage,stage_other,high,1.12.2,main
+5,237,"March for Fife in C major, HWV 414 (Handel, George Frideric)",chamber,duo,chamber,duo,high,1.12.2,main
+5,238,"Allnächtlich im Traume, H.220 (Hensel, Fanny)",secular,song,secular,song,high,1.12.2,main
+5,239,"Great Apollo and Bacchus, Z.251 (Purcell, Henry)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,240,"Languia di bocca lusinghiera, HWV 123 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,main
+5,241,"Sein Segen fließt daher wie ein Strom, BWV 1144 (Bach, Johann Sebastian)",secular,secular_cantata,secular,secular_cantata,low,1.12.2,secular_extra
+5,242,"Symphony No.37 in C major, Hob.I:37 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,243,"Mephisto Waltz No.2, S.515 (Liszt, Franz)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,244,"Rhapsodie bretonne, Op.7b (Saint-Saëns, Camille)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,245,"Idomeneo, K.366 (Mozart, Wolfgang Amadeus)",stage,opera,stage,opera,high,1.12.2,main
+5,246,"Valse-Scherzo, Op.34 (Tchaikovsky, Pyotr)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,247,"Auf den Tod einer Nachtigall, D.399 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,248,"Belsatzar, Op.57 (Schumann, Robert)",secular,song,secular,song,low,1.12.2,secular_extra
+5,249,"Illustrations du Prophète, S.414 (Liszt, Franz)",keyboard,kb_pieces,keyboard,kb_counterpoint,low,1.12.2,main
+5,250,"3 Lieder, Op.77 (Mendelssohn, Felix)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,251,"String Sextet No.1, Op.18 (Brahms, Johannes)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,252,"Die tote Nachtigall, S.291 (Liszt, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,253,"Der Frühlingsabend, H.185 (Hensel, Fanny)",secular,song,secular,song,high,1.12.2,main
+5,254,"Angenehmes Wiederau, BWV 30a (Bach, Johann Sebastian)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,255,"2 Marches for Military Band, WoO 18-19 (Beethoven, Ludwig van)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,256,"Symphony No.8, GMW 48 (Mahler, Gustav)",secular,secular_choral,secular,secular_choral,low,1.12.2,secular_extra
+5,257,"3 Gedichte, Op.30 (Schumann, Robert)",secular,song,secular,song,high,1.12.2,secular_extra
+5,258,"Der Herr ist nahe bei denen, TWV 1:275 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,259,"Fest im Takt, im Tone rein, Op.68 Anh. (Schumann, Robert)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,260,"Romanze des Richard Löwenherz, D.907 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,261,"Herr Jesu Christ, dich zu uns wend, BWV 749 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,262,"Luisens Antwort, D.319 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,263,"Romanzen und Balladen, Op.146 (Schumann, Robert)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,264,"Lukas-Passion, TWV 5:45 (Telemann, Georg Philipp)",sacred,oratorio,sacred,oratorio,high,1.12.2,main
+5,265,"Non giacinti o narcisi (Monteverdi, Claudio)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,266,"Io la vidi (Verdi, Giuseppe)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,267,"Der Blumenstrauss, H.49 (Hensel, Fanny)",secular,song,secular,song,high,1.12.2,secular_extra
+5,268,"Einst, S.332 (Liszt, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,269,"Réminiscences de Don Juan, S.418 (Liszt, Franz)",keyboard,kb_counterpoint,keyboard,kb_counterpoint,high,1.12.2,main
+5,270,"Freier Sinn und froher Mut, WAB 147 (Bruckner, Anton)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,271,"Violin Concerto in C minor, RV 198a (Vivaldi, Antonio)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,272,"Violin Sonata in E minor, K.60/Anh.C 23.06 (Mozart, Wolfgang Amadeus)",chamber,duo,chamber,duo,high,1.12.2,main
+5,273,"Polonaise in A major, B.94 (Dvořák, Antonín)",chamber,chamber_other,chamber,duo,high,1.12.2,main
+5,274,"Barmherziges Herze der ewigen Liebe, BWV 185 (Bach, Johann Sebastian)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,275,"Recorder Sonata, TWV 41:d4 (Telemann, Georg Philipp)",chamber,duo,chamber,duo,high,1.12.2,main
+5,276,"Mit Fried und Freud ich fahr dahin, BWV 616 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,277,"Symphony No.40 in F major, Hob.I:40 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,278,"Im Gegenwärtigen Vergangenes, D.710 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,279,"Gottlob, es geht nunmehr zum Ende, BWV 321 (Bach, Johann Sebastian)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,280,"A Berenice, K.70/61c (Mozart, Wolfgang Amadeus)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,281,"Die junge Nonne, D.828 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,282,"Wer zu Gott kommen will, TWV 1:1614 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,283,"Ouverture-Suite, TWV 55:g3 (Telemann, Georg Philipp)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,284,"Ich bitt' dich, WoO 172 (Beethoven, Ludwig van)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,285,"Myrrha, M.29 (Ravel, Maurice)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,286,"Nuit persane, Op.26bis (Saint-Saëns, Camille)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,287,"Klavierstück, H.239 (Hensel, Fanny)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,288,"Canon for 4 Voices in F major, K.560 (Mozart, Wolfgang Amadeus)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,289,"Though My Mistress Be Fair, Z.514 (Purcell, Henry)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,290,"Ach Herr, mich armen Sünder, BWV 742 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,291,"Lucrezia, HWV 145 (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,292,"Jehova pascit me, TWV 7:23 (Telemann, Georg Philipp)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,293,"Serenade, Op.37 (Rimsky-Korsakov, Nikolay)",chamber,duo,chamber,duo,high,1.12.2,main
+5,294,"Du bist die Ruh, D.776 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,295,"Der Hochzeitsbraten, D.930 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,296,"Aria in C minor, HWV 459 (Handel, George Frideric)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,297,"Rigoletto (Verdi, Giuseppe)",stage,opera,stage,opera,high,1.12.2,main
+5,298,"Wer ist aber, der die Welt überwindet, TWV 1:1583 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,low,1.12.2,main
+5,299,"Piano Trio No.4, Op.90 (Dvořák, Antonín)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,300,"Alles Gute, alles Schöne!, WoO 179 (Beethoven, Ludwig van)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,301,"La battaglia di Legnano (Verdi, Giuseppe)",stage,opera,stage,opera,high,1.12.2,main
+5,302,"Violin Sonata in F major (Saint-Saëns, Camille)",chamber,duo,chamber,duo,high,1.12.2,main
+5,303,"Blessed is He Who Smiles, TH 83 (Tchaikovsky, Pyotr)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,304,"Der Rose Pilgerfahrt, Op.112 (Schumann, Robert)",sacred,oratorio,secular,secular_cantata,low,1.12.2,main
+5,305,"Piano Sonata in F minor, D.625 (Schubert, Franz)",keyboard,kb_sonata,keyboard,kb_sonata,high,1.12.2,main
+5,306,"Violin Sonata No.7, Op.30 No.2 (Beethoven, Ludwig van)",chamber,duo,chamber,duo,high,1.12.2,main
+5,307,"Gott hat uns das ewige Leben gegeben, TWV 1:657 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,308,"Allegretto, TH 153 (Tchaikovsky, Pyotr)",chamber,ensemble,chamber,string_quartet,high,1.12.2,main
+5,309,"String Quartet No.14, Op.131 (Beethoven, Ludwig van)",chamber,string_quartet,chamber,string_quartet,high,1.12.2,main
+5,310,"Schmücke dich, o liebe Seele, BWV 654 (Bach, Johann Sebastian)",keyboard,organ,keyboard,organ,high,1.12.2,main
+5,311,"6 Romances, Op.8 (Rimsky-Korsakov, Nikolay)",secular,song,secular,song,high,1.12.2,secular_extra
+5,312,"Linde Weste wehen, D.725 (Schubert, Franz)",secular,secular_choral,secular,secular_choral,high,1.12.2,secular_extra
+5,313,"Bagatelle, WoO 56 (Beethoven, Ludwig van)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,314,"Du sollt lieben Gott deinen Herrn, TWV 1:403 (Telemann, Georg Philipp)",sacred,sacred_other,sacred,sacred_cantata,high,1.12.2,main
+5,315,"12 Variations on 'La bergère Célimène', K.359/374a (Mozart, Wolfgang Amadeus)",chamber,duo,chamber,duo,high,1.12.2,main
+5,316,"Love's Goddess Sure Was Blind, Z.331 (Purcell, Henry)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,317,"Trost in Tränen, D.120 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,318,"Andante con Variazioni, WoO 44b (Beethoven, Ludwig van)",keyboard,kb_counterpoint,chamber,duo,high,1.12.2,main
+5,319,"Artamene, Wq.11 (Gluck, Christoph Willibald)",stage,opera,stage,opera,high,1.12.2,main
+5,320,"Was mein Gott will, das g'scheh allzeit, TWV 1:1529 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,321,"Laudate Dominum, RV 606 (Vivaldi, Antonio)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,322,"Ah, più tremar non voglio, K.71 (Mozart, Wolfgang Amadeus)",secular,secular_cantata,secular,secular_cantata,low,1.12.2,secular_extra
+5,323,"Printemps, CD 68 (Debussy, Claude)",secular,secular_choral,secular,secular_choral,low,1.12.2,secular_extra
+5,324,"Piano Concerto No.5, Op.73 (Beethoven, Ludwig van)",orchestral,concerto,orchestral,concerto,high,1.12.2,main
+5,325,"Trio Sonata in B minor, RV 79 (Vivaldi, Antonio)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,326,"Armida al campo d'Egitto, RV 699 (Vivaldi, Antonio)",stage,opera,stage,opera,high,1.12.2,main
+5,327,"A quoi bon entendre (Saint-Saëns, Camille)",secular,song,secular,song,high,1.12.2,secular_extra
+5,328,"Allegro in G major, HWV 407 (Handel, George Frideric)",chamber,chamber_other,chamber,chamber_other,high,1.12.2,main
+5,329,"Trio Sonata, TWV 42:c7 (Telemann, Georg Philipp)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,330,"Die Forelle, D.550 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,331,"L'isle joyeuse, CD 109 (Debussy, Claude)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,332,"Elegischer Gesang, Op.118 (Beethoven, Ludwig van)",secular,secular_choral,secular,secular_choral,high,1.12.2,main
+5,333,"Alma grande e nobil core, K.578 (Mozart, Wolfgang Amadeus)",secular,secular_cantata,stage,opera,low,1.12.2,secular_extra
+5,334,"Piano Trio in G minor, Op.17 (Schumann, Clara)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,335,"Phantasie for Violin and Orchestra, Op.131 (Schumann, Robert)",orchestral,orch_other,orchestral,orch_other,low,1.12.2,main
+5,336,"Schäfers Klagelied, D.121 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,main
+5,337,"An die Freunde, D.654 (Schubert, Franz)",secular,song,secular,song,high,1.12.2,secular_extra
+5,338,"L'Adelaide, RV 695 (Vivaldi, Antonio)",stage,opera,stage,opera,high,1.12.2,main
+5,339,"Schäfers Sonntagslied, H.78 (Hensel, Fanny)",secular,song,secular,song,low,1.12.2,secular_extra
+5,340,"La naissance de Vénus, Op.29 (Fauré, Gabriel)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,341,"6 Romances, Op.16 (Tchaikovsky, Pyotr)",secular,song,secular,song,high,1.12.2,main
+5,342,"Symphony No.101 in D major, Hob.I:101 (Haydn, Joseph)",orchestral,symphony,orchestral,symphony,high,1.12.2,main
+5,343,"Prelude and Fugue in E major, BWV 854 (Bach, Johann Sebastian)",keyboard,kb_counterpoint,keyboard,kb_counterpoint,high,1.12.2,main
+5,344,"Der Wachtelschlag, WoO 129 (Beethoven, Ludwig van)",secular,song,secular,song,low,1.12.2,secular_extra
+5,345,"Voluntary No.6 (Handel, George Frideric)",keyboard,organ,keyboard,organ,low,1.12.2,main
+5,346,"Alle eure Sorgen werfet auf den Herrn, TWV 1:71 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,347,"The Canterbury Guests, Z.591 (Purcell, Henry)",stage,stage_other,stage,stage_other,high,1.12.2,main
+5,348,"Suite in G major, HWV 441 (Handel, George Frideric)",keyboard,kb_pieces,keyboard,kb_pieces,high,1.12.2,main
+5,349,"12 Minuets, WoO 7 (Beethoven, Ludwig van)",orchestral,orch_other,orchestral,orch_other,high,1.12.2,main
+5,350,"String Quintet in D minor, Hess 40 (Beethoven, Ludwig van)",chamber,ensemble,chamber,ensemble,high,1.12.2,main
+5,351,"5 Heitere Gesänge, Op.125 (Schumann, Robert)",secular,song,secular,song,high,1.12.2,secular_extra
+5,352,"Es ist vollbracht, WoO 97 (Beethoven, Ludwig van)",stage,opera,stage,opera,low,1.12.2,main
+5,353,"Mayer Cantata, WAB 60 (Bruckner, Anton)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,354,"Es ist das Heil uns kommen her, TWV 1:494 (Telemann, Georg Philipp)",sacred,sacred_cantata,sacred,sacred_cantata,high,1.12.2,main
+5,355,"Willkommen, ihr herrschenden Götter der Erden, BWV 1161 (Bach, Johann Sebastian)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,secular_extra
+5,356,"Ninfe e pastori, HWV 139a (Handel, George Frideric)",secular,secular_cantata,secular,secular_cantata,high,1.12.2,main
+5,357,"Liebes Herz, bedenke doch, BWV 482 (Bach, Johann Sebastian)",sacred,sacred_other,sacred,sacred_other,high,1.12.2,main
+5,358,"The Virtuous Wife, Z.611 (Purcell, Henry)",stage,stage_other,stage,stage_other,high,1.12.2,main
+5,359,"Pastorale Variée, avec cadenza (Mozart, Wolfgang Amadeus)",keyboard,kb_counterpoint,keyboard,kb_counterpoint,high,1.12.2,main
+5,360,"Welch ängstliches Beben, K.389/384A (Mozart, Wolfgang Amadeus)",secular,secular_choral,secular,secular_choral,low,1.12.2,secular_extra

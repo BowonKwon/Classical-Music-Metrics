@@ -37,18 +37,19 @@ ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths 
 
 GENRES = ["orchestral", "stage", "vocal", "chamber", "keyboard", "other"]
 GENRE_KO = {"orchestral": "관현악", "stage": "극음악", "vocal": "성악", "chamber": "실내악", "keyboard": "건반", "other": "기타"}
-VOICE = re.compile(r"(^|\s)(v|vv|sop|mez|alt|ten|bar|bass|ch|mch|mch2|wch|fch|uch|cch|chorus|voice)(\s|$)")  # fch, uch: 1.12.1
+VOICE = re.compile(r"(^|\s)\d*(v|vv|sop|mez|alt|ten|bar|bass|ch|mch|mch2|wch|fch|uch|cch|chorus|voice)(\s|$)")  # fch, uch: 1.12.1; a number in front ("2sop", "2ch"): 1.12.2
 STAGE = re.compile(r"\b(operas?|singspiele?|ballets?|incidental music|melodramas?|stage works?|operettas?|zarzuelas?|intermezzos? \(stage\)"
                    r"|lyric (dramas?|tragedies|comedies)|dramm[ai] giocos[oi]|masques?|farces?|musicals|pantomimes?|theatrical works?)\b")  # second line: 1.12.1
-VOCAL_GENRE = re.compile(r"\b(lieder|songs?|arias?|cantatas?|masses|mass|requiems?|oratorios?|motets?|chorales|choruses|hymns?|psalms?|magnificats?|sacred|canons? for voices|partsongs?)\b")
+VOCAL_GENRE = re.compile(r"\b(lieder|songs?|arias?|cantatas?|masses|mass|requiems?|oratorios?|motets?|chorales|choruses|hymns?|psalms?|magnificats?|sacred|canons? for voices|partsongs?|madrigals?)\b")  # madrigals: 1.12.2
 ORCH = re.compile(r"\b(symphonies|concertos?|overtures?|serenades for orch|orch)\b")
-CHAMBER = re.compile(r"\b(trios?|quartets?|quintets?|sextets?|septets?|octets?|nonets?|duets?|duos?|divertimentos?)\b|(^|\s)(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|gui|lute|vdg|rec)\s")
+CHAMBER = re.compile(r"\b(trios?|quartets?|quintets?|sextets?|septets?|octets?|nonets?|duets?|duos?|divertimentos?)\b|(^|\s)\d*(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|tbn|gui|lute|vdg|viol|rec|eh|bsthn|fife|bc)\s")  # a number in front ("2vn bc") and tbn, viol, eh, bsthn, fife, bc: 1.12.2
 KEYBOARD = re.compile(r"(^|\s)(pf|pf4h|2pf|kbd|org|hpd|clavichord|chorale preludes?|inventions?)(\s|$|,)")
 
 
-OPEN_PART = re.compile(r"\bopen( (sop|mez|alt|ten|bar|bass))+\b")
-INSTR_CODE = re.compile(r"^\d*(vn|va|vc|db|vlne|viol|vdg|vie|bryt|fl|picc|ob|eh|cl|bcl|bn|cbn|hn|tpt|tbn|btbn|tba|cor|fife|rec|timp|perc|gui|lute|mand|harp|pf|pf4h|hpd|kbd|org|harm|bc|orch|str|ww|br|open)$")
-KB_CODE = re.compile(r"^\d*(pf|pf4h|hpd|kbd|org|harm)$")
+OPEN_PART = re.compile(r"\bopen( \d*(sop|mez|alt|ten|bar|bass))+\b")  # "open 2sop": 1.12.2
+INSTR_CODE = re.compile(r"^\d*(vn|va|vc|db|vlne|viol|vdg|vie|bryt|fl|picc|ob|eh|cl|bcl|bn|cbn|hn|tpt|tbn|btbn|tba|cor|fife|rec|timp|perc|gui|lute|mand|harp|hp|bsthn|pf|pf4h|2?pf\dh|hpd|clvd|kbd|org|harm|bc|orch|str|ww|br|open)$")
+KB_CODE = re.compile(r"^\d*(pf|pf4h|2?pf\dh|hpd|clvd|kbd|org|harm)$")
+ENSEMBLE_CODE = {"str", "ww", "br"}  # string orchestra, wind band
 
 
 def instrumental_scoring(tags: str) -> bool:
@@ -57,6 +58,15 @@ def instrumental_scoring(tags: str) -> bool:
     if OPEN_PART.search(t):
         return True
     for seg in t.split(";"):
+        toks = seg.replace(",", " ").split()
+        if toks and all(INSTR_CODE.match(x) for x in toks):
+            return True
+    return False
+
+
+def explicit_instrumental(tags: str) -> bool:
+    """True if some scoring segment consists only of instrument codes ('vc pf', 'orch'); unspecified 'open' parts alone do not count."""
+    for seg in OPEN_PART.sub(" x ", (tags or "").lower()).split(";"):
         toks = seg.replace(",", " ").split()
         if toks and all(INSTR_CODE.match(x) for x in toks):
             return True
@@ -75,13 +85,40 @@ def keyboard_only(tags: str) -> bool:
     return found
 
 
-def classify(tags: str, instr: str) -> str:
-    t = (tags or "").lower()
+def large_ensemble(tags: str) -> bool:
+    """True if a scoring segment made only of instrument codes names a string orchestra or a band ('str bc', 'hp str',
+    'ww br perc') and the tags give no scoring for a few players beside it ('2vn va vc ; str' stays chamber music)."""
+    big = small = False
+    for seg in OPEN_PART.sub(" open ", (tags or "").lower()).split(";"):
+        toks = seg.replace(",", " ").split()
+        if not toks or not all(INSTR_CODE.match(x) for x in toks):
+            continue
+        if ENSEMBLE_CODE & set(toks):
+            big = True
+        elif "orch" not in toks and not all(KB_CODE.match(x) for x in toks):
+            small = True
+    return big and not small
+
+
+def effective_tags(tags: str, title: str, instr: str) -> str:
+    """1.12.2: the tags the rules read. When a page has no tags, or only scorings marked '(arr)' (arrangements),
+    the page title stands in for the two names it can settle: a concerto (when the instrumentation is empty or
+    names an orchestra or strings) and a requiem."""
+    t = (tags or "").strip()
+    if any(seg.strip() and "(arr)" not in seg.lower() for seg in t.split(";")):
+        return t
+    ti, i = (title or "").lower(), (instr or "").lower()
+    out = []
+    if re.search(r"\bconcertos?\b", ti) and (not i.strip() or re.search(r"\b(orchestra|strings)\b", i)):
+        out.append("concertos")
+    if re.search(r"\brequiem\b", ti):
+        out.append("requiems")
+    return " ; ".join(([t] if t else []) + out)
+
+
+def classify(tags: str, instr: str, title: str = "") -> str:
+    t = effective_tags(tags, title, instr).lower()
     i = (instr or "").lower()
-    if STAGE.search(t) or STAGE.search(i):
-        return "stage"
-    if "chorale prelude" in t:
-        return "keyboard"
     tt = " " + t.replace(";", " ").replace(",", " ") + " "
     # 1.12.1: instruments must not be read as voices. IMSLP's "open bass", "open sop alt ten bass" and "4open" are
     # unspecified instruments; and when the tags give a purely instrumental scoring ("3tbn", "vn viol bc", "orch"),
@@ -90,18 +127,29 @@ def classify(tags: str, instr: str) -> str:
     code_voice = VOICE.search(tv) or re.search(r"\s\d*vv\s", tv)
     name_voice = VOCAL_GENRE.search(t)
     instr_voice = re.search(r"\b(voices?|choir|chorus|soprano|tenor)\b", i)
-    if name_voice and not code_voice and not instr_voice and keyboard_only(t):
-        name_voice = None  # a vocal genre name on a work for keyboard alone: songs without words, organ chorales
+    if name_voice and not code_voice and not instr_voice and explicit_instrumental(t):
+        name_voice = None  # a vocal genre name on a work for instruments alone: songs without words, organ chorales (1.12.1, keyboard); 'lieder ; vc pf', 'hymns ; orch' (1.12.2)
+    stage = STAGE.search(t) or STAGE.search(i)
+    if stage and re.search(r"\bsuites?\b", t) and re.search(r"\bsuite\b", (title or "").lower()) and not code_voice and not instr_voice:
+        stage = None  # 1.12.2: a suite for instruments alone drawn from a stage work ('ballets ; suites ; orch', titled '... (suite)')
+    if stage:
+        return "stage"
+    if "chorale prelude" in t:
+        return "keyboard"
     if code_voice or name_voice or (instr_voice and not instrumental_scoring(t)):
         return "vocal"
-    if ORCH.search(t) or "orchestra" in i:
+    if keyboard_only(t):
+        return "keyboard"  # 1.12.2: every scoring in the tags is for keyboard alone, whatever the genre name (concertos for solo keyboard, keyboard overtures, duets for one piano)
+    if re.fullmatch(r"\s*mech\s*", ";".join(seg for seg in t.split(";") if all(INSTR_CODE.match(x) or x == "mech" for x in seg.split()) and seg.strip())):
+        return "other"  # 1.12.2: mechanical instruments (musical clocks, music boxes)
+    if ORCH.search(t) or large_ensemble(t) or "orchestra" in i:
         return "orchestral"
     # a solo keyboard instrumentation wins over "duets/trios" in the tags (voices, not players: BWV 802-805)
     if re.fullmatch(r"\s*(keyboard|organ|harpsichord|piano|clavichord)(\s*\([^)]*\))?\s*", i):
         return "keyboard"
     if KEYBOARD.search(tt) and not CHAMBER.search(tt.replace(" pf ", " ")):
         return "keyboard"
-    if CHAMBER.search(tt) or re.search(r"\b(violin|cello|flute|string)\b", i):
+    if CHAMBER.search(tt) or re.search(r"(^|;)\s*\d*hp\s*(;|$)", t) or re.search(r"\b(violins?|cellos?|flutes?|string)\b", i):  # a harp alone: 1.12.2
         return "chamber"
     if re.search(r"\b(piano|organ|harpsichord|keyboard)\b", i):
         return "keyboard"
@@ -236,7 +284,7 @@ def main():
         if ye is not None and ye > d:
             ye = int(d)
         tags = r.get("Tags") or ""
-        g = classify(tags, r.get("Instrumentation"))
+        g = classify(tags, r.get("Instrumentation"), r["page"])
         rows.append({
             "composer": comp, "page": r["page"], "revid": r["revid"], "work_title": r.get("Work Title"),
             "catalogue": r.get("Opus/Catalogue Number") or "", "movements": r.get("Movements/Sections"),
