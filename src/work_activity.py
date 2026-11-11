@@ -37,12 +37,42 @@ ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths 
 
 GENRES = ["orchestral", "stage", "vocal", "chamber", "keyboard", "other"]
 GENRE_KO = {"orchestral": "관현악", "stage": "극음악", "vocal": "성악", "chamber": "실내악", "keyboard": "건반", "other": "기타"}
-VOICE = re.compile(r"(^|\s)(v|vv|sop|mez|alt|ten|bar|bass|ch|mch|mch2|wch|cch|chorus|voice)(\s|$)")
-STAGE = re.compile(r"\b(operas?|singspiele?|ballets?|incidental music|melodramas?|stage works?|operettas?|zarzuelas?|intermezzos? \(stage\))\b")
+VOICE = re.compile(r"(^|\s)(v|vv|sop|mez|alt|ten|bar|bass|ch|mch|mch2|wch|fch|uch|cch|chorus|voice)(\s|$)")  # fch, uch: 1.12.1
+STAGE = re.compile(r"\b(operas?|singspiele?|ballets?|incidental music|melodramas?|stage works?|operettas?|zarzuelas?|intermezzos? \(stage\)"
+                   r"|lyric (dramas?|tragedies|comedies)|dramm[ai] giocos[oi]|masques?|farces?|musicals|pantomimes?|theatrical works?)\b")  # second line: 1.12.1
 VOCAL_GENRE = re.compile(r"\b(lieder|songs?|arias?|cantatas?|masses|mass|requiems?|oratorios?|motets?|chorales|choruses|hymns?|psalms?|magnificats?|sacred|canons? for voices|partsongs?)\b")
 ORCH = re.compile(r"\b(symphonies|concertos?|overtures?|serenades for orch|orch)\b")
 CHAMBER = re.compile(r"\b(trios?|quartets?|quintets?|sextets?|septets?|octets?|nonets?|duets?|duos?|divertimentos?)\b|(^|\s)(vn|va|vc|db|fl|ob|cl|bn|hn|tpt|gui|lute|vdg|rec)\s")
 KEYBOARD = re.compile(r"(^|\s)(pf|pf4h|2pf|kbd|org|hpd|clavichord|chorale preludes?|inventions?)(\s|$|,)")
+
+
+OPEN_PART = re.compile(r"\bopen( (sop|mez|alt|ten|bar|bass))+\b")
+INSTR_CODE = re.compile(r"^\d*(vn|va|vc|db|vlne|viol|vdg|vie|bryt|fl|picc|ob|eh|cl|bcl|bn|cbn|hn|tpt|tbn|btbn|tba|cor|fife|rec|timp|perc|gui|lute|mand|harp|pf|pf4h|hpd|kbd|org|harm|bc|orch|str|ww|br|open)$")
+KB_CODE = re.compile(r"^\d*(pf|pf4h|hpd|kbd|org|harm)$")
+
+
+def instrumental_scoring(tags: str) -> bool:
+    """True if some scoring segment of the tags consists only of instrument codes (or of unspecified 'open' parts)."""
+    t = (tags or "").lower()
+    if OPEN_PART.search(t):
+        return True
+    for seg in t.split(";"):
+        toks = seg.replace(",", " ").split()
+        if toks and all(INSTR_CODE.match(x) for x in toks):
+            return True
+    return False
+
+
+def keyboard_only(tags: str) -> bool:
+    """True if the tags give at least one scoring made only of instrument codes and every such scoring is for keyboard alone."""
+    found = False
+    for seg in OPEN_PART.sub(" ", (tags or "").lower()).split(";"):
+        toks = seg.replace(",", " ").split()
+        if toks and all(INSTR_CODE.match(x) for x in toks):
+            if not all(KB_CODE.match(x) for x in toks):
+                return False
+            found = True
+    return found
 
 
 def classify(tags: str, instr: str) -> str:
@@ -53,7 +83,16 @@ def classify(tags: str, instr: str) -> str:
     if "chorale prelude" in t:
         return "keyboard"
     tt = " " + t.replace(";", " ").replace(",", " ") + " "
-    if VOCAL_GENRE.search(t) or VOICE.search(tt) or re.search(r"\s\d*vv\s", tt) or re.search(r"\b(voices?|choir|chorus|soprano|tenor)\b", i):
+    # 1.12.1: instruments must not be read as voices. IMSLP's "open bass", "open sop alt ten bass" and "4open" are
+    # unspecified instruments; and when the tags give a purely instrumental scoring ("3tbn", "vn viol bc", "orch"),
+    # words such as "tenor" in the instrumentation text (tenor trombone, tenor viol) do not make the work vocal.
+    tv = OPEN_PART.sub(" ", tt)
+    code_voice = VOICE.search(tv) or re.search(r"\s\d*vv\s", tv)
+    name_voice = VOCAL_GENRE.search(t)
+    instr_voice = re.search(r"\b(voices?|choir|chorus|soprano|tenor)\b", i)
+    if name_voice and not code_voice and not instr_voice and keyboard_only(t):
+        name_voice = None  # a vocal genre name on a work for keyboard alone: songs without words, organ chorales
+    if code_voice or name_voice or (instr_voice and not instrumental_scoring(t)):
         return "vocal"
     if ORCH.search(t) or "orchestra" in i:
         return "orchestral"

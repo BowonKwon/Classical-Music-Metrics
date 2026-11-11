@@ -2,10 +2,10 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",10,keyboard,kb_counterpoint,composition,1,0.0,0
 "Bach, Johann Sebastian",15,keyboard,kb_pieces,composition,1,0.0,0
 "Bach, Johann Sebastian",15,keyboard,kb_sonata,composition,1,9.0,1
-"Bach, Johann Sebastian",15,keyboard,organ,composition,38,8.0,2
+"Bach, Johann Sebastian",15,keyboard,organ,composition,39,8.0,2
 "Bach, Johann Sebastian",15,orchestral,concerto,composition,1,0.0,0
 "Bach, Johann Sebastian",15,sacred,sacred_cantata,composition,1,0.0,0
-"Bach, Johann Sebastian",15,sacred,sacred_other,composition,7,0.0,0
+"Bach, Johann Sebastian",15,sacred,sacred_other,composition,6,0.0,0
 "Bach, Johann Sebastian",20,keyboard,kb_counterpoint,composition,6,15.0,2
 "Bach, Johann Sebastian",20,keyboard,kb_pieces,composition,2,8.0,1
 "Bach, Johann Sebastian",20,keyboard,kb_sonata,composition,3,0.0,0
@@ -13,19 +13,19 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",20,orchestral,overture_poem,composition,1,0.0,0
 "Bach, Johann Sebastian",20,sacred,mass,composition,1,0.0,0
 "Bach, Johann Sebastian",20,sacred,sacred_cantata,composition,4,78.0,4
-"Bach, Johann Sebastian",20,secular,secular_choral,composition,3,33.0,2
+"Bach, Johann Sebastian",20,secular,secular_cantata,composition,2,33.0,2
+"Bach, Johann Sebastian",20,secular,secular_choral,composition,1,0.0,0
 "Bach, Johann Sebastian",25,chamber,chamber_other,composition,1,0.0,0
 "Bach, Johann Sebastian",25,chamber,duo,composition,1,0.0,0
 "Bach, Johann Sebastian",25,chamber,ensemble,composition,1,0.0,0
 "Bach, Johann Sebastian",25,keyboard,kb_counterpoint,composition,16,20.0,1
 "Bach, Johann Sebastian",25,keyboard,kb_pieces,composition,2,0.0,0
-"Bach, Johann Sebastian",25,keyboard,organ,composition,34,16.5,10
+"Bach, Johann Sebastian",25,keyboard,organ,composition,36,16.5,10
 "Bach, Johann Sebastian",25,orchestral,concerto,composition,9,0.0,0
 "Bach, Johann Sebastian",25,other,other,composition,1,0.0,0
 "Bach, Johann Sebastian",25,sacred,sacred_cantata,composition,11,169.0,7
-"Bach, Johann Sebastian",25,sacred,sacred_other,composition,3,0.0,0
-"Bach, Johann Sebastian",25,secular,secular_cantata,composition,1,0.0,0
-"Bach, Johann Sebastian",25,secular,secular_choral,composition,1,30.0,1
+"Bach, Johann Sebastian",25,sacred,sacred_other,composition,1,0.0,0
+"Bach, Johann Sebastian",25,secular,secular_cantata,composition,2,30.0,1
 "Bach, Johann Sebastian",30,chamber,chamber_other,composition,7,0.0,0
 "Bach, Johann Sebastian",30,chamber,duo,composition,6,31.0,2
 "Bach, Johann Sebastian",30,keyboard,kb_counterpoint,composition,8,0.0,0
@@ -35,8 +35,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",30,orchestral,orch_other,composition,2,21.0,1
 "Bach, Johann Sebastian",30,sacred,oratorio,composition,1,60.0,1
 "Bach, Johann Sebastian",30,sacred,sacred_cantata,composition,12,122.0,6
-"Bach, Johann Sebastian",30,secular,secular_cantata,composition,4,36.0,2
-"Bach, Johann Sebastian",30,secular,secular_choral,composition,2,0.0,0
+"Bach, Johann Sebastian",30,secular,secular_cantata,composition,6,36.0,2
 "Bach, Johann Sebastian",35,chamber,chamber_other,composition,5,0.0,0
 "Bach, Johann Sebastian",35,chamber,duo,composition,4,0.0,0
 "Bach, Johann Sebastian",35,keyboard,kb_counterpoint,composition,96,15.0,4
@@ -45,9 +44,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",35,orchestral,concerto,composition,3,54.0,3
 "Bach, Johann Sebastian",35,sacred,oratorio,composition,1,0.0,0
 "Bach, Johann Sebastian",35,sacred,sacred_cantata,composition,78,1206.0,57
-"Bach, Johann Sebastian",35,sacred,sacred_other,composition,3,0.0,0
+"Bach, Johann Sebastian",35,sacred,sacred_other,composition,5,0.0,0
 "Bach, Johann Sebastian",35,secular,secular_cantata,composition,3,0.0,0
-"Bach, Johann Sebastian",35,secular,secular_choral,composition,2,0.0,0
 "Bach, Johann Sebastian",40,chamber,chamber_other,composition,2,0.0,0
 "Bach, Johann Sebastian",40,keyboard,kb_counterpoint,composition,5,0.0,0
 "Bach, Johann Sebastian",40,keyboard,kb_pieces,composition,11,35.0,1
@@ -60,8 +58,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",40,sacred,sacred_cantata,composition,72,1126.0,51
 "Bach, Johann Sebastian",40,sacred,sacred_other,composition,8,0.0,0
 "Bach, Johann Sebastian",40,sacred,sacred_other,publication,1,0.0,0
-"Bach, Johann Sebastian",40,secular,secular_cantata,composition,11,55.0,2
-"Bach, Johann Sebastian",40,secular,secular_choral,composition,10,115.0,3
+"Bach, Johann Sebastian",40,secular,secular_cantata,composition,21,170.0,5
 "Bach, Johann Sebastian",40,secular,song,composition,1,0.0,0
 "Bach, Johann Sebastian",45,chamber,duo,composition,1,0.0,0
 "Bach, Johann Sebastian",45,keyboard,kb_counterpoint,composition,4,0.0,0
@@ -76,8 +73,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",45,sacred,oratorio,composition,3,305.0,2
 "Bach, Johann Sebastian",45,sacred,sacred_cantata,composition,9,138.0,5
 "Bach, Johann Sebastian",45,sacred,sacred_other,composition,6,0.0,0
-"Bach, Johann Sebastian",45,secular,secular_cantata,composition,8,27.0,1
-"Bach, Johann Sebastian",45,secular,secular_choral,composition,5,170.0,5
+"Bach, Johann Sebastian",45,secular,secular_cantata,composition,13,197.0,6
 "Bach, Johann Sebastian",50,chamber,chamber_other,composition,2,0.0,0
 "Bach, Johann Sebastian",50,chamber,duo,composition,4,0.0,0
 "Bach, Johann Sebastian",50,keyboard,kb_counterpoint,composition,1,0.0,0
@@ -92,8 +88,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",50,sacred,sacred_cantata,composition,3,58.0,2
 "Bach, Johann Sebastian",50,sacred,sacred_other,composition,68,10.0,2
 "Bach, Johann Sebastian",50,sacred,sacred_other,publication,45,0.0,0
-"Bach, Johann Sebastian",50,secular,secular_cantata,composition,3,35.0,1
-"Bach, Johann Sebastian",50,secular,secular_choral,composition,3,70.0,2
+"Bach, Johann Sebastian",50,secular,secular_cantata,composition,6,105.0,3
 "Bach, Johann Sebastian",50,secular,song,composition,2,0.0,0
 "Bach, Johann Sebastian",55,chamber,chamber_other,composition,1,0.0,0
 "Bach, Johann Sebastian",55,chamber,duo,composition,1,0.0,0
@@ -103,8 +98,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bach, Johann Sebastian",55,keyboard,organ,composition,6,0.0,0
 "Bach, Johann Sebastian",55,orchestral,orch_other,composition,1,0.0,0
 "Bach, Johann Sebastian",55,sacred,sacred_cantata,composition,1,0.0,0
-"Bach, Johann Sebastian",55,secular,secular_cantata,composition,1,30.0,1
-"Bach, Johann Sebastian",55,secular,secular_choral,composition,1,27.0,1
+"Bach, Johann Sebastian",55,secular,secular_cantata,composition,2,57.0,2
 "Bach, Johann Sebastian",60,chamber,ensemble,composition,1,0.0,0
 "Bach, Johann Sebastian",60,keyboard,kb_counterpoint,composition,1,10.0,1
 "Bach, Johann Sebastian",60,keyboard,organ,composition,24,14.0,4
@@ -131,9 +125,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Beethoven, Ludwig van",20,orchestral,orch_other,composition,3,0.0,0
 "Beethoven, Ludwig van",20,orchestral,symphony,composition,1,0.0,0
 "Beethoven, Ludwig van",20,other,other,composition,1,7.0,1
-"Beethoven, Ludwig van",20,secular,secular_cantata,composition,3,6.0,1
-"Beethoven, Ludwig van",20,secular,secular_choral,composition,3,25.0,1
-"Beethoven, Ludwig van",20,secular,song,composition,9,6.0,3
+"Beethoven, Ludwig van",20,secular,secular_cantata,composition,5,31.0,2
+"Beethoven, Ludwig van",20,secular,secular_choral,composition,1,1.0,1
+"Beethoven, Ludwig van",20,secular,song,composition,9,5.0,2
 "Beethoven, Ludwig van",25,chamber,duo,composition,10,65.0,4
 "Beethoven, Ludwig van",25,chamber,ensemble,composition,15,100.0,4
 "Beethoven, Ludwig van",25,chamber,string_quartet,composition,5,0.0,0
@@ -146,8 +140,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Beethoven, Ludwig van",25,orchestral,symphony,composition,1,25.0,1
 "Beethoven, Ludwig van",25,other,other,composition,3,0.0,0
 "Beethoven, Ludwig van",25,secular,secular_cantata,composition,2,0.0,0
-"Beethoven, Ludwig van",25,secular,secular_choral,composition,1,2.0,1
-"Beethoven, Ludwig van",25,secular,song,composition,5,0.0,0
+"Beethoven, Ludwig van",25,secular,secular_choral,composition,2,2.0,1
+"Beethoven, Ludwig van",25,secular,song,composition,4,0.0,0
 "Beethoven, Ludwig van",25,stage,stage_other,composition,1,8.0,1
 "Beethoven, Ludwig van",30,chamber,duo,composition,8,146.0,6
 "Beethoven, Ludwig van",30,chamber,ensemble,composition,4,0.0,0
@@ -188,8 +182,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Beethoven, Ludwig van",40,orchestral,overture_poem,composition,1,7.0,1
 "Beethoven, Ludwig van",40,orchestral,symphony,composition,2,63.0,2
 "Beethoven, Ludwig van",40,other,other,composition,5,6.0,2
-"Beethoven, Ludwig van",40,secular,secular_choral,composition,11,39.0,3
-"Beethoven, Ludwig van",40,secular,song,composition,9,16.0,5
+"Beethoven, Ludwig van",40,secular,secular_cantata,composition,1,34.0,1
+"Beethoven, Ludwig van",40,secular,secular_choral,composition,11,9.0,3
+"Beethoven, Ludwig van",40,secular,song,composition,8,12.0,4
 "Beethoven, Ludwig van",40,stage,stage_other,composition,4,60.0,1
 "Beethoven, Ludwig van",45,chamber,duo,composition,4,15.0,1
 "Beethoven, Ludwig van",45,chamber,ensemble,composition,4,37.0,3
@@ -199,8 +194,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Beethoven, Ludwig van",45,orchestral,orch_other,composition,2,0.0,0
 "Beethoven, Ludwig van",45,other,other,composition,1,6.0,1
 "Beethoven, Ludwig van",45,sacred,mass,composition,1,75.0,1
-"Beethoven, Ludwig van",45,secular,secular_choral,composition,9,14.0,5
-"Beethoven, Ludwig van",45,secular,song,composition,10,15.0,1
+"Beethoven, Ludwig van",45,secular,secular_cantata,composition,1,10.0,1
+"Beethoven, Ludwig van",45,secular,secular_choral,composition,10,4.0,4
+"Beethoven, Ludwig van",45,secular,song,composition,8,15.0,1
 "Beethoven, Ludwig van",45,stage,opera,composition,1,0.0,0
 "Beethoven, Ludwig van",45,stage,stage_other,composition,1,0.0,0
 "Beethoven, Ludwig van",50,chamber,duo,composition,1,0.0,0
@@ -210,8 +206,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Beethoven, Ludwig van",50,orchestral,orch_other,composition,1,0.0,0
 "Beethoven, Ludwig van",50,orchestral,overture_poem,composition,1,0.0,0
 "Beethoven, Ludwig van",50,orchestral,symphony,composition,1,0.0,0
-"Beethoven, Ludwig van",50,secular,secular_choral,composition,9,70.5,4
-"Beethoven, Ludwig van",50,secular,song,composition,2,5.0,1
+"Beethoven, Ludwig van",50,secular,secular_cantata,composition,1,0.0,0
+"Beethoven, Ludwig van",50,secular,secular_choral,composition,8,67.0,3
+"Beethoven, Ludwig van",50,secular,song,composition,2,8.5,2
 "Beethoven, Ludwig van",50,stage,stage_other,composition,1,7.0,1
 "Beethoven, Ludwig van",55,chamber,ensemble,composition,2,16.0,1
 "Beethoven, Ludwig van",55,chamber,string_quartet,composition,3,0.0,0
@@ -239,22 +236,23 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Brahms, Johannes",25,keyboard,organ,composition,1,8.0,1
 "Brahms, Johannes",25,orchestral,orch_other,composition,2,83.0,2
 "Brahms, Johannes",25,orchestral,symphony,composition,1,45.0,1
-"Brahms, Johannes",25,sacred,sacred_other,composition,2,11.0,2
-"Brahms, Johannes",25,secular,secular_choral,composition,10,105.0,9
-"Brahms, Johannes",25,secular,song,composition,7,125.0,6
+"Brahms, Johannes",25,sacred,sacred_other,composition,3,15.0,3
+"Brahms, Johannes",25,secular,secular_choral,composition,11,134.0,10
+"Brahms, Johannes",25,secular,song,composition,5,92.0,4
 "Brahms, Johannes",30,chamber,ensemble,composition,3,110.0,3
 "Brahms, Johannes",30,chamber,string_quartet,composition,1,32.0,1
 "Brahms, Johannes",30,keyboard,kb_pieces,composition,1,19.0,1
 "Brahms, Johannes",30,keyboard,kb_sonata,composition,1,40.0,1
 "Brahms, Johannes",30,sacred,mass,composition,1,72.0,1
 "Brahms, Johannes",30,sacred,sacred_other,composition,1,16.0,1
-"Brahms, Johannes",30,secular,secular_choral,composition,2,53.0,2
+"Brahms, Johannes",30,secular,secular_cantata,composition,1,40.0,1
+"Brahms, Johannes",30,secular,secular_choral,composition,1,13.0,1
 "Brahms, Johannes",30,secular,song,composition,3,45.0,3
 "Brahms, Johannes",35,keyboard,kb_pieces,composition,1,26.0,1
 "Brahms, Johannes",35,sacred,sacred_cantata,composition,1,23.0,1
-"Brahms, Johannes",35,secular,secular_choral,composition,4,51.0,4
+"Brahms, Johannes",35,secular,secular_choral,composition,4,69.0,4
 "Brahms, Johannes",35,secular,secular_choral,publication,1,0.0,0
-"Brahms, Johannes",35,secular,song,composition,5,76.0,4
+"Brahms, Johannes",35,secular,song,composition,5,58.0,4
 "Brahms, Johannes",40,chamber,string_quartet,composition,2,67.0,2
 "Brahms, Johannes",40,orchestral,orch_other,composition,1,18.0,1
 "Brahms, Johannes",40,orchestral,symphony,composition,1,45.0,1
@@ -272,14 +270,14 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Brahms, Johannes",50,chamber,ensemble,composition,1,21.0,1
 "Brahms, Johannes",50,orchestral,concerto,composition,1,33.0,1
 "Brahms, Johannes",50,orchestral,symphony,composition,2,75.0,2
-"Brahms, Johannes",50,secular,secular_choral,composition,3,29.0,3
+"Brahms, Johannes",50,secular,secular_choral,composition,4,48.0,4
 "Brahms, Johannes",50,secular,secular_choral,publication,1,0.0,0
-"Brahms, Johannes",50,secular,song,composition,9,105.0,9
+"Brahms, Johannes",50,secular,song,composition,8,86.0,8
 "Brahms, Johannes",55,chamber,ensemble,composition,3,92.0,3
 "Brahms, Johannes",55,keyboard,kb_counterpoint,composition,1,23.0,1
 "Brahms, Johannes",55,keyboard,kb_pieces,composition,1,16.0,1
 "Brahms, Johannes",55,sacred,sacred_other,composition,2,19.0,2
-"Brahms, Johannes",55,secular,song,composition,1,10.0,1
+"Brahms, Johannes",55,secular,secular_choral,composition,1,10.0,1
 "Brahms, Johannes",60,chamber,duo,composition,2,44.0,2
 "Brahms, Johannes",60,keyboard,kb_pieces,composition,2,38.0,2
 "Brahms, Johannes",60,keyboard,organ,composition,1,33.0,1
@@ -292,19 +290,23 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bruckner, Anton",15,secular,secular_choral,composition,1,0.0,0
 "Bruckner, Anton",20,chamber,duo,composition,1,0.0,0
 "Bruckner, Anton",20,keyboard,organ,composition,2,0.0,0
+"Bruckner, Anton",20,other,other,composition,2,2.0,1
 "Bruckner, Anton",20,sacred,mass,composition,4,48.0,2
 "Bruckner, Anton",20,sacred,sacred_other,composition,8,7.0,4
-"Bruckner, Anton",20,secular,secular_choral,composition,8,7.5,3
+"Bruckner, Anton",20,secular,secular_cantata,composition,1,0.0,0
+"Bruckner, Anton",20,secular,secular_choral,composition,5,5.5,2
 "Bruckner, Anton",20,secular,song,composition,1,0.0,0
 "Bruckner, Anton",25,keyboard,kb_pieces,composition,3,16.0,3
 "Bruckner, Anton",25,keyboard,organ,composition,1,0.0,0
 "Bruckner, Anton",25,sacred,sacred_other,composition,6,46.5,4
-"Bruckner, Anton",25,secular,secular_choral,composition,5,5.0,1
+"Bruckner, Anton",25,secular,secular_cantata,composition,2,5.0,1
+"Bruckner, Anton",25,secular,secular_choral,composition,3,0.0,0
 "Bruckner, Anton",25,secular,song,composition,3,4.0,2
 "Bruckner, Anton",30,keyboard,kb_pieces,composition,2,0.0,0
 "Bruckner, Anton",30,sacred,mass,composition,1,31.0,1
-"Bruckner, Anton",30,sacred,sacred_other,composition,2,9.0,2
-"Bruckner, Anton",30,secular,secular_choral,composition,6,13.0,3
+"Bruckner, Anton",30,sacred,sacred_other,composition,3,12.0,3
+"Bruckner, Anton",30,secular,secular_cantata,composition,2,8.0,1
+"Bruckner, Anton",30,secular,secular_choral,composition,3,2.0,1
 "Bruckner, Anton",30,secular,song,composition,1,5.0,1
 "Bruckner, Anton",35,chamber,ensemble,composition,1,6.0,1
 "Bruckner, Anton",35,chamber,string_quartet,composition,1,0.0,0
@@ -314,9 +316,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bruckner, Anton",35,orchestral,overture_poem,composition,1,12.0,1
 "Bruckner, Anton",35,orchestral,symphony,composition,1,47.0,1
 "Bruckner, Anton",35,sacred,sacred_cantata,composition,1,0.0,0
-"Bruckner, Anton",35,sacred,sacred_other,composition,2,10.0,1
-"Bruckner, Anton",35,secular,secular_choral,composition,4,4.5,2
-"Bruckner, Anton",35,secular,song,composition,1,0.0,0
+"Bruckner, Anton",35,sacred,sacred_other,composition,3,10.0,1
+"Bruckner, Anton",35,secular,secular_cantata,composition,1,0.0,0
+"Bruckner, Anton",35,secular,secular_choral,composition,3,4.5,2
 "Bruckner, Anton",40,chamber,duo,composition,1,2.0,1
 "Bruckner, Anton",40,keyboard,kb_counterpoint,composition,1,5.0,1
 "Bruckner, Anton",40,keyboard,kb_pieces,composition,1,5.0,1
@@ -336,26 +338,26 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Bruckner, Anton",50,secular,secular_choral,composition,5,9.0,2
 "Bruckner, Anton",55,chamber,ensemble,composition,1,0.0,0
 "Bruckner, Anton",55,orchestral,symphony,composition,2,0.0,0
-"Bruckner, Anton",55,sacred,sacred_other,composition,3,30.0,2
-"Bruckner, Anton",55,secular,secular_choral,composition,2,3.0,1
+"Bruckner, Anton",55,sacred,sacred_other,composition,4,33.0,3
+"Bruckner, Anton",55,secular,secular_choral,composition,1,0.0,0
 "Bruckner, Anton",60,keyboard,organ,composition,2,0.0,0
 "Bruckner, Anton",60,orchestral,symphony,composition,1,80.0,1
 "Bruckner, Anton",60,sacred,sacred_other,composition,5,3.0,1
 "Bruckner, Anton",60,secular,secular_choral,composition,1,0.0,0
 "Bruckner, Anton",65,keyboard,organ,composition,1,0.0,0
 "Bruckner, Anton",65,sacred,sacred_other,composition,2,10.0,1
-"Bruckner, Anton",65,secular,secular_choral,composition,4,20.0,2
+"Bruckner, Anton",65,secular,secular_cantata,composition,1,15.0,1
+"Bruckner, Anton",65,secular,secular_choral,composition,3,5.0,1
 "Bruckner, Anton",70,orchestral,symphony,composition,1,0.0,0
 "Chopin, Frédéric",5,keyboard,kb_pieces,composition,2,0.0,0
 "Chopin, Frédéric",10,keyboard,kb_pieces,composition,5,0.0,0
 "Chopin, Frédéric",15,chamber,duo,composition,1,9.0,1
 "Chopin, Frédéric",15,chamber,ensemble,composition,1,0.0,0
 "Chopin, Frédéric",15,keyboard,kb_counterpoint,composition,3,0.0,0
-"Chopin, Frédéric",15,keyboard,kb_pieces,composition,18,2.0,1
+"Chopin, Frédéric",15,keyboard,kb_pieces,composition,19,2.0,1
 "Chopin, Frédéric",15,keyboard,kb_sonata,composition,1,0.0,0
 "Chopin, Frédéric",15,orchestral,concerto,composition,1,30.0,1
 "Chopin, Frédéric",15,orchestral,orch_other,composition,3,50.0,3
-"Chopin, Frédéric",15,secular,secular_choral,composition,1,0.0,0
 "Chopin, Frédéric",15,secular,song,composition,3,4.0,2
 "Chopin, Frédéric",20,keyboard,kb_counterpoint,composition,3,0.0,0
 "Chopin, Frédéric",20,keyboard,kb_pieces,composition,23,14.0,3
@@ -368,7 +370,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Chopin, Frédéric",30,keyboard,kb_counterpoint,composition,3,0.0,0
 "Chopin, Frédéric",30,keyboard,kb_pieces,composition,15,3.0,1
 "Chopin, Frédéric",30,keyboard,kb_sonata,composition,1,0.0,0
-"Chopin, Frédéric",30,secular,secular_choral,composition,1,0.0,0
+"Chopin, Frédéric",30,secular,song,composition,1,0.0,0
 "Chopin, Frédéric",35,chamber,duo,composition,1,0.0,0
 "Chopin, Frédéric",35,keyboard,kb_counterpoint,composition,1,0.0,0
 "Chopin, Frédéric",35,keyboard,kb_pieces,composition,9,2.0,1
@@ -382,21 +384,23 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Debussy, Claude",20,keyboard,kb_pieces,composition,1,0.0,0
 "Debussy, Claude",20,sacred,sacred_cantata,composition,1,25.0,1
 "Debussy, Claude",20,sacred,sacred_other,composition,1,0.0,0
-"Debussy, Claude",20,secular,secular_choral,composition,6,6.0,1
+"Debussy, Claude",20,secular,secular_choral,composition,5,6.0,1
 "Debussy, Claude",20,secular,song,composition,11,3.0,1
+"Debussy, Claude",20,stage,opera,composition,1,0.0,0
 "Debussy, Claude",25,keyboard,kb_pieces,composition,7,28.0,3
 "Debussy, Claude",25,orchestral,orch_other,composition,2,6.0,1
 "Debussy, Claude",25,orchestral,overture_poem,composition,1,10.0,1
-"Debussy, Claude",25,secular,secular_choral,composition,2,37.0,2
+"Debussy, Claude",25,secular,secular_cantata,composition,1,21.0,1
+"Debussy, Claude",25,secular,secular_choral,composition,1,16.0,1
 "Debussy, Claude",25,secular,song,composition,3,25.0,1
 "Debussy, Claude",25,stage,opera,composition,1,0.0,0
 "Debussy, Claude",30,chamber,string_quartet,composition,1,0.0,0
 "Debussy, Claude",30,keyboard,kb_pieces,composition,3,13.0,1
-"Debussy, Claude",30,secular,secular_choral,composition,1,180.0,1
 "Debussy, Claude",30,secular,song,composition,2,0.0,0
+"Debussy, Claude",30,stage,opera,composition,1,180.0,1
 "Debussy, Claude",35,keyboard,kb_pieces,composition,3,15.0,2
-"Debussy, Claude",35,secular,secular_choral,composition,3,26.0,1
-"Debussy, Claude",35,secular,song,composition,2,6.0,1
+"Debussy, Claude",35,secular,secular_choral,composition,2,26.0,1
+"Debussy, Claude",35,secular,song,composition,3,6.0,1
 "Debussy, Claude",40,keyboard,kb_pieces,composition,7,38.0,4
 "Debussy, Claude",40,orchestral,orch_other,composition,2,64.0,2
 "Debussy, Claude",40,other,other,composition,1,10.0,1
@@ -406,15 +410,14 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Debussy, Claude",45,keyboard,kb_counterpoint,composition,1,0.0,0
 "Debussy, Claude",45,keyboard,kb_pieces,composition,3,5.0,2
 "Debussy, Claude",45,orchestral,orch_other,composition,1,0.0,0
-"Debussy, Claude",45,secular,secular_choral,composition,1,14.0,1
+"Debussy, Claude",45,secular,song,composition,1,14.0,1
 "Debussy, Claude",45,stage,stage_other,composition,2,0.0,0
 "Debussy, Claude",50,chamber,chamber_other,composition,1,0.0,0
 "Debussy, Claude",50,chamber,duo,composition,2,12.0,1
 "Debussy, Claude",50,keyboard,kb_counterpoint,composition,1,0.0,0
 "Debussy, Claude",50,keyboard,kb_pieces,composition,5,15.0,1
 "Debussy, Claude",50,orchestral,orch_other,composition,1,4.0,1
-"Debussy, Claude",50,secular,secular_choral,composition,1,0.0,0
-"Debussy, Claude",50,secular,song,composition,1,0.0,0
+"Debussy, Claude",50,secular,song,composition,2,0.0,0
 "Debussy, Claude",50,stage,stage_other,composition,2,50.0,2
 "Debussy, Claude",55,chamber,duo,composition,1,0.0,0
 "Debussy, Claude",55,keyboard,kb_pieces,composition,1,3.0,1
@@ -434,8 +437,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Dvorak, Antonín",30,orchestral,overture_poem,composition,1,17.0,1
 "Dvorak, Antonín",30,orchestral,symphony,composition,3,115.0,3
 "Dvorak, Antonín",30,other,other,composition,2,37.0,2
-"Dvorak, Antonín",30,secular,secular_choral,composition,1,17.0,1
-"Dvorak, Antonín",30,secular,song,composition,4,46.0,4
+"Dvorak, Antonín",30,secular,secular_cantata,composition,1,17.0,1
+"Dvorak, Antonín",30,secular,secular_choral,composition,1,13.0,1
+"Dvorak, Antonín",30,secular,song,composition,3,33.0,3
 "Dvorak, Antonín",30,stage,opera,composition,2,76.0,1
 "Dvorak, Antonín",35,chamber,chamber_other,composition,1,9.0,1
 "Dvorak, Antonín",35,chamber,duo,composition,2,24.0,1
@@ -447,9 +451,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Dvorak, Antonín",35,orchestral,orch_other,composition,9,150.0,9
 "Dvorak, Antonín",35,orchestral,overture_poem,composition,1,9.0,1
 "Dvorak, Antonín",35,orchestral,symphony,composition,1,43.0,1
-"Dvorak, Antonín",35,sacred,sacred_other,composition,2,95.0,2
-"Dvorak, Antonín",35,secular,secular_choral,composition,7,78.5,6
-"Dvorak, Antonín",35,secular,song,composition,4,63.0,4
+"Dvorak, Antonín",35,sacred,sacred_other,composition,3,98.0,3
+"Dvorak, Antonín",35,secular,secular_choral,composition,7,83.5,6
+"Dvorak, Antonín",35,secular,song,composition,3,55.0,3
 "Dvorak, Antonín",35,stage,opera,composition,1,120.0,1
 "Dvorak, Antonín",40,chamber,duo,composition,1,6.0,1
 "Dvorak, Antonín",40,chamber,ensemble,composition,1,39.0,1
@@ -459,8 +463,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Dvorak, Antonín",40,orchestral,overture_poem,composition,2,23.0,2
 "Dvorak, Antonín",40,orchestral,symphony,composition,1,37.0,1
 "Dvorak, Antonín",40,sacred,oratorio,composition,1,150.0,1
-"Dvorak, Antonín",40,secular,secular_choral,composition,2,87.0,2
-"Dvorak, Antonín",40,secular,song,composition,3,4.5,2
+"Dvorak, Antonín",40,secular,secular_cantata,composition,1,75.0,1
+"Dvorak, Antonín",40,secular,secular_choral,composition,3,12.5,2
+"Dvorak, Antonín",40,secular,song,composition,1,4.0,1
 "Dvorak, Antonín",40,stage,opera,composition,1,180.0,1
 "Dvorak, Antonín",40,stage,stage_other,composition,1,15.0,1
 "Dvorak, Antonín",45,chamber,duo,composition,1,15.0,1
@@ -480,7 +485,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Dvorak, Antonín",50,orchestral,overture_poem,composition,3,38.0,3
 "Dvorak, Antonín",50,orchestral,symphony,composition,1,40.0,1
 "Dvorak, Antonín",50,sacred,sacred_other,composition,2,45.0,2
-"Dvorak, Antonín",50,secular,secular_choral,composition,1,20.0,1
+"Dvorak, Antonín",50,secular,secular_cantata,composition,1,20.0,1
 "Dvorak, Antonín",55,orchestral,overture_poem,composition,5,103.0,5
 "Dvorak, Antonín",55,stage,opera,composition,2,280.0,2
 "Fauré, Gabriel",15,keyboard,kb_counterpoint,composition,1,0.0,0
@@ -490,10 +495,11 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Fauré, Gabriel",20,keyboard,kb_counterpoint,composition,2,0.0,0
 "Fauré, Gabriel",20,keyboard,kb_pieces,composition,1,0.0,0
 "Fauré, Gabriel",20,orchestral,orch_other,composition,1,0.0,0
-"Fauré, Gabriel",20,secular,secular_choral,composition,1,0.0,0
+"Fauré, Gabriel",20,sacred,sacred_other,composition,1,0.0,0
 "Fauré, Gabriel",20,secular,song,composition,2,0.0,0
 "Fauré, Gabriel",25,sacred,sacred_cantata,composition,1,0.0,0
-"Fauré, Gabriel",25,secular,secular_choral,composition,2,0.0,0
+"Fauré, Gabriel",25,sacred,sacred_other,composition,1,0.0,0
+"Fauré, Gabriel",25,secular,secular_choral,composition,1,0.0,0
 "Fauré, Gabriel",25,secular,song,composition,5,0.0,0
 "Fauré, Gabriel",30,chamber,duo,composition,2,0.0,0
 "Fauré, Gabriel",30,chamber,ensemble,composition,1,0.0,0
@@ -506,7 +512,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Fauré, Gabriel",35,chamber,duo,composition,3,7.0,1
 "Fauré, Gabriel",35,keyboard,kb_pieces,composition,8,0.0,0
 "Fauré, Gabriel",35,sacred,mass,composition,1,0.0,0
-"Fauré, Gabriel",35,secular,secular_choral,composition,3,0.0,0
+"Fauré, Gabriel",35,secular,secular_cantata,composition,1,0.0,0
+"Fauré, Gabriel",35,secular,secular_choral,composition,2,0.0,0
 "Fauré, Gabriel",35,secular,song,composition,2,0.0,0
 "Fauré, Gabriel",40,chamber,ensemble,composition,1,0.0,0
 "Fauré, Gabriel",40,keyboard,kb_pieces,composition,4,7.0,1
@@ -527,19 +534,20 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Fauré, Gabriel",50,keyboard,kb_counterpoint,composition,1,18.0,1
 "Fauré, Gabriel",50,keyboard,kb_pieces,composition,2,4.0,1
 "Fauré, Gabriel",50,other,other,composition,1,1.0,1
-"Fauré, Gabriel",50,secular,song,composition,2,0.0,0
+"Fauré, Gabriel",50,secular,secular_choral,composition,1,0.0,0
+"Fauré, Gabriel",50,secular,song,composition,1,0.0,0
 "Fauré, Gabriel",50,stage,stage_other,composition,1,30.0,1
 "Fauré, Gabriel",55,chamber,duo,composition,1,0.0,0
 "Fauré, Gabriel",55,other,other,composition,1,0.0,0
 "Fauré, Gabriel",55,sacred,sacred_cantata,composition,1,0.0,0
-"Fauré, Gabriel",55,secular,secular_choral,composition,2,0.0,0
+"Fauré, Gabriel",55,secular,secular_choral,composition,1,0.0,0
 "Fauré, Gabriel",55,secular,song,composition,1,0.0,0
+"Fauré, Gabriel",55,stage,opera,composition,1,0.0,0
 "Fauré, Gabriel",60,chamber,duo,composition,1,0.0,0
 "Fauré, Gabriel",60,keyboard,kb_counterpoint,composition,1,0.0,0
 "Fauré, Gabriel",60,keyboard,kb_pieces,composition,7,4.0,1
 "Fauré, Gabriel",60,keyboard,organ,composition,1,0.0,0
-"Fauré, Gabriel",60,secular,secular_choral,composition,1,0.0,0
-"Fauré, Gabriel",60,secular,song,composition,3,0.0,0
+"Fauré, Gabriel",60,secular,song,composition,4,0.0,0
 "Fauré, Gabriel",60,stage,opera,composition,1,0.0,0
 "Fauré, Gabriel",65,keyboard,kb_pieces,composition,2,0.0,0
 "Fauré, Gabriel",65,secular,song,composition,1,0.0,0
@@ -560,9 +568,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Gluck, Christoph Willibald",35,stage,opera,composition,3,0.0,0
 "Gluck, Christoph Willibald",40,stage,opera,composition,1,0.0,0
 "Gluck, Christoph Willibald",40,stage,stage_other,composition,1,0.0,0
-"Gluck, Christoph Willibald",45,orchestral,orch_other,composition,1,0.0,0
 "Gluck, Christoph Willibald",45,stage,opera,composition,2,0.0,0
-"Gluck, Christoph Willibald",45,stage,stage_other,composition,1,45.0,1
+"Gluck, Christoph Willibald",45,stage,stage_other,composition,2,45.0,1
 "Gluck, Christoph Willibald",50,stage,opera,composition,2,0.0,0
 "Gluck, Christoph Willibald",55,stage,opera,publication,1,0.0,0
 "Gluck, Christoph Willibald",60,stage,opera,composition,1,0.0,0
@@ -579,15 +586,15 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Handel, George Frideric",20,sacred,oratorio,composition,2,0.0,0
 "Handel, George Frideric",20,sacred,sacred_cantata,composition,3,0.0,0
 "Handel, George Frideric",20,sacred,sacred_other,composition,4,0.0,0
-"Handel, George Frideric",20,secular,secular_cantata,composition,6,0.0,0
-"Handel, George Frideric",20,secular,secular_choral,composition,3,45.0,1
+"Handel, George Frideric",20,secular,secular_cantata,composition,8,45.0,1
+"Handel, George Frideric",20,secular,secular_choral,composition,1,0.0,0
 "Handel, George Frideric",20,stage,opera,composition,3,0.0,0
 "Handel, George Frideric",20,stage,stage_other,composition,1,0.0,0
 "Handel, George Frideric",25,chamber,duo,composition,2,0.0,0
 "Handel, George Frideric",25,keyboard,kb_pieces,composition,1,0.0,0
 "Handel, George Frideric",25,orchestral,concerto,composition,1,10.0,1
 "Handel, George Frideric",25,sacred,sacred_other,composition,4,0.0,0
-"Handel, George Frideric",25,secular,secular_choral,composition,1,25.0,1
+"Handel, George Frideric",25,secular,secular_cantata,composition,1,25.0,1
 "Handel, George Frideric",25,stage,opera,composition,3,0.0,0
 "Handel, George Frideric",30,chamber,ensemble,composition,1,0.0,0
 "Handel, George Frideric",30,keyboard,kb_counterpoint,composition,5,0.0,0
@@ -595,11 +602,12 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Handel, George Frideric",30,orchestral,concerto,composition,7,66.0,7
 "Handel, George Frideric",30,orchestral,orch_other,composition,3,75.0,2
 "Handel, George Frideric",30,other,other,composition,1,0.0,0
-"Handel, George Frideric",30,sacred,oratorio,composition,2,0.0,0
+"Handel, George Frideric",30,sacred,oratorio,composition,1,0.0,0
 "Handel, George Frideric",30,sacred,sacred_cantata,composition,1,25.0,1
 "Handel, George Frideric",30,sacred,sacred_other,composition,8,61.0,3
-"Handel, George Frideric",30,secular,secular_choral,composition,1,0.0,0
+"Handel, George Frideric",30,secular,secular_cantata,composition,1,0.0,0
 "Handel, George Frideric",30,stage,opera,composition,1,0.0,0
+"Handel, George Frideric",30,stage,stage_other,composition,1,0.0,0
 "Handel, George Frideric",35,keyboard,kb_pieces,publication,9,0.0,0
 "Handel, George Frideric",35,keyboard,kb_sonata,composition,1,0.0,0
 "Handel, George Frideric",35,orchestral,orch_other,composition,1,0.0,0
@@ -625,8 +633,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Handel, George Frideric",50,other,other,publication,7,0.0,0
 "Handel, George Frideric",50,sacred,oratorio,composition,3,97.0,1
 "Handel, George Frideric",50,sacred,sacred_other,composition,2,0.0,0
-"Handel, George Frideric",50,secular,secular_cantata,composition,1,0.0,0
-"Handel, George Frideric",50,secular,secular_choral,composition,1,0.0,0
+"Handel, George Frideric",50,secular,secular_cantata,composition,2,0.0,0
 "Handel, George Frideric",50,stage,opera,composition,9,0.0,0
 "Handel, George Frideric",55,chamber,duo,composition,1,0.0,0
 "Handel, George Frideric",55,keyboard,organ,composition,1,0.0,0
@@ -639,8 +646,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Handel, George Frideric",55,stage,opera,composition,1,0.0,0
 "Handel, George Frideric",60,orchestral,concerto,composition,2,0.0,0
 "Handel, George Frideric",60,orchestral,orch_other,composition,1,0.0,0
+"Handel, George Frideric",60,other,other,composition,1,0.0,0
 "Handel, George Frideric",60,sacred,oratorio,composition,7,0.0,0
-"Handel, George Frideric",60,secular,secular_choral,composition,2,0.0,0
+"Handel, George Frideric",60,stage,stage_other,composition,1,0.0,0
 "Handel, George Frideric",65,orchestral,concerto,composition,2,0.0,0
 "Handel, George Frideric",65,sacred,oratorio,composition,2,0.0,0
 "Haydn, Franz Joseph",15,keyboard,kb_counterpoint,composition,1,0.0,0
@@ -657,8 +665,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",25,orchestral,concerto,publication,1,10.0,1
 "Haydn, Franz Joseph",25,orchestral,symphony,composition,18,326.0,18
 "Haydn, Franz Joseph",30,chamber,chamber_other,composition,4,0.0,0
-"Haydn, Franz Joseph",30,chamber,ensemble,composition,18,11.0,1
-"Haydn, Franz Joseph",30,chamber,ensemble,publication,2,0.0,0
+"Haydn, Franz Joseph",30,chamber,ensemble,composition,19,11.0,1
+"Haydn, Franz Joseph",30,chamber,ensemble,publication,6,0.0,0
 "Haydn, Franz Joseph",30,keyboard,kb_pieces,composition,5,0.0,0
 "Haydn, Franz Joseph",30,keyboard,kb_sonata,composition,1,0.0,0
 "Haydn, Franz Joseph",30,orchestral,concerto,composition,6,24.0,1
@@ -667,8 +675,6 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",30,sacred,mass,composition,2,35.0,1
 "Haydn, Franz Joseph",30,sacred,sacred_other,composition,2,8.0,1
 "Haydn, Franz Joseph",30,secular,secular_cantata,composition,1,0.0,0
-"Haydn, Franz Joseph",30,secular,secular_choral,composition,1,0.0,0
-"Haydn, Franz Joseph",30,secular,secular_choral,publication,4,0.0,0
 "Haydn, Franz Joseph",35,chamber,chamber_other,composition,2,0.0,0
 "Haydn, Franz Joseph",35,chamber,ensemble,composition,12,10.0,1
 "Haydn, Franz Joseph",35,chamber,ensemble,publication,12,0.0,0
@@ -678,10 +684,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",35,keyboard,kb_sonata,composition,5,0.0,0
 "Haydn, Franz Joseph",35,orchestral,concerto,composition,1,20.0,1
 "Haydn, Franz Joseph",35,orchestral,symphony,composition,12,291.0,12
-"Haydn, Franz Joseph",35,sacred,sacred_other,composition,1,0.0,0
-"Haydn, Franz Joseph",35,secular,secular_choral,composition,1,0.0,0
+"Haydn, Franz Joseph",35,sacred,sacred_other,composition,2,0.0,0
 "Haydn, Franz Joseph",35,stage,opera,composition,1,0.0,0
-"Haydn, Franz Joseph",40,chamber,chamber_other,composition,16,0.0,0
+"Haydn, Franz Joseph",40,chamber,chamber_other,composition,17,0.0,0
 "Haydn, Franz Joseph",40,chamber,ensemble,composition,6,19.0,2
 "Haydn, Franz Joseph",40,chamber,ensemble,publication,2,10.0,1
 "Haydn, Franz Joseph",40,chamber,string_quartet,composition,6,0.0,0
@@ -690,7 +695,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",40,orchestral,symphony,composition,17,436.0,17
 "Haydn, Franz Joseph",40,sacred,mass,composition,2,47.0,2
 "Haydn, Franz Joseph",40,sacred,oratorio,composition,1,180.0,1
-"Haydn, Franz Joseph",40,secular,secular_choral,composition,2,0.0,0
+"Haydn, Franz Joseph",40,stage,opera,composition,1,0.0,0
 "Haydn, Franz Joseph",45,chamber,ensemble,composition,1,0.0,0
 "Haydn, Franz Joseph",45,chamber,ensemble,publication,2,0.0,0
 "Haydn, Franz Joseph",45,chamber,string_quartet,composition,6,0.0,0
@@ -702,9 +707,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",45,orchestral,symphony,composition,7,169.0,7
 "Haydn, Franz Joseph",45,orchestral,symphony,publication,2,50.0,2
 "Haydn, Franz Joseph",45,other,other,composition,1,0.0,0
-"Haydn, Franz Joseph",45,secular,secular_choral,composition,1,0.0,0
 "Haydn, Franz Joseph",45,secular,song,composition,12,0.0,0
-"Haydn, Franz Joseph",45,stage,opera,composition,1,0.0,0
+"Haydn, Franz Joseph",45,stage,opera,composition,2,0.0,0
 "Haydn, Franz Joseph",50,chamber,duo,publication,1,8.0,1
 "Haydn, Franz Joseph",50,chamber,ensemble,composition,13,46.0,5
 "Haydn, Franz Joseph",50,chamber,ensemble,publication,5,8.0,1
@@ -735,13 +739,14 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",55,keyboard,kb_sonata,composition,2,0.0,0
 "Haydn, Franz Joseph",55,keyboard,kb_sonata,publication,1,0.0,0
 "Haydn, Franz Joseph",55,orchestral,concerto,composition,1,22.0,1
+"Haydn, Franz Joseph",55,orchestral,orch_other,composition,8,0.0,0
 "Haydn, Franz Joseph",55,orchestral,symphony,composition,9,212.0,9
 "Haydn, Franz Joseph",55,secular,secular_cantata,composition,2,0.0,0
-"Haydn, Franz Joseph",55,secular,secular_choral,composition,9,0.0,0
+"Haydn, Franz Joseph",55,secular,secular_choral,composition,1,0.0,0
 "Haydn, Franz Joseph",55,stage,opera,composition,1,0.0,0
 "Haydn, Franz Joseph",60,chamber,chamber_other,composition,14,0.0,0
 "Haydn, Franz Joseph",60,chamber,duo,publication,6,0.0,0
-"Haydn, Franz Joseph",60,chamber,ensemble,composition,16,49.0,3
+"Haydn, Franz Joseph",60,chamber,ensemble,composition,17,49.0,3
 "Haydn, Franz Joseph",60,chamber,ensemble,publication,1,0.0,0
 "Haydn, Franz Joseph",60,chamber,string_quartet,composition,12,20.0,1
 "Haydn, Franz Joseph",60,keyboard,kb_counterpoint,composition,1,0.0,0
@@ -754,8 +759,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",60,sacred,oratorio,composition,3,133.0,2
 "Haydn, Franz Joseph",60,sacred,sacred_other,composition,2,0.0,0
 "Haydn, Franz Joseph",60,secular,secular_cantata,composition,1,0.0,0
-"Haydn, Franz Joseph",60,secular,secular_choral,composition,17,0.0,0
-"Haydn, Franz Joseph",60,secular,song,composition,1,0.0,0
+"Haydn, Franz Joseph",60,secular,secular_choral,composition,5,0.0,0
+"Haydn, Franz Joseph",60,secular,song,composition,12,0.0,0
 "Haydn, Franz Joseph",60,stage,stage_other,composition,1,0.0,0
 "Haydn, Franz Joseph",65,chamber,duo,publication,3,0.0,0
 "Haydn, Franz Joseph",65,chamber,ensemble,composition,3,0.0,0
@@ -764,14 +769,14 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Haydn, Franz Joseph",65,sacred,mass,composition,4,167.0,4
 "Haydn, Franz Joseph",65,sacred,oratorio,composition,1,120.0,1
 "Haydn, Franz Joseph",65,sacred,sacred_other,composition,2,0.0,0
-"Haydn, Franz Joseph",65,secular,secular_choral,publication,1,0.0,0
 "Haydn, Franz Joseph",65,secular,song,composition,1,0.0,0
+"Haydn, Franz Joseph",65,secular,song,publication,1,0.0,0
 "Haydn, Franz Joseph",70,chamber,ensemble,publication,4,0.0,0
 "Haydn, Franz Joseph",70,chamber,string_quartet,composition,1,0.0,0
 "Haydn, Franz Joseph",70,keyboard,kb_pieces,publication,1,0.0,0
 "Haydn, Franz Joseph",70,sacred,mass,composition,1,40.0,1
 "Haydn, Franz Joseph",70,sacred,sacred_other,publication,1,10.0,1
-"Haydn, Franz Joseph",70,secular,secular_choral,publication,1,0.0,0
+"Haydn, Franz Joseph",70,secular,song,publication,1,0.0,0
 "Haydn, Franz Joseph",75,chamber,ensemble,publication,1,0.0,0
 "Hensel, Fanny",15,chamber,duo,composition,1,0.0,0
 "Hensel, Fanny",15,chamber,ensemble,composition,1,0.0,0
@@ -791,11 +796,11 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Hensel, Fanny",30,secular,song,composition,2,6.0,2
 "Hensel, Fanny",35,keyboard,kb_pieces,composition,2,0.0,0
 "Hensel, Fanny",35,keyboard,kb_sonata,composition,1,0.0,0
-"Hensel, Fanny",40,keyboard,kb_pieces,composition,10,0.0,0
-"Hensel, Fanny",40,keyboard,kb_pieces,publication,1,0.0,0
-"Hensel, Fanny",40,secular,secular_choral,composition,17,0.0,0
-"Hensel, Fanny",40,secular,song,composition,21,3.0,1
-"Hensel, Fanny",40,secular,song,publication,3,0.0,0
+"Hensel, Fanny",40,keyboard,kb_pieces,composition,16,0.0,0
+"Hensel, Fanny",40,keyboard,kb_pieces,publication,3,0.0,0
+"Hensel, Fanny",40,secular,secular_choral,composition,18,0.0,0
+"Hensel, Fanny",40,secular,song,composition,14,3.0,1
+"Hensel, Fanny",40,secular,song,publication,1,0.0,0
 "Liszt, Franz",10,chamber,duo,composition,1,0.0,0
 "Liszt, Franz",10,keyboard,kb_counterpoint,composition,2,0.0,0
 "Liszt, Franz",10,keyboard,kb_pieces,composition,4,10.0,2
@@ -806,29 +811,30 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Liszt, Franz",20,keyboard,kb_pieces,composition,8,21.0,4
 "Liszt, Franz",20,orchestral,concerto,composition,4,37.0,2
 "Liszt, Franz",25,keyboard,kb_counterpoint,composition,2,0.0,0
-"Liszt, Franz",25,keyboard,kb_pieces,composition,40,153.5,19
+"Liszt, Franz",25,keyboard,kb_pieces,composition,43,153.5,19
 "Liszt, Franz",25,orchestral,concerto,composition,1,20.0,1
 "Liszt, Franz",25,orchestral,symphony,composition,1,0.0,0
 "Liszt, Franz",25,sacred,sacred_other,composition,1,0.0,0
-"Liszt, Franz",25,secular,song,composition,6,5.0,1
+"Liszt, Franz",25,secular,song,composition,3,5.0,1
 "Liszt, Franz",30,keyboard,kb_counterpoint,composition,8,2.0,2
-"Liszt, Franz",30,keyboard,kb_pieces,composition,39,39.0,22
+"Liszt, Franz",30,keyboard,kb_pieces,composition,44,39.0,22
 "Liszt, Franz",30,keyboard,kb_pieces,publication,1,11.0,1
 "Liszt, Franz",30,orchestral,overture_poem,composition,1,0.0,0
-"Liszt, Franz",30,secular,secular_choral,composition,3,0.0,0
-"Liszt, Franz",30,secular,song,composition,34,8.0,2
+"Liszt, Franz",30,secular,secular_choral,composition,1,0.0,0
+"Liszt, Franz",30,secular,song,composition,31,8.0,2
 "Liszt, Franz",35,chamber,duo,composition,1,15.0,1
-"Liszt, Franz",35,keyboard,kb_pieces,composition,54,155.0,14
+"Liszt, Franz",35,keyboard,kb_pieces,composition,57,155.0,14
 "Liszt, Franz",35,keyboard,organ,composition,1,0.0,0
 "Liszt, Franz",35,orchestral,concerto,composition,1,22.0,1
 "Liszt, Franz",35,orchestral,orch_other,composition,2,33.0,2
 "Liszt, Franz",35,orchestral,overture_poem,composition,3,0.0,0
 "Liszt, Franz",35,sacred,mass,composition,1,32.0,1
-"Liszt, Franz",35,sacred,sacred_other,composition,2,0.0,0
-"Liszt, Franz",35,secular,secular_choral,composition,5,5.0,1
-"Liszt, Franz",35,secular,song,composition,10,2.0,1
+"Liszt, Franz",35,sacred,sacred_other,composition,3,5.0,1
+"Liszt, Franz",35,secular,secular_cantata,composition,1,0.0,0
+"Liszt, Franz",35,secular,secular_choral,composition,2,0.0,0
+"Liszt, Franz",35,secular,song,composition,8,2.0,1
 "Liszt, Franz",35,secular,song,publication,1,2.0,1
-"Liszt, Franz",40,keyboard,kb_pieces,composition,19,96.0,5
+"Liszt, Franz",40,keyboard,kb_pieces,composition,20,96.0,5
 "Liszt, Franz",40,keyboard,kb_sonata,composition,1,30.0,1
 "Liszt, Franz",40,keyboard,organ,composition,1,0.0,0
 "Liszt, Franz",40,orchestral,orch_other,composition,1,12.0,1
@@ -836,68 +842,66 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Liszt, Franz",40,sacred,mass,composition,1,58.0,1
 "Liszt, Franz",40,sacred,sacred_other,composition,3,24.0,1
 "Liszt, Franz",40,secular,secular_choral,composition,4,63.0,2
-"Liszt, Franz",40,secular,song,composition,4,0.0,0
+"Liszt, Franz",40,secular,song,composition,3,0.0,0
 "Liszt, Franz",45,keyboard,kb_counterpoint,composition,3,15.0,2
-"Liszt, Franz",45,keyboard,kb_pieces,composition,9,21.0,4
+"Liszt, Franz",45,keyboard,kb_pieces,composition,11,21.0,4
 "Liszt, Franz",45,keyboard,organ,composition,1,5.5,1
-"Liszt, Franz",45,orchestral,orch_other,composition,3,0.0,0
+"Liszt, Franz",45,orchestral,orch_other,composition,4,6.0,1
 "Liszt, Franz",45,orchestral,orch_other,publication,1,20.0,1
 "Liszt, Franz",45,orchestral,overture_poem,composition,3,30.0,1
 "Liszt, Franz",45,sacred,mass,composition,1,32.0,1
 "Liszt, Franz",45,sacred,oratorio,composition,1,120.0,1
 "Liszt, Franz",45,sacred,sacred_other,composition,6,2.0,1
-"Liszt, Franz",45,secular,secular_choral,composition,3,6.0,1
-"Liszt, Franz",45,secular,song,composition,13,7.0,1
+"Liszt, Franz",45,secular,secular_cantata,composition,1,0.0,0
+"Liszt, Franz",45,secular,secular_choral,composition,1,0.0,0
+"Liszt, Franz",45,secular,song,composition,11,7.0,1
 "Liszt, Franz",45,secular,song,publication,1,0.0,0
 "Liszt, Franz",45,stage,stage_other,composition,2,7.0,1
 "Liszt, Franz",50,chamber,duo,composition,1,0.0,0
 "Liszt, Franz",50,keyboard,kb_counterpoint,composition,2,0.0,0
-"Liszt, Franz",50,keyboard,kb_pieces,composition,10,18.0,3
-"Liszt, Franz",50,keyboard,organ,composition,1,0.0,0
+"Liszt, Franz",50,keyboard,kb_pieces,composition,13,28.0,5
+"Liszt, Franz",50,keyboard,organ,composition,2,0.0,0
 "Liszt, Franz",50,orchestral,concerto,composition,1,0.0,0
 "Liszt, Franz",50,orchestral,orch_other,composition,1,11.0,1
-"Liszt, Franz",50,sacred,sacred_other,composition,9,20.0,3
+"Liszt, Franz",50,sacred,sacred_other,composition,7,24.0,2
 "Liszt, Franz",50,sacred,sacred_other,publication,1,0.0,0
-"Liszt, Franz",50,secular,secular_choral,composition,1,14.0,1
-"Liszt, Franz",50,secular,song,composition,1,0.0,0
 "Liszt, Franz",55,keyboard,kb_pieces,composition,9,63.0,4
 "Liszt, Franz",55,orchestral,orch_other,composition,1,0.0,0
 "Liszt, Franz",55,orchestral,overture_poem,composition,1,12.0,1
 "Liszt, Franz",55,sacred,mass,composition,2,50.0,1
 "Liszt, Franz",55,sacred,oratorio,composition,1,110.0,1
-"Liszt, Franz",55,sacred,sacred_other,composition,6,3.0,1
-"Liszt, Franz",55,secular,secular_choral,composition,3,21.0,2
+"Liszt, Franz",55,sacred,sacred_other,composition,7,9.0,2
+"Liszt, Franz",55,secular,secular_cantata,composition,1,15.0,1
+"Liszt, Franz",55,secular,secular_choral,composition,1,0.0,0
 "Liszt, Franz",55,secular,song,composition,1,0.0,0
 "Liszt, Franz",60,chamber,duo,composition,1,0.0,0
 "Liszt, Franz",60,keyboard,kb_pieces,composition,11,13.0,3
+"Liszt, Franz",60,keyboard,kb_pieces,publication,1,0.0,0
 "Liszt, Franz",60,orchestral,orch_other,composition,1,6.0,1
 "Liszt, Franz",60,sacred,oratorio,composition,1,37.0,1
 "Liszt, Franz",60,sacred,sacred_other,composition,4,4.0,1
 "Liszt, Franz",60,secular,secular_choral,composition,1,0.0,0
 "Liszt, Franz",60,secular,song,composition,7,0.0,0
-"Liszt, Franz",60,secular,song,publication,1,0.0,0
 "Liszt, Franz",60,stage,stage_other,composition,1,0.0,0
 "Liszt, Franz",65,keyboard,kb_counterpoint,composition,2,0.5,1
-"Liszt, Franz",65,keyboard,kb_pieces,composition,17,16.5,8
-"Liszt, Franz",65,keyboard,organ,composition,1,2.0,1
-"Liszt, Franz",65,sacred,mass,composition,1,18.0,1
-"Liszt, Franz",65,sacred,sacred_other,composition,10,6.0,1
+"Liszt, Franz",65,keyboard,kb_pieces,composition,18,29.5,9
+"Liszt, Franz",65,keyboard,organ,composition,3,20.0,2
+"Liszt, Franz",65,sacred,sacred_other,composition,9,6.0,1
 "Liszt, Franz",65,secular,secular_choral,composition,1,1.0,1
-"Liszt, Franz",65,secular,song,composition,11,13.0,1
+"Liszt, Franz",65,secular,song,composition,10,0.0,0
 "Liszt, Franz",70,chamber,ensemble,composition,1,4.0,1
 "Liszt, Franz",70,keyboard,kb_counterpoint,composition,1,0.0,0
 "Liszt, Franz",70,keyboard,kb_pieces,composition,29,33.5,8
 "Liszt, Franz",70,keyboard,kb_pieces,publication,1,3.0,1
-"Liszt, Franz",70,keyboard,organ,composition,1,0.0,0
+"Liszt, Franz",70,keyboard,organ,composition,2,0.0,0
 "Liszt, Franz",70,orchestral,orch_other,composition,1,0.0,0
 "Liszt, Franz",70,orchestral,overture_poem,composition,1,17.0,1
-"Liszt, Franz",70,sacred,mass,composition,1,0.0,0
 "Liszt, Franz",70,sacred,sacred_cantata,composition,1,0.0,0
-"Liszt, Franz",70,sacred,sacred_other,composition,6,9.0,2
-"Liszt, Franz",70,secular,secular_choral,composition,6,7.0,2
+"Liszt, Franz",70,sacred,sacred_other,composition,9,12.0,3
+"Liszt, Franz",70,secular,secular_choral,composition,3,4.0,1
 "Liszt, Franz",70,secular,song,composition,1,0.0,0
 "Mahler, Gustav",15,chamber,ensemble,composition,1,15.0,1
-"Mahler, Gustav",15,secular,secular_choral,composition,1,0.0,0
+"Mahler, Gustav",15,secular,secular_cantata,composition,1,0.0,0
 "Mahler, Gustav",20,orchestral,symphony,composition,1,55.0,1
 "Mahler, Gustav",20,secular,song,composition,3,0.0,0
 "Mahler, Gustav",25,secular,secular_choral,composition,1,90.0,1
@@ -905,7 +909,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mahler, Gustav",35,orchestral,orch_other,composition,1,0.0,0
 "Mahler, Gustav",35,secular,secular_choral,composition,1,100.0,1
 "Mahler, Gustav",40,orchestral,symphony,composition,3,160.0,2
-"Mahler, Gustav",40,secular,secular_choral,composition,1,0.0,0
+"Mahler, Gustav",40,secular,secular_cantata,composition,1,0.0,0
 "Mahler, Gustav",40,secular,song,composition,2,45.0,2
 "Mahler, Gustav",45,orchestral,symphony,composition,1,85.0,1
 "Mahler, Gustav",45,secular,secular_choral,composition,2,85.0,1
@@ -918,8 +922,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mendelssohn, Felix",10,keyboard,organ,composition,7,15.0,2
 "Mendelssohn, Felix",10,orchestral,concerto,composition,5,179.0,5
 "Mendelssohn, Felix",10,orchestral,symphony,composition,12,215.0,12
-"Mendelssohn, Felix",10,sacred,sacred_other,composition,1,5.0,1
-"Mendelssohn, Felix",10,secular,secular_choral,composition,2,12.0,1
+"Mendelssohn, Felix",10,sacred,sacred_other,composition,2,17.0,2
+"Mendelssohn, Felix",10,secular,secular_choral,composition,1,0.0,0
 "Mendelssohn, Felix",10,stage,opera,composition,1,0.0,0
 "Mendelssohn, Felix",15,chamber,duo,composition,3,45.0,2
 "Mendelssohn, Felix",15,chamber,ensemble,composition,5,148.0,5
@@ -930,16 +934,16 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mendelssohn, Felix",15,orchestral,concerto,composition,1,42.0,1
 "Mendelssohn, Felix",15,orchestral,overture_poem,composition,4,43.0,4
 "Mendelssohn, Felix",15,orchestral,symphony,composition,2,38.0,2
-"Mendelssohn, Felix",15,sacred,sacred_other,composition,5,65.5,5
-"Mendelssohn, Felix",15,secular,secular_cantata,composition,1,0.0,0
-"Mendelssohn, Felix",15,secular,secular_choral,composition,3,33.0,2
-"Mendelssohn, Felix",15,secular,song,composition,6,6.0,2
+"Mendelssohn, Felix",15,sacred,sacred_other,composition,6,73.5,6
+"Mendelssohn, Felix",15,secular,secular_cantata,composition,2,25.0,1
+"Mendelssohn, Felix",15,secular,secular_choral,composition,2,3.0,1
+"Mendelssohn, Felix",15,secular,song,composition,5,3.0,1
 "Mendelssohn, Felix",15,stage,opera,composition,1,110.0,1
 "Mendelssohn, Felix",20,chamber,chamber_other,composition,2,17.0,2
 "Mendelssohn, Felix",20,chamber,duo,composition,1,9.0,1
 "Mendelssohn, Felix",20,chamber,string_quartet,composition,2,23.0,1
 "Mendelssohn, Felix",20,keyboard,kb_counterpoint,composition,2,55.0,2
-"Mendelssohn, Felix",20,keyboard,kb_pieces,composition,6,40.0,4
+"Mendelssohn, Felix",20,keyboard,kb_pieces,composition,8,72.0,6
 "Mendelssohn, Felix",20,keyboard,organ,composition,5,30.0,3
 "Mendelssohn, Felix",20,orchestral,concerto,composition,1,19.0,1
 "Mendelssohn, Felix",20,orchestral,orch_other,composition,2,21.0,2
@@ -947,15 +951,15 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mendelssohn, Felix",20,orchestral,symphony,composition,2,59.0,2
 "Mendelssohn, Felix",20,sacred,sacred_cantata,composition,2,5.0,1
 "Mendelssohn, Felix",20,sacred,sacred_other,composition,7,84.5,6
-"Mendelssohn, Felix",20,secular,secular_cantata,composition,1,0.0,0
-"Mendelssohn, Felix",20,secular,secular_choral,composition,4,37.0,2
-"Mendelssohn, Felix",20,secular,song,composition,10,40.0,4
+"Mendelssohn, Felix",20,secular,secular_cantata,composition,3,35.0,1
+"Mendelssohn, Felix",20,secular,secular_choral,composition,1,2.0,1
+"Mendelssohn, Felix",20,secular,song,composition,9,8.0,2
 "Mendelssohn, Felix",20,stage,opera,composition,1,0.0,0
 "Mendelssohn, Felix",20,stage,stage_other,composition,1,0.0,0
 "Mendelssohn, Felix",25,chamber,duo,composition,1,25.0,1
 "Mendelssohn, Felix",25,chamber,string_quartet,composition,3,92.0,3
 "Mendelssohn, Felix",25,keyboard,kb_counterpoint,composition,1,7.0,1
-"Mendelssohn, Felix",25,keyboard,kb_pieces,composition,7,36.0,7
+"Mendelssohn, Felix",25,keyboard,kb_pieces,composition,11,94.0,11
 "Mendelssohn, Felix",25,keyboard,organ,composition,1,0.0,0
 "Mendelssohn, Felix",25,orchestral,concerto,composition,2,54.0,2
 "Mendelssohn, Felix",25,orchestral,orch_other,composition,1,10.0,1
@@ -963,34 +967,36 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mendelssohn, Felix",25,sacred,oratorio,composition,1,130.0,1
 "Mendelssohn, Felix",25,sacred,sacred_other,composition,5,51.0,3
 "Mendelssohn, Felix",25,secular,secular_choral,composition,8,23.0,2
-"Mendelssohn, Felix",25,secular,song,composition,6,58.0,4
+"Mendelssohn, Felix",25,secular,song,composition,2,0.0,0
 "Mendelssohn, Felix",30,chamber,duo,composition,1,25.0,1
 "Mendelssohn, Felix",30,chamber,ensemble,composition,1,28.0,1
 "Mendelssohn, Felix",30,keyboard,kb_counterpoint,composition,3,29.0,3
-"Mendelssohn, Felix",30,keyboard,kb_pieces,composition,2,18.0,2
+"Mendelssohn, Felix",30,keyboard,kb_pieces,composition,4,46.0,4
 "Mendelssohn, Felix",30,orchestral,orch_other,composition,2,0.0,0
 "Mendelssohn, Felix",30,orchestral,overture_poem,composition,1,8.0,1
 "Mendelssohn, Felix",30,orchestral,symphony,composition,1,36.0,1
 "Mendelssohn, Felix",30,sacred,sacred_cantata,composition,1,75.0,1
 "Mendelssohn, Felix",30,sacred,sacred_other,composition,9,57.0,7
-"Mendelssohn, Felix",30,secular,secular_cantata,composition,1,0.0,0
+"Mendelssohn, Felix",30,secular,secular_cantata,composition,2,0.0,0
 "Mendelssohn, Felix",30,secular,secular_choral,composition,6,8.0,2
-"Mendelssohn, Felix",30,secular,song,composition,6,31.0,3
+"Mendelssohn, Felix",30,secular,song,composition,3,3.0,1
 "Mendelssohn, Felix",30,stage,stage_other,composition,2,55.0,1
 "Mendelssohn, Felix",35,chamber,ensemble,composition,2,59.0,2
 "Mendelssohn, Felix",35,chamber,string_quartet,composition,1,26.0,1
-"Mendelssohn, Felix",35,keyboard,organ,composition,10,22.0,2
+"Mendelssohn, Felix",35,keyboard,kb_pieces,composition,1,0.0,0
+"Mendelssohn, Felix",35,keyboard,organ,composition,11,31.0,3
 "Mendelssohn, Felix",35,orchestral,concerto,composition,1,0.0,0
 "Mendelssohn, Felix",35,other,other,composition,2,7.0,1
 "Mendelssohn, Felix",35,sacred,mass,composition,1,2.0,1
 "Mendelssohn, Felix",35,sacred,oratorio,composition,3,175.0,3
-"Mendelssohn, Felix",35,sacred,sacred_other,composition,4,44.0,4
+"Mendelssohn, Felix",35,sacred,sacred_other,composition,3,35.0,3
 "Mendelssohn, Felix",35,secular,secular_choral,composition,2,11.0,2
-"Mendelssohn, Felix",35,secular,song,composition,2,5.0,1
+"Mendelssohn, Felix",35,secular,song,composition,1,5.0,1
 "Mendelssohn, Felix",35,stage,opera,composition,1,0.0,0
 "Mendelssohn, Felix",35,stage,stage_other,composition,2,120.0,2
 "Monteverdi, Claudio",15,sacred,sacred_other,composition,1,0.0,0
-"Monteverdi, Claudio",15,secular,secular_choral,publication,3,0.0,0
+"Monteverdi, Claudio",15,sacred,sacred_other,publication,1,0.0,0
+"Monteverdi, Claudio",15,secular,secular_choral,publication,2,0.0,0
 "Monteverdi, Claudio",20,secular,secular_choral,composition,1,0.0,0
 "Monteverdi, Claudio",20,secular,secular_choral,publication,22,0.0,0
 "Monteverdi, Claudio",25,secular,secular_choral,publication,15,0.0,0
@@ -1006,18 +1012,20 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Monteverdi, Claudio",50,sacred,sacred_other,publication,6,5.0,1
 "Monteverdi, Claudio",50,secular,secular_choral,composition,1,0.0,0
 "Monteverdi, Claudio",50,secular,secular_choral,publication,2,0.0,0
-"Monteverdi, Claudio",55,sacred,sacred_other,publication,7,0.0,0
-"Monteverdi, Claudio",55,secular,secular_choral,publication,5,9.0,2
+"Monteverdi, Claudio",55,sacred,sacred_other,publication,9,6.0,1
+"Monteverdi, Claudio",55,secular,secular_choral,publication,1,0.0,0
+"Monteverdi, Claudio",55,secular,song,publication,2,3.0,1
 "Monteverdi, Claudio",60,sacred,sacred_other,composition,1,8.0,1
 "Monteverdi, Claudio",60,sacred,sacred_other,publication,1,0.0,0
 "Monteverdi, Claudio",65,other,other,publication,1,0.0,0
-"Monteverdi, Claudio",65,secular,secular_choral,publication,1,0.0,0
+"Monteverdi, Claudio",65,secular,song,publication,1,0.0,0
 "Monteverdi, Claudio",70,sacred,mass,publication,1,18.0,1
 "Monteverdi, Claudio",70,sacred,sacred_cantata,publication,1,0.0,0
 "Monteverdi, Claudio",70,sacred,sacred_other,composition,1,0.0,0
 "Monteverdi, Claudio",70,sacred,sacred_other,publication,6,2.0,1
+"Monteverdi, Claudio",70,secular,secular_cantata,publication,1,0.0,0
 "Monteverdi, Claudio",70,secular,secular_choral,composition,1,0.0,0
-"Monteverdi, Claudio",70,secular,secular_choral,publication,9,8.0,1
+"Monteverdi, Claudio",70,secular,secular_choral,publication,8,8.0,1
 "Monteverdi, Claudio",75,stage,opera,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",5,chamber,duo,composition,4,0.0,0
 "Mozart, Wolfgang Amadeus",5,chamber,ensemble,composition,7,13.0,1
@@ -1026,7 +1034,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",5,orchestral,symphony,composition,4,27.0,3
 "Mozart, Wolfgang Amadeus",5,sacred,sacred_other,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",5,secular,secular_cantata,composition,2,9.0,2
-"Mozart, Wolfgang Amadeus",10,chamber,duo,composition,5,0.0,0
+"Mozart, Wolfgang Amadeus",10,chamber,duo,composition,7,0.0,0
 "Mozart, Wolfgang Amadeus",10,chamber,duo,publication,1,0.0,0
 "Mozart, Wolfgang Amadeus",10,chamber,ensemble,composition,3,2.5,1
 "Mozart, Wolfgang Amadeus",10,chamber,string_quartet,composition,1,0.0,0
@@ -1040,9 +1048,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",10,sacred,mass,composition,4,74.0,3
 "Mozart, Wolfgang Amadeus",10,sacred,oratorio,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",10,sacred,sacred_cantata,composition,1,0.0,0
-"Mozart, Wolfgang Amadeus",10,sacred,sacred_other,composition,6,20.0,3
+"Mozart, Wolfgang Amadeus",10,sacred,sacred_other,composition,7,20.0,3
 "Mozart, Wolfgang Amadeus",10,secular,secular_cantata,composition,9,69.5,8
-"Mozart, Wolfgang Amadeus",10,secular,secular_choral,composition,4,7.0,1
+"Mozart, Wolfgang Amadeus",10,secular,secular_choral,composition,1,7.0,1
 "Mozart, Wolfgang Amadeus",10,secular,song,composition,2,3.0,1
 "Mozart, Wolfgang Amadeus",10,stage,opera,composition,4,75.0,1
 "Mozart, Wolfgang Amadeus",15,chamber,chamber_other,composition,5,34.0,3
@@ -1058,14 +1066,14 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",15,orchestral,symphony,composition,26,144.0,10
 "Mozart, Wolfgang Amadeus",15,sacred,mass,composition,8,27.0,1
 "Mozart, Wolfgang Amadeus",15,sacred,oratorio,composition,1,0.0,0
-"Mozart, Wolfgang Amadeus",15,sacred,sacred_other,composition,10,15.0,2
+"Mozart, Wolfgang Amadeus",15,sacred,sacred_other,composition,12,15.0,2
 "Mozart, Wolfgang Amadeus",15,secular,secular_cantata,composition,5,15.75,4
-"Mozart, Wolfgang Amadeus",15,secular,secular_choral,composition,3,0.0,0
+"Mozart, Wolfgang Amadeus",15,secular,secular_choral,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",15,secular,song,composition,2,5.0,2
 "Mozart, Wolfgang Amadeus",15,stage,opera,composition,5,0.0,0
 "Mozart, Wolfgang Amadeus",20,chamber,chamber_other,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",20,chamber,duo,composition,10,0.0,0
-"Mozart, Wolfgang Amadeus",20,chamber,ensemble,composition,21,97.0,3
+"Mozart, Wolfgang Amadeus",20,chamber,ensemble,composition,22,129.0,4
 "Mozart, Wolfgang Amadeus",20,keyboard,kb_counterpoint,composition,7,0.0,0
 "Mozart, Wolfgang Amadeus",20,keyboard,kb_pieces,composition,4,0.0,0
 "Mozart, Wolfgang Amadeus",20,keyboard,kb_sonata,composition,3,0.0,0
@@ -1073,10 +1081,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",20,orchestral,orch_other,composition,15,16.0,2
 "Mozart, Wolfgang Amadeus",20,orchestral,symphony,composition,6,30.0,1
 "Mozart, Wolfgang Amadeus",20,sacred,mass,composition,4,45.0,2
-"Mozart, Wolfgang Amadeus",20,sacred,sacred_other,composition,8,37.0,3
+"Mozart, Wolfgang Amadeus",20,sacred,sacred_other,composition,10,37.0,3
 "Mozart, Wolfgang Amadeus",20,secular,secular_cantata,composition,8,51.0,6
-"Mozart, Wolfgang Amadeus",20,secular,secular_choral,composition,5,34.0,2
-"Mozart, Wolfgang Amadeus",20,secular,song,composition,4,10.0,4
+"Mozart, Wolfgang Amadeus",20,secular,song,composition,6,12.0,5
 "Mozart, Wolfgang Amadeus",20,stage,opera,composition,2,0.0,0
 "Mozart, Wolfgang Amadeus",20,stage,stage_other,composition,3,0.0,0
 "Mozart, Wolfgang Amadeus",25,chamber,chamber_other,composition,2,50.0,1
@@ -1093,17 +1100,17 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",25,other,other,composition,7,0.0,0
 "Mozart, Wolfgang Amadeus",25,sacred,mass,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",25,sacred,oratorio,composition,1,0.0,0
-"Mozart, Wolfgang Amadeus",25,secular,secular_cantata,composition,14,64.5,9
-"Mozart, Wolfgang Amadeus",25,secular,secular_choral,composition,23,13.0,3
-"Mozart, Wolfgang Amadeus",25,secular,song,composition,7,5.0,2
+"Mozart, Wolfgang Amadeus",25,secular,secular_cantata,composition,15,64.5,9
+"Mozart, Wolfgang Amadeus",25,secular,secular_choral,composition,21,13.0,3
+"Mozart, Wolfgang Amadeus",25,secular,song,composition,8,5.0,2
 "Mozart, Wolfgang Amadeus",25,stage,opera,composition,3,0.0,0
 "Mozart, Wolfgang Amadeus",25,stage,stage_other,composition,2,30.0,1
 "Mozart, Wolfgang Amadeus",30,chamber,chamber_other,composition,2,0.0,0
 "Mozart, Wolfgang Amadeus",30,chamber,duo,composition,3,0.0,0
-"Mozart, Wolfgang Amadeus",30,chamber,ensemble,composition,25,72.0,2
+"Mozart, Wolfgang Amadeus",30,chamber,ensemble,composition,26,72.0,2
 "Mozart, Wolfgang Amadeus",30,chamber,string_quartet,composition,4,0.0,0
 "Mozart, Wolfgang Amadeus",30,keyboard,kb_counterpoint,composition,6,0.0,0
-"Mozart, Wolfgang Amadeus",30,keyboard,kb_pieces,composition,9,0.0,0
+"Mozart, Wolfgang Amadeus",30,keyboard,kb_pieces,composition,10,0.0,0
 "Mozart, Wolfgang Amadeus",30,keyboard,kb_pieces,publication,1,0.0,0
 "Mozart, Wolfgang Amadeus",30,keyboard,kb_sonata,composition,11,11.0,1
 "Mozart, Wolfgang Amadeus",30,keyboard,organ,composition,3,0.0,0
@@ -1111,10 +1118,11 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",30,orchestral,orch_other,composition,13,12.0,2
 "Mozart, Wolfgang Amadeus",30,orchestral,overture_poem,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",30,orchestral,symphony,composition,4,53.0,2
-"Mozart, Wolfgang Amadeus",30,secular,secular_cantata,composition,12,58.0,9
-"Mozart, Wolfgang Amadeus",30,secular,secular_choral,composition,23,20.0,3
+"Mozart, Wolfgang Amadeus",30,sacred,sacred_other,composition,2,0.0,0
+"Mozart, Wolfgang Amadeus",30,secular,secular_cantata,composition,14,68.0,10
+"Mozart, Wolfgang Amadeus",30,secular,secular_choral,composition,16,10.0,2
 "Mozart, Wolfgang Amadeus",30,secular,song,composition,10,2.0,1
-"Mozart, Wolfgang Amadeus",30,stage,opera,composition,3,180.0,1
+"Mozart, Wolfgang Amadeus",30,stage,opera,composition,4,180.0,1
 "Mozart, Wolfgang Amadeus",35,chamber,chamber_other,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",35,chamber,ensemble,composition,3,0.0,0
 "Mozart, Wolfgang Amadeus",35,keyboard,kb_counterpoint,composition,1,0.0,0
@@ -1125,37 +1133,40 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Mozart, Wolfgang Amadeus",35,other,other,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",35,sacred,mass,composition,1,60.0,1
 "Mozart, Wolfgang Amadeus",35,sacred,sacred_other,composition,1,3.0,1
-"Mozart, Wolfgang Amadeus",35,secular,secular_cantata,composition,2,7.0,1
-"Mozart, Wolfgang Amadeus",35,secular,secular_choral,composition,2,0.0,0
+"Mozart, Wolfgang Amadeus",35,secular,secular_cantata,composition,3,7.0,1
+"Mozart, Wolfgang Amadeus",35,secular,secular_choral,composition,1,0.0,0
 "Mozart, Wolfgang Amadeus",35,secular,song,composition,4,4.0,1
 "Mozart, Wolfgang Amadeus",35,stage,opera,composition,2,150.0,1
 "Purcell, Henry",5,secular,song,composition,1,0.0,0
 "Purcell, Henry",10,keyboard,kb_pieces,publication,1,0.0,0
 "Purcell, Henry",15,other,other,composition,1,0.0,0
-"Purcell, Henry",15,sacred,sacred_other,composition,2,0.0,0
-"Purcell, Henry",15,secular,secular_choral,composition,2,0.0,0
+"Purcell, Henry",15,sacred,sacred_other,composition,3,0.0,0
+"Purcell, Henry",15,secular,secular_choral,composition,1,0.0,0
 "Purcell, Henry",15,secular,song,composition,6,0.0,0
 "Purcell, Henry",15,stage,opera,composition,1,0.0,0
 "Purcell, Henry",20,chamber,ensemble,composition,10,4.0,1
 "Purcell, Henry",20,chamber,ensemble,publication,3,0.0,0
-"Purcell, Henry",20,other,other,composition,15,37.0,10
+"Purcell, Henry",20,other,other,composition,16,37.0,10
 "Purcell, Henry",20,sacred,sacred_other,composition,15,111.0,11
-"Purcell, Henry",20,secular,secular_choral,composition,13,87.0,7
-"Purcell, Henry",20,secular,song,composition,21,13.0,2
+"Purcell, Henry",20,secular,secular_cantata,composition,5,37.0,2
+"Purcell, Henry",20,secular,secular_choral,composition,11,63.0,7
+"Purcell, Henry",20,secular,song,composition,17,0.0,0
 "Purcell, Henry",20,stage,stage_other,composition,3,35.0,2
-"Purcell, Henry",25,keyboard,kb_pieces,composition,5,0.0,0
+"Purcell, Henry",25,keyboard,kb_pieces,composition,6,1.0,1
 "Purcell, Henry",25,sacred,sacred_other,composition,5,31.0,2
 "Purcell, Henry",25,sacred,sacred_other,publication,1,3.0,1
-"Purcell, Henry",25,secular,secular_choral,composition,34,110.0,5
-"Purcell, Henry",25,secular,song,composition,49,1.0,1
+"Purcell, Henry",25,secular,secular_cantata,composition,2,24.0,1
+"Purcell, Henry",25,secular,secular_choral,composition,50,86.0,4
+"Purcell, Henry",25,secular,song,composition,30,0.0,0
 "Purcell, Henry",25,secular,song,publication,1,0.0,0
 "Purcell, Henry",25,stage,stage_other,composition,2,0.0,0
 "Purcell, Henry",25,stage,stage_other,publication,1,25.0,1
 "Purcell, Henry",30,keyboard,kb_pieces,composition,3,1.0,1
 "Purcell, Henry",30,keyboard,kb_pieces,publication,3,0.0,0
 "Purcell, Henry",30,sacred,sacred_other,composition,3,0.0,0
-"Purcell, Henry",30,secular,secular_choral,composition,19,111.0,3
-"Purcell, Henry",30,secular,song,composition,18,0.0,0
+"Purcell, Henry",30,secular,secular_cantata,composition,8,92.0,2
+"Purcell, Henry",30,secular,secular_choral,composition,17,19.0,1
+"Purcell, Henry",30,secular,song,composition,12,0.0,0
 "Purcell, Henry",30,secular,song,publication,1,0.0,0
 "Purcell, Henry",30,stage,opera,composition,1,0.0,0
 "Purcell, Henry",30,stage,opera,publication,2,120.0,1
@@ -1163,16 +1174,16 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Purcell, Henry",30,stage,stage_other,publication,2,11.0,1
 "Purcell, Henry",35,sacred,sacred_other,composition,1,0.0,0
 "Purcell, Henry",35,sacred,sacred_other,publication,1,1.0,1
-"Purcell, Henry",35,secular,secular_choral,composition,2,30.0,1
-"Purcell, Henry",35,secular,song,composition,13,0.0,0
+"Purcell, Henry",35,secular,secular_cantata,composition,1,30.0,1
+"Purcell, Henry",35,secular,secular_choral,composition,4,0.0,0
+"Purcell, Henry",35,secular,song,composition,10,0.0,0
 "Purcell, Henry",35,stage,opera,composition,1,0.0,0
 "Purcell, Henry",35,stage,opera,publication,1,120.0,1
 "Purcell, Henry",35,stage,stage_other,composition,13,198.0,9
 "Ravel, Maurice",10,keyboard,kb_counterpoint,composition,2,0.0,0
-"Ravel, Maurice",10,secular,secular_choral,composition,2,0.0,0
+"Ravel, Maurice",10,other,other,composition,2,0.0,0
 "Ravel, Maurice",15,keyboard,kb_pieces,composition,1,4.0,1
-"Ravel, Maurice",15,secular,secular_choral,composition,1,5.0,1
-"Ravel, Maurice",15,secular,song,composition,1,0.0,0
+"Ravel, Maurice",15,secular,song,composition,2,5.0,1
 "Ravel, Maurice",20,chamber,duo,composition,1,15.0,1
 "Ravel, Maurice",20,keyboard,kb_counterpoint,composition,1,0.0,0
 "Ravel, Maurice",20,keyboard,kb_pieces,composition,2,16.0,2
@@ -1183,15 +1194,17 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Ravel, Maurice",25,keyboard,kb_counterpoint,composition,1,4.0,1
 "Ravel, Maurice",25,keyboard,kb_pieces,composition,3,0.0,0
 "Ravel, Maurice",25,keyboard,kb_sonata,composition,1,0.0,0
-"Ravel, Maurice",25,secular,secular_cantata,composition,4,25.0,1
-"Ravel, Maurice",25,secular,secular_choral,composition,7,37.0,4
+"Ravel, Maurice",25,other,other,composition,2,0.0,0
+"Ravel, Maurice",25,secular,secular_cantata,composition,8,57.0,4
+"Ravel, Maurice",25,secular,secular_choral,composition,1,5.0,1
 "Ravel, Maurice",25,secular,song,composition,3,0.0,0
 "Ravel, Maurice",25,stage,opera,composition,1,0.0,0
 "Ravel, Maurice",30,chamber,chamber_other,composition,1,12.0,1
 "Ravel, Maurice",30,keyboard,kb_pieces,composition,3,15.0,1
 "Ravel, Maurice",30,orchestral,orch_other,composition,1,0.0,0
-"Ravel, Maurice",30,secular,secular_choral,composition,4,0.0,0
-"Ravel, Maurice",30,secular,song,composition,4,3.0,1
+"Ravel, Maurice",30,other,other,composition,1,0.0,0
+"Ravel, Maurice",30,secular,secular_cantata,composition,1,0.0,0
+"Ravel, Maurice",30,secular,song,composition,6,3.0,1
 "Ravel, Maurice",30,secular,song,publication,1,0.0,0
 "Ravel, Maurice",30,stage,opera,composition,1,0.0,0
 "Ravel, Maurice",30,stage,stage_other,composition,1,60.0,1
@@ -1246,12 +1259,13 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Rimsky-Korsakov, Nikolay",50,chamber,string_quartet,composition,1,0.0,0
 "Rimsky-Korsakov, Nikolay",50,keyboard,kb_counterpoint,composition,1,0.0,0
 "Rimsky-Korsakov, Nikolay",50,keyboard,kb_pieces,composition,2,0.0,0
-"Rimsky-Korsakov, Nikolay",50,secular,secular_choral,composition,3,0.0,0
+"Rimsky-Korsakov, Nikolay",50,orchestral,orch_other,composition,1,0.0,0
+"Rimsky-Korsakov, Nikolay",50,secular,secular_choral,composition,2,0.0,0
 "Rimsky-Korsakov, Nikolay",50,secular,song,composition,11,0.0,0
 "Rimsky-Korsakov, Nikolay",50,stage,opera,composition,6,195.0,2
+"Rimsky-Korsakov, Nikolay",55,keyboard,kb_pieces,composition,1,0.0,0
 "Rimsky-Korsakov, Nikolay",55,orchestral,overture_poem,composition,2,25.0,1
 "Rimsky-Korsakov, Nikolay",55,secular,secular_cantata,composition,1,12.0,1
-"Rimsky-Korsakov, Nikolay",55,secular,song,composition,1,0.0,0
 "Rimsky-Korsakov, Nikolay",55,stage,opera,composition,8,229.0,3
 "Rimsky-Korsakov, Nikolay",60,orchestral,orch_other,composition,3,0.0,0
 "Rimsky-Korsakov, Nikolay",60,secular,secular_choral,composition,1,0.0,0
@@ -1266,7 +1280,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",15,orchestral,overture_poem,composition,1,5.0,1
 "Saint-Saëns, Camille",15,orchestral,symphony,composition,2,25.0,1
 "Saint-Saëns, Camille",15,other,other,composition,1,0.0,0
-"Saint-Saëns, Camille",15,secular,secular_choral,composition,1,0.0,0
+"Saint-Saëns, Camille",15,secular,secular_cantata,composition,1,0.0,0
 "Saint-Saëns, Camille",15,secular,song,composition,5,0.0,0
 "Saint-Saëns, Camille",20,chamber,duo,composition,3,13.0,1
 "Saint-Saëns, Camille",20,keyboard,kb_pieces,composition,3,30.0,1
@@ -1276,28 +1290,29 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",20,orchestral,symphony,composition,2,40.0,1
 "Saint-Saëns, Camille",20,sacred,mass,composition,1,0.0,0
 "Saint-Saëns, Camille",20,sacred,oratorio,composition,1,40.0,1
-"Saint-Saëns, Camille",20,sacred,sacred_other,composition,2,0.0,0
-"Saint-Saëns, Camille",20,secular,secular_choral,composition,4,0.0,0
+"Saint-Saëns, Camille",20,sacred,sacred_other,composition,3,0.0,0
+"Saint-Saëns, Camille",20,secular,secular_choral,composition,3,0.0,0
 "Saint-Saëns, Camille",20,secular,song,composition,6,3.0,1
 "Saint-Saëns, Camille",25,chamber,duo,composition,1,0.0,0
 "Saint-Saëns, Camille",25,chamber,ensemble,composition,1,28.0,1
 "Saint-Saëns, Camille",25,keyboard,kb_pieces,composition,1,0.0,0
 "Saint-Saëns, Camille",25,orchestral,orch_other,composition,3,30.0,2
 "Saint-Saëns, Camille",25,orchestral,overture_poem,composition,1,0.0,0
-"Saint-Saëns, Camille",25,sacred,sacred_other,composition,2,0.0,0
+"Saint-Saëns, Camille",25,sacred,sacred_other,composition,3,3.0,1
 "Saint-Saëns, Camille",25,sacred,sacred_other,publication,1,0.0,0
-"Saint-Saëns, Camille",25,secular,secular_choral,composition,3,3.0,1
+"Saint-Saëns, Camille",25,secular,secular_choral,composition,1,0.0,0
 "Saint-Saëns, Camille",25,secular,song,composition,5,0.0,0
+"Saint-Saëns, Camille",25,stage,opera,composition,1,0.0,0
 "Saint-Saëns, Camille",30,chamber,duo,composition,1,0.0,0
 "Saint-Saëns, Camille",30,chamber,ensemble,composition,1,0.0,0
-"Saint-Saëns, Camille",30,keyboard,kb_pieces,composition,2,0.0,0
+"Saint-Saëns, Camille",30,keyboard,kb_pieces,composition,3,0.0,0
 "Saint-Saëns, Camille",30,keyboard,organ,composition,1,0.0,0
 "Saint-Saëns, Camille",30,orchestral,concerto,composition,2,55.0,2
 "Saint-Saëns, Camille",30,orchestral,orch_other,composition,1,0.0,0
-"Saint-Saëns, Camille",30,sacred,sacred_other,composition,2,0.0,0
+"Saint-Saëns, Camille",30,sacred,sacred_other,composition,3,0.0,0
 "Saint-Saëns, Camille",30,secular,secular_cantata,composition,1,0.0,0
-"Saint-Saëns, Camille",30,secular,secular_choral,composition,2,0.0,0
-"Saint-Saëns, Camille",30,secular,song,composition,8,3.0,1
+"Saint-Saëns, Camille",30,secular,secular_choral,composition,1,0.0,0
+"Saint-Saëns, Camille",30,secular,song,composition,7,3.0,1
 "Saint-Saëns, Camille",35,chamber,duo,composition,2,0.0,0
 "Saint-Saëns, Camille",35,keyboard,kb_counterpoint,composition,1,0.0,0
 "Saint-Saëns, Camille",35,keyboard,kb_pieces,composition,4,0.0,0
@@ -1316,7 +1331,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",40,orchestral,overture_poem,composition,1,20.0,1
 "Saint-Saëns, Camille",40,sacred,mass,composition,1,40.0,1
 "Saint-Saëns, Camille",40,sacred,oratorio,composition,1,0.0,0
-"Saint-Saëns, Camille",40,secular,secular_choral,composition,3,0.0,0
+"Saint-Saëns, Camille",40,secular,secular_cantata,composition,1,0.0,0
+"Saint-Saëns, Camille",40,secular,secular_choral,composition,2,0.0,0
 "Saint-Saëns, Camille",40,secular,song,publication,1,0.0,0
 "Saint-Saëns, Camille",40,stage,opera,composition,2,0.0,0
 "Saint-Saëns, Camille",45,keyboard,kb_pieces,composition,3,5.0,1
@@ -1333,9 +1349,10 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",50,orchestral,symphony,composition,1,0.0,0
 "Saint-Saëns, Camille",50,sacred,mass,composition,1,0.0,0
 "Saint-Saëns, Camille",50,sacred,sacred_other,composition,1,0.0,0
-"Saint-Saëns, Camille",50,secular,secular_choral,composition,4,95.0,2
+"Saint-Saëns, Camille",50,secular,secular_cantata,composition,1,0.0,0
+"Saint-Saëns, Camille",50,secular,secular_choral,composition,2,5.0,1
 "Saint-Saëns, Camille",50,secular,song,composition,4,2.0,1
-"Saint-Saëns, Camille",50,stage,opera,composition,1,180.0,1
+"Saint-Saëns, Camille",50,stage,opera,composition,2,270.0,2
 "Saint-Saëns, Camille",55,chamber,duo,composition,1,0.0,0
 "Saint-Saëns, Camille",55,chamber,ensemble,composition,1,35.0,1
 "Saint-Saëns, Camille",55,keyboard,kb_counterpoint,composition,1,8.0,1
@@ -1344,8 +1361,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",55,orchestral,orch_other,composition,3,11.0,1
 "Saint-Saëns, Camille",55,other,other,composition,1,0.0,0
 "Saint-Saëns, Camille",55,sacred,sacred_other,composition,1,0.0,0
-"Saint-Saëns, Camille",55,secular,secular_choral,composition,2,0.0,0
-"Saint-Saëns, Camille",55,secular,song,composition,13,0.0,0
+"Saint-Saëns, Camille",55,secular,secular_cantata,composition,1,0.0,0
+"Saint-Saëns, Camille",55,secular,song,composition,14,0.0,0
 "Saint-Saëns, Camille",55,secular,song,publication,1,5.0,1
 "Saint-Saëns, Camille",55,stage,opera,composition,1,0.0,0
 "Saint-Saëns, Camille",55,stage,stage_other,composition,1,0.0,0
@@ -1358,8 +1375,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",60,keyboard,organ,publication,1,0.0,0
 "Saint-Saëns, Camille",60,orchestral,concerto,composition,1,30.0,1
 "Saint-Saëns, Camille",60,sacred,sacred_other,composition,2,3.0,1
-"Saint-Saëns, Camille",60,secular,secular_choral,composition,2,0.0,0
-"Saint-Saëns, Camille",60,secular,song,composition,2,0.0,0
+"Saint-Saëns, Camille",60,secular,secular_choral,composition,1,0.0,0
+"Saint-Saëns, Camille",60,secular,song,composition,3,0.0,0
 "Saint-Saëns, Camille",60,stage,stage_other,composition,1,0.0,0
 "Saint-Saëns, Camille",60,stage,stage_other,publication,1,0.0,0
 "Saint-Saëns, Camille",65,keyboard,kb_pieces,composition,1,0.0,0
@@ -1367,9 +1384,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",65,orchestral,orch_other,composition,1,6.0,1
 "Saint-Saëns, Camille",65,orchestral,orch_other,publication,1,10.0,1
 "Saint-Saëns, Camille",65,sacred,sacred_other,composition,1,0.0,0
-"Saint-Saëns, Camille",65,secular,secular_choral,composition,4,0.0,0
-"Saint-Saëns, Camille",65,secular,secular_choral,publication,1,0.0,0
-"Saint-Saëns, Camille",65,secular,song,composition,3,0.0,0
+"Saint-Saëns, Camille",65,secular,secular_cantata,publication,1,0.0,0
+"Saint-Saëns, Camille",65,secular,secular_choral,composition,3,0.0,0
+"Saint-Saëns, Camille",65,secular,song,composition,4,0.0,0
 "Saint-Saëns, Camille",65,secular,song,publication,1,0.0,0
 "Saint-Saëns, Camille",65,stage,opera,composition,2,0.0,0
 "Saint-Saëns, Camille",65,stage,stage_other,composition,2,0.0,0
@@ -1380,16 +1397,19 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Saint-Saëns, Camille",70,orchestral,orch_other,composition,1,0.0,0
 "Saint-Saëns, Camille",70,other,other,composition,1,4.0,1
 "Saint-Saëns, Camille",70,sacred,sacred_other,composition,1,0.0,0
-"Saint-Saëns, Camille",70,secular,secular_choral,composition,5,6.0,1
+"Saint-Saëns, Camille",70,secular,secular_cantata,composition,2,6.0,1
+"Saint-Saëns, Camille",70,secular,secular_choral,composition,1,0.0,0
 "Saint-Saëns, Camille",70,secular,song,composition,4,0.0,0
+"Saint-Saëns, Camille",70,stage,opera,composition,2,0.0,0
 "Saint-Saëns, Camille",70,stage,stage_other,composition,1,0.0,0
 "Saint-Saëns, Camille",75,chamber,duo,composition,2,0.0,0
 "Saint-Saëns, Camille",75,keyboard,kb_pieces,composition,3,5.0,1
 "Saint-Saëns, Camille",75,orchestral,orch_other,composition,1,18.0,1
 "Saint-Saëns, Camille",75,orchestral,overture_poem,publication,1,0.0,0
 "Saint-Saëns, Camille",75,sacred,oratorio,composition,1,0.0,0
-"Saint-Saëns, Camille",75,sacred,sacred_other,composition,2,0.0,0
-"Saint-Saëns, Camille",75,secular,secular_choral,composition,4,0.0,0
+"Saint-Saëns, Camille",75,sacred,sacred_other,composition,3,0.0,0
+"Saint-Saëns, Camille",75,secular,secular_cantata,composition,1,0.0,0
+"Saint-Saëns, Camille",75,secular,secular_choral,composition,2,0.0,0
 "Saint-Saëns, Camille",75,secular,secular_choral,publication,1,9.0,1
 "Saint-Saëns, Camille",75,secular,song,composition,2,0.0,0
 "Saint-Saëns, Camille",80,chamber,chamber_other,composition,1,0.0,0
@@ -1427,12 +1447,12 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schubert, Franz",15,orchestral,orch_other,composition,2,9.0,2
 "Schubert, Franz",15,orchestral,overture_poem,composition,4,6.0,1
 "Schubert, Franz",15,orchestral,symphony,composition,5,146.0,5
-"Schubert, Franz",15,other,other,composition,4,14.0,4
+"Schubert, Franz",15,other,other,composition,6,18.0,6
 "Schubert, Franz",15,sacred,mass,composition,6,131.0,6
-"Schubert, Franz",15,sacred,sacred_other,composition,12,34.0,7
-"Schubert, Franz",15,secular,secular_cantata,composition,3,15.0,3
-"Schubert, Franz",15,secular,secular_choral,composition,90,109.0,34
-"Schubert, Franz",15,secular,song,composition,297,53.0,23
+"Schubert, Franz",15,sacred,sacred_other,composition,20,48.0,9
+"Schubert, Franz",15,secular,secular_cantata,composition,5,7.0,2
+"Schubert, Franz",15,secular,secular_choral,composition,79,103.0,33
+"Schubert, Franz",15,secular,song,composition,296,49.0,21
 "Schubert, Franz",15,stage,opera,composition,7,108.0,1
 "Schubert, Franz",20,chamber,duo,composition,1,25.0,1
 "Schubert, Franz",20,chamber,ensemble,composition,2,40.0,1
@@ -1447,9 +1467,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schubert, Franz",20,sacred,oratorio,composition,1,0.0,0
 "Schubert, Franz",20,sacred,sacred_other,composition,9,16.0,4
 "Schubert, Franz",20,secular,secular_cantata,composition,1,0.0,0
-"Schubert, Franz",20,secular,secular_choral,composition,15,19.0,5
-"Schubert, Franz",20,secular,song,composition,123,26.0,10
-"Schubert, Franz",20,stage,opera,composition,3,86.0,1
+"Schubert, Franz",20,secular,secular_choral,composition,13,19.0,5
+"Schubert, Franz",20,secular,song,composition,124,26.0,10
+"Schubert, Franz",20,stage,opera,composition,4,86.0,1
 "Schubert, Franz",20,stage,stage_other,composition,1,100.0,1
 "Schubert, Franz",25,chamber,chamber_other,composition,1,0.0,0
 "Schubert, Franz",25,chamber,chamber_other,publication,1,0.0,0
@@ -1461,10 +1481,11 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schubert, Franz",25,keyboard,kb_pieces,publication,8,6.0,4
 "Schubert, Franz",25,keyboard,kb_sonata,composition,8,230.0,7
 "Schubert, Franz",25,orchestral,symphony,composition,2,85.0,2
-"Schubert, Franz",25,other,other,composition,1,1.0,1
+"Schubert, Franz",25,other,other,composition,2,3.0,2
 "Schubert, Franz",25,sacred,mass,composition,1,3.0,1
-"Schubert, Franz",25,sacred,sacred_other,composition,2,5.0,1
-"Schubert, Franz",25,secular,secular_choral,composition,24,21.0,6
+"Schubert, Franz",25,sacred,sacred_other,composition,4,5.0,1
+"Schubert, Franz",25,secular,secular_cantata,composition,1,0.0,0
+"Schubert, Franz",25,secular,secular_choral,composition,20,19.0,5
 "Schubert, Franz",25,secular,secular_choral,publication,1,0.0,0
 "Schubert, Franz",25,secular,song,composition,89,62.0,3
 "Schubert, Franz",25,stage,opera,composition,3,120.0,1
@@ -1477,9 +1498,10 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schubert, Franz",30,orchestral,symphony,composition,1,0.0,0
 "Schubert, Franz",30,sacred,mass,composition,2,89.0,2
 "Schubert, Franz",30,sacred,sacred_other,composition,4,5.0,1
+"Schubert, Franz",30,secular,secular_cantata,composition,1,0.0,0
 "Schubert, Franz",30,secular,secular_choral,composition,8,7.0,2
 "Schubert, Franz",30,secular,secular_choral,publication,1,0.0,0
-"Schubert, Franz",30,secular,song,composition,34,85.0,5
+"Schubert, Franz",30,secular,song,composition,33,85.0,5
 "Schubert, Franz",30,stage,opera,composition,1,0.0,0
 "Schumann, Clara",10,keyboard,kb_counterpoint,composition,1,0.0,0
 "Schumann, Clara",10,keyboard,kb_pieces,composition,3,1.0,1
@@ -1519,8 +1541,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schumann, Robert",30,orchestral,overture_poem,composition,1,0.0,0
 "Schumann, Robert",30,orchestral,symphony,composition,3,62.0,2
 "Schumann, Robert",30,sacred,oratorio,composition,2,215.0,2
-"Schumann, Robert",30,secular,secular_choral,composition,4,0.0,0
-"Schumann, Robert",30,secular,song,composition,19,50.0,2
+"Schumann, Robert",30,secular,secular_choral,composition,3,0.0,0
+"Schumann, Robert",30,secular,song,composition,20,50.0,2
 "Schumann, Robert",35,chamber,duo,composition,4,0.0,0
 "Schumann, Robert",35,chamber,ensemble,composition,2,30.0,1
 "Schumann, Robert",35,keyboard,kb_counterpoint,composition,1,0.0,0
@@ -1530,13 +1552,13 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schumann, Robert",35,orchestral,symphony,composition,1,38.0,1
 "Schumann, Robert",35,sacred,mass,composition,1,0.0,0
 "Schumann, Robert",35,sacred,sacred_other,composition,1,18.0,1
-"Schumann, Robert",35,secular,secular_choral,composition,14,110.0,4
-"Schumann, Robert",35,secular,song,composition,3,25.0,1
+"Schumann, Robert",35,secular,secular_choral,composition,15,110.0,4
+"Schumann, Robert",35,secular,song,composition,2,25.0,1
 "Schumann, Robert",35,stage,opera,composition,1,120.0,1
 "Schumann, Robert",40,chamber,duo,composition,4,20.0,1
 "Schumann, Robert",40,chamber,ensemble,composition,2,0.0,0
 "Schumann, Robert",40,keyboard,kb_counterpoint,composition,1,11.0,1
-"Schumann, Robert",40,keyboard,kb_pieces,composition,3,0.0,0
+"Schumann, Robert",40,keyboard,kb_pieces,composition,4,0.0,0
 "Schumann, Robert",40,keyboard,kb_pieces,publication,1,0.0,0
 "Schumann, Robert",40,keyboard,kb_sonata,composition,1,0.0,0
 "Schumann, Robert",40,orchestral,concerto,composition,2,25.0,1
@@ -1547,40 +1569,42 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Schumann, Robert",40,sacred,mass,composition,2,0.0,0
 "Schumann, Robert",40,sacred,oratorio,composition,1,62.0,1
 "Schumann, Robert",40,sacred,sacred_other,composition,1,25.0,1
-"Schumann, Robert",40,secular,secular_choral,composition,7,15.0,1
-"Schumann, Robert",40,secular,song,composition,14,0.0,0
+"Schumann, Robert",40,secular,secular_cantata,composition,1,0.0,0
+"Schumann, Robert",40,secular,secular_choral,composition,6,15.0,1
+"Schumann, Robert",40,secular,song,composition,13,0.0,0
 "Schumann, Robert",45,orchestral,orch_other,publication,1,13.0,1
 "Schumann, Robert",45,sacred,sacred_other,composition,1,0.0,0
 "Stravinsky, Igor",20,keyboard,kb_sonata,composition,1,30.0,1
 "Stravinsky, Igor",20,orchestral,symphony,composition,1,40.0,1
-"Stravinsky, Igor",20,secular,secular_choral,composition,1,10.0,1
+"Stravinsky, Igor",20,secular,secular_cantata,composition,1,10.0,1
 "Stravinsky, Igor",25,keyboard,kb_pieces,composition,1,0.0,0
 "Stravinsky, Igor",25,orchestral,orch_other,composition,4,61.0,4
-"Stravinsky, Igor",25,secular,secular_choral,composition,2,5.0,1
-"Stravinsky, Igor",25,secular,song,composition,3,6.0,1
+"Stravinsky, Igor",25,secular,secular_choral,composition,1,5.0,1
+"Stravinsky, Igor",25,secular,song,composition,4,6.0,1
 "Stravinsky, Igor",25,stage,opera,composition,1,0.0,0
 "Stravinsky, Igor",25,stage,stage_other,composition,3,123.0,3
 "Stravinsky, Igor",30,chamber,ensemble,composition,1,7.0,1
 "Stravinsky, Igor",30,keyboard,kb_pieces,composition,3,9.0,2
 "Stravinsky, Igor",30,keyboard,kb_pieces,publication,1,0.0,0
-"Stravinsky, Igor",30,secular,secular_choral,composition,1,4.0,1
-"Stravinsky, Igor",30,secular,song,composition,5,11.0,4
+"Stravinsky, Igor",30,secular,secular_choral,composition,1,3.0,1
+"Stravinsky, Igor",30,secular,song,composition,5,12.0,4
 "Stravinsky, Igor",30,stage,opera,composition,1,20.0,1
 "Stravinsky, Igor",30,stage,stage_other,composition,1,25.0,1
 "Stravinsky, Igor",35,chamber,chamber_other,composition,3,3.0,2
-"Stravinsky, Igor",35,chamber,ensemble,composition,2,35.0,1
+"Stravinsky, Igor",35,chamber,ensemble,composition,1,0.0,0
 "Stravinsky, Igor",35,keyboard,kb_pieces,composition,2,8.0,1
 "Stravinsky, Igor",35,orchestral,orch_other,composition,3,33.0,3
 "Stravinsky, Igor",35,orchestral,overture_poem,composition,1,20.0,1
 "Stravinsky, Igor",35,other,other,composition,2,11.5,2
 "Stravinsky, Igor",35,secular,song,composition,1,6.0,1
 "Stravinsky, Igor",35,stage,opera,composition,1,25.0,1
+"Stravinsky, Igor",35,stage,stage_other,composition,1,35.0,1
 "Stravinsky, Igor",35,stage,stage_other,publication,1,35.0,1
+"Stravinsky, Igor",40,chamber,ensemble,composition,1,15.0,1
 "Stravinsky, Igor",40,keyboard,kb_pieces,composition,1,12.0,1
 "Stravinsky, Igor",40,keyboard,kb_sonata,composition,1,10.0,1
 "Stravinsky, Igor",40,orchestral,concerto,composition,1,0.0,0
 "Stravinsky, Igor",40,sacred,sacred_other,composition,1,0.0,0
-"Stravinsky, Igor",40,secular,secular_choral,composition,1,15.0,1
 "Stravinsky, Igor",40,stage,opera,composition,1,60.0,1
 "Stravinsky, Igor",45,chamber,duo,composition,1,0.0,0
 "Stravinsky, Igor",45,orchestral,concerto,composition,1,22.0,1
@@ -1590,8 +1614,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Stravinsky, Igor",45,stage,stage_other,composition,2,75.0,2
 "Stravinsky, Igor",50,chamber,chamber_other,composition,1,2.0,1
 "Stravinsky, Igor",50,orchestral,concerto,composition,1,19.0,1
-"Stravinsky, Igor",50,secular,secular_choral,composition,1,5.0,1
-"Stravinsky, Igor",50,secular,secular_choral,publication,1,0.0,0
+"Stravinsky, Igor",50,sacred,sacred_other,composition,1,5.0,1
+"Stravinsky, Igor",50,sacred,sacred_other,publication,1,0.0,0
 "Stravinsky, Igor",50,stage,opera,composition,1,45.0,1
 "Stravinsky, Igor",50,stage,stage_other,composition,1,25.0,1
 "Stravinsky, Igor",55,keyboard,kb_pieces,composition,1,0.0,0
@@ -1607,26 +1631,28 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Stravinsky, Igor",60,sacred,mass,composition,1,17.0,1
 "Stravinsky, Igor",60,sacred,sacred_cantata,composition,1,7.0,1
 "Stravinsky, Igor",60,stage,stage_other,composition,2,47.0,2
-"Stravinsky, Igor",65,secular,secular_choral,composition,1,20.0,1
+"Stravinsky, Igor",65,secular,secular_cantata,composition,1,20.0,1
 "Stravinsky, Igor",65,stage,opera,composition,1,140.0,1
 "Stravinsky, Igor",70,chamber,ensemble,composition,1,12.0,1
 "Stravinsky, Igor",70,orchestral,orch_other,composition,1,0.8166666666666667,1
 "Stravinsky, Igor",70,sacred,sacred_cantata,composition,1,16.0,1
 "Stravinsky, Igor",70,sacred,sacred_other,composition,1,10.0,1
-"Stravinsky, Igor",70,secular,song,composition,3,19.0,3
+"Stravinsky, Igor",70,secular,secular_choral,composition,1,7.0,1
+"Stravinsky, Igor",70,secular,song,composition,2,12.0,2
 "Stravinsky, Igor",70,stage,stage_other,composition,1,23.0,1
 "Stravinsky, Igor",75,chamber,chamber_other,composition,1,1.5,1
 "Stravinsky, Igor",75,chamber,string_quartet,composition,1,0.0,0
 "Stravinsky, Igor",75,orchestral,orch_other,composition,2,16.0,2
 "Stravinsky, Igor",75,sacred,sacred_cantata,composition,1,15.0,1
 "Stravinsky, Igor",75,sacred,sacred_other,composition,1,30.0,1
-"Stravinsky, Igor",75,secular,secular_choral,composition,1,22.0,1
+"Stravinsky, Igor",75,stage,opera,composition,1,22.0,1
 "Stravinsky, Igor",80,chamber,ensemble,composition,1,8.0,1
 "Stravinsky, Igor",80,orchestral,orch_other,composition,2,0.0,0
 "Stravinsky, Igor",80,other,other,composition,1,0.5,1
 "Stravinsky, Igor",80,sacred,sacred_other,composition,1,3.0,1
-"Stravinsky, Igor",80,secular,secular_choral,composition,4,29.0,3
-"Stravinsky, Igor",80,secular,song,composition,1,3.0,1
+"Stravinsky, Igor",80,secular,secular_cantata,composition,1,12.0,1
+"Stravinsky, Igor",80,secular,secular_choral,composition,2,15.0,1
+"Stravinsky, Igor",80,secular,song,composition,2,5.0,2
 "Tchaikovsky, Pyotr Ilyich",10,secular,song,composition,1,2.0,1
 "Tchaikovsky, Pyotr Ilyich",20,chamber,chamber_other,composition,1,6.0,1
 "Tchaikovsky, Pyotr Ilyich",20,chamber,ensemble,composition,6,13.0,6
@@ -1642,17 +1668,18 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Tchaikovsky, Pyotr Ilyich",25,keyboard,kb_sonata,composition,1,27.0,1
 "Tchaikovsky, Pyotr Ilyich",25,orchestral,overture_poem,composition,5,71.0,5
 "Tchaikovsky, Pyotr Ilyich",25,orchestral,symphony,composition,1,45.0,1
-"Tchaikovsky, Pyotr Ilyich",25,secular,secular_choral,composition,2,33.0,2
+"Tchaikovsky, Pyotr Ilyich",25,secular,secular_cantata,composition,1,26.0,1
+"Tchaikovsky, Pyotr Ilyich",25,secular,secular_choral,composition,1,7.0,1
 "Tchaikovsky, Pyotr Ilyich",25,secular,song,composition,1,18.0,1
 "Tchaikovsky, Pyotr Ilyich",25,stage,opera,composition,2,170.0,2
 "Tchaikovsky, Pyotr Ilyich",25,stage,stage_other,composition,1,6.0,1
 "Tchaikovsky, Pyotr Ilyich",30,chamber,string_quartet,composition,2,65.0,2
 "Tchaikovsky, Pyotr Ilyich",30,keyboard,kb_pieces,composition,6,83.0,6
 "Tchaikovsky, Pyotr Ilyich",30,orchestral,concerto,composition,1,34.0,1
-"Tchaikovsky, Pyotr Ilyich",30,orchestral,orch_other,composition,2,26.0,2
+"Tchaikovsky, Pyotr Ilyich",30,orchestral,orch_other,composition,3,26.0,2
 "Tchaikovsky, Pyotr Ilyich",30,orchestral,symphony,composition,1,40.0,1
-"Tchaikovsky, Pyotr Ilyich",30,sacred,sacred_other,composition,1,0.0,0
-"Tchaikovsky, Pyotr Ilyich",30,secular,secular_choral,composition,2,41.0,2
+"Tchaikovsky, Pyotr Ilyich",30,secular,secular_cantata,composition,1,35.0,1
+"Tchaikovsky, Pyotr Ilyich",30,secular,secular_choral,composition,1,6.0,1
 "Tchaikovsky, Pyotr Ilyich",30,secular,song,composition,3,23.0,3
 "Tchaikovsky, Pyotr Ilyich",30,secular,song,publication,1,3.0,1
 "Tchaikovsky, Pyotr Ilyich",30,stage,opera,composition,2,165.0,1
@@ -1674,7 +1701,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Tchaikovsky, Pyotr Ilyich",40,orchestral,overture_poem,composition,1,15.0,1
 "Tchaikovsky, Pyotr Ilyich",40,other,other,composition,2,38.0,2
 "Tchaikovsky, Pyotr Ilyich",40,sacred,sacred_other,composition,2,88.0,2
-"Tchaikovsky, Pyotr Ilyich",40,secular,secular_choral,composition,2,47.0,2
+"Tchaikovsky, Pyotr Ilyich",40,secular,secular_cantata,composition,1,22.0,1
+"Tchaikovsky, Pyotr Ilyich",40,secular,secular_choral,composition,1,25.0,1
 "Tchaikovsky, Pyotr Ilyich",40,secular,song,composition,3,95.0,3
 "Tchaikovsky, Pyotr Ilyich",40,stage,opera,composition,1,150.0,1
 "Tchaikovsky, Pyotr Ilyich",45,keyboard,kb_pieces,composition,3,13.0,3
@@ -1700,9 +1728,9 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Telemann, Georg Philipp",25,orchestral,concerto,composition,2,17.0,2
 "Telemann, Georg Philipp",25,sacred,sacred_cantata,composition,8,91.0,7
 "Telemann, Georg Philipp",30,chamber,duo,publication,3,14.0,2
-"Telemann, Georg Philipp",30,sacred,sacred_cantata,composition,78,1112.0,78
+"Telemann, Georg Philipp",30,sacred,sacred_cantata,composition,86,1253.0,86
 "Telemann, Georg Philipp",30,sacred,sacred_other,composition,1,2.0,1
-"Telemann, Georg Philipp",30,secular,secular_choral,composition,12,189.0,12
+"Telemann, Georg Philipp",30,secular,secular_cantata,composition,4,48.0,4
 "Telemann, Georg Philipp",30,stage,opera,composition,1,62.5,1
 "Telemann, Georg Philipp",35,chamber,duo,publication,8,11.0,1
 "Telemann, Georg Philipp",35,chamber,ensemble,publication,5,27.0,3
@@ -1713,28 +1741,26 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Telemann, Georg Philipp",35,sacred,sacred_cantata,composition,159,1807.0,152
 "Telemann, Georg Philipp",35,sacred,sacred_cantata,publication,1,0.0,0
 "Telemann, Georg Philipp",35,sacred,sacred_other,composition,9,109.0,9
+"Telemann, Georg Philipp",35,secular,secular_cantata,composition,2,23.0,2
 "Telemann, Georg Philipp",35,secular,secular_cantata,publication,1,0.0,0
-"Telemann, Georg Philipp",35,secular,secular_choral,composition,5,57.0,5
+"Telemann, Georg Philipp",35,secular,secular_choral,composition,3,34.0,3
 "Telemann, Georg Philipp",40,chamber,duo,publication,2,0.0,0
 "Telemann, Georg Philipp",40,chamber,ensemble,composition,1,8.0,1
 "Telemann, Georg Philipp",40,orchestral,orch_other,composition,3,25.0,1
 "Telemann, Georg Philipp",40,sacred,oratorio,composition,2,212.0,2
-"Telemann, Georg Philipp",40,sacred,sacred_cantata,composition,32,384.0,23
+"Telemann, Georg Philipp",40,sacred,sacred_cantata,composition,38,457.0,29
 "Telemann, Georg Philipp",40,sacred,sacred_cantata,publication,69,642.0,63
 "Telemann, Georg Philipp",40,sacred,sacred_other,composition,1,25.0,1
-"Telemann, Georg Philipp",40,secular,secular_choral,composition,6,73.0,6
 "Telemann, Georg Philipp",45,chamber,duo,composition,1,0.0,0
 "Telemann, Georg Philipp",45,chamber,duo,publication,20,0.0,0
 "Telemann, Georg Philipp",45,chamber,ensemble,publication,4,12.0,1
 "Telemann, Georg Philipp",45,keyboard,kb_pieces,publication,5,0.0,0
 "Telemann, Georg Philipp",45,orchestral,concerto,publication,2,0.0,0
 "Telemann, Georg Philipp",45,orchestral,overture_poem,publication,1,11.0,1
-"Telemann, Georg Philipp",45,other,other,composition,12,0.0,0
-"Telemann, Georg Philipp",45,other,other,publication,7,20.0,2
+"Telemann, Georg Philipp",45,other,other,publication,8,20.0,2
 "Telemann, Georg Philipp",45,sacred,oratorio,composition,1,120.0,1
-"Telemann, Georg Philipp",45,sacred,sacred_cantata,composition,61,639.0,55
+"Telemann, Georg Philipp",45,sacred,sacred_cantata,composition,73,639.0,55
 "Telemann, Georg Philipp",45,sacred,sacred_cantata,publication,1,0.0,0
-"Telemann, Georg Philipp",45,secular,secular_choral,publication,1,0.0,0
 "Telemann, Georg Philipp",45,stage,opera,publication,1,0.0,0
 "Telemann, Georg Philipp",50,chamber,chamber_other,composition,2,0.0,0
 "Telemann, Georg Philipp",50,chamber,duo,composition,12,0.0,0
@@ -1751,14 +1777,14 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Telemann, Georg Philipp",50,sacred,sacred_cantata,publication,70,725.0,66
 "Telemann, Georg Philipp",50,secular,song,publication,1,0.0,0
 "Telemann, Georg Philipp",55,chamber,duo,publication,8,19.5,2
-"Telemann, Georg Philipp",55,chamber,ensemble,publication,16,7.0,1
+"Telemann, Georg Philipp",55,chamber,ensemble,publication,17,7.0,1
 "Telemann, Georg Philipp",55,keyboard,kb_pieces,publication,1,0.0,0
+"Telemann, Georg Philipp",55,keyboard,kb_sonata,publication,1,11.0,1
 "Telemann, Georg Philipp",55,keyboard,organ,composition,1,0.0,0
 "Telemann, Georg Philipp",55,orchestral,concerto,composition,1,0.0,0
 "Telemann, Georg Philipp",55,orchestral,overture_poem,publication,1,0.0,0
 "Telemann, Georg Philipp",55,other,other,publication,2,0.0,0
 "Telemann, Georg Philipp",55,sacred,sacred_cantata,composition,60,821.0,60
-"Telemann, Georg Philipp",55,secular,secular_choral,publication,2,11.0,1
 "Telemann, Georg Philipp",60,sacred,oratorio,composition,2,63.0,1
 "Telemann, Georg Philipp",60,sacred,sacred_cantata,composition,6,90.0,6
 "Telemann, Georg Philipp",60,sacred,sacred_cantata,publication,64,1186.0,62
@@ -1782,29 +1808,26 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Telemann, Georg Philipp",85,orchestral,orch_other,composition,5,25.0,2
 "Telemann, Georg Philipp",85,other,other,composition,1,10.0,1
 "Verdi, Giuseppe",20,orchestral,orch_other,composition,1,12.0,1
-"Verdi, Giuseppe",25,secular,secular_choral,composition,3,30.0,1
+"Verdi, Giuseppe",25,secular,secular_choral,composition,1,30.0,1
 "Verdi, Giuseppe",25,secular,song,publication,1,0.0,0
-"Verdi, Giuseppe",25,stage,opera,composition,1,0.0,0
-"Verdi, Giuseppe",30,secular,secular_choral,composition,5,240.0,2
-"Verdi, Giuseppe",30,secular,secular_choral,publication,1,0.0,0
+"Verdi, Giuseppe",25,stage,opera,composition,3,0.0,0
 "Verdi, Giuseppe",30,secular,song,composition,2,0.0,0
-"Verdi, Giuseppe",30,stage,opera,composition,2,150.0,1
-"Verdi, Giuseppe",30,stage,opera,publication,1,0.0,0
-"Verdi, Giuseppe",35,secular,secular_choral,composition,2,120.0,1
-"Verdi, Giuseppe",35,stage,opera,composition,4,110.0,1
+"Verdi, Giuseppe",30,stage,opera,composition,7,390.0,3
+"Verdi, Giuseppe",30,stage,opera,publication,2,0.0,0
+"Verdi, Giuseppe",35,stage,opera,composition,6,230.0,2
 "Verdi, Giuseppe",35,stage,opera,publication,1,0.0,0
 "Verdi, Giuseppe",40,stage,opera,composition,3,0.0,0
 "Verdi, Giuseppe",45,keyboard,kb_pieces,composition,1,2.0,1
 "Verdi, Giuseppe",45,sacred,sacred_other,composition,1,13.0,1
-"Verdi, Giuseppe",45,secular,secular_choral,composition,2,170.0,1
+"Verdi, Giuseppe",45,stage,opera,composition,2,170.0,1
 "Verdi, Giuseppe",50,keyboard,kb_pieces,composition,1,0.0,0
 "Verdi, Giuseppe",50,stage,opera,composition,1,0.0,0
 "Verdi, Giuseppe",55,stage,opera,composition,1,0.0,0
 "Verdi, Giuseppe",60,chamber,string_quartet,composition,1,20.0,1
 "Verdi, Giuseppe",60,sacred,mass,composition,1,90.0,1
 "Verdi, Giuseppe",60,sacred,sacred_other,composition,1,0.0,0
-"Verdi, Giuseppe",70,secular,secular_choral,composition,1,0.0,0
-"Verdi, Giuseppe",80,secular,secular_choral,composition,1,0.0,0
+"Verdi, Giuseppe",70,stage,opera,composition,1,0.0,0
+"Verdi, Giuseppe",80,stage,opera,composition,1,0.0,0
 "Verdi, Giuseppe",85,sacred,sacred_other,publication,1,0.0,0
 "Vivaldi, Antonio",20,orchestral,concerto,composition,1,10.0,1
 "Vivaldi, Antonio",25,orchestral,concerto,composition,1,10.0,1
@@ -1813,7 +1836,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Vivaldi, Antonio",30,chamber,duo,publication,13,0.0,0
 "Vivaldi, Antonio",30,orchestral,concerto,composition,1,0.0,0
 "Vivaldi, Antonio",30,orchestral,concerto,publication,13,59.0,7
-"Vivaldi, Antonio",30,secular,secular_choral,composition,1,0.0,0
+"Vivaldi, Antonio",30,sacred,sacred_other,composition,1,0.0,0
 "Vivaldi, Antonio",35,chamber,duo,composition,2,7.0,1
 "Vivaldi, Antonio",35,chamber,duo,publication,5,0.0,0
 "Vivaldi, Antonio",35,orchestral,concerto,composition,9,43.0,4
@@ -1821,14 +1844,13 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Vivaldi, Antonio",35,other,other,publication,2,0.0,0
 "Vivaldi, Antonio",35,sacred,oratorio,composition,1,0.0,0
 "Vivaldi, Antonio",35,sacred,sacred_cantata,composition,1,0.0,0
-"Vivaldi, Antonio",35,sacred,sacred_other,composition,7,48.0,3
-"Vivaldi, Antonio",35,secular,secular_choral,composition,3,30.0,1
+"Vivaldi, Antonio",35,sacred,sacred_other,composition,10,78.0,4
 "Vivaldi, Antonio",40,chamber,chamber_other,publication,1,0.0,0
 "Vivaldi, Antonio",40,chamber,duo,composition,8,23.0,2
 "Vivaldi, Antonio",40,orchestral,concerto,composition,44,276.0,28
 "Vivaldi, Antonio",40,orchestral,concerto,publication,6,16.0,2
 "Vivaldi, Antonio",40,other,other,composition,1,0.0,0
-"Vivaldi, Antonio",40,secular,secular_choral,composition,2,15.0,1
+"Vivaldi, Antonio",40,sacred,sacred_other,composition,2,15.0,1
 "Vivaldi, Antonio",40,stage,opera,composition,2,0.0,0
 "Vivaldi, Antonio",45,chamber,duo,composition,1,0.0,0
 "Vivaldi, Antonio",45,orchestral,concerto,composition,7,26.0,3
@@ -1838,8 +1860,8 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Vivaldi, Antonio",50,orchestral,concerto,composition,8,83.0,7
 "Vivaldi, Antonio",50,orchestral,concerto,publication,14,59.0,6
 "Vivaldi, Antonio",50,other,other,composition,1,7.0,1
+"Vivaldi, Antonio",50,sacred,sacred_other,composition,1,20.0,1
 "Vivaldi, Antonio",50,secular,secular_cantata,composition,1,12.0,1
-"Vivaldi, Antonio",50,secular,secular_choral,composition,1,20.0,1
 "Vivaldi, Antonio",50,stage,opera,composition,3,120.0,1
 "Vivaldi, Antonio",55,orchestral,concerto,composition,2,24.0,2
 "Vivaldi, Antonio",55,stage,opera,composition,4,0.0,0
@@ -1878,7 +1900,7 @@ composer,age_bin,group,subgenre,date_basis,works,minutes,with_duration
 "Wagner, Richard",50,other,other,composition,1,0.0,0
 "Wagner, Richard",55,orchestral,orch_other,composition,1,0.0,0
 "Wagner, Richard",55,secular,secular_choral,composition,1,0.0,0
-"Wagner, Richard",55,secular,secular_choral,publication,1,0.0,0
+"Wagner, Richard",55,secular,song,publication,1,0.0,0
 "Wagner, Richard",55,stage,opera,composition,1,0.0,0
 "Wagner, Richard",60,keyboard,kb_pieces,composition,1,5.0,1
 "Wagner, Richard",60,orchestral,orch_other,composition,1,0.0,0

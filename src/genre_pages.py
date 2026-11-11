@@ -212,27 +212,66 @@ def render(lang, table_html):
     # 4. method and limits
     other = (W.subgenre.isin(["other"])).mean()
     V = pd.read_csv(D / "genre_life_validation.csv")
-    acc = {}
+    V = V.assign(g=V.group_rules == V.group_blind, s=V.subgenre_rules == V.subgenre_blind)
     rng = np.random.default_rng(1911)
-    for r, g in V.groupby("round"):
-        ga, sa = (g.group_rules == g.group_blind).to_numpy(), (g.subgenre_rules == g.subgenre_blind).to_numpy()
-        ci = lambda x: np.percentile([x[rng.integers(0, len(x), len(x))].mean() for _ in range(2000)], [2.5, 97.5])  # noqa: E731
-        acc[r] = dict(n=len(g), ga=ga.mean(), sa=sa.mean(), gci=ci(ga), sci=ci(sa))
+
+    def agree(x):  # agreement and a bootstrap 95% interval
+        x = np.asarray(x)
+        lo, hi = np.percentile([x[rng.integers(0, len(x), len(x))].mean() for _ in range(2000)], [2.5, 97.5])
+        return dict(n=len(x), a=x.mean() * 100, lo=lo * 100, hi=hi * 100)
+
+    acc = {r: dict(big=agree(g.g), sub=agree(g.s)) for r, g in V[V.stratum == "main"].groupby("round")}  # the main sample: 40 pages per big group
+    SEC = ["song", "secular_cantata", "secular_choral"]
+    sec = {(r, sg): agree(g.s) for (r, sg), g in V[(V.group_rules == "secular") & (V["round"] >= 3)].groupby(["round", "subgenre_rules"])}  # main + extra
     v2 = V[V["round"] == 2]
-    per = v2.assign(hit=v2.subgenre_rules == v2.subgenre_blind).groupby("subgenre_rules").hit.agg(n="size", a="mean")
-    weak = per[(per.n >= 10)].sort_values("a").iloc[0]
-    weak_id = per[(per.n >= 10)].sort_values("a").index[0]
-    a1, a2 = acc[1], acc[2]
-    val_ko = (f"<li><b>분류 정확도.</b> 큰 갈래마다 40면씩 240면을 무작위로 뽑아, 독립 검토자(Codex)가 우리 분류를 보지 않고 같은 체계로 다시 분류했다. 계산 전에 정한 기준은 큰 갈래 95%, 세부 장르 85%다. "
-              f"1차 일치율은 큰 갈래 {a1['ga'] * 100:.1f}%, 세부 장르 {a1['sa'] * 100:.1f}%였다. 어긋난 사례에서 규칙의 체계적 결함 다섯 가지(트리오 소나타, 서곡-모음곡, 합창이 붙은 가곡, 오르간 판정, 소나티나)를 고쳤다. "
-              f"고친 규칙은 1차 표본을 뺀 새 표본 240면으로 다시 쟀다: 큰 갈래 {a2['ga'] * 100:.1f}%(95% 구간 {a2['gci'][0] * 100:.1f}~{a2['gci'][1] * 100:.1f}), 세부 장르 {a2['sa'] * 100:.1f}%({a2['sci'][0] * 100:.1f}~{a2['sci'][1] * 100:.1f}). "
-              f"세부 장르 가운데 가장 낮은 것은 「{gl.SUB_INFO[weak_id][1]}」({int(weak.n)}면 중 {weak.a * 100:.0f}%)이다. 독창 노래가 규칙의 이름 목록(아리에타·자장가 등)에 없어 합창 쪽으로 가거나, 종교 가사의 칸티클이 세속으로 간 경우다. 이 규칙은 다음 판에서 새 표본과 함께 고친다. "
-              "두 차례의 검증표는 <a href='../data/genres/genre_life_validation.csv'>CSV</a>로 공개한다. 일치율은 검토자와 규칙이 같은 답을 낸 비율이지 정답률이 아니다.</li>")
-    val_en = (f"<li><b>Classification accuracy.</b> 240 work pages, 40 from each big group, were drawn at random and reclassified blind by an independent reviewer (Codex) under the same scheme. The thresholds fixed beforehand were 95% for big groups and 85% for sub-genres. "
-              f"In the first round agreement was {a1['ga'] * 100:.1f}% (big groups) and {a1['sa'] * 100:.1f}% (sub-genres). Five systematic faults found in the disagreements were fixed (trio sonatas, overture-suites, songs with chorus, organ, sonatinas). "
-              f"The revised rules were measured again on a fresh sample of 240 pages that excluded the first: {a2['ga'] * 100:.1f}% for big groups (95% interval {a2['gci'][0] * 100:.1f}–{a2['gci'][1] * 100:.1f}) and {a2['sa'] * 100:.1f}% for sub-genres ({a2['sci'][0] * 100:.1f}–{a2['sci'][1] * 100:.1f}). "
-              f"The weakest sub-genre is '{gl.SUB_INFO[weak_id][2]}' ({weak.a * 100:.0f}% of {int(weak.n)} pages): solo songs whose names (arietta, lullaby) are not in the rule's list go to choral, and canticles with sacred texts go to secular. This rule will be fixed in the next version with a new sample. "
-              "Both rounds are published as a <a href='../data/genres/genre_life_validation.csv'>CSV</a>. Agreement is the share where the reviewer and the rules gave the same answer, not a rate of correct answers.</li>")
+    weak2 = v2[v2.subgenre_rules == "secular_choral"].s  # the weakest sub-genre of round 2 with ten pages or more
+    c4 = V[(V["round"] == 4) & (V.subgenre_rules == "secular_cantata") & ~V.s]
+    c4_sacred = int((c4.subgenre_blind == "sacred_cantata").sum())
+    import work_activity as wa
+    kb_orch = int((W.tags.fillna('').map(wa.keyboard_only) & (W.group == 'orchestral')).sum())  # a fault left as it is: see the text
+    cell = lambda d: f"{d['a']:.1f}% ({d['lo']:.1f}{'~' if k else '–'}{d['hi']:.1f})"  # noqa: E731
+    scell = lambda d: f"{d['a']:.1f}% ({d['lo']:.1f}{'~' if k else '–'}{d['hi']:.1f}; {d['n']})"  # noqa: E731
+    rules_lab = {1: ("1.11 초안", "1.11 draft"), 2: ("1.11 공개본", "1.11 as published"), 3: ("1.12.1 첫 수정", "1.12.1, first revision"), 4: ("1.12.1 (지금의 분류)", "1.12.1 (the present classification)")}
+    vrows = "".join(
+        f"<tr><td>{r}</td><td>{rules_lab[r][0 if k else 1]}</td><td class='num'>{int((V['round'] == r).sum())}</td><td class='num'>{cell(acc[r]['big'])}</td><td class='num'>{cell(acc[r]['sub'])}</td>"
+        + "".join(f"<td class='num'>{scell(sec[(r, sg)]) if (r, sg) in sec else '—'}</td>" for sg in SEC) + "</tr>" for r in sorted(acc))
+    vhead = ("<tr><th>회차</th><th>잰 규칙</th><th class='num'>표본</th><th class='num'>큰 갈래</th><th class='num'>세부 장르</th>" if k else
+             "<tr><th>Round</th><th>Rules measured</th><th class='num'>Sample</th><th class='num'>Big groups</th><th class='num'>Sub-genres</th>") \
+        + "".join(f"<th class='num'>{gl.SUB_INFO[sg][1 if k else 2]}</th>" for sg in SEC) + "</tr>"
+    vtab = f"<div class='wrap'><table><thead>{vhead}</thead><tbody>{vrows}</tbody></table></div>"
+    choral_ko, choral_en = gl.SUB_INFO["secular_choral"][1], gl.SUB_INFO["secular_choral"][2]
+    cant_ko, cant_en = gl.SUB_INFO["secular_cantata"][1], gl.SUB_INFO["secular_cantata"][2]
+    r3c = sec[(3, "secular_choral")]
+    val_ko = ("<li><b>분류 정확도.</b> 독립 검토자(Codex)가 우리 분류를 보지 않고 같은 체계로 작품면을 다시 분류했고, 그 답이 규칙의 분류와 같은 비율(일치율)을 쟀다. "
+              "계산 전에 정한 기준은 큰 갈래 95%, 세부 장르 85%이고, 1.12.1에서 세속 성악의 세부 장르 셋에도 각각 85%를 두었다. 네 번 쟀다. 회차마다 앞 회차에 쓴 면을 빼고 새로 뽑았고, 규칙은 표본을 뽑기 전에 고쳤다."
+              + vtab +
+              "<p style='font-size:.9rem'>큰 갈래·세부 장르는 큰 갈래마다 40면씩 뽑은 주 표본 240면의 일치율이다. 오른쪽 세 칸은 규칙이 그 세부 장르로 분류한 면(주 표본과, 세속 성악에서 세부 장르마다 40면씩 더 뽑은 보강 표본) 가운데 검토자가 같은 답을 낸 비율이다. 괄호 안은 95% 구간(부트스트랩)이고 세미콜론 뒤는 면 수다.</p>"
+              "1차에서 규칙의 체계적 결함 다섯 가지(트리오 소나타, 서곡-모음곡, 합창이 붙은 가곡, 오르간 판정, 소나티나)를 고쳤다. "
+              f"2차에서 가장 낮은 세부 장르는 「합창곡·마드리갈 등」({len(weak2)}면 중 {weak2.mean() * 100:.0f}%)이었다. 독창 노래가 합창 쪽으로 가거나 종교 가사의 칸티클이 세속으로 간 경우였다. "
+              f"1.12.1에서 이 부분을 고쳤다. 목소리가 하나인 곡은 반주에 따라 가곡이나 아리아로, 성부가 둘 이상이면 「{choral_ko}」으로, 칸타타·세레나타·오드는 합창 표지보다 먼저 「{cant_ko}」로 보냈다. 종교 표지(칸티클, 아베 마리아 등)를 더했고, 악기를 가리키는 bass·tenor 표기를 목소리로 읽던 것을 바로잡았다. "
+              f"3차에서 「{choral_ko}」이 {r3c['n']}면 중 {r3c['a']:.1f}%로 기준에 못 미쳤다. 어긋난 면을 따라가 보니 큰 갈래의 결함이 둘 있었다. "
+              "태그가 operas가 아닌 무대 작품(lyric dramas, dramma giocoso 등 34면, 베르디의 오페라 13면 포함)이 세속 성악에 있었고, 성악 장르 이름이 붙었지만 편성은 건반뿐인 51면(무언가, 오르간 코랄 등)이 성악에 있었다. "
+              "이 둘을 고친 것이 지금의 분류이고, 4차가 그 측정값이다. 3차 값은 고치기 전의 측정값이다. "
+              f"4차에서 「{cant_ko}」의 불일치 {len(c4)}면 중 {c4_sacred}면은 IMSLP 태그가 secular cantatas인데 검토자가 가사와 용도를 보고 종교 칸타타로 판단한 작품이다(바흐와 멘델스존). 규칙은 태그를 따른다. "
+              "무대 작품에서 뽑은 관현악 모음곡은 무대에 남아 있다. "
+              f"태그의 편성이 건반뿐인데 관현악으로 분류된 면이 {kb_orch}개 남아 있고(대부분 장르 이름이 협주곡·서곡인 곡이다. 바흐의 건반 독주 협주곡, 텔레만의 건반 서곡 등), 4차에서 그 가운데 2면이 불일치로 나왔다. 이 판에서는 고치지 않았다. "
+              "3·4차의 지시문은 세속 세부 장르 셋의 경계(중창과 캐논은 합창 쪽, 관현악 반주의 독창 아리아는 칸타타 쪽)를 2차보다 분명하게 적었다. 그래서 세속 세부 장르의 값은 2차와 같은 조건의 비교가 아니다. 세부 장르별 표본은 수십 면이어서 구간이 넓다. "
+              "네 차례의 검증표는 <a href='../data/genres/genre_life_validation.csv'>CSV</a>로 공개한다. 일치율은 검토자와 규칙이 같은 답을 낸 비율이지 정답률이 아니다.</li>")
+    val_en = ("<li><b>Classification accuracy.</b> An independent reviewer (Codex) reclassified work pages blind under the same scheme, and agreement is the share of pages where the reviewer's answer equals the rules'. "
+              "The thresholds fixed beforehand were 95% for big groups and 85% for sub-genres; 1.12.1 added 85% for each of the three secular vocal sub-genres. There were four rounds. Each drew a fresh sample that left out the pages of earlier rounds, and the rules were revised before the sample was drawn."
+              + vtab +
+              "<p style='font-size:.9rem'>Big groups and sub-genres: agreement on the main sample of 240 pages, 40 from each big group. The three columns on the right: among pages the rules put in that sub-genre (the main sample plus 40 extra pages per secular sub-genre), the share where the reviewer gave the same answer. In brackets, the bootstrap 95% interval and, after the semicolon, the number of pages.</p>"
+              "The first round led to fixes for five systematic faults (trio sonatas, overture-suites, songs with chorus, organ, sonatinas). "
+              f"In the second round the weakest sub-genre was 'Choral pieces, madrigals etc.' ({weak2.mean() * 100:.0f}% of {len(weak2)} pages): solo songs went to choral, and canticles with sacred texts went to secular. "
+              f"Version 1.12.1 revised this part. A piece for one voice is a song or an aria depending on its accompaniment; two or more voice parts go to '{choral_en}'; cantatas, serenatas and odes go to '{cant_en}' before any chorus marker is read. Sacred markers were added (canticles, Ave Maria and others), and 'bass' and 'tenor' naming instruments are no longer read as voices. "
+              f"In the third round '{choral_en}' fell short at {r3c['a']:.1f}% of {r3c['n']} pages. Following the disagreements turned up two faults in the big groups: "
+              "stage works tagged other than 'operas' (lyric dramas, dramma giocoso and others; 34 pages, 13 of them Verdi operas) sat in secular vocal, and 51 pages with a vocal genre name but a keyboard-only scoring (songs without words, organ chorales) sat in vocal. "
+              "The present classification has these two fixed, and the fourth round measures it; the third-round figures are from before the fix. "
+              f"In the fourth round, {c4_sacred} of the {len(c4)} disagreements in '{cant_en}' are works tagged 'secular cantatas' on IMSLP that the reviewer judged sacred from their texts and occasions (Bach and Mendelssohn). The rules follow the tag. "
+              "Orchestral suites drawn from stage works remain under stage. "
+              f"{kb_orch} pages whose tags give keyboard-only scorings remain under orchestral (most are named concertos or overtures: Bach's concertos for solo keyboard, Telemann's keyboard overtures and others); two of them came up as disagreements in the fourth round. This version leaves them as they are. "
+              "The instructions for rounds three and four spelled out the borders of the three secular sub-genres more clearly than in round two (vocal ensembles and canons with choral; solo arias with orchestra with cantatas), so the secular sub-genre figures are not a like-for-like comparison with round two. With a few dozen pages per sub-genre the intervals are wide. "
+              "All four rounds are published as a <a href='../data/genres/genre_life_validation.csv'>CSV</a>. Agreement is the share where the reviewer and the rules gave the same answer, not a rate of correct answers.</li>")
     b.append(("<h2>4. 분류 방법과 한계</h2><ul>"
               "<li>큰 갈래는 1.2 「작품·역사」 면의 분류(IMSLP 장르 태그와 편성)를 그대로 쓰고, 성악만 종교·세속으로 나눴다. 세부 장르는 태그 규칙으로 정했다(규칙은 <code>genre_life_111.py</code>의 SUB). 각 갈래의 마지막 세부 장르(「… 등」)는 앞의 규칙에 걸리지 않은 작품이다. "
               f"어느 갈래에도 들지 않은 「기타」는 {other * 100:.1f}%다.</li>"

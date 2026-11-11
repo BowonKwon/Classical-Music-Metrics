@@ -2,8 +2,8 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.12",
- "created": "2026-11-10",
+ "version": "1.12.1",
+ "created": "2026-11-11",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
   {
@@ -817,7 +817,7 @@
    "mediatype": "text/csv",
    "encoding": "utf-8",
    "layer": "Works & history",
-   "rows": 1332,
+   "rows": 1336,
    "licenses": [
     {
      "name": "CC-BY-SA-4.0",
@@ -1741,7 +1741,7 @@
    "mediatype": "text/csv",
    "encoding": "utf-8",
    "layer": "Works & history",
-   "rows": 1883,
+   "rows": 1905,
    "licenses": [
     {
      "name": "CC-BY-SA-4.0",
@@ -1785,7 +1785,7 @@
    "mediatype": "text/csv",
    "encoding": "utf-8",
    "layer": "Works & history",
-   "rows": 480,
+   "rows": 1200,
    "licenses": [
     {
      "name": "CC-BY-SA-4.0",
