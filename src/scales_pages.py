@@ -56,6 +56,55 @@ def meantone12():
 
 RAST_EG, BAYATI_EG = cairo("rast", "Egypt"), cairo("bayati", "Egypt")
 
+# 1.14 — Clements 1913, pp. 7-8: vibration numbers with sa = 240 for the srutis numbered 1-22 (Deval's measurements).
+# 0 Kshobhini (213 1/3) is 22 an octave down; 1-3 (216, 225, 227 5/9) lie below sa and are doubled here.
+# The two unnumbered septimal notes (ma atikomal 315, ni atikomal 420) are listed in the text, not drawn.
+CLEMENTS_VIB = {4: 240, 5: 252, 6: 256, 7: 800 / 3, 8: 270, 9: 2560 / 9, 10: 288, 11: 300, 12: 1215 / 4, 13: 320, 14: 324,
+                15: 675 / 2, 16: 1024 / 3, 17: 360, 18: 378, 19: 384, 20: 400, 21: 405, 22: 1280 / 3,
+                1: 2 * 216, 2: 2 * 225, 3: 2 * 2048 / 9}
+CLEMENTS_CENTS = sorted(round(1200 * math.log2(v / 240), 1) for v in CLEMENTS_VIB.values())
+
+# 1.14 — Bel 1988 (HAL hal-00008280), p. 15: rag Todi, tonal positions in cents above sa.
+# The mode is do reb mib fa# sol lab si (sa = do). lab = lower octave; (lab) = middle octave.
+# Mansur's 1095 is printed in the (lab) column and '?' in the si column; read as si (Bel's own mean, 1107, includes it).
+TODI_COLS = ["reb", "mib", "fa#", "sol", "lab", "(lab)", "si"]
+TODI = [  # performer, instrument ko, instrument en, kind, values (None = not given)
+    ("Mallikarjun Mansur", "노래", "voice", "perf", [88, 293, 625, 701, 794, None, 1095]),
+    ("Z. M. Dagar", "루드라 비나", "rudra vīṇā", "perf", [93, 293, 600, 702, 785, None, 1108]),
+    ("Faiyaz Khan", "노래", "voice", "perf", [90, 294, 606, 702, None, 810, 1104]),
+    ("Bismillah Khan", "셰나이", "shahnāī", "perf", [99, 303, 617, 705, None, 805, 1116]),
+    ("Kishori Amonkar", "노래", "voice", "perf", [96, 288, 594, 702, 792, 810, 1110]),
+    ("Asad Ali Khan (1)", "루드라 비나", "rudra vīṇā", "perf", [99, 290, 593, 702, 795, 802, 1105]),
+    ("Asad Ali Khan (2)", "슈루티 하모니움 조율", "śruti harmonium tuning", "tuning", [100, 294, 606, 702, 794, None, 1108]),
+    ("Bor-Van der Meer", "슈루티 하모니움 조율", "śruti harmonium tuning", "tuning", [96, 294, 606, 702, 792, 804, 1110]),
+]
+TODI_PRINTED = [  # cells exactly as printed on p. 15, '' = blank
+    ["88", "293", "625", "701", "794", "1095", "?"],
+    ["93", "293", "600", "702", "785", "", "1108"],
+    ["90", "294", "606", "702", "?", "(810)", "1104"],
+    ["99", "303", "617", "705", "?", "(805)", "1116"],
+    ["96", "288", "594", "702", "792", "(810)", "1110"],
+    ["99", "290", "593", "702", "795", "(802)", "1105"],
+    ["100", "294", "606", "702", "794", "", "1108"],
+    ["96", "294", "606", "702", "792", "(804)", "1110"],
+]
+
+
+def todi_stats():
+    """Mean and population SD over the six performances (harmonium tunings excluded), lower-octave lab."""
+    out = []
+    for j, col in enumerate(TODI_COLS):
+        if col == "(lab)":
+            continue
+        xs = [r[4][j] for r in TODI if r[3] == "perf" and r[4][j] is not None]
+        m = sum(xs) / len(xs)
+        sd = (sum((x - m) ** 2 for x in xs) / len(xs)) ** .5
+        out.append((col, round(m, 1), round(sd, 1), len(xs)))
+    return out
+
+
+TODI_STATS = todi_stats()
+
 SCALES = [
     # group, id, ko name, en name, ko when/where, en when/where, kind, cents, sd, n, source
     ("west", "pyth", "피타고라스 음률 (장음계 배열)", "Pythagorean tuning (major order)", "고대 그리스~중세 유럽", "Ancient Greece to medieval Europe", "theory",
@@ -146,6 +195,11 @@ SCALES = [
      BAYATI_EG[0], None, BAYATI_EG[1], "Computed by the editor from ORD-CC32 (Bozkurt 2025, CC BY-NC 4.0); the sixth degree forms no peak"),
     ("measured", "sruti", "인도 사드자 그라마의 22 슈루티 (슈루티를 같은 크기로 놓았을 때)", "Indian ṣaḍja-grāma on 22 śrutis (śrutis drawn as equal)", "바라타 『나티야샤스트라』", "Bharata, Nāṭyaśāstra", "theory",
      [round(1200 * k / 22, 1) for k in SRUTI], None, None, "Nāṭyaśāstra 28.24–26, tr. Ghosh 1961, vol. II, p. 8: sa 4, ri 3, ga 2, ma 4, pa 4, dha 3, ni 2 śrutis. The text gives counts, not sizes; equal śrutis are an assumption of this drawing"),
+    ("measured", "sruti_clements", "근대의 22 슈루티 — 클레먼츠 1913 (데발의 측정)", "The modern 22 śrutis: Clements 1913 (after Deval's measurements)", "데발이 가수의 노래를 디아코드로 재어 정함, 클레먼츠 1913이 표로 실음", "Fixed by Deval from singers measured on a diachord; tabulated by Clements (1913)", "theory",
+     CLEMENTS_CENTS, None, None, "Clements 1913, Introduction to the Study of Indian Music, pp. 7–8: vibration numbers with sa = 240 for srutis 1–22 (srutis 1–3 lie below sa and are raised an octave here). Unnumbered septimal ma atikomal (315) and ni atikomal (420) not drawn"),
+    ("measured", "todi_bel", "라가 토디 — 연주 6계열 평균 (실측)", "Rāg Toḍī: mean of six performances (measured)", "벨 1988이 녹음에서 측정(가수 3, 루드라 비나 2, 셰나이 1)", "Measured from recordings by Bel (1988): three singers, two rudra vīṇā, one shahnāī", "measured",
+     [0.0] + [m for _, m, _, _ in TODI_STATS], [0] + [sd for _, _, sd, _ in TODI_STATS], 6,
+     "Bel 1988, 'Raga : approches conceptuelles et expérimentales', HAL hal-00008280, p. 15: tonal positions in cents above sa; mean and population SD over the six performances, editor's calculation (two śruti-harmonium tunings excluded). lab is the lower-octave value (n = 4); Mansur's 1095, printed in the middle-octave lab column, is read as si"),
     ("measured", "ganda", "우간다 간다 하프 (실측 1대)", "Ganda harp, Uganda (one instrument, measured)", "와크스만 1950", "Wachsmann 1950", "measured",
      [0, 239, 475, 713, 948, 1192], None, 1, "Wachsmann 1950, Nature 165: 40–41 (via DaMuSc M0187, CC BY 4.0)"),
     ("measured", "malinke", "기니 말링케 실로폰 (실측 1대)", "Malinke xylophone, Guinea (one instrument, measured)", "루제·슈바르츠 1969", "Rouget & Schwarz 1969", "measured",
@@ -234,8 +288,8 @@ IN_KO = '인도의 22 슈루티는 바라타의 『나티야샤스트라』에 �
 IN_EN = "The 22 śrutis come from Bharata's Nāṭyaśāstra: the seven notes of the ṣaḍja-grāma take 4, 3, 2, 4, 4, 3 and 2 śrutis (28.24–26; tr. Ghosh, vol. II, p. 8). The text gives the number of śrutis, not their size, so they are drawn here as equal. According to Ramanathan (1981), for Bharata the śruti was the least perceptible difference in pitch between two sounds, while for Dattila and Śārṅgadeva it was first the pitch position so distinguished (p. 33). It is a unit for measuring the size of svaras and sorting them into the two grāmas; formulated for classification, it 'had no existence in performance' (p. 32). The śrutis within a svara are 'roughly equal' and their exact size is of no importance; the total of 22 has no sanctity, what matters being the number of śrutis in each svara (pp. 34–35). Expressing the position of a particular svara of the modern classification as a ratio such as 9/8 or 10/9 only puts known facts in a different language (pp. 36–37). The 22 śrutis tested in the measurement study below are not this drawing but a modern ratio system that divides the octave into 22 unequal steps. Measuring present-day singing, Serrà et al. (2011) compared interval histograms of 233 Carnatic and 133 Hindustani recordings with just intonation and equal temperament. Carnatic singing was closer to just intonation (correlation 0.552 vs 0.448), Hindustani closer to equal temperament (0.723 vs 0.641). At the seven positions found only in that 22-śruti system, Hindustani showed no peaks and Carnatic only small contributions at three. The authors concluded that the 22 śrutis lack strong quantitative support but cannot be ruled out."
 CH_KO = '모잠비크 초피의 팀빌라는 옥타브를 일곱 개의 거의 같은 음정으로 나눈다. 트레이시는 212~424진동을 4진동 간격으로 나눈 소리굽쇠 54개로 그동안 악기 수백 대를 쟀고, 음높이를 ±2진동 안에서 정할 수 있었다고 적었다(『초피 음악가들』, 1948, 122쪽). 그는 1940년부터 해마다 초피 마을을 찾았고, 책에 실은 음계 대부분을 1943년 9월 26일 키시코(Quissico)에서 연 회의 전에 기록해 두었다. 그 회의에서 악기 제작자와 악단 지휘자들은, 기준음 홈베의 높이는 저마다 달라도 모두 「일곱 음정이 모두 같은 고른 음계」를 지향한다고 말했다(123~124쪽). 자발라 지구 다섯 악단의 음정은 141~207센트에 걸쳐 있고(7평균율이면 171센트), 홈베는 252~276진동이었다(125쪽 도표 IV). 다섯 악단 평균의 주황 막대는 악단 사이의 표준편차다. 한 악기 행은 트레이시(1958)가 실은 값으로, 1948년 도표의 자발라 악단과 같다. 앤드루 트레이시는 『뉴 그로브』 2판(2001)의 「모잠비크」 항목에서 이 조율을 음정마다 약 170센트인 7음 등분이라 하고, 홈베의 절대 높이는 마을마다 약 100센트 넘게 다르지 않다고 적었다. 1948년 도표의 다섯 악단 홈베(252~276진동)는 약 157센트에 걸쳐 있지만, 도표 머리에는 가장 높은 잔다멜라(276)가 그 뒤 자발라처럼 홈베 252로 다시 조율했다는 주가 붙어 있다. 나머지 네 악단(252~260진동)만 보면 약 54센트다.'
 CH_EN = "The Chopi timbila of Mozambique divides the octave into seven nearly equal steps. Over his fieldwork Tracey measured several hundred instruments with 54 tuning forks spanning 212–424 vibrations in steps of four, and wrote that he could fix a pitch to within two vibrations (Chopi Musicians, 1948, p. 122). He visited Chopi villages every year from 1940 and had noted most of the scales in the book before a meeting at Quissico on 26 September 1943, where instrument makers and orchestra leaders said that, whatever their differences over the pitch of the tonic Hombe, each was aiming at 'an even scale of seven intervals, all alike' (pp. 123–124). In five orchestras of the Zavala District the steps range from 141 to 207 cents (171 for seven equal steps), and Hombe lay at 252–276 vibrations (p. 125, Diagram IV). The orange bars on the five-orchestra mean show the spread between orchestras. The single-instrument row gives the values Tracey printed in 1958, the same as the Zavala orchestra in the 1948 diagram. In the 'Mozambique' article of the New Grove, second edition (2001), Andrew Tracey calls the tuning equiheptatonic, each step about 170 cents, and says the absolute pitch of the tonic does not vary from village to village by more than about 100 cents; the Hombe of the five orchestras in the 1948 diagram (252–276 vibrations) spans about 157 cents, but a note under the diagram's title says that Zandamela, the highest (276), has since retuned to Zavala's Hombe of 252; the other four (252–260 vibrations) span about 54 cents."
-NY_KO = "다음은 원문을 열지 못했거나, 열었지만 음계로 옮길 수 없어 넣지 않았다. ① 1932 카이로 회의 기록집(<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Le Caire: Imprimerie nationale, 1934)과 데를랑제(R. d'Erlanger) 『아랍 음악(<i>La musique arabe</i>)』 5권(Paris: Geuthner, 1949)의 음계표 — 출판본을 보지 못했다. ② 모크타르·모샤라파, 「Modes in Modern Egyptian Music」, <i>Nature</i> 140: 548–549 (1937) — 본문을 보지 못했다. ③ Serrà 외(2011)가 견준 22 슈루티의 비율 체계 — 그 비율을 정한 문헌을 원문으로 확인하지 못했다. ④ 다른 국악기 실측 — 박수홍·옥승호·서인화·김소리·정환희, 「국악관악기 품질평가를 위한 음고특성분석」, 『한국소음진동공학회 2011년 춘계학술대회논문집』 302–307쪽은 국립국악원 연주자 세 사람이 시판 대금·소금·퉁소·단소를 분 음높이를 쟀으나, 음별 값이 그림에만 있고 비교 기준인 「평균율 기준음고」를 정의하지 않아 음계로 옮기지 않았다. ⑤ 실제 곡에서 각 선법이 얼마나 쓰였는지 — 이 사이트가 쓰는 DCML 곡집의 조 표기(annotated_key)는 값이 있는 1,283악장이 모두 장조나 단조이고 43악장은 비어 있어, 이 열로는 선법별로 셀 수 없다. "
-NY_EN = "Left out because the original could not be opened, or was opened but could not be turned into a scale: (1) the scale tables of the Cairo Congress proceedings (<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Cairo: Imprimerie nationale, 1934) and of R. d'Erlanger, <i>La musique arabe</i>, vol. 5 (Paris: Geuthner, 1949) — the printed books not seen; (2) M. Mokhtar & A. M. Mosharrafa, 'Modes in Modern Egyptian Music', <i>Nature</i> 140: 548–549 (1937) — full text not seen; (3) the 22-śruti ratio system compared by Serrà et al. (2011) — the publication that fixes its ratios was not checked in the original; (4) further measurements of Korean instruments — S.-H. Park, S.-H. Ock, I.-H. Seo, S.-R. Kim & H.-H. Jeong, 'Frequency characteristics analysis for quality assessment on Korean traditional wind instruments', Proceedings of the Korean Society for Noise and Vibration Engineering, Spring 2011, pp. 302–307, measured commercial daegeum, sogeum, tungso and danso played by three National Gugak Center players, but the per-note values are only in charts and the equal-tempered reference pitch is not defined, so they are not drawn; (5) how often each mode was used in actual pieces — in the DCML collections used on this site the key label (annotated_key) is major or minor in all 1,283 movements that have one, and empty in 43, so modes cannot be counted from it. "
+NY_KO = "다음은 원문을 열지 못했거나, 열었지만 음계로 옮길 수 없어 넣지 않았다. ① 1932 카이로 회의 기록집(<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Le Caire: Imprimerie nationale, 1934)과 데를랑제(R. d'Erlanger) 『아랍 음악(<i>La musique arabe</i>)』 5권(Paris: Geuthner, 1949)의 음계표 — 출판본을 보지 못했다. ② 모크타르·모샤라파, 「Modes in Modern Egyptian Music」, <i>Nature</i> 140: 548–549 (1937) — 본문을 보지 못했다. ③ Serrà 외(2011)가 견준 22 슈루티의 비율 — 그들이 따른 2차 문헌(Shankar 1999, Schmidt-Jones 2011)을 보지 못했다. 근대 비율 체계 가운데 클레먼츠 1913의 표(데발의 측정)는 3절에 실었다. ④ 다른 국악기 실측 — 박수홍·옥승호·서인화·김소리·정환희, 「국악관악기 품질평가를 위한 음고특성분석」, 『한국소음진동공학회 2011년 춘계학술대회논문집』 302–307쪽은 국립국악원 연주자 세 사람이 시판 대금·소금·퉁소·단소를 분 음높이를 쟀으나, 음별 값이 그림에만 있고 비교 기준인 「평균율 기준음고」를 정의하지 않아 음계로 옮기지 않았다. ⑤ 실제 곡에서 각 선법이 얼마나 쓰였는지 — 이 사이트가 쓰는 DCML 곡집의 조 표기(annotated_key)는 값이 있는 1,283악장이 모두 장조나 단조이고 43악장은 비어 있어, 이 열로는 선법별로 셀 수 없다. "
+NY_EN = "Left out because the original could not be opened, or was opened but could not be turned into a scale: (1) the scale tables of the Cairo Congress proceedings (<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Cairo: Imprimerie nationale, 1934) and of R. d'Erlanger, <i>La musique arabe</i>, vol. 5 (Paris: Geuthner, 1949) — the printed books not seen; (2) M. Mokhtar & A. M. Mosharrafa, 'Modes in Modern Egyptian Music', <i>Nature</i> 140: 548–549 (1937) — full text not seen; (3) the 22-śruti ratios compared by Serrà et al. (2011) — the secondary sources they followed (Shankar 1999, Schmidt-Jones 2011) were not seen; of the modern ratio systems, Clements's 1913 table (after Deval's measurements) is drawn in section 3; (4) further measurements of Korean instruments — S.-H. Park, S.-H. Ock, I.-H. Seo, S.-R. Kim & H.-H. Jeong, 'Frequency characteristics analysis for quality assessment on Korean traditional wind instruments', Proceedings of the Korean Society for Noise and Vibration Engineering, Spring 2011, pp. 302–307, measured commercial daegeum, sogeum, tungso and danso played by three National Gugak Center players, but the per-note values are only in charts and the equal-tempered reference pitch is not defined, so they are not drawn; (5) how often each mode was used in actual pieces — in the DCML collections used on this site the key label (annotated_key) is major or minor in all 1,283 movements that have one, and empty in 43, so modes cannot be counted from it. "
 
 
 KR_KO = '한국 악기를 직접 잰 값으로 가야금 연구 두 편을 실었다. 고유동(2021)은 1928~1960년 고음반에서 이일선·김죽파·성금연이 연주한 경기민요의 가야금 음높이를 praat로 재어, 줄마다 평균율과의 차이를 6번 줄(도)의 평균에 맞추어 정리했다(183쪽 표 102). 네 녹음 모두 레를 평균율보다 51~69센트 낮게, 라를 30센트 이상 낮게 탔고, 레–미 음정은 장2도보다 넓었다. 이일선 녹음의 11번 줄(높은 도)은 6번 줄보다 1141센트 위에 있어 옥타브보다 59센트 좁다. 양수연(2013)은 김병호·김죽파·성금연·함동정월의 가야금산조 진양조 음원에서 계면조의 중심음인 청과, 꺾는 음을 이루는 두 음을 쟀다. 여기에는 표본이 가장 많은 중간 음역의 값을 실었다(84·87·88쪽). 청에서 꺾는 아래음까지는 68~111센트로 채보에 쓰는 장2도(200센트)보다 훨씬 좁고, 꺾는 윗음까지는 350~354센트로 단3도(300센트)보다 넓다. 다만 함동정월의 윗음은 표에 적힌 센트값(353.8)을 따른 것이고, 같은 표의 주파수로 다시 계산하면 349.7센트다. 청의 옥타브는 1193~1206센트였다(47쪽). 고유동은 세 연주자의 녹음 넷(김죽파는 두 곡), 양수연은 네 연주자의 녹음 하나씩을 쟀다. 이 값이 연주자나 유파 전체를 대표한다고 볼 수는 없다. 관악기로는 남운정(Nam 1998)이 정재국의 피리 독주 녹음 세 곡(상령산 두 곡과 수제천)에서 음마다 떨림 없는 구간 열 곳 안팎을 재어, 음 사이의 평균 음정을 그림으로 실었다(244쪽 그림 1). 평조회상의 상령산에서 황–태는 141센트, 수제천의 태–고는 204센트였다. 다만 인쇄된 다섯 음정을 더하면 1208·1288·1177센트로 옥타브(1200)와 맞지 않고, 원문은 그 까닭을 적지 않았다. 그래서 다섯 음만 그리고 옥타브는 재생용 점선 고리로 두었다. 남운정은 피리의 음높이 굽힘이 커서 이 평균만으로 음계를 단정할 수 없다고 적었다.'
@@ -424,6 +478,30 @@ def modes_section(k: bool) -> str:
     return "".join(b)
 
 
+IN2_KO = ("22 슈루티에 비율을 붙인 근대 체계의 출처로는 데발(1910)과 클레먼츠(1913)를 실었다. 클레먼츠의 설명에 따르면 데발은 줄 두 개를 같은 높이로 맞춘 디아코드에서 한 줄의 줄받이를 움직여 가수가 부른 음에 맞추고, 눈금에서 사(Sa)에 대한 진동수 비를 계산했다(6~7쪽). 클레먼츠는 그 결과를 사 = 240으로 놓은 진동수 표로 실었고(7~8쪽), 대부분의 음에서 슈루티 둘이 순정 반음, 셋이 단온음(10/9), 넷이 장온음(9/8)이 된다고 요약했다. "
+          "여기에는 클레먼츠 표에서 번호가 붙은 슈루티 1~22를 그렸다. 데발 1910의 표 D와는 두 곳이 다르다. 데발은 마 아티코말 315(21/16)를 넣고 마 카이시크 324(27/20)를 넣지 않았으며, 높은 니를 455⅝(243/128)로 적었다. 클레먼츠는 455 1/9(256/135)이다. 21/20, 63/40 같은 7의 비도 들어 있다. 번호 없이 따로 적힌 두 음(마 아티코말 315 = 21/16, 니 아티코말 420 = 7/4)은 그리지 않았다. Serrà 외(2011)가 견준 22 슈루티는 다른 2차 문헌에서 가져온 것이고, 이 표와 같은 체계인지는 확인하지 못했다. "
+          "실제 연주로는 벨(1988)이 라가 토디의 녹음 여섯 계열에서 음마다 잰 위치를 실었다. 평균과 표준편차(모집단)는 엮은이가 여섯 계열로 다시 계산했다. 벨 자신의 평균표는 하모니움 조율 실험 두 건까지 넣은 것이다. 레♭·미♭·라♭은 평균율보다 낮고 파#·시는 높으며, 가장 흩어진 음은 파#다(593~625센트). 라♭은 낮은 옥타브와 가운데 옥타브에서 따로 쟀는데, 가운데 옥타브 쪽이 802~810센트로 더 높다. 표 머리의 「sib」는 본문의 선법(do réb mib fa# sol lab si)과 맞지 않아 si로 읽었다. 만수르 줄의 1095는 가운데 옥타브 라♭ 칸에 찍혀 있으나 si 값으로 읽었다(벨의 평균 1107이 이 값을 si에 넣어 계산되어 있다).")
+IN2_EN = ("For the modern system that gives the 22 śrutis ratios, the sources shown are Deval (1910) and Clements (1913). As Clements describes it, Deval tuned the two wires of a diachord to the same pitch, moved the fret of one to the note a singer sang, and computed its vibration ratio to sa from the scale (pp. 6–7). Clements printed the results as vibration numbers with sa = 240 (pp. 7–8) and summed them up for most notes as two śrutis making a just semitone, three a minor tone (10/9) and four a major tone (9/8). "
+          "The śrutis numbered 1–22 in Clements's table are drawn here. Deval's Table D (1910) differs in two places: it includes ma atikomal 315 (21/16) but not ma kaishik 324 (27/20), and gives the high ni as 455⅝ (243/128) where Clements has 455 1/9 (256/135). Clements's śrutis include septimal ratios such as 21/20 and 63/40. Two notes listed apart without numbers (ma atikomal 315 = 21/16, ni atikomal 420 = 7/4) are not drawn. The 22 śrutis compared by Serrà et al. (2011) were taken from other secondary sources; whether they form the same system as this table was not checked. "
+          "Performance is shown by Bel's (1988) measurements of rāg Toḍī: the position of each note in six recorded performances. The mean and standard deviation (population) were recomputed by the editor over the six; Bel's own table of means also includes two harmonium-tuning experiments. Re♭, mi♭ and la♭ lie below equal temperament and fa♯ and si above; fa♯ is the most scattered (593–625 cents). La♭ was measured separately in the lower and middle octaves, the middle-octave value being higher (802–810 cents). The column head 'sib' does not match the mode in the text (do réb mib fa# sol lab si) and is read as si. Mansur's 1095 is printed in the middle-octave la♭ column but read as si (Bel's mean, 1107, counts it there).")
+GAMAKA_KO = ("벨의 토디 값은 선율선에서 머무는 부분만 골라 평균한 음 위치다. 0.1초·0.4초·0.2초 창으로 불규칙한 곡선, 높이 80센트 띠를 벗어나는 구간, 기울기가 큰 구간을 걸러 냈다(14쪽). 벨은 파#가 선율 움직임 속에서 겨우 암시될 뿐이라 위치를 잡기 매우 어렵다고 적었다(15쪽). "
+             "라가의 음이 고정된 점이 아니라는 것은 카르나틱 노래의 측정에서도 보인다. 가수 19명의 녹음을 잰 비라라가반 외(2018)에 따르면, 한 음높이에 머무는 음의 정밀도는 길이가 길수록 좋아져 0.5초를 넘으면 약 10센트에 머물렀다. 가마카(꾸밈 움직임)에서 음높이 곡선이 방향을 바꾸는 점은 오차의 표준편차가 약 60센트였다. 이 두 값은 카르나틱 음악에서 잰 음별 오차라서, 힌두스타니 토디 행의 연주자 사이 표준편차와 바로 견줄 수 없다. 이론 행의 점(클레먼츠 등)은 측정값이 아니다.")
+GAMAKA_EN = ("Bel's Toḍī values are note positions averaged over the stable parts of the melodic line only: windows of 0.1, 0.4 and 0.2 seconds removed irregular curve segments, segments leaving an 80-cent band, and segments with a steep slope (p. 14). Bel wrote that fa♯ is very hard to locate, being barely suggested in the melodic movement (p. 15). "
+             "That the notes of a rāga are not fixed points also shows in measurements of Carnatic singing. Measuring the recordings of nineteen singers, Viraraghavan et al. (2018) found that the precision of notes held at one pitch improves with duration and settles at about 10 cents beyond 0.5 seconds, while the points where the pitch curve turns within a gamaka (ornamental movement) have errors with a standard deviation of about 60 cents. These are per-note errors measured in Carnatic music, so they cannot be compared directly with the spread between performers in the Hindustani Toḍī row. The dots of the theory rows (Clements and others) are not measurements.")
+
+
+def todi_table(k):
+    head = ["연주자" if k else "Performer", "악기" if k else "Instrument"] + ["레♭", "미♭", "파#", "솔", "라♭", "(라♭)", "시"]
+    if not k:
+        head[2:] = ["re♭", "mi♭", "fa♯", "sol", "la♭", "(la♭)", "si"]
+    th = "".join(f"<th{'' if i < 2 else chr(32) + 'class=' + chr(39) + 'num' + chr(39)}>{h}</th>" for i, h in enumerate(head))
+    rows = "".join(f"<tr><td>{esc(n)}</td><td>{esc(a if k else e)}</td>" + "".join(f"<td class='num'>{esc(v)}</td>" for v in pr) + "</tr>"
+                   for (n, a, e, _, _), pr in zip(TODI, TODI_PRINTED))
+    cap = ("라가 토디의 음 위치(센트, 사 = 0). 라♭은 낮은 옥타브, (라♭)은 가운데 옥타브. 아래 두 줄은 하모니움 조율 실험이다. 칸은 원문에 찍힌 그대로다(? 와 괄호 포함, 만수르 줄은 인쇄 위치 그대로 — 평균 계산에서는 1095를 시로 읽었다). 벨 1988, 15쪽"
+           if k else "Rāg Toḍī, note positions (cents, sa = 0). la♭ lower octave, (la♭) middle octave. The last two rows are harmonium-tuning experiments. Cells are as printed, with ? and brackets (Mansur's row is left where it was printed; for the means 1095 is read as si). Bel 1988, p. 15")
+    return f"<div class='wrap'><table><caption>{cap}</caption><thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table></div>"
+
+
 def lim_table(k):
     head = ("유파", "계면조", "우조", "평조", "경드름", "강산제") if k else ("School", "gyemyeonjo", "ujo", "pyeongjo", "gyeongdeureum", "gangsanje")
     rows = "".join(f"<tr><td>{a if k else e}</td>" + "".join(f"<td class='num'>{v}</td>" for v in vals) + "</tr>" for a, e, *vals in LIM)
@@ -451,7 +529,7 @@ def render(lang: str) -> str:
         if g == "measured":
             b.append("<p>" + ("이론이 정한 음과 실제로 조율하거나 연주한 음은 다르다. 같은 곡조의 이론값과 실측값을 나란히 놓았다. 가믈란은 악기 세트 수십 개의 평균이고, 주황 막대는 ±1 표준편차(수록 세트 전체의 모집단 표준편차)다. 여기 실은 가믈란 평균과 라나트 엑 평균에서는 옥타브가 1200센트보다 넓다(1214~1217센트). 원자료에 옥타브 음이 없는 음계는 재생을 위해 1200센트를 붙였다."
                               if k else "The notes a theory prescribes and the notes actually tuned or sung differ. Theory and measurement for the same scale sit side by side. The gamelan rows average dozens of sets; the orange bars show ±1 standard deviation (population SD over the sets included). In the gamelan and ranat ek means shown here the octave is wider than 1,200 cents (1,214–1,217). Where the source gives no octave note, 1,200 cents is added for playback.") + "</p>")
-            b.append("".join(f"<p>{x}</p>" for x in ((ME_KO, IN_KO, CH_KO) if k else (ME_EN, IN_EN, CH_EN))))
+            b.append("".join(f"<p>{x}</p>" for x in ((ME_KO, IN_KO, IN2_KO) if k else (ME_EN, IN_EN, IN2_EN))) + todi_table(k) + f"<p>{GAMAKA_KO if k else GAMAKA_EN}</p><p>{CH_KO if k else CH_EN}</p>")
         for r in df[df.group == g].itertuples():
             add = not (r.cents[-1] > 1150 or r.id in OCTAVE_MEASURED)
             cents = list(r.cents) + ([1200.0] if add else [])
@@ -479,7 +557,7 @@ def render(lang: str) -> str:
              "Garzoli (2015), 'The myth of equidistance in Thai tuning', <i>Analytical Approaches to World Music</i> 4(2); Bozkurt et al. (2009), <i>Journal of New Music Research</i> 38(1): 45–70; Shafiei (2021), arXiv:2108.01283; "
              "Smith (1847), 'A treatise on Arab music, chiefly from a work by Mikhâil Meshâkah, of Damascus', <i>Journal of the American Oriental Society</i> 1(3): 173–217; "
              "Bozkurt (2025), 'An open research dataset of the 1932 Cairo Congress of Arab Music', arXiv:2506.14503 — <a href='https://doi.org/10.5281/zenodo.15682346'>ORD-CC32</a> (CC BY-NC 4.0; the Rast and Bayati rows and scales_cairo1932.csv carry this license); "
-             "Ghosh (tr., 1961), <i>The Nāṭyaśāstra</i>, vol. II (Asiatic Society, Calcutta); Serrà, Koduri, Miron & Serra (2011), ISMIR 2011: 157–162; Ramanathan (1981), 'Shruti according to ancient texts', <i>Journal of the Indian Musicological Society</i> 12(3): 31–37; "
+             "Ghosh (tr., 1961), <i>The Nāṭyaśāstra</i>, vol. II (Asiatic Society, Calcutta); Serrà, Koduri, Miron & Serra (2011), ISMIR 2011: 157–162; Ramanathan (1981), 'Shruti according to ancient texts', <i>Journal of the Indian Musicological Society</i> 12(3): 31–37; K. B. Deval (1910), <i>The Hindu Musical Scale and the Twenty-two Shrutees</i> (Poona: Arya Bhushan Press); E. Clements (1913), <i>Introduction to the Study of Indian Music</i> (London: Longmans, Green; <a href='https://archive.org/details/cu31924018413900'>Internet Archive</a>); B. Bel (1988), 'Raga : approches conceptuelles et expérimentales', <i>Actes du colloque Structures musicales et assistance informatique</i>, Marseille (<a href='https://hal.science/hal-00008280'>HAL hal-00008280</a>); V. S. Viraraghavan, H. A. Murthy & R. Aravind (2018), 'Precision of sung notes in Carnatic music', ISMIR 2018: 499–505; "
              "上原六四郎 (Uehara 1895), 『俗楽旋律考』 (金港堂; <a href='https://dl.ndl.go.jp/pid/856052'>NDL Digital Collections</a>); "
              "Ellis (1885), 'On the musical scales of various nations', <i>Journal of the Society of Arts</i> 33: 485–527; Tracey (1958), 'Towards an assessment of African scales', <i>African Music</i> 2(1): 15–20; Tracey (1948), <i>Chopi Musicians: Their Music, Poetry, and Instruments</i> (London: Oxford University Press for the International African Institute); A. Tracey (2001), 'Mozambique', <i>Grove Music Online</i> (= <i>The New Grove Dictionary of Music and Musicians</i>, 2nd ed.), doi:10.1093/gmo/9781561592630.article.19268; Nam (1998), 'Pitch distributions in Korean court music: evidence consistent with tonal hierarchies', <i>Music Perception</i> 16(2): 243–247; "
              "고유동 (Ko Yudong 2021. 2.), 「가야금 경기민요 음률 분석: 이일선, 김죽파, 성금연의 연주를 중심으로」, 한양대학교 대학원 국악학과 음악학 석사학위논문 (CC BY-NC-ND 2.0 KR); 양수연 (Yang Suyeon 2013. 2.), 「가야금산조의 음고 및 음정분석연구」, 서울대학교 대학원 음악과 국악기악전공 음악학석사학위논문 (CC BY-NC-SA 2.0 KR); 임경미 (Lim Gyeongmi 2013. 8.), 「가야금산조의 조에 따른 음고 및 음정분석연구」, 서울대학교 대학원 음악과 국악기악전공 음악학석사학위논문 (CC BY-NC-ND 2.0 KR) — the gayageum rows give only the editor's transcription of their numbers and carry license CC-BY-NC-4.0; "
