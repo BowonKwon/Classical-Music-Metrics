@@ -20,7 +20,7 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 D = ROOT / "data/derived"
-SCALE_FILES = ["scales.csv", "scales_cairo1932.csv"]
+SCALE_FILES = ["scales.csv", "scales_cairo1932.csv", "scales_places.csv"]
 
 
 def cairo(maqam: str, region: str) -> tuple[list[float], int]:
@@ -572,6 +572,196 @@ def todi_table(k):
     return f"<div class='wrap'><table><caption>{cap}</caption><thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table></div>"
 
 
+# ---- 1.16: regions and places -------------------------------------------------------------------------------
+# Regions, not states: music belongs to communities, and no state borders are drawn. A row is put on the map only
+# when its source names a city or a site; rows that name only a region, or no place, are listed beside the map.
+REGIONS = [("europe", "유럽·지중해", "Europe and the Mediterranean", 60, 20), ("wasia", "서아시아·북아프리카", "West Asia and North Africa", 21, 46),
+           ("sasia", "남아시아", "South Asia", 24, 82), ("seasia", "동남아시아", "Southeast Asia", 14, 101),
+           ("easia", "동아시아", "East Asia", 40, 118), ("africa", "사하라 이남 아프리카", "Sub-Saharan Africa", 3, 22)]
+REGION_OF = {"pyth": "europe", "arch_enh": "europe", "arch_chr": "europe", "arch_dia": "europe", "just": "europe", "mean": "europe",
+             "werck": "europe", "vallotti": "europe",
+             "lu12": "easia", "wuyin": "easia", "pyeongjo": "easia", "gyemyeon": "easia", "gy_lee1928": "easia", "gy_kim1931": "easia",
+             "gy_kim1932": "easia", "gy_seong1960": "easia", "sj_kimbh": "easia", "sj_kimjp": "easia", "sj_seong": "easia", "sj_ham": "easia",
+             "piri_sang_pyeongjo": "easia", "piri_sang_pyojung": "easia", "piri_sujecheon": "easia", "in_uehara": "easia", "yo_uehara": "easia",
+             "koto_isawa": "easia", "koto_woman": "easia", "koto_master": "easia",
+             "slendro": "seasia", "pelog": "seasia", "thai_et": "seasia", "thai_ranat": "seasia",
+             "chopi_avg": "africa", "chopi": "africa", "ganda": "africa", "malinke": "africa",
+             "shur_vaziri": "wasia", "shur_karimi": "wasia", "rast_aeu": "wasia", "rast_meas": "wasia", "rast_mushaqa": "wasia",
+             "rast_cairo": "wasia", "bayati_cairo": "wasia",
+             "sruti": "sasia", "sruti_clements": "sasia", "todi_bel": "sasia"}  # et12: no region
+# City- or site-level places named in the row text or its source. Coordinates: Wikidata P625 (CC0), rounded to 0.001°.
+PLACES = {
+    "slendro": ("족자카르타·수라카르타", "Yogyakarta and Surakarta", [(-7.800, 110.391), (-7.567, 110.817)], "Q7568, Q4803"),
+    "pelog": ("족자카르타·수라카르타", "Yogyakarta and Surakarta", [(-7.800, 110.391), (-7.567, 110.817)], "Q7568, Q4803"),
+    "koto_woman": ("런던 나이츠브리지 일본촌 — 잰 곳", "Japanese Village, Knightsbridge, London (where measured)", [(51.507, -0.128)], "Q84"),
+    "koto_master": ("런던 나이츠브리지 일본촌 — 잰 곳", "Japanese Village, Knightsbridge, London (where measured)", [(51.507, -0.128)], "Q84"),
+    "chopi_avg": ("자발라 지구 (키시코 좌표로 표시)", "Zavala District (shown at Quissico)", [(-24.683, 34.667)], "Q166838"),
+    "chopi": ("자발라 지구 (키시코 좌표로 표시)", "Zavala District (shown at Quissico)", [(-24.683, 34.667)], "Q166838"),
+    "rast_mushaqa": ("다마스쿠스 — 무샤카", "Damascus (Mushāqa)", [(33.513, 36.292)], "Q3766"),
+    "rast_cairo": ("카이로 — 1932 회의 녹음", "Cairo (1932 Congress recordings)", [(30.044, 31.236)], "Q85"),
+    "bayati_cairo": ("카이로 — 1932 회의 녹음", "Cairo (1932 Congress recordings)", [(30.044, 31.236)], "Q85"),
+}
+AWAY = {"koto_woman", "koto_master"}  # measured outside the region the music belongs to
+LABEL_AT = {"Q3766": (-14, -10, "end"), "Q85": (-14, 16, "end"), "Q84": (14, 16, "start")}  # place-label offsets (dx, dy, anchor); default right of the mark
+
+
+def et_distance(cents):
+    """Mean distance (cents) from the nearest 12-TET note, measured from the first listed note, over the ascending notes
+    above it and below 1,150 cents (a rule of thumb that leaves out the octave; a narrow measured octave such as 1,141 stays in).
+    Unweighted: every listed note counts once."""
+    c0 = cents[0]
+    xs = [v - c0 for v in cents[1:] if 0 < v - c0 < 1150]
+    return round(sum(abs(v - round(v / 100) * 100) for v in xs) / len(xs), 1)
+
+
+def places_frame() -> pd.DataFrame:
+    rows = []
+    for g, i, nko, nen, wko, wen, kind, cents, *_ in SCALES:
+        reg = REGION_OF.get(i, "")
+        pl = PLACES.get(i)
+        level = "site" if pl else ("region" if reg else "none")
+        rows.append({"id": i, "region": reg, "place_level": level, "place_ko": pl[0] if pl else "", "place_en": pl[1] if pl else "",
+                     "coords": ";".join(f"{a:.3f},{o:.3f}" for a, o in pl[2]) if pl else "", "wikidata": pl[3] if pl else "",
+                     "measured_away": i in AWAY, "kind": kind, "et_distance_cents": et_distance(cents)})
+    return pd.DataFrame(rows)
+
+
+def equal_earth(lat, lon):
+    import math as m
+    A1, A2, A3, A4 = 1.340264, -0.081106, 0.000893, 0.003796
+    phi, lam = m.radians(lat), m.radians(lon)
+    th = m.asin(m.sqrt(3) / 2 * m.sin(phi))
+    x = 2 * m.sqrt(3) * lam * m.cos(th) / (3 * (9 * A4 * th ** 8 + 7 * A3 * th ** 6 + 3 * A2 * th ** 2 + A1))
+    y = A4 * th ** 9 + A3 * th ** 7 + A2 * th ** 3 + A1 * th
+    return x, y
+
+
+LAND = D / "scales_land_equalearth.json"  # projected Natural Earth 1:110m land (public domain), built from data/raw/naturalearth/
+
+
+def build_land():
+    src = ROOT / "data/raw/naturalearth/ne_110m_land.geojson"
+    gj = json.loads(src.read_text(encoding="utf-8"))
+    rings = []
+    for f in gj["features"]:
+        geom = f["geometry"]
+        polys = geom["coordinates"] if geom["type"] == "MultiPolygon" else [geom["coordinates"]]
+        for poly in polys:
+            ring = poly[0]
+            if max(pt[1] for pt in ring) < -58:  # Antarctica left out
+                continue
+            rings.append([[round(c, 4) for c in equal_earth(max(pt[1], -58), pt[0])] for pt in ring])
+    LAND.write_text(json.dumps({"source": "Natural Earth 1:110m land (public domain), Equal Earth projection, unit sphere", "rings": rings}), encoding="utf-8")
+
+
+MAP_W, MAP_H = 900, 400
+
+
+def map_xy(lat, lon):
+    x, y = equal_earth(lat, lon)
+    X0, X1 = equal_earth(0, -180)[0], equal_earth(0, 180)[0]
+    Y1, Y0 = equal_earth(80, 0)[1], equal_earth(-58, 0)[1]
+    return 10 + (x - X0) / (X1 - X0) * (MAP_W - 20), 10 + (Y1 - y) / (Y1 - Y0) * (MAP_H - 20)
+
+
+def tone(d):
+    """Sequential color for an et_distance of 0-50 cents (one hue, light to dark)."""
+    pct = 25 + min(d, 50) / 50 * 75
+    return f"color-mix(in srgb,var(--g5) {pct:.0f}%,var(--card))"
+
+
+def region_overview(k):
+    pf = places_frame()
+    names = {r[0]: (r[1] if k else r[2]) for r in REGIONS}
+    nm = {r[1]: (r[2] if k else r[3]) for r in SCALES}
+    land = json.loads(LAND.read_text(encoding="utf-8"))["rings"]
+    X0, X1 = equal_earth(0, -180)[0], equal_earth(0, 180)[0]
+    Y1, Y0 = equal_earth(80, 0)[1], equal_earth(-58, 0)[1]
+    px = lambda x, y: (10 + (x - X0) / (X1 - X0) * (MAP_W - 20), 10 + (Y1 - y) / (Y1 - Y0) * (MAP_H - 20))  # noqa: E731
+    o = [f'<svg viewBox="0 0 {MAP_W} {MAP_H}" role="img" aria-label="{"국경선 없는 지도" if k else "Map without borders"}">']
+    for ring in land:
+        pts = " ".join(f"{a:.1f},{b:.1f}" for a, b in (px(*q) for q in ring))
+        o.append(f'<polygon points="{pts}" fill="var(--line)" fill-opacity=".55" stroke="none"/>')
+    for code, ko, en, la, lo in REGIONS:  # region labels (no points)
+        x, y = map_xy(la, lo)
+        n_reg = int(((pf.region == code) & (pf.place_level == "region")).sum())
+        o.append(f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="middle" style="font-style:italic;fill:var(--fg3)">{esc(ko if k else en)}</text>'
+                 f'<text x="{x:.0f}" y="{y + 13:.0f}" text-anchor="middle" style="font-size:10px;fill:var(--fg3)">{("지도 밖 " + str(n_reg)) if k else (str(n_reg) + " off the map")}</text>')
+    ea = next(r for r in REGIONS if r[0] == "easia")
+    exy = map_xy(ea[3] - 3, ea[4])
+    seen = {}
+    count = pf[pf.place_level == "site"].coords.value_counts().to_dict()
+    for r in pf[pf.place_level == "site"].itertuples():
+        coords = [tuple(map(float, c.split(","))) for c in r.coords.split(";")]
+        key = r.coords
+        j = seen.get(key, 0)
+        seen[key] = j + 1
+        x0, y0 = map_xy(*coords[0])
+        for la, lo in (coords[1:] if j == 0 else []):
+            x1, y1 = map_xy(la, lo)
+            o.append(f'<circle cx="{x1:.1f}" cy="{y1:.1f}" r="2.5" fill="none" stroke="var(--fg3)"/>')
+        if r.measured_away and j == 0:
+            o.append(f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{exy[0]:.1f}" y2="{exy[1]:.1f}" stroke="var(--fg3)" stroke-dasharray="4 4" stroke-opacity=".7"/>')
+        cx = x0 + (j - (count[key] - 1) / 2) * 9  # side by side when one place holds several rows
+        shape = (f'<circle cx="{cx:.1f}" cy="{y0:.1f}" r="5.5" fill="{tone(r.et_distance_cents)}" stroke="var(--fg)" stroke-width="1"/>' if r.kind == "measured"
+                 else f'<rect x="{cx - 5:.1f}" y="{y0 - 5:.1f}" width="10" height="10" fill="{tone(r.et_distance_cents)}" stroke="var(--fg)" stroke-width="1"/>')
+        o.append(f'<a href="#scale-{r.id}"><title>{esc(nm[r.id])} — {esc(r.place_ko if k else r.place_en)} · {r.et_distance_cents:g}</title>{shape}</a>')
+    for key in seen:  # one place label per place
+        r = pf[pf.coords == key].iloc[0]
+        x0, y0 = map_xy(*map(float, key.split(";")[0].split(",")))
+        dx, dy, anc = LABEL_AT.get(r.wikidata, (14, 4, "start"))
+        o.append(f'<text x="{x0 + dx:.0f}" y="{y0 + dy:.0f}" text-anchor="{anc}" style="font-size:11px">{esc(r.place_ko if k else r.place_en)}</text>')
+    o.append("</svg>")
+    # dot plot: et distance by region
+    groups = [(c, names[c]) for c, *_ in REGIONS] + [("", "장소 없음" if k else "No place")]
+    W, rh, L = 900, 30, 190
+    H = 40 + rh * len(groups)
+    Xd = lambda v: L + v / 50 * (W - L - 20)  # noqa: E731
+    d = [f'<svg viewBox="0 0 {W} {H}" role="img">']
+    for v in range(0, 51, 10):
+        d.append(f'<line x1="{Xd(v):.1f}" x2="{Xd(v):.1f}" y1="14" y2="{H - 22}" stroke="var(--line)"/><text x="{Xd(v):.1f}" y="{H - 6}" text-anchor="middle">{v}</text>')
+    d.append(f'<line x1="{Xd(25):.1f}" x2="{Xd(25):.1f}" y1="14" y2="{H - 22}" stroke="var(--fg3)" stroke-dasharray="4 3"/>'
+             f'<text x="{Xd(25) + 4:.1f}" y="12" style="font-size:10px;fill:var(--fg3)">{"무작위 기댓값 25" if k else "random expectation 25"}</text>')
+    for gi, (code, lab) in enumerate(groups):
+        y = 30 + gi * rh
+        d.append(f'<text x="{L - 10}" y="{y + 4}" text-anchor="end">{esc(lab)}</text>')
+        sub = pf[pf.region == code].sort_values("et_distance_cents")
+        last, stack = None, 0
+        for r in sub.itertuples():
+            stack = stack + 1 if last is not None and abs(r.et_distance_cents - last) < 1.2 else 0
+            last = r.et_distance_cents
+            yy = y + (0, -8, 8, -16, 16)[stack % 5]
+            x = Xd(r.et_distance_cents)
+            mark = (f'<circle cx="{x:.1f}" cy="{yy}" r="4.5" fill="var(--g5)" fill-opacity=".85"/>' if r.kind == "measured"
+                    else f'<circle cx="{x:.1f}" cy="{yy}" r="4" fill="var(--card)" stroke="var(--g5)" stroke-width="1.6"/>')
+            d.append(f'<a href="#scale-{r.id}"><title>{esc(nm[r.id])} · {r.et_distance_cents:g}</title>{mark}</a>')
+    d.append("</svg>")
+    off_reg = "".join(f"<li><b>{esc(names[c])}</b>: " + ", ".join(f"<a href='#scale-{i}'>{esc(nm[i])}</a>" for i in pf[(pf.region == c) & (pf.place_level == 'region')].id) + "</li>"
+                      for c, *_ in REGIONS if ((pf.region == c) & (pf.place_level == "region")).any())
+    off_none = ", ".join(f"<a href='#scale-{i}'>{esc(nm[i])}</a>" for i in pf[pf.place_level == "none"].id)
+    med = pf.groupby("region").et_distance_cents.median()
+    intro = (("지도에는 국경선을 그리지 않았다. 음악은 나라보다 그것을 연주하고 듣는 지역 공동체의 것이라는 쪽에 서서, 음계를 여섯 문화권(유럽·지중해, 서아시아·북아프리카, 남아시아, 동남아시아, 동아시아, 사하라 이남 아프리카)으로 묶었다. "
+              "점은 줄의 서술이 도시나 장소를 밝힌 경우만 찍었다 — 잰 곳이거나(카이로·족자카르타·수라카르타·자발라 지구·런던), 이론을 정리한 사람의 도시다(다마스쿠스의 무샤카). 도시 수준 표시이고 좌표는 위키데이터(CC0)다. 한 곳에 줄이 여럿이면 표시를 옆으로 나란히 놓았다. 족자카르타와 수라카르타는 이 축척에서 거의 겹쳐 이름표 하나로 묶었다(작은 고리가 수라카르타). 동그라미는 실측, 네모는 이론값이다. 도시·장소를 특정하지 못한 줄은 지도 아래 목록에 모았다. 문화권 배정은 엮은이의 판단이고(예: 터키 라스트를 서아시아·북아프리카에), 지도 위 문화권 이름표의 자리는 편의상 정한 것이다. "
+              "고토의 두 줄은 1885년 런던에서 쟀다. 음악이 속한 곳과 잰 곳이 달라서 점선으로 동아시아에 이었다. 점을 누르면 그 음계로 간다.")
+             if k else
+             ("The map draws no state borders. Taking music to belong to the communities that play and hear it rather than to states, the scales are grouped into six cultural regions (Europe and the Mediterranean, West Asia and North Africa, South Asia, Southeast Asia, East Asia, Sub-Saharan Africa). "
+              "A row is plotted only when its description names a city or a site — where it was measured (Cairo, Yogyakarta, Surakarta, the Zavala District, London) or the city of the person who set out the theory (Mushāqa of Damascus). Placement is city-level, with coordinates from Wikidata (CC0); where one place holds several rows, the marks sit side by side. Yogyakarta and Surakarta nearly coincide at this scale and share one label (the small ring is Surakarta). Circles are measurements, squares theory. Rows for which no city or site can be named are listed below the map. The cultural regions were assigned by the editor (for instance Turkish Rast to West Asia and North Africa), and the region labels on the map are placed for convenience. "
+              "The two koto rows were measured in London in 1885; since the music belongs elsewhere, a dashed line joins them to East Asia. Click a mark to go to its scale."))
+    metric = (("색과 아래 그림의 가로축은 평균율에서 떨어진 정도다. 각 음계의 첫 음을 0으로 놓고, 그 위 1150센트 아래의 음(올라갈 때의 음만, 옥타브를 빼려는 어림 규칙이라 1141센트처럼 좁게 잰 옥타브는 들어간다)마다 가장 가까운 12평균율 음과의 차이(센트)를 가중치 없이 평균했다. 0이면 평균율과 같고, 음을 아무렇게나 놓으면 평균 25센트가 된다(0~50센트 사이 균등분포의 평균). "
+               f"지역별 중앙값은 유럽·지중해 {med['europe']:.1f}, 서아시아·북아프리카 {med['wasia']:.1f}, 남아시아 {med['sasia']:.1f}, 동남아시아 {med['seasia']:.1f}, 동아시아 {med['easia']:.1f}, 사하라 이남 아프리카 {med['africa']:.1f}센트다. "
+               "이 값은 음계의 좋고 나쁨이 아니라 평균율이라는 한 자와의 거리일 뿐이다. 이론값과 실측이 섞여 있고(속 빈 점이 이론), 지역마다 실린 음계의 수와 종류가 달라 지역을 서로 견주는 근거로 쓰기 어렵다. 첫 음을 다른 음으로 잡으면 값이 달라지고, 첫 음 말고 평균에 들어가는 음이 둘뿐인 줄(산조의 꺾는 음)도 있다.")
+              if k else
+              ("The color and the horizontal axis below show distance from equal temperament: with each scale's first note at 0, the unweighted mean difference (cents) from the nearest equal-tempered note of each ascending note above it and below 1,150 cents (a rule of thumb to leave out the octave, so a narrowly measured octave such as 1,141 stays in). 0 is equal temperament; notes placed at random would average 25 cents (the mean of a uniform distribution over 0–50). "
+               f"Regional medians are {med['europe']:.1f} (Europe and the Mediterranean), {med['wasia']:.1f} (West Asia and North Africa), {med['sasia']:.1f} (South Asia), {med['seasia']:.1f} (Southeast Asia), {med['easia']:.1f} (East Asia) and {med['africa']:.1f} cents (Sub-Saharan Africa). "
+               "The value says nothing about a scale's merit, only its distance from one yardstick, equal temperament. Theory and measurement are mixed (hollow dots are theory), and the number and kind of scales differ from region to region, so it is a poor basis for comparing regions. Taking another note as the first changes the value, and in some rows only two notes besides the first enter the mean (the bent notes of sanjo)."))
+    return (f"<h2>{'지역으로 보기' if k else 'By region'}</h2><p>{intro}</p>" + "".join(o)
+            + "<p class='src'>" + ("바탕: Natural Earth 1:110m 육지(퍼블릭 도메인), 이퀄 어스 도법, 남위 58도 아래는 뺐다. 색: 평균율과의 거리 — 강조색이 짙을수록 크다(0 → 50센트)." if k else
+                                   "Base: Natural Earth 1:110m land (public domain), Equal Earth projection, south of 58°S left out. Color: distance from equal temperament — the stronger the accent color, the larger (0 → 50 cents).") + "</p>"
+            + f"<p>{metric}</p>" + "".join(d)
+            + f"<h3>{'도시·장소를 특정하지 못한 줄 (문화권별)' if k else 'Rows with no city or site named (by region)'}</h3><ul>{off_reg}</ul>"
+            + f"<h3>{'장소 없는 이론' if k else 'Theory with no place'}</h3><p>{off_none}</p>")
+
+
 def lim_table(k):
     head = ("유파", "계면조", "우조", "평조", "경드름", "강산제") if k else ("School", "gyemyeonjo", "ujo", "pyeongjo", "gyeongdeureum", "gangsanje")
     rows = "".join(f"<tr><td>{a if k else e}</td>" + "".join(f"<td class='num'>{v}</td>" for v in vals) + "</tr>" for a, e, *vals in LIM)
@@ -590,6 +780,7 @@ def render(lang: str) -> str:
          + "</p></div>"]
     b.append("<p class='src'>" + ("모든 음계를 같은 기준음(가온 다, 261.63 Hz) 위에 옮겨 들려준다. 실제 악기의 음높이는 다르다. 「평균율과 번갈아」는 각 음 다음에 가장 가까운 12평균율 음을 들려준다. 소리는 삼각파 합성음이라 악기 음색이 아니다. 「이론」은 비율이나 규칙으로 정한 값, 「실측」은 악기나 연주를 잰 값이다. 속이 빈 점은 내려갈 때만 쓰는 음이고, 점선 고리는 원자료에 없는 옥타브(1200센트)를 재생을 위해 붙인 자리다."
                                  if k else "Every scale is played on the same reference, middle C (261.63 Hz); the instruments themselves sit at other pitches. 'Against equal temperament' follows each note with the nearest equal-tempered note. The sound is a synthesised triangle wave, not the instrument's timbre. 'Theory' marks values set by ratios or rules; 'measured' marks values taken from instruments or performances. A hollow dot is a note used only when descending; a dashed ring marks an octave (1,200 cents) that the source does not give and that is added only for playback.") + "</p>")
+    b.append(region_overview(k))
     for g, (tko, ten) in GROUPS.items():
         b.append(f"<h2>{tko if k else ten}</h2>")
         if g == "east":
@@ -609,7 +800,7 @@ def render(lang: str) -> str:
             data = esc(json.dumps(cents))
             down = DOWN.get(r.id)
             dattr = f" data-d='{esc(json.dumps(down + [1200.0]))}'" if down else ""
-            b.append(f"<div class='scale'><h3>{esc(r.name_ko if k else r.name_en)}<span class='kind {r.kind}'>{kind}</span></h3>"
+            b.append(f"<div class='scale' id='scale-{r.id}'><h3>{esc(r.name_ko if k else r.name_en)}<span class='kind {r.kind}'>{kind}</span></h3>"
                      f"<div class='meta'>{esc(r.when_ko if k else r.when_en)}{n} · {esc(r.source)}</div>{ruler(cents, sd, down=down, added=1200.0 if add else None)}"
                      f"<div class='btns'><button type='button' data-c='{data}' data-m='up'>▶ {'올라가기' if k else 'Up'}</button>"
                      f"<button type='button' data-c='{data}' data-m='updown'{dattr}>▶ {'올라갔다 내려오기' if k else 'Up and down'}</button>"
@@ -643,4 +834,7 @@ def build(lang, path, page_fn):
 
 if __name__ == "__main__":
     frame().to_csv(D / "scales.csv", index=False, encoding="utf-8", lineterminator="\n")
+    places_frame().to_csv(D / "scales_places.csv", index=False, encoding="utf-8", lineterminator="\n")
+    if (ROOT / "data/raw/naturalearth/ne_110m_land.geojson").exists():
+        build_land()
     print("wrote data/derived/scales.csv")

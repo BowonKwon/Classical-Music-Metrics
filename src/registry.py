@@ -56,6 +56,12 @@ SOURCES = {
         "license": "CC0 1.0",
         "url": "https://www.wikidata.org/",
     },
+    "wikidata_places": {
+        "ko": "Wikidata(위키미디어 재단)의 장소 항목 좌표(P625) — 음계 자료가 도시나 장소를 밝힌 줄의 지도 위치(1.16). 지역 구분(여섯 문화권)과 장소 수준은 엮은이가 정했다.",
+        "en": "Coordinates (P625) of Wikidata (Wikimedia Foundation) place items, for the scale rows whose sources name a city or a site (1.16). The six cultural regions and the place levels were assigned by the editor.",
+        "license": "CC0 1.0",
+        "url": "https://www.wikidata.org/",
+    },
     "imslp": {
         "ko": "IMSLP(국제 악보 도서관 프로젝트) 작품면의 작곡 연도·장르 태그·편성·악장 칸. 작곡가 범주 10명과 교향곡 범주를 MediaWiki API 로 받아(robots.txt 허용, 요청 간격 2초) 엮은이가 파싱했다. 1.2에서 추가.",
         "en": "Composition year, genre tags, instrumentation and movement fields of IMSLP (International Music Score Library Project) work pages: ten composer categories and the Symphonies category, fetched through the MediaWiki API (allowed by robots.txt, two seconds between requests) and parsed by the editor. Added in 1.2.",

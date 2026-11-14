@@ -21,7 +21,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.15"
+VERSION = "1.16"
 BUILD_DATE = "2026-11-14"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -69,8 +69,10 @@ CHANGELOG = [
      "A fourth section, 'Modes', on the 'Scales and tuning' page. The seven modes made by changing only the starting white key are drawn on a keyboard with tones and semitones marked, and played in equal temperament, Pythagorean tuning or quarter-comma meantone. The seven modes on one final, D, in the order of fifths mark the one note each row lowers, with the row above playable before it. 'Where the names came from' sets the octave-species names of Cleonides' Harmonic Introduction (tr. Strunk) against the mode names on the title page of Glarean's Dodecachordon (1547) along the white keys, showing how the same names came to stand for different arrangements. How often modes were used in actual pieces is not counted, because the DCML key labels are only major or minor (see 'Not yet included'). No metric or value changes."),
     ("1.14", "2026-11-14", "「음계와 조율」 면에 인도 미분음 자료를 더해 음계가 47개가 되었다. 근대의 22 슈루티 비율을 데발(1910)이 가수의 노래를 재어 정하고 클레먼츠(1913)가 사 = 240 진동수로 실은 표에서 옮겨 그렸다(7의 비 포함). 라가 토디를 연주한 녹음 여섯 계열(가수 3, 루드라 비나 2, 셰나이 1)에서 벨(1988)이 잰 음 위치를 연주자별 표와 평균·표준편차 행으로 실었다(하모니움 조율 실험 2건은 표에만). 가마카의 정밀도는 카르나틱 가수 19명을 잰 비라라가반 외(2018)의 값(머무는 음 약 10센트, 꺾이는 점 표준편차 약 60센트)으로 설명했다. 「아직 넣지 않은 것」 ③을 고쳐 썼다.",
      "Indian microtonal material added to the 'Scales and tuning' page, 47 scales in all. The modern 22-śruti ratios are drawn from the table in which Clements (1913) printed, as vibration numbers with sa = 240, the values Deval (1910) fixed by measuring singers (septimal ratios included). Bel's (1988) measured note positions in six recorded performances of rāg Toḍī (three singers, two rudra vīṇā, one shahnāī) are given as a table by performer and as a row of means and standard deviations (two harmonium-tuning experiments in the table only). The precision of gamakas is described with the values Viraraghavan et al. (2018) measured for nineteen Carnatic singers (about 10 cents for held notes, a standard deviation of about 60 cents at turning points). Item 3 of 'Not yet included' rewritten."),
-    ("1.15", BUILD_DATE, "「음계와 조율」 인도 미분음 보충. 자이라즈보이·스톤(1963)이 라가 야만을 연주자 여섯의 녹음에서 잰 사–레·레–가·사–가 음정을 표와 점 그림으로 실었다 — 사–가 장3도가 375센트(움라오 칸)에서 439센트(판날랄 고시)까지 64센트 벌어졌고, 두 끝을 단추로 들어 볼 수 있다. 라가 토디의 미♭(가♭)에 대한 이론가들의 값(고스와미 1960의 315센트, 다니엘루 1954의 275센트 — 자이라즈보이 1971, 167쪽 주 2)을 벨(1988)이 잰 값(288~303센트)과 나란히 적었다. 같은 스바라가 라가마다 달리 불리는 예로 코두리 외(2014)의 바르남 28곡(라가 7개, 가수 5명) 분석에서 가(Ga)의 음높이 분포를 네 라가(베가다·모하남·아보기·슈리)로 설명했다. 음계 수와 기존 수치는 바뀌지 않는다.",
+    ("1.15", "2026-11-14", "「음계와 조율」 인도 미분음 보충. 자이라즈보이·스톤(1963)이 라가 야만을 연주자 여섯의 녹음에서 잰 사–레·레–가·사–가 음정을 표와 점 그림으로 실었다 — 사–가 장3도가 375센트(움라오 칸)에서 439센트(판날랄 고시)까지 64센트 벌어졌고, 두 끝을 단추로 들어 볼 수 있다. 라가 토디의 미♭(가♭)에 대한 이론가들의 값(고스와미 1960의 315센트, 다니엘루 1954의 275센트 — 자이라즈보이 1971, 167쪽 주 2)을 벨(1988)이 잰 값(288~303센트)과 나란히 적었다. 같은 스바라가 라가마다 달리 불리는 예로 코두리 외(2014)의 바르남 28곡(라가 7개, 가수 5명) 분석에서 가(Ga)의 음높이 분포를 네 라가(베가다·모하남·아보기·슈리)로 설명했다. 음계 수와 기존 수치는 바뀌지 않는다.",
      "Supplement to the Indian material on the 'Scales and tuning' page. Jairazbhoy and Stone's (1963) measurements of sa–re, re–ga and sa–ga in rāg Yaman by six performers, as a table and a dot chart: the major third sa–ga spans 64 cents, from 375 (Umrao Khan) to 439 (Pannalal Ghosh), and the two extremes can be played. Theorists' values for the mi♭ (ga♭) of rāg Toḍī (315 cents in Goswami 1960, 275 cents in Daniélou 1954, as cited by Jairazbhoy 1971, p. 167, n. 2) set beside Bel's (1988) measurements (288–303 cents). As an example of one svara sung differently in different rāgas, the pitch distribution of ga in four rāgas (Bēgaḍa, Mōhanaṁ, Ābhōgi, Śrī) from Koduri et al.'s (2014) analysis of 28 varṇams (seven rāgas, five singers). No change in scales or existing values."),
+    ("1.16", BUILD_DATE, "「음계와 조율」 면 머리에 「지역으로 보기」를 더했다. 국경선 없는 세계 지도(Natural Earth 육지, 이퀄 어스 도법)에 자료가 도시나 장소를 밝힌 음계만 찍었고(카이로·다마스쿠스·족자카르타·수라카르타·자발라 지구, 그리고 고토를 잰 런던), 지역만 밝힌 줄과 장소 없는 이론은 지도 아래에 목록으로 모았다. 음계를 나라가 아니라 여섯 문화권으로 묶었다. 새 값으로 음계마다 평균율과의 거리(첫 음과 옥타브 사이 음들이 가장 가까운 12평균율 음에서 떨어진 센트의 평균, 무작위면 25)를 계산해 지도 색과 지역별 점 그림으로 보였다. 좌표는 위키데이터, 지역 구분은 엮은이. 새 데이터 scales_places.csv.",
+     "A 'By region' overview at the head of the 'Scales and tuning' page. A world map without borders (Natural Earth land, Equal Earth projection) shows only the scales whose sources name a city or a site (Cairo, Damascus, Yogyakarta and Surakarta, the Zavala District, and London, where the koto was measured); rows that name only a region, and theory with no place, are listed below the map. Scales are grouped into six cultural regions rather than states. A new value, each scale's distance from equal temperament (the mean distance in cents of the notes between the first note and its octave from the nearest equal-tempered note; 25 for notes at random), colors the map and is plotted by region. Coordinates from Wikidata, regions assigned by the editor. New data file scales_places.csv."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -770,7 +772,8 @@ def main():
     import scales_pages
     DATA_FILES["scales/scales.csv"] = ("damusc+ordcc32", "B")
     DATA_FILES["scales/scales_cairo1932.csv"] = ("ordcc32", "B")
-    assert set(scales_pages.SCALE_FILES) == {"scales.csv", "scales_cairo1932.csv"}
+    DATA_FILES["scales/scales_places.csv"] = ("wikidata_places", "B")  # 1.16: regions, places and coordinates (Wikidata P625)
+    assert set(scales_pages.SCALE_FILES) == {"scales.csv", "scales_cairo1932.csv", "scales_places.csv"}
     import sonata_pages
     for f in sonata_pages.SONATA_FILES:
         DATA_FILES[f"sonatas/{f}"] = ("dcml", "A")

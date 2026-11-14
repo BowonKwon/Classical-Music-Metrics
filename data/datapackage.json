@@ -2,7 +2,7 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.15",
+ "version": "1.16",
  "created": "2026-11-14",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
@@ -1467,6 +1467,28 @@
      "title": "Bozkurt (2025), ORD-CC32, an open research dataset of the 1932 Cairo Congress of Arab Music recordings (arXiv:2506.14503, Zenodo 15682346): pitch tracks, tonic ",
      "path": "https://doi.org/10.5281/zenodo.15682346",
      "license": "CC BY-NC 4.0"
+    }
+   ]
+  },
+  {
+   "name": "scales-scales_places",
+   "path": "scales/scales_places.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Works & history",
+   "rows": 47,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Coordinates (P625) of Wikidata (Wikimedia Foundation) place items, for the scale rows whose sources name a city or a site (1.16)",
+     "path": "https://www.wikidata.org/",
+     "license": "CC0 1.0"
     }
    ]
   },

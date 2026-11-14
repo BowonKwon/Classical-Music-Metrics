@@ -1,0 +1,48 @@
+id,region,place_level,place_ko,place_en,coords,wikidata,measured_away,kind,et_distance_cents
+pyth,europe,region,,,,,False,theory,5.2
+arch_enh,europe,region,,,,,False,theory,16.9
+arch_chr,europe,region,,,,,False,theory,14.3
+arch_dia,europe,region,,,,,False,theory,14.3
+just,europe,region,,,,,False,theory,8.2
+mean,europe,region,,,,,False,theory,13.1
+werck,europe,region,,,,,False,theory,7.5
+vallotti,europe,region,,,,,False,theory,4.6
+et12,,none,,,,,False,theory,0.0
+lu12,easia,region,,,,,False,theory,11.7
+wuyin,easia,region,,,,,False,theory,4.9
+pyeongjo,easia,region,,,,,False,theory,8.3
+gyemyeon,easia,region,,,,,False,theory,15.2
+gy_lee1928,easia,region,,,,,False,measured,36.4
+gy_kim1931,easia,region,,,,,False,measured,22.3
+gy_kim1932,easia,region,,,,,False,measured,33.2
+gy_seong1960,easia,region,,,,,False,measured,42.6
+sj_kimbh,easia,region,,,,,False,measured,30.6
+sj_kimjp,easia,region,,,,,False,measured,27.3
+sj_seong,easia,region,,,,,False,measured,40.7
+sj_ham,easia,region,,,,,False,measured,32.9
+piri_sang_pyeongjo,easia,region,,,,,False,measured,26.8
+piri_sang_pyojung,easia,region,,,,,False,measured,19.2
+piri_sujecheon,easia,region,,,,,False,measured,20.8
+in_uehara,easia,region,,,,,False,theory,11.7
+yo_uehara,easia,region,,,,,False,theory,9.8
+koto_isawa,easia,region,,,,,False,theory,9.0
+koto_woman,easia,site,런던 나이츠브리지 일본촌 — 잰 곳,"Japanese Village, Knightsbridge, London (where measured)","51.507,-0.128",Q84,True,measured,17.5
+koto_master,easia,site,런던 나이츠브리지 일본촌 — 잰 곳,"Japanese Village, Knightsbridge, London (where measured)","51.507,-0.128",Q84,True,measured,19.8
+slendro,seasia,site,족자카르타·수라카르타,Yogyakarta and Surakarta,"-7.800,110.391;-7.567,110.817","Q7568, Q4803",False,measured,29.2
+pelog,seasia,site,족자카르타·수라카르타,Yogyakarta and Surakarta,"-7.800,110.391;-7.567,110.817","Q7568, Q4803",False,measured,33.8
+thai_et,seasia,region,,,,,False,theory,28.6
+thai_ranat,seasia,region,,,,,False,measured,28.6
+chopi_avg,africa,site,자발라 지구 (키시코 좌표로 표시),Zavala District (shown at Quissico),"-24.683,34.667",Q166838,False,measured,30.7
+chopi,africa,site,자발라 지구 (키시코 좌표로 표시),Zavala District (shown at Quissico),"-24.683,34.667",Q166838,False,measured,29.3
+shur_vaziri,wasia,region,,,,,False,theory,16.7
+shur_karimi,wasia,region,,,,,False,measured,19.0
+rast_aeu,wasia,region,,,,,False,theory,7.1
+rast_meas,wasia,region,,,,,False,measured,10.9
+rast_mushaqa,wasia,site,다마스쿠스 — 무샤카,Damascus (Mushāqa),"33.513,36.292",Q3766,False,theory,16.7
+rast_cairo,wasia,site,카이로 — 1932 회의 녹음,Cairo (1932 Congress recordings),"30.044,31.236",Q85,False,measured,23.8
+bayati_cairo,wasia,site,카이로 — 1932 회의 녹음,Cairo (1932 Congress recordings),"30.044,31.236",Q85,False,measured,14.0
+sruti,sasia,region,,,,,False,theory,21.2
+sruti_clements,sasia,region,,,,,False,theory,10.7
+todi_bel,sasia,region,,,,,False,measured,5.9
+ganda,africa,region,,,,,False,measured,31.2
+malinke,africa,region,,,,,False,measured,29.8
