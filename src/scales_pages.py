@@ -234,8 +234,8 @@ IN_KO = '인도의 22 슈루티는 바라타의 『나티야샤스트라』에 �
 IN_EN = "The 22 śrutis come from Bharata's Nāṭyaśāstra: the seven notes of the ṣaḍja-grāma take 4, 3, 2, 4, 4, 3 and 2 śrutis (28.24–26; tr. Ghosh, vol. II, p. 8). The text gives the number of śrutis, not their size, so they are drawn here as equal. According to Ramanathan (1981), for Bharata the śruti was the least perceptible difference in pitch between two sounds, while for Dattila and Śārṅgadeva it was first the pitch position so distinguished (p. 33). It is a unit for measuring the size of svaras and sorting them into the two grāmas; formulated for classification, it 'had no existence in performance' (p. 32). The śrutis within a svara are 'roughly equal' and their exact size is of no importance; the total of 22 has no sanctity, what matters being the number of śrutis in each svara (pp. 34–35). Expressing the position of a particular svara of the modern classification as a ratio such as 9/8 or 10/9 only puts known facts in a different language (pp. 36–37). The 22 śrutis tested in the measurement study below are not this drawing but a modern ratio system that divides the octave into 22 unequal steps. Measuring present-day singing, Serrà et al. (2011) compared interval histograms of 233 Carnatic and 133 Hindustani recordings with just intonation and equal temperament. Carnatic singing was closer to just intonation (correlation 0.552 vs 0.448), Hindustani closer to equal temperament (0.723 vs 0.641). At the seven positions found only in that 22-śruti system, Hindustani showed no peaks and Carnatic only small contributions at three. The authors concluded that the 22 śrutis lack strong quantitative support but cannot be ruled out."
 CH_KO = '모잠비크 초피의 팀빌라는 옥타브를 일곱 개의 거의 같은 음정으로 나눈다. 트레이시는 212~424진동을 4진동 간격으로 나눈 소리굽쇠 54개로 그동안 악기 수백 대를 쟀고, 음높이를 ±2진동 안에서 정할 수 있었다고 적었다(『초피 음악가들』, 1948, 122쪽). 그는 1940년부터 해마다 초피 마을을 찾았고, 책에 실은 음계 대부분을 1943년 9월 26일 키시코(Quissico)에서 연 회의 전에 기록해 두었다. 그 회의에서 악기 제작자와 악단 지휘자들은, 기준음 홈베의 높이는 저마다 달라도 모두 「일곱 음정이 모두 같은 고른 음계」를 지향한다고 말했다(123~124쪽). 자발라 지구 다섯 악단의 음정은 141~207센트에 걸쳐 있고(7평균율이면 171센트), 홈베는 252~276진동이었다(125쪽 도표 IV). 다섯 악단 평균의 주황 막대는 악단 사이의 표준편차다. 한 악기 행은 트레이시(1958)가 실은 값으로, 1948년 도표의 자발라 악단과 같다. 앤드루 트레이시는 『뉴 그로브』 2판(2001)의 「모잠비크」 항목에서 이 조율을 음정마다 약 170센트인 7음 등분이라 하고, 홈베의 절대 높이는 마을마다 약 100센트 넘게 다르지 않다고 적었다. 1948년 도표의 다섯 악단 홈베(252~276진동)는 약 157센트에 걸쳐 있지만, 도표 머리에는 가장 높은 잔다멜라(276)가 그 뒤 자발라처럼 홈베 252로 다시 조율했다는 주가 붙어 있다. 나머지 네 악단(252~260진동)만 보면 약 54센트다.'
 CH_EN = "The Chopi timbila of Mozambique divides the octave into seven nearly equal steps. Over his fieldwork Tracey measured several hundred instruments with 54 tuning forks spanning 212–424 vibrations in steps of four, and wrote that he could fix a pitch to within two vibrations (Chopi Musicians, 1948, p. 122). He visited Chopi villages every year from 1940 and had noted most of the scales in the book before a meeting at Quissico on 26 September 1943, where instrument makers and orchestra leaders said that, whatever their differences over the pitch of the tonic Hombe, each was aiming at 'an even scale of seven intervals, all alike' (pp. 123–124). In five orchestras of the Zavala District the steps range from 141 to 207 cents (171 for seven equal steps), and Hombe lay at 252–276 vibrations (p. 125, Diagram IV). The orange bars on the five-orchestra mean show the spread between orchestras. The single-instrument row gives the values Tracey printed in 1958, the same as the Zavala orchestra in the 1948 diagram. In the 'Mozambique' article of the New Grove, second edition (2001), Andrew Tracey calls the tuning equiheptatonic, each step about 170 cents, and says the absolute pitch of the tonic does not vary from village to village by more than about 100 cents; the Hombe of the five orchestras in the 1948 diagram (252–276 vibrations) spans about 157 cents, but a note under the diagram's title says that Zandamela, the highest (276), has since retuned to Zavala's Hombe of 252; the other four (252–260 vibrations) span about 54 cents."
-NY_KO = "다음은 원문을 열지 못했거나, 열었지만 음계로 옮길 수 없어 넣지 않았다. ① 1932 카이로 회의 기록집(<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Le Caire: Imprimerie nationale, 1934)과 데를랑제(R. d'Erlanger) 『아랍 음악(<i>La musique arabe</i>)』 5권(Paris: Geuthner, 1949)의 음계표 — 출판본을 보지 못했다. ② 모크타르·모샤라파, 「Modes in Modern Egyptian Music」, <i>Nature</i> 140: 548–549 (1937) — 본문을 보지 못했다. ③ Serrà 외(2011)가 견준 22 슈루티의 비율 체계 — 그 비율을 정한 문헌을 원문으로 확인하지 못했다. ④ 다른 국악기 실측 — 박수홍·옥승호·서인화·김소리·정환희, 「국악관악기 품질평가를 위한 음고특성분석」, 『한국소음진동공학회 2011년 춘계학술대회논문집』 302–307쪽은 국립국악원 연주자 세 사람이 시판 대금·소금·퉁소·단소를 분 음높이를 쟀으나, 음별 값이 그림에만 있고 비교 기준인 「평균율 기준음고」를 정의하지 않아 음계로 옮기지 않았다. "
-NY_EN = "Left out because the original could not be opened, or was opened but could not be turned into a scale: (1) the scale tables of the Cairo Congress proceedings (<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Cairo: Imprimerie nationale, 1934) and of R. d'Erlanger, <i>La musique arabe</i>, vol. 5 (Paris: Geuthner, 1949) — the printed books not seen; (2) M. Mokhtar & A. M. Mosharrafa, 'Modes in Modern Egyptian Music', <i>Nature</i> 140: 548–549 (1937) — full text not seen; (3) the 22-śruti ratio system compared by Serrà et al. (2011) — the publication that fixes its ratios was not checked in the original; (4) further measurements of Korean instruments — S.-H. Park, S.-H. Ock, I.-H. Seo, S.-R. Kim & H.-H. Jeong, 'Frequency characteristics analysis for quality assessment on Korean traditional wind instruments', Proceedings of the Korean Society for Noise and Vibration Engineering, Spring 2011, pp. 302–307, measured commercial daegeum, sogeum, tungso and danso played by three National Gugak Center players, but the per-note values are only in charts and the equal-tempered reference pitch is not defined, so they are not drawn; "
+NY_KO = "다음은 원문을 열지 못했거나, 열었지만 음계로 옮길 수 없어 넣지 않았다. ① 1932 카이로 회의 기록집(<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Le Caire: Imprimerie nationale, 1934)과 데를랑제(R. d'Erlanger) 『아랍 음악(<i>La musique arabe</i>)』 5권(Paris: Geuthner, 1949)의 음계표 — 출판본을 보지 못했다. ② 모크타르·모샤라파, 「Modes in Modern Egyptian Music」, <i>Nature</i> 140: 548–549 (1937) — 본문을 보지 못했다. ③ Serrà 외(2011)가 견준 22 슈루티의 비율 체계 — 그 비율을 정한 문헌을 원문으로 확인하지 못했다. ④ 다른 국악기 실측 — 박수홍·옥승호·서인화·김소리·정환희, 「국악관악기 품질평가를 위한 음고특성분석」, 『한국소음진동공학회 2011년 춘계학술대회논문집』 302–307쪽은 국립국악원 연주자 세 사람이 시판 대금·소금·퉁소·단소를 분 음높이를 쟀으나, 음별 값이 그림에만 있고 비교 기준인 「평균율 기준음고」를 정의하지 않아 음계로 옮기지 않았다. ⑤ 실제 곡에서 각 선법이 얼마나 쓰였는지 — 이 사이트가 쓰는 DCML 곡집의 조 표기(annotated_key)는 값이 있는 1,283악장이 모두 장조나 단조이고 43악장은 비어 있어, 이 열로는 선법별로 셀 수 없다. "
+NY_EN = "Left out because the original could not be opened, or was opened but could not be turned into a scale: (1) the scale tables of the Cairo Congress proceedings (<i>Recueil des travaux du Congrès de musique arabe qui s'est tenu au Caire en 1932</i>, Cairo: Imprimerie nationale, 1934) and of R. d'Erlanger, <i>La musique arabe</i>, vol. 5 (Paris: Geuthner, 1949) — the printed books not seen; (2) M. Mokhtar & A. M. Mosharrafa, 'Modes in Modern Egyptian Music', <i>Nature</i> 140: 548–549 (1937) — full text not seen; (3) the 22-śruti ratio system compared by Serrà et al. (2011) — the publication that fixes its ratios was not checked in the original; (4) further measurements of Korean instruments — S.-H. Park, S.-H. Ock, I.-H. Seo, S.-R. Kim & H.-H. Jeong, 'Frequency characteristics analysis for quality assessment on Korean traditional wind instruments', Proceedings of the Korean Society for Noise and Vibration Engineering, Spring 2011, pp. 302–307, measured commercial daegeum, sogeum, tungso and danso played by three National Gugak Center players, but the per-note values are only in charts and the equal-tempered reference pitch is not defined, so they are not drawn; (5) how often each mode was used in actual pieces — in the DCML collections used on this site the key label (annotated_key) is major or minor in all 1,283 movements that have one, and empty in 43, so modes cannot be counted from it. "
 
 
 KR_KO = '한국 악기를 직접 잰 값으로 가야금 연구 두 편을 실었다. 고유동(2021)은 1928~1960년 고음반에서 이일선·김죽파·성금연이 연주한 경기민요의 가야금 음높이를 praat로 재어, 줄마다 평균율과의 차이를 6번 줄(도)의 평균에 맞추어 정리했다(183쪽 표 102). 네 녹음 모두 레를 평균율보다 51~69센트 낮게, 라를 30센트 이상 낮게 탔고, 레–미 음정은 장2도보다 넓었다. 이일선 녹음의 11번 줄(높은 도)은 6번 줄보다 1141센트 위에 있어 옥타브보다 59센트 좁다. 양수연(2013)은 김병호·김죽파·성금연·함동정월의 가야금산조 진양조 음원에서 계면조의 중심음인 청과, 꺾는 음을 이루는 두 음을 쟀다. 여기에는 표본이 가장 많은 중간 음역의 값을 실었다(84·87·88쪽). 청에서 꺾는 아래음까지는 68~111센트로 채보에 쓰는 장2도(200센트)보다 훨씬 좁고, 꺾는 윗음까지는 350~354센트로 단3도(300센트)보다 넓다. 다만 함동정월의 윗음은 표에 적힌 센트값(353.8)을 따른 것이고, 같은 표의 주파수로 다시 계산하면 349.7센트다. 청의 옥타브는 1193~1206센트였다(47쪽). 고유동은 세 연주자의 녹음 넷(김죽파는 두 곡), 양수연은 네 연주자의 녹음 하나씩을 쟀다. 이 값이 연주자나 유파 전체를 대표한다고 볼 수는 없다. 관악기로는 남운정(Nam 1998)이 정재국의 피리 독주 녹음 세 곡(상령산 두 곡과 수제천)에서 음마다 떨림 없는 구간 열 곳 안팎을 재어, 음 사이의 평균 음정을 그림으로 실었다(244쪽 그림 1). 평조회상의 상령산에서 황–태는 141센트, 수제천의 태–고는 204센트였다. 다만 인쇄된 다섯 음정을 더하면 1208·1288·1177센트로 옥타브(1200)와 맞지 않고, 원문은 그 까닭을 적지 않았다. 그래서 다섯 음만 그리고 옥타브는 재생용 점선 고리로 두었다. 남운정은 피리의 음높이 굽힘이 커서 이 평균만으로 음계를 단정할 수 없다고 적었다.'
@@ -251,6 +251,179 @@ LIM_KO = ("임경미(2013)는 김죽파·김병호·강태홍류 가야금산조
 LIM_EN = ("Lim (2013) measured, in the jinyangjo and jungmori of the Kim Jukpa, Kim Byeongho and Kang Taehong schools of gayageum sanjo, the interval between jing (c′) and ttang (d′) in each mode (p. 114, Table 140). Staff notation writes it as a major second (200 cents); all fourteen values are narrower, and all but Kang Taehong's gyeongdeureum (86 cents) lie between a minor and a major second. It is one interval rather than a scale, so it is shown as a table rather than on the ruler.")
 
 
+# ---- 1.13: modes (section 4). Everything here is arithmetic on the white keys; the names come from
+# Cleonides, Harmonic Introduction 9-10 (tr. Strunk, Source Readings, 1950, pp. 34-46) and Glarean, Dodecachordon (1547),
+# title-page table, I.21 and II.5 (tr. Bohn 1888, pp. 49, 65).
+WK = "CDEFGAB"
+TUNINGS = {  # cents of the white keys C D E F G A B above C
+    "et": [0.0, 200.0, 400.0, 500.0, 700.0, 900.0, 1100.0],
+    "pyth": [c(r) for r in (1, 9/8, 81/64, 4/3, 3/2, 27/16, 243/128)],
+    "mean": [meantone12()[i] for i in (0, 2, 4, 5, 7, 9, 11)],
+}
+TUN_LABEL = {"et": ("12평균율", "12-tone equal"), "pyth": ("피타고라스 음률", "Pythagorean"), "mean": ("4분의 1 쉼표 중전음률", "Quarter-comma meantone")}
+MODES = [  # white key the mode starts on (index into WK), id, ko, en
+    (0, "ionian", "이오니아", "Ionian"), (1, "dorian", "도리아", "Dorian"), (2, "phrygian", "프리지아", "Phrygian"),
+    (3, "lydian", "리디아", "Lydian"), (4, "mixolydian", "믹솔리디아", "Mixolydian"), (5, "aeolian", "에올리아", "Aeolian"),
+    (6, "locrian", "로크리아", "Locrian")]
+FIFTHS_ORDER = [3, 0, 4, 1, 5, 2, 6]  # starting keys F C G D A E B: each mode lowers one degree of the one before
+GREEK = {6: ("믹솔리디아", "Mixolydian"), 0: ("리디아", "Lydian"), 1: ("프리지아", "Phrygian"), 2: ("도리아", "Dorian"),
+         3: ("하이포리디아", "Hypolydian"), 4: ("하이포프리지아", "Hypophrygian"), 5: ("하이포도리아 (공통·로크리아)", "Hypodorian (common, Locrian)")}
+GLAREAN = {0: ("Ionicus", "Ionicus"), 1: ("Dorius", "Dorius"), 2: ("Phrygius", "Phrygius"), 3: ("Lydius", "Lydius"),  # Latin as printed
+           4: ("Mixolydius", "Mixolydius"), 5: ("Aeolius", "Aeolius"), 6: ("Hyperaeolius (뺌)", "Hyperaeolius (rejected)")}
+SHARED = {"Dorian": "var(--g1)", "Phrygian": "var(--g2)", "Lydian": "var(--g3)", "Mixolydian": "var(--g4)"}
+
+
+def mode_cents(s: int, tun: str = "et") -> list[float]:
+    """Cents above the starting note of the eight white keys s .. s+7 (s = 0 for C) in a tuning."""
+    T = TUNINGS[tun]
+    a = [T[i % 7] + 1200 * (i // 7) for i in range(s, s + 8)]
+    return [round(v - a[0], 1) for v in a]
+
+
+def is_semitone(i: int) -> bool:
+    """True if white key i to i+1 is a semitone (E-F or B-C)."""
+    return WK[i % 7] in "EB"
+
+
+def keyboard(s: int, k: bool) -> str:
+    """Fourteen white keys C..b with the octave s .. s+7 shaded and each step marked tone or semitone."""
+    W, H, n = 900, 92, 14
+    kw = (W - 20) / n
+    o = [f'<svg viewBox="0 0 {W} {H}" role="img">']
+    for i in range(n):
+        x = 10 + i * kw
+        on = s <= i <= s + 7
+        fill = "#c4d7ee" if on else "#f6f4ef"
+        o.append(f'<rect x="{x:.1f}" y="26" width="{kw - 2:.1f}" height="50" rx="3" fill="{fill}" stroke="#8a8780"/>')
+        o.append(f'<text x="{x + kw / 2 - 1:.1f}" y="70" text-anchor="middle" style="fill:#2a2a2a"{" font-weight=" + chr(34) + "700" + chr(34) if i == s or i == s + 7 else ""}>{WK[i % 7]}</text>')
+    for i in range(n - 1):  # black keys sit between white keys except E|F and B|C
+        if not is_semitone(i):
+            x = 10 + (i + 1) * kw - kw * .28
+            o.append(f'<rect x="{x:.1f}" y="26" width="{kw * .54:.1f}" height="28" rx="2" fill="#26262a"/>')
+    for i in range(s, s + 7):
+        x = 10 + (i + 1) * kw - 1
+        semi = is_semitone(i)
+        lab = ("반" if semi else "온") if k else ("S" if semi else "T")
+        col = "var(--g2)" if semi else "var(--fg3)"
+        o.append(f'<text x="{x:.1f}" y="17" text-anchor="middle" style="fill:{col}"{" font-weight=" + chr(34) + "700" + chr(34) if semi else ""}>{lab}</text>')
+    o.append("</svg>")
+    return "".join(o)
+
+
+def ruler_changed(cents: list[float], changed: int | None) -> str:
+    """The cent ruler of ruler(), with the degree lowered from the previous mode in orange and its old place hollow."""
+    s = ruler(cents, None, added=None)
+    if changed is None:
+        return s
+    X = lambda v: 10 + v / 1260 * 880  # noqa: E731  same scale as ruler()
+    v = cents[changed]
+    extra = (f'<circle cx="{X(v + 100):.1f}" cy="24" r="4.5" fill="var(--card)" stroke="var(--g2)" stroke-width="2"/>'
+             f'<circle cx="{X(v):.1f}" cy="24" r="6" fill="var(--g2)" stroke="var(--card)" stroke-width="1.5"/>')
+    return s.replace("</svg>", extra + "</svg>")
+
+
+def names_map(k: bool) -> str:
+    """Rows C..B: Cleonides' octave species starting on that key, Glarean's authentic mode on that final, today's name."""
+    W, top, rh = 900, 34, 30
+    H = top + 7 * rh + 6
+    xg, xl, xm = 360, 520, 760  # right edge of the Greek column, left edge of Glarean's, today's
+    o = [f'<svg viewBox="0 0 {W} {H}" role="img">']
+    heads = (("시작 건반", "클레오니데스: 옥타브 종", "글라레안 1547: 정격", "오늘의 이름") if k else
+             ("Starts on", "Cleonides: octave species", "Glarean 1547: authentic", "Today"))
+    o.append(f'<text x="30" y="18" font-weight="700">{heads[0]}</text><text x="{xg}" y="18" text-anchor="end" font-weight="700">{heads[1]}</text>'
+             f'<text x="{xl}" y="18" font-weight="700">{heads[2]}</text><text x="{xm}" y="18" font-weight="700">{heads[3]}</text>')
+    y = lambda i: top + i * rh + rh / 2  # noqa: E731
+    for i in range(7):
+        g, gl, md = GREEK[i], GLAREAN[i], MODES[i]
+        gc = SHARED.get(g[1].split(" ")[0], "var(--fg)")
+        lc = SHARED.get(md[3] if md[3] in SHARED else "", "var(--fg)")
+        o.append(f'<text x="40" y="{y(i) + 5:.0f}" text-anchor="middle" font-weight="700">{WK[i]}</text>'
+                 f'<text x="{xg}" y="{y(i) + 5:.0f}" text-anchor="end" style="fill:{gc}">{esc(g[0] if k else g[1])}</text>'
+                 f'<text x="{xl}" y="{y(i) + 5:.0f}" style="fill:{lc}">{esc(gl[0] if k else gl[1])}</text>'
+                 f'<text x="{xm}" y="{y(i) + 5:.0f}">{esc(md[2] if k else md[3])}</text>')
+    for nm, col in SHARED.items():  # join the same name in the two columns
+        a = next(i for i in range(7) if GREEK[i][1] == nm)
+        b = next(i for i in range(7) if MODES[i][3] == nm)
+        o.append(f'<path d="M{xg + 8},{y(a):.0f} C{xg + 80},{y(a):.0f} {xl - 80},{y(b):.0f} {xl - 8},{y(b):.0f}" fill="none" stroke="{col}" stroke-width="2"/>')
+    o.append("</svg>")
+    return "".join(o)
+
+
+MODE_INTRO_KO = ("이 절에서는 선법을 한 옥타브 안에서 온음과 반음이 놓이는 순서로 구별하고, 같은 일곱 음을 서로 다른 음에서 시작해 한 옥타브로 늘어놓아 견준다(선법을 끝음과 음역으로 더 나누는 이론도 있다. 아래 「이름의 역사」 참조). "
+                 "피아노의 흰 건반 일곱 개만 써도 시작음을 바꾸면 온음과 반음의 자리가 달라진다. 흰 건반 사이의 반음은 E–F와 B–C 두 곳뿐이고(검은 건반이 없는 자리), 시작음이 한 칸 오를 때마다 두 반음이 옥타브 안에서 한 칸씩 앞으로 온다. 맨 앞에 있던 반음은 맨 뒤로 돌아간다(E에서 F로 넘어갈 때). "
+                 "이름은 오늘 쓰는 것을 붙였고, 한국어 표기는 교육부 편수자료(2023)의 음악 용어를 따랐다. 로크리아와 하이포도리아는 그 표에 없어 같은 방식으로 옮겼다.")
+MODE_INTRO_EN = ("Here modes are told apart by the order of tones and semitones within an octave, and the same seven notes are laid out an octave from different starting notes for comparison (some theories divide modes further by final and range; see 'Where the names came from' below). "
+                 "The seven white keys of a piano alone give different arrangements: change the starting key and the tones and semitones fall in different places. Between white keys there are only two semitones, E–F and B–C (where there is no black key); each time the starting key moves up one, the two semitones move one step earlier in the octave, and a semitone in first place wraps round to last (from E to F). "
+                 "The names are today's.")
+TUN_KO = ("「조율」 단추로 이 일곱 줄을 12평균율, 피타고라스 음률(순정 5도를 쌓은 값), 4분의 1 쉼표 중전음률로 바꿔 들을 수 있다. 흰 건반의 높이만 바뀌고 온음·반음의 순서는 그대로다. "
+          "장3도 C–E는 12평균율에서 400센트, 피타고라스 음률에서 408센트, 중전음률에서 386센트다. 소리는 가온 다(261.63 Hz)를 C로 놓고, 선법마다 그 시작 건반의 높이에서 시작한다.")
+TUN_EN = ("The 'Tuning' buttons play these seven rows in 12-tone equal temperament, Pythagorean tuning (stacked pure fifths) or quarter-comma meantone. Only the pitches of the white keys change; the order of tones and semitones does not. "
+          "The major third C–E is 400 cents in equal temperament, 408 in Pythagorean tuning and 386 in meantone. Middle C (261.63 Hz) is C, and each mode starts at the pitch of its own starting key.")
+ONE_KO = ("같은 으뜸음 D 위에 일곱 선법을 5도 순서(흰 건반의 시작음 F C G D A E B)로 놓으면, 한 줄 내려갈 때마다 음 하나가 반음 내려간다. 리디아에서 이오니아로 4음, 믹솔리디아로 7음, 도리아로 3음, 에올리아로 6음, 프리지아로 2음, 로크리아로 5음이다. "
+          "주황 점은 바로 위 줄에서 반음 내려간 음이고, 속 빈 주황 고리는 그 음이 있던 자리다. 「위 줄과 이어서」는 위 줄의 선법과 이 줄의 선법을 차례로 들려준다. 에올리아 줄에서 누르면 도리아와 에올리아의 차이, 곧 6음 하나(B와 B♭)가 들린다. 이 부분은 12평균율로만 들려준다.")
+ONE_EN = ("Put the seven modes on the same final, D, in the order of fifths (starting white keys F C G D A E B), and each row lowers one note of the row above by a semitone: Lydian to Ionian the 4th, then the 7th (Mixolydian), the 3rd (Dorian), the 6th (Aeolian), the 2nd (Phrygian) and the 5th (Locrian). "
+          "The orange dot is the note lowered from the row above, and the hollow orange ring is where it was. 'After the row above' plays the mode of the row above and then this one; on the Aeolian row it lets you hear the one note, the 6th (B against B♭), that separates Dorian from Aeolian. This part plays in equal temperament only.")
+HIST_KO = ("오늘의 이름과 고대 그리스의 이름은 같은 말이지만 가리키는 배열이 다르다. 연대가 확실하지 않은 클레오니데스의 『화성학 입문』은 옥타브에 일곱 종(種)이 있다고 하고, 옛사람들이 그것을 믹솔리디아·리디아·프리지아·도리아·하이포리디아·하이포프리지아라 불렀고, 일곱째를 「공통」 또는 「로크리아」 또는 「하이포도리아」라 불렀다고 적었다(9~10절, Strunk 영역). "
+           "그는 각 종을 그리스 음 이름으로 경계 짓고, 온음계에서 반음이 아래·위에서 몇째에 오는지도 적었다. 그 반음 자리를 흰 건반에 맞추면 그리스의 도리아는 E에서 E까지, 곧 오늘의 프리지아 배열이다. 같은 방식으로 그리스의 프리지아는 D(오늘의 도리아), 리디아는 C(오늘의 이오니아), 믹솔리디아는 B(오늘의 로크리아)에서 시작한다. 이 대응은 온음과 반음의 순서가 같다는 뜻일 뿐, 그리스 음악의 실제 음높이나 조율이 흰 건반과 같았다는 뜻은 아니다.")
+HIST_EN = ("Today's names and the ancient Greek names are the same words for different arrangements. Cleonides' Harmonic Introduction, of uncertain date, says the octave has seven species and that the ancients called them Mixolydian, Lydian, Phrygian, Dorian, Hypolydian and Hypophrygian, the seventh 'common or Locrian or Hypodorian' (sections 9–10, tr. Strunk). "
+           "He bounds each species by Greek note names and says where the semitones fall, counted from the bottom and the top, in the diatonic genus. Matched to the white keys by those semitones, the Greek Dorian runs from E to E, which is today's Phrygian. In the same way the Greek Phrygian starts on D (today's Dorian), the Lydian on C (today's Ionian) and the Mixolydian on B (today's Locrian). The match is only in the order of tones and semitones; it does not mean that the pitches or tunings of Greek music were those of the white keys.")
+GLAR_KO = ("1547년 바젤에서 나온 글라레안의 『도데카코르돈』 표제면에는 정격 선법 여섯이 끝음과 함께 실려 있다. Dorius D, Phrygius E, Lydius F, Mixolydius G, Aeolius A, Ionicus C다(라틴어 표기 그대로). 같은 표에 B의 Hyperaeolius와 그 변격인 Hyperphrygius가 따로 적혀 있는데(변격 쪽의 F는 음역의 아래 끝이다), 글라레안은 이 둘을 빼고 정격 여섯·변격 여섯의 12선법을 세웠다(1권 21장, 독일어 역 49쪽). "
+           "그는 당대 사람들이 「8개 선법 또는 톤」을 들어 왔다고 적고, 선법은 본질상 옥타브 종의 수대로 일곱뿐이지만 정격과 변격으로 나누면 열둘이라고 했다(2권 5장, 독일어 역 65쪽 — 56쪽 자리에 65로 잘못 찍힌 쪽이다). 같은 쪽에서 그는 반음 하나만 바꿔도 선법의 성격이 완전히 달라진다고 하고, 당시 음악가들이 옛 여섯째·일곱째 선법을 뒤집어 새 다섯째·여섯째 선법, 곧 이오니아 선법 둘을 만들었으며 그것이 지금 리디아 선법보다 더 많이 쓰인다고 적었다(번호는 글라레안이 쓴 옛 번호와 새 번호다). "
+           "두 자료를 흰 건반 위에 놓으면 네 이름(도리아·프리지아·리디아·믹솔리디아)은 서로 다른 배열에 붙어 있다. 에올리아와 이오니아는 글라레안의 표에서 A와 C에 붙었고, 오늘 B에서 시작하는 선법을 부르는 「로크리아」는 클레오니데스에게는 A에서 시작하는 종의 다른 이름이었다.")
+GLAR_EN = ("The title page of Glarean's Dodecachordon (Basel, 1547) lists six authentic modes with their finals: Dorius D, Phrygius E, Lydius F, Mixolydius G, Aeolius A and Ionicus C. The same table names, apart, a Hyperaeolius on B and its plagal, a Hyperphrygius (the F on the plagal side is the bottom of its range); Glarean set these two aside and built twelve modes, six authentic and six plagal (book I, ch. 21; German tr. p. 49). "
+           "He wrote that his contemporaries had counted 'eight modes or tones', and that by nature there are only seven modes, as there are only seven species of the octave, but twelve if they are divided into authentic and plagal (book II, ch. 5; German tr. p. 65, a misprint for p. 56). On the same page he wrote that changing a single semitone can alter a mode's character entirely, and that musicians of his day, by inverting the old sixth and seventh modes, had made two Ionian modes, the new fifth and sixth, now more used than the Lydian (the numbers are Glarean's old and new numbering). "
+           "Set on the white keys, the two sources attach four names (Dorian, Phrygian, Lydian, Mixolydian) to different arrangements. Aeolian and Ionian were attached to A and C in Glarean's table, and 'Locrian', today the name of the mode on B, was for Cleonides another name for the species starting on A.")
+MODE_SRC = ("Cleonides, <i>Harmonic Introduction</i>, sections 9–10, tr. O. Strunk, <i>Source Readings in Music History</i> (New York: Norton, 1950), pp. 34–46; "
+            "H. Glareanus, <i>Dodecachordon</i> (Basel: Henricus Petri, 1547), title-page table; German tr. P. Bohn, <i>Glareani Dodecachordon</i>, Publikation älterer praktischer und theoretischer Musikwerke 16 (Leipzig: Breitkopf &amp; Härtel, 1888), pp. 49, 65 "
+            "(<a href='https://archive.org/details/bub_gb_lpX2AAAAMAAJ'>Internet Archive</a>). Korean mode names: Ministry of Education, <i>Pyeonsu jaryo II</i> for textbooks under the 2022 revised curriculum (2023), music terms, pp. 329–345. Cents are computed from the definitions of the tunings.")
+
+MODE_JS = """<script>(function(){var ac=null,TUN=__TUN__,cur='et';function ctx(){if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)()}return ac}
+function tone(f,t,d){var a=ctx(),o=a.createOscillator(),g=a.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.05)}
+function wc(i){var T=TUN[cur];return T[i%7]+1200*Math.floor(i/7)}
+function seq(c,m){return m==='updown'?c.concat(c.slice(0,-1).reverse()):c}
+function run(lists){var a=ctx(),t=a.currentTime+.05;lists.forEach(function(c){c.forEach(function(x){tone(261.63*Math.pow(2,x/1200),t,.5);t+=.42});t+=.5})}
+document.querySelectorAll('.mode button[data-w]').forEach(function(b){b.addEventListener('click',function(){var w=JSON.parse(b.getAttribute('data-w')).map(wc);run([seq(w,b.getAttribute('data-m'))])})});
+document.querySelectorAll('.mode button[data-c]').forEach(function(b){b.addEventListener('click',function(){var c=JSON.parse(b.getAttribute('data-c')),p=b.getAttribute('data-p');run(p?[JSON.parse(p),c]:[seq(c,b.getAttribute('data-m'))])})});
+document.querySelectorAll('button[data-tun]').forEach(function(b){b.addEventListener('click',function(){cur=b.getAttribute('data-tun');document.querySelectorAll('button[data-tun]').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')})})})})();</script>"""
+MODE_CSS = (".mode{border-top:1px solid var(--line);padding:.5rem 0 .3rem}.mode h3{margin:0;font-size:.95rem}.mode .btns{display:flex;gap:.4rem;flex-wrap:wrap;margin:.2rem 0}"
+            ".mode button,.tunsel button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:.15rem .7rem;font-size:.82rem;cursor:pointer}"
+            ".tunsel{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}.tunsel button[aria-pressed=true]{border-color:var(--g1);background:color-mix(in srgb,var(--g1) 18%,var(--card))}")
+
+
+def modes_section(k: bool) -> str:
+    b = ["<h2>" + ("4. 선법 — 같은 일곱 음, 다른 시작" if k else "4. Modes — the same seven notes, a different start") + "</h2>",
+         f"<p>{MODE_INTRO_KO if k else MODE_INTRO_EN}</p><p>{TUN_KO if k else TUN_EN}</p>",
+         "<div class='tunsel'><span>" + ("조율:" if k else "Tuning:") + "</span>"
+         + "".join(f"<button type='button' data-tun='{t}' aria-pressed='{'true' if t == 'et' else 'false'}'>{TUN_LABEL[t][0 if k else 1]}</button>" for t in TUNINGS) + "</div>"]
+    for s, mid, ko, en in MODES:
+        steps = "".join(("반" if k else "S") if is_semitone(i) else ("온" if k else "T") for i in range(s, s + 7))
+        w = esc(json.dumps(list(range(s, s + 8))))
+        b.append(f"<div class='mode' id='mode-{mid}'><h3>{esc(ko if k else en)} — {WK[s]}{'에서 시작' if k else ' to ' + WK[s]}"
+                 f"<span class='meta'> · {steps}</span></h3>{keyboard(s, k)}"
+                 f"<div class='btns'><button type='button' data-w='{w}' data-m='up'>▶ {'올라가기' if k else 'Up'}</button>"
+                 f"<button type='button' data-w='{w}' data-m='updown'>▶ {'올라갔다 내려오기' if k else 'Up and down'}</button></div></div>")
+    b.append("<h3 style='margin-top:1rem'>" + ("같은 으뜸음 D 위의 일곱 선법" if k else "The seven modes on one final, D") + f"</h3><p>{ONE_KO if k else ONE_EN}</p>")
+    prev = None
+    for n, s in enumerate(FIFTHS_ORDER):
+        _, mid, ko, en = MODES[s]
+        cents = mode_cents(s)
+        changed = None if prev is None else next(j for j in range(8) if cents[j] != prev[j])
+        absc = esc(json.dumps([v + 200 for v in cents]))
+        pair = f"<button type='button' data-c='{absc}' data-p='{esc(json.dumps([v + 200 for v in prev]))}'>▶ {'위 줄과 이어서' if k else 'After the row above'}</button>" if prev else ""
+        lowered = "" if changed is None else (f" · {changed + 1}음을 반음 내림" if k else f" · degree {changed + 1} lowered a semitone")
+        b.append(f"<div class='mode'><h3>D {esc(ko if k else en)}<span class='meta'>{lowered}</span></h3>{ruler_changed(cents, changed)}"
+                 f"<div class='btns'><button type='button' data-c='{absc}' data-m='updown'>▶ {'올라갔다 내려오기' if k else 'Up and down'}</button>{pair}</div></div>")
+        prev = cents
+    b.append("<h3 style='margin-top:1rem'>" + ("이름의 역사" if k else "Where the names came from") + f"</h3><p>{HIST_KO if k else HIST_EN}</p>{names_map(k)}"
+             + "<p class='src'>" + ("같은 색 선은 같은 이름이다. 행은 그 종·선법의 옥타브 배열이 시작하는 흰 건반이다(글라레안의 정격에서는 그 음이 끝음이다)." if k else "Lines of one color join the same name. Each row is the white key on which the octave arrangement of the species or mode starts (for Glarean's authentic modes this note is the final).") + "</p>"
+             + "<div class='mode'><div class='btns'>"
+             + f"<button type='button' data-w='{esc(json.dumps(list(range(2, 10))))}' data-m='updown'>▶ {'클레오니데스의 도리아 (E–E)' if k else 'Cleonides’ Dorian (E–E)'}</button>"
+             + f"<button type='button' data-w='{esc(json.dumps(list(range(1, 9))))}' data-m='updown'>▶ {'글라레안의 도리우스 (D–D)' if k else 'Glarean’s Dorius (D–D)'}</button></div></div>"
+             + f"<p>{GLAR_KO if k else GLAR_EN}</p><p class='src'>{MODE_SRC}</p>")
+    b.append(MODE_JS.replace("__TUN__", json.dumps(TUNINGS)))
+    return "".join(b)
+
+
 def lim_table(k):
     head = ("유파", "계면조", "우조", "평조", "경드름", "강산제") if k else ("School", "gyemyeonjo", "ujo", "pyeongjo", "gyeongdeureum", "gangsanje")
     rows = "".join(f"<tr><td>{a if k else e}</td>" + "".join(f"<td class='num'>{v}</td>" for v in vals) + "</tr>" for a, e, *vals in LIM)
@@ -263,7 +436,7 @@ def render(lang: str) -> str:
     k = lang == "ko"
     df = pd.DataFrame(SCALES, columns=COLS)
     from history_pages import GCSS  # noqa: E402
-    b = [f"<style>{GCSS}{CSS}</style><div class='hero'><h1>{'음계와 조율' if k else 'Scales and tuning'}</h1><p class='lead'>"
+    b = [f"<style>{GCSS}{CSS}{MODE_CSS}</style><div class='hero'><h1>{'음계와 조율' if k else 'Scales and tuning'}</h1><p class='lead'>"
          + ("한 옥타브(1200센트)를 어떻게 나누어 왔는지, 시대와 지역에 따라 견준다. 점 하나가 음 하나이고, 회색 눈금은 피아노의 12평균율(100센트 간격)이다. 단추를 누르면 브라우저가 그 자리에서 음을 합성해 들려준다."
             if k else "How the octave (1,200 cents) has been divided, compared across periods and regions. Each dot is a note; the grey ticks are piano equal temperament (100 cents apart). The buttons play the scale, synthesised by your browser on the spot.")
          + "</p></div>"]
@@ -300,7 +473,8 @@ def render(lang: str) -> str:
                         if k else "A scale is a set of ratios; the actual pitch is fixed by the reference note hwangjong (黃鍾). A study of 241 surviving stone-chime slabs (pyeongyeong and teukgyeong) in Korean collections grouped the stones by the cyclical year or the re-tuning date inscribed on them and estimated hwangjong from each group. A cyclical year recurs every 60 years, so the jeongyu and gapja groups do not fix a single year of manufacture.")
                      + f"</p><div class='wrap'><table><thead><tr><th>{'경석 묶음' if k else 'Stone group'}</th><th class='num'>{'황종 추정(Hz)' if k else 'hwangjong estimate (Hz)'}</th></tr></thead><tbody>{rows}</tbody></table></div>"
                      "<p class='src'>유준희·박정우·배대성 외, 「유물 편경의 음향 분석을 통한 아악 황종음고의 추정」, 『한국음향학회지』 30(8): 421–427, 2011.</p>")
-    b.append("<h2>" + ("4. 아직 넣지 않은 것" if k else "4. Not yet included") + "</h2><p>" + (NY_KO if k else NY_EN) + "</p>")
+    b.append(modes_section(k))
+    b.append("<h2>" + ("5. 아직 넣지 않은 것" if k else "5. Not yet included") + "</h2><p>" + (NY_KO if k else NY_EN) + "</p>")
     b.append("<p class='src'>" + ("자료: " if k else "Data: ") + "McBride, Passmore & Tlusty (2023), 'Convergent evolution in a large cross-cultural database of musical scales', <i>PLoS ONE</i> 18(12): e0284851 — <a href='https://github.com/jomimc/DaMuSc'>DaMuSc</a> (CC BY 4.0); "
              "Garzoli (2015), 'The myth of equidistance in Thai tuning', <i>Analytical Approaches to World Music</i> 4(2); Bozkurt et al. (2009), <i>Journal of New Music Research</i> 38(1): 45–70; Shafiei (2021), arXiv:2108.01283; "
              "Smith (1847), 'A treatise on Arab music, chiefly from a work by Mikhâil Meshâkah, of Damascus', <i>Journal of the American Oriental Society</i> 1(3): 173–217; "
