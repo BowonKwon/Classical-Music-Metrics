@@ -4,7 +4,7 @@
 
 - **사이트:** https://bowonkwon.github.io/Classical-Music-Metrics/ ([한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/))
 - **읽기용 판:** 핵심 결과를 글로 읽는 판 — [한국어](https://bowonkwon.github.io/Classical-Music-Metrics/ko/reading.html) · [English](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **판:** 1.14 (2026. 11. 14.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1., 1.2.1·1.3·1.3.1 은 2026. 11. 2., 1.4 는 2026. 11. 4., 1.5 는 2026. 11. 7., 1.6 은 2026. 11. 8., 1.7 은 2026. 11. 8., 1.7.1·1.8·1.8.1 은 2026. 11. 9., 1.9·1.10·1.11·1.12 는 2026. 11. 10., 1.12.1·1.12.2·1.12.3·1.12.4 는 2026. 11. 11., 1.13 은 2026. 11. 14.
+- **판:** 1.15 (2026. 11. 14.) — 1.0 은 2026. 10. 31., 1.1·1.2 는 2026. 11. 1., 1.2.1·1.3·1.3.1 은 2026. 11. 2., 1.4 는 2026. 11. 4., 1.5 는 2026. 11. 7., 1.6 은 2026. 11. 8., 1.7 은 2026. 11. 8., 1.7.1·1.8·1.8.1 은 2026. 11. 9., 1.9·1.10·1.11·1.12 는 2026. 11. 10., 1.12.1·1.12.2·1.12.3·1.12.4 는 2026. 11. 11., 1.13·1.14 는 2026. 11. 14.
 - **다른 공개 자료:** https://bowonkwon.github.io/ — 법률 외국어 자습서·AI 자습서와 함께 한곳에 모았습니다.
 
 ## 무엇이 들어 있나
@@ -23,6 +23,10 @@
 | 곡 지도 (1.10) | 악장마다 악보 지표 벡터를 주성분 분석으로 평면에 놓은 지도 둘(화음 793악장, 음표 1,179악장), 점을 누르면 나오는 악장의 지문, 으뜸조 이탈도 3지표와 음표 추정 대조 | DCML 코퍼스(CC BY-NC-SA 4.0) |
 | 음 분포와 화음 진행 (1.12) | 악장마다 열두 음고류(옥타브를 무시한 음이름)의 분포와 푸리에 계수, 19곡집의 장·단조별 근음 전이 행렬과 전이 엔트로피, 표본 57악장의 국소 조 띠·자기 유사 행렬·4마디 창별 값. 지표 후보 다섯을 미리 정한 조건으로 가려 하나만 지표로 | DCML 코퍼스(CC BY-NC-SA 4.0), Moss 외(2019), Viaccoz 외(2023) |
 | 음계와 조율 (1.6, 2판 1.7, 선법 1.13, 인도 미분음 1.14) | 음계 47개를 센트 자 위에 그리고 브라우저 합성음으로 재생. 서양 조율사(피타고라스~평균율), 삼분손익 12율·평조·계면조와 편경으로 추정한 황종 높이, 일본 음선·양선(우에하라 1895)과 고토 조율(엘리스 1885), 가야금 실측(경기민요 고음반·산조 계면조)과 피리 녹음 실측(남운정 1998), 아랍 라스트·바야티(무샤카의 24 4분음과 1932 카이로 회의 녹음), 인도 22 슈루티(『나티야샤스트라』와 데발·클레먼츠의 근대 비율)와 라가 토디 실측(벨 1988), 가믈란·타이·페르시아·터키·우간다·기니·모잠비크 초피의 이론과 실측. 흰 건반 일곱 선법(세 조율로 재생)과 클레오니데스·글라레안의 선법 이름 대조 | DaMuSc(McBride 외 2023, CC BY 4.0), ORD-CC32(Bozkurt 2025, CC BY-NC 4.0), 각 행의 1차 문헌 |
+
+## 1.15에서 바뀐 것
+
+- **「음계와 조율」 인도 미분음 보충.** 자이라즈보이·스톤(1963)의 라가 야만 실측(연주자 여섯, 사–가 장3도 375~439센트, 두 끝을 단추로 재생), 라가 토디 미♭(가♭)에 대한 이론가들의 값(315·275센트, 자이라즈보이 1971 인용)과 벨(1988)의 실측(288~303센트)을 나란히, 코두리 외(2014)의 바르남 분석으로 같은 스바라 가(Ga)가 라가마다 달리 불리는 모습을 설명. 음계 수와 수치는 그대로.
 
 ## 1.14에서 바뀐 것
 
@@ -197,7 +201,7 @@ src/    지표 정의(registry.py)·추출 스크립트·Wikidata 매칭 스크�
 An open data site that reads scores and performances as numbers. As in baseball's sabermetrics, **every metric carries its definition, formula, sample and caveats**, one page per metric, computed from open score corpora and performance datasets. It began with Bach and Beethoven; version 1.1 added Mozart and the New York Philharmonic's repertoire covering every composer, 1.2 added a 'Works & history' page on composers' work activity, symphonic orchestration, tempo markings, instrument use and the history of the pitch of a′, and 1.5 added an 'Orchestras' page comparing the repertoire of the New York Philharmonic, visiting orchestras at Carnegie Hall, the Leipzig Gewandhaus and the Seoul Philharmonic, and 1.6 added a 'History of harmony' page over 40 annotated collections and a 'Scales and tuning' page where scales from different periods and regions can be seen and heard, 1.8 added a 'Classical-era keyboard sonatas' page comparing seven keyboard-sonata collections of the period, 1.9 a 'Romantic piano miniatures' page continuing the line to Romantic piano pieces and string quartets, 1.10 a 'Piece map' laying out every movement by its score metrics, and 1.11 a 'Composers and genres' page following genres across the lives of 30 composers.
 
 - **Site:** https://bowonkwon.github.io/Classical-Music-Metrics/en/ · **Reading edition:** [en/reading.html](https://bowonkwon.github.io/Classical-Music-Metrics/en/reading.html)
-- **Version:** 1.14 (Nov 14, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026; 1.2.1, 1.3 and 1.3.1 Nov 2, 2026; 1.4 Nov 4, 2026; 1.5 Nov 7, 2026; 1.6 Nov 8, 2026; 1.7 Nov 8, 2026; 1.7.1, 1.8 and 1.8.1 Nov 9, 2026; 1.9, 1.10, 1.11 and 1.12 Nov 10, 2026; 1.12.1, 1.12.2, 1.12.3 and 1.12.4 Nov 11, 2026; 1.13 Nov 14, 2026
+- **Version:** 1.15 (Nov 14, 2026) — 1.0 was Oct 31, 2026; 1.1 and 1.2 Nov 1, 2026; 1.2.1, 1.3 and 1.3.1 Nov 2, 2026; 1.4 Nov 4, 2026; 1.5 Nov 7, 2026; 1.6 Nov 8, 2026; 1.7 Nov 8, 2026; 1.7.1, 1.8 and 1.8.1 Nov 9, 2026; 1.9, 1.10, 1.11 and 1.12 Nov 10, 2026; 1.12.1, 1.12.2, 1.12.3 and 1.12.4 Nov 11, 2026; 1.13 and 1.14 Nov 14, 2026
 - **Other public materials:** https://bowonkwon.github.io/en/ — the legal-language and AI handbooks, listed alongside this site.
 
 | Layer | Contents | Sources |
@@ -214,6 +218,8 @@ An open data site that reads scores and performances as numbers. As in baseball'
 | Piece map (1.10) | Two principal-component maps of movements by their score metrics (harmony: 793 movements; notes: 1,179), a fingerprint of each movement, three metrics of departure from the home key with a note-only check | DCML corpora (CC BY-NC-SA 4.0) |
 | Pitch classes and chord progressions (1.12) | For each movement the distribution over the twelve pitch classes and its Fourier magnitudes; root-transition matrices by major and minor local key with transition entropy for 19 collections; local-key strip, self-similarity matrix and 4-bar window values for 57 sample movements. Five candidate metrics screened by conditions fixed beforehand; one published | DCML corpora (CC BY-NC-SA 4.0), Moss et al. (2019), Viaccoz et al. (2023) |
 | Scales and tuning (1.6, second edition 1.7, modes 1.13, Indian microtones 1.14) | 47 scales on a cent ruler with browser playback: Western tuning history, sanfen sunyi, pyeongjo and gyemyeonjo with the pitch of hwangjong from stone chimes, the Japanese in and yō scales (Uehara 1895) and koto tuning (Ellis 1885), measured gayageum scales (Gyeonggi folk-song records, sanjo gyemyeonjo) and p'iri recordings (Nam 1998), Arabic Rast and Bayati (Mushāqa's 24 quarter tones and the 1932 Cairo Congress recordings), the Indian 22 śrutis (the Nāṭyaśāstra and the modern ratios of Deval and Clements) with measured rāg Toḍī (Bel 1988), and theory and measurement for gamelan, Thai, Persian, Turkish, Ganda, Malinke and Chopi scales; the seven white-key modes (played in three tunings) and the mode names of Cleonides and Glarean compared | DaMuSc (McBride et al. 2023, CC BY 4.0), ORD-CC32 (Bozkurt 2025, CC BY-NC 4.0), the primary source of each row |
+
+**What changed in 1.15.** Supplement to the Indian material on the 'Scales and tuning' page: Jairazbhoy and Stone's (1963) measurements of rāg Yaman by six performers (sa–ga from 375 to 439 cents, the two extremes playable), theorists' values for Toḍī's mi♭ (315 and 275 cents, as cited by Jairazbhoy 1971) beside Bel's (1988) measurements (288–303 cents), and Koduri et al.'s (2014) varṇam analysis showing the svara ga sung differently in four rāgas. No change in scales or values.
 
 **What changed in 1.14.** Indian microtones on the 'Scales and tuning' page: the modern 22-śruti ratios of Deval (1910) and Clements (1913), Bel's (1988) measured note positions of rāg Toḍī in six recorded performances (a table by performer, and means with standard deviations), and the gamaka precision measured by Viraraghavan et al. (2018). 47 scales.
 
