@@ -82,7 +82,7 @@ SOURCES = {
     },
     "gewandhaus": {
         "ko": "Linus Hartmann-Enke, 라이프치히 게반트하우스 연주회 프로그램 1781–1895(Zenodo 5995965). 곡 단위 17,237행, 마지막 연주회는 1895년 3월 28일. 1.5에서 추가.",
-        "en": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895. Added in 1.5.",
+        "en": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programs 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895. Added in 1.5.",
         "license": "CC BY 4.0",
         "url": "https://doi.org/10.5281/zenodo.5995965",
     },
@@ -100,7 +100,7 @@ SOURCES = {
     },
     "seoulphil": {
         "ko": "서울시립교향악단 공연 정보(서울 열린데이터광장 OA-22909 국문·OA-22910 영문, 출처: 서울특별시). 곡목은 곡명 문자열이고 작곡가 칸이 없어, 엮은이가 곡명·작품번호·공연 페이지로 작곡가를 붙였다(seoulphil_works.csv·seoulphil_title_manual.csv). 예정 프로그램 기준이라 취소·변경된 공연이 섞여 있다. 1.5에서 추가.",
-        "en": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government). The programme field holds titles without composers; the editor attached composers from titles, opus numbers and concert pages (seoulphil_works.csv, seoulphil_title_manual.csv). The data list planned programmes, so cancelled or changed concerts are included. Added in 1.5.",
+        "en": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government). The program field holds titles without composers; the editor attached composers from titles, opus numbers and concert pages (seoulphil_works.csv, seoulphil_title_manual.csv). The data list planned programs, so canceled or changed concerts are included. Added in 1.5.",
         "license": "KOGL Type 1 (attribution)",
         "url": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
     },

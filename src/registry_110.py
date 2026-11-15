@@ -6,7 +6,7 @@ _KEY = ("국소 조는 DCML 주석자가 정한 것이다. 조표 차는 국소 
 _KEY_EN = ("Local keys are the DCML annotators'. The signature difference is the local key's signature (a minor key takes its relative major's) minus the home key's, folded enharmonically to 0–6 "
            "(the scale of the key-change distance). The home key and its relative are 0. Local-key numerals are read as in the DCML standard: in a minor context III, VI and VII are degrees of the natural minor; a nested label such as vi/V is vi of the key of V. Blank for movements without local-key labels.")
 _CAV = ("주석자의 판단을 함께 잰다. 음표만으로 조를 추정해 같은 값을 낸 대조판은 「곡 지도」 면에 있다. Herremans·Chew(2016)의 tensile strain 과 착상(국소 조성과 전체 조성의 거리)은 같다. 다만 그쪽은 음 묶음의 중심과 곡 전체 조의 중심 사이 거리를 나선 배열 위에서 재고, 여기서는 주석된 두 조의 조표 차를 재며 나란한조를 0으로 둔다. 두 값은 같은 척도가 아니다.")
-_CAV_EN = ("Measures the annotators' judgment as well. A note-only version that finds keys without annotation is compared on the 'Piece map' page. The idea matches Herremans & Chew's (2016) tensile strain (distance between local and global tonal context), but they measure the distance in the spiral array between the centre of a cluster of notes and that of the global key, while here it is the signature difference between two annotated keys, with the relative key set to 0. The two are not on the same scale.")
+_CAV_EN = ("Measures the annotators' judgment as well. A note-only version that finds keys without annotation is compared on the 'Piece map' page. The idea matches Herremans & Chew's (2016) tensile strain (distance between local and global tonal context), but they measure the distance in the spiral array between the center of a cluster of notes and that of the global key, while here it is the signature difference between two annotated keys, with the relative key set to 0. The two are not on the same scale.")
 
 METRICS_110 = [
     dict(id="departure_mean", layer="A", group="harmony", table="score", unit="steps", fmt=".2f", higher="further from home, longer",
@@ -19,10 +19,10 @@ METRICS_110 = [
     dict(id="off_tonic_share", layer="A", group="harmony", table="score", unit="ratio", fmt=".3f", higher="more time away",
          ko=dict(name="으뜸조 밖 시간 비율", definition="악장 길이 가운데 으뜸조(와 그 나란한조) 밖에 있는 비율(1.10 신설).",
                  formula="조표 차가 0보다 큰 구간의 길이 합 / 악장 길이. " + _KEY,
-                 reading="0.3이면 악장 길이의 30%를 으뜸조 밖에서 보낸다. 793악장의 중앙값은 0.261이고, 곡집별 중앙값은 그리그 0에서 베토벤 현악 4중주 0.391까지다.", caveat=_CAV),
+                 reading="0.3이면 악장 길이의 30%를 으뜸조와 그 나란한조 밖에서 보낸다. 793악장의 중앙값은 0.261이고, 곡집별 중앙값은 그리그 0에서 베토벤 현악 4중주 0.391까지다.", caveat=_CAV),
          en=dict(name="Time away from the home key", definition="Share of the movement spent outside the home key and its relative (new in 1.10).",
                  formula="Total length of stretches with a signature difference above 0 / length of the movement. " + _KEY_EN,
-                 reading="0.3 means 30% of the movement is spent away from the home key. The median over 793 movements is 0.261; collection medians run from 0 (Grieg) to 0.391 (Beethoven's string quartets).", caveat=_CAV_EN)),
+                 reading="0.3 means 30% of the movement is spent away from the home key and its relative. The median over 793 movements is 0.261; collection medians run from 0 (Grieg) to 0.391 (Beethoven's string quartets).", caveat=_CAV_EN)),
     dict(id="departure_max", layer="A", group="harmony", table="score", unit="steps", fmt=".0f", higher="further",
          ko=dict(name="최대 이탈", definition="악장이 다녀간 가장 먼 조의 조표 차(1.10 신설).",
                  formula="구간별 조표 차의 최댓값. " + _KEY,

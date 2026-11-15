@@ -113,7 +113,7 @@ def table(df: pd.DataFrame, cols, tid: str, lang: str) -> str:
 
 
 def svg_interval(items, lo_x, hi_x, width=900, row_h=30, label_w=300, xlabel="", legend=("", "")) -> str:
-    """items: (label, observed_lo, observed_hi, base_lo, base_hi). A grey bar = size-matched NY Phil range;
+    """items: (label, observed_lo, observed_hi, base_lo, base_hi). A gray bar = size-matched NY Phil range;
     a dot (or a dark bar when observed is itself a range) = this orchestra."""
     L, R, top = label_w, 16, 8
     pw = width - L - R
@@ -157,7 +157,7 @@ def svg_pairs(rows, width=900, row_h=24, label_w=200, lab=("", "")) -> str:
 
 def dline(pts, xlo, xhi, lang, width=900, height=200) -> str:
     """Decade line (cosine 0-1). Tooltips name the decade (proto_work_activity.small_line labels 5-year bins)."""
-    L, R, T_, B = 40, 36, 8, 22
+    L, R, T_, B = 40, 36, 8, 27   # 1.17: the 0.00 of the vertical axis no longer touches the first decade name
     pw, ph = width - L - R, height - T_ - B
     X = lambda v: L + (v - xlo) / (xhi - xlo) * pw  # noqa: E731
     Y = lambda v: T_ + ph - v * ph  # noqa: E731
@@ -197,19 +197,19 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     # 2 sources
     src = [
         ("뉴욕 필하모닉 공연 기록" if k else "New York Philharmonic Performance History", "1842–2026", "CC0",
-         "공연 × 작품(U1)" if k else "concert × work (U1)"),
+         "공연 × 작품" if k else "concert × work"),
         ("카네기홀 공연 기록(SPARQL)" if k else "Carnegie Hall performance history (SPARQL)", "1891–2026", "CC0",
          "카네기홀 공연 × 작품, 출연 악단별" if k else "Carnegie Hall concert × work, by performing orchestra"),
-        ("게반트하우스 연주회 프로그램(Hartmann-Enke, Zenodo 5995965)" if k else "Gewandhaus concert programmes (Hartmann-Enke, Zenodo 5995965)", "1781–1895", "CC BY 4.0",
+        ("게반트하우스 연주회 프로그램(Hartmann-Enke, Zenodo 5995965)" if k else "Gewandhaus concert programs (Hartmann-Enke, Zenodo 5995965)", "1781–1895", "CC BY 4.0",
          "연주회 × 작품" if k else "concert × work"),
         ("서울시립교향악단 공연 정보(서울 열린데이터광장 OA-22909·22910)" if k else "Seoul Philharmonic concerts (Seoul Open Data OA-22909, OA-22910)", "2009–2027", "KOGL 1" if not k else "공공누리 제1유형",
-         "공연 × 곡목 문자열 → 작품으로 나눔" if k else "concert × programme string, split into works"),
+         "공연 × 곡목 문자열 → 작품으로 나눔" if k else "concert × program string, split into works"),
     ]
-    hd = ("자료", "기간", "이용 조건", "세는 단위") if k else ("Source", "Years", "Licence", "Unit")
+    hd = ("자료", "기간", "이용 조건", "세는 단위") if k else ("Source", "Years", "License", "Unit")
     b.append(f"<h2>2. {'자료' if k else 'Sources'}</h2><div class='wrap'><table><thead><tr>" + "".join(f"<th>{h}</th>" for h in hd) + "</tr></thead><tbody>"
              + "".join("<tr>" + "".join(f"<td>{esc(x)}</td>" for x in r) + "</tr>" for r in src) + "</tbody></table></div>")
     b.append("<p>" + ("서울시향 자료의 곡목 칸에는 대개 곡명만 있고 작곡가가 없다(일부 행에만 작곡가 이름이 섞여 있다). 곡명으로 작곡가를 붙이는 방법은 6절에 있다. 생몰년은 Wikidata(CC0)에서 가져왔다."
-                     if k else "The Seoul Philharmonic programme field mostly gives titles only, without composers (a few rows include a composer's name). Section 6 explains how composers were attached by title. Birth and death years are from Wikidata (CC0).") + "</p>")
+                     if k else "The Seoul Philharmonic program field mostly gives titles only, without composers (a few rows include a composer's name). Section 6 explains how composers were attached by title. Birth and death years are from Wikidata (CC0).") + "</p>")
 
     # 3 two-source check
     ck = check.sort_values("period")
@@ -227,7 +227,7 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     if k:
         b.append("<h2>4. 카네기홀 투어 프로그램의 쏠림</h2><p>상위 10명 작곡가가 연주 작품에서 차지하는 비율이다. 이 비율은 표본이 작을수록 기계적으로 커진다. 그래서 뉴욕 필 홈 시즌에서 같은 수의 작품을 500번 무작위로 뽑아 얻은 범위(회색 막대, 95%)와 견준다. 파란 점이 회색 막대 오른쪽에 있으면 크기를 맞춘 뒤에도 프로그램이 상위 작곡가에 더 몰려 있다는 뜻이다.</p>")
     else:
-        b.append("<h2>4. How narrow are touring programmes at Carnegie Hall?</h2><p>The share of performed works by the ten most-played composers. This share rises mechanically as samples get smaller, so each orchestra is set against the range obtained by drawing the same number of works 500 times from New York Philharmonic home seasons (grey bar, 95%). A blue dot to the right of the grey bar means the programmes lean towards the top composers even after matching sample size.</p>")
+        b.append("<h2>4. How narrow are touring programs at Carnegie Hall?</h2><p>The share of performed works by the ten most-played composers. This share rises mechanically as samples get smaller, so each orchestra is set against the range obtained by drawing the same number of works 500 times from New York Philharmonic home seasons (gray bar, 95%). A blue dot to the right of the gray bar means the programs lean toward the top composers even after matching sample size.</p>")
     leg = ("뉴욕 필 같은 크기 기준" if k else "NY Phil size-matched range", "")
     for win in ("1955-1989", "1990-2026"):
         tw = tour[(tour.window == win) & (tour.orchestra != "NY Phil (home seasons)")]
@@ -249,7 +249,7 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
                  "이 결과는 투어 프로그램의 성격을 보여 줄 뿐이고 악단 자체의 성격을 말해 주지 않는다. 악단은 투어에 대표 레퍼토리를 들고 온다.</p>")
     else:
         b.append(f"<p>{int(above.sum())} of {len(vis)} samples sit above the range; inside it: {n_in or 'none'}. The Seoul Philharmonic sample has 2 concerts and 10 composers, so its top-10 share is 100% by definition and says nothing. "
-                 "This describes touring programmes, not the orchestras themselves: orchestras bring their calling-card repertoire on tour.</p>")
+                 "This describes touring programs, not the orchestras themselves: orchestras bring their calling-card repertoire on tour.</p>")
 
     # 5 Gewandhaus
     g = gw.sort_values("period")
@@ -257,7 +257,7 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     if k:
         b.append("<h2>5. 19세기 라이프치히와 뉴욕</h2><p>게반트하우스 연주회 프로그램(1781–1895)과 뉴욕 필 기록이 겹치는 1840~1890년대를 10년마다 견줬다. 두 악단의 작곡가 점유율 코사인은 1850년대 0.92에서 1890년대 0.67로 내려간다(게반트하우스 자료는 1895년 3월 28일 연주회에서 끝나므로 1890년대는 1890년~1895년 3월이다). 이 자료로는 원인을 가릴 수 없다. 이름을 맞추는 표에 민감한 수치라서, 첫 시안에서 동명이인을 잘못 맞췄을 때는 1840년대 값이 0.71이었다.</p>")
     else:
-        b.append("<h2>5. Leipzig and New York in the nineteenth century</h2><p>The Gewandhaus programmes (1781–1895) and the New York Philharmonic records overlap from the 1840s to the 1890s and are compared decade by decade. The cosine between their composer shares falls from 0.92 in the 1850s to 0.67 in the 1890s (the Gewandhaus data end with the concert of 28 March 1895, so the 1890s cover 1890 to March 1895). These data cannot say why. The figure is sensitive to the name-matching table: in the first draft, before namesakes were separated, the 1840s value was 0.71.</p>")
+        b.append("<h2>5. Leipzig and New York in the nineteenth century</h2><p>The Gewandhaus programs (1781–1895) and the New York Philharmonic records overlap from the 1840s to the 1890s and are compared decade by decade. The cosine between their composer shares falls from 0.92 in the 1850s to 0.67 in the 1890s (the Gewandhaus data end with the concert of 28 March 1895, so the 1890s cover 1890 to March 1895). These data cannot say why. The figure is sensitive to the name-matching table: in the first draft, before namesakes were separated, the 1840s value was 0.71.</p>")
     b.append(f"<figure>{dline(gp, 1840, 1890, lang, height=190)}</figure>")
     b.append(table(g.assign(period=g.period.astype(str) + ("s" if not k else "년대")), [("period", "10년" if k else "decade", None), ("cosine", "코사인" if k else "cosine", ".3f"), ("top20_jaccard", "상위 20명 자카드" if k else "top-20 Jaccard", ".2f"), ("shared_composers", "공통 작곡가" if k else "shared composers", ".0f")], "gw", lang))
 
@@ -271,7 +271,7 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
         b.append(f"<h2>6. 서울시향과 뉴욕 필 — 정기공연 2009–2025년</h2><p>두 악단의 정기공연을 연주 날짜 기준으로 같은 기간(2009~2025년)에 맞췄다. 뉴욕 필은 시즌이 9월에 시작하므로 시즌 단위가 아니라 프로그램의 첫 연주일로 거렀다. 서울시향 {s['seoul_titles']:,}곡 가운데 {s['seoul_attributed']:,}곡({s['seoul_coverage']:.1%})에 작곡가를 붙였다. "
                  f"뉴욕 필은 정기 시즌 작품 연주 {s['nyphil_sub_u1']:,}건이다. 작곡가 이름이 아닌 항목(전승곡·국가·미상·작품 아님)과 두 사람 이상이 함께 적힌 표기(예: 「Perlmutter / Wohl」)는 {exs}건이라 뺐다.</p>")
     else:
-        b.append(f"<h2>6. Seoul and New York — subscription concerts 2009–2025</h2><p>Both orchestras' subscription concerts are matched by concert date (2009–2025). New York seasons start in September, so its programmes are selected by first concert date rather than by season. Of {s['seoul_titles']:,} Seoul Philharmonic works, {s['seoul_attributed']:,} ({s['seoul_coverage']:.1%}) have an attributed composer. "
+        b.append(f"<h2>6. Seoul and New York — subscription concerts 2009–2025</h2><p>Both orchestras' subscription concerts are matched by concert date (2009–2025). New York seasons start in September, so its programs are selected by first concert date rather than by season. Of {s['seoul_titles']:,} Seoul Philharmonic works, {s['seoul_attributed']:,} ({s['seoul_coverage']:.1%}) have an attributed composer. "
                  f"The New York Philharmonic has {s['nyphil_sub_u1']:,} subscription work performances; {exs} entries that do not name a single composer (traditional, anthems, unknown, non-works, and joint credits such as \"Perlmutter / Wohl\") are left out.</p>")
     rows = [
         ("작곡가 점유율 코사인" if k else "cosine of composer shares", f"{s['cosine']:.3f}", "—"),
@@ -293,7 +293,7 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
                  f"For living composers, the unknowns are the {s['seoul_unattributed']} unattributed works plus {s['seoul_undated_attributed']} works by composers without known dates. The NY Phil top-10 value is the mean and 95% range of 500 draws of the same number of works (random seed {s['seed']}).</p>"
                  f"<ul><li><b>The repertoire is very similar.</b> Cosine {s['cosine']:.2f}.</li>"
                  f"<li><b>Seoul leans more on its top composers.</b> Seoul's low end, {s['seoul_top10_lo']:.1%}, is above the top of the NY range, {hi95:.1%}, so the order holds however the unattributed works fall. The gap is {gap * 100:.1f} percentage points, so it is sensitive to attribution errors.</li>"
-                 f"<li><b>Cancelled and changed concerts do not change this.</b> The Seoul data include concerts that were cancelled or whose programme changed. There are 63 subscription entries for 2020, against 37 to 52 in the other years from 2015 to 2025. Without 2020 and 2021, Seoul's low end is {s['excl_2020_21']['seoul_top10_lo']:.1%} and the top of the NY range {s['excl_2020_21']['nyphil_top10_hi']:.1%}, so the gap widens.</li>"
+                 f"<li><b>Canceled and changed concerts do not change this.</b> The Seoul data include concerts that were canceled or whose program changed. There are 63 subscription entries for 2020, against 37 to 52 in the other years from 2015 to 2025. Without 2020 and 2021, Seoul's low end is {s['excl_2020_21']['seoul_top10_lo']:.1%} and the top of the NY range {s['excl_2020_21']['nyphil_top10_hi']:.1%}, so the gap widens.</li>"
                  "<li><b>No verdict on living composers.</b> Seoul's range is wide and contains the NY value.</li></ul>"
                  f"<p>Sorted roughly by title, the {s['seoul_unattributed']} unattributed works are {uc.get('generic', 0)} bare genre titles such as \"Violin Concerto\", {uc.get('premiere', 0)} marked as premieres or commissions, and {uc.get('other', 0)} others, many of them by Korean composers or contemporary pieces whose composer we could not establish.</p>")
     top = sv.head(15)
@@ -314,12 +314,12 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     b.append(table(svt, [("cn", "작곡가" if k else "composer", None), ("seoul_titles", "서울시향 곡 수" if k else "Seoul works", ".0f"), ("seoul_share", "서울시향" if k else "Seoul", ".1%"), ("nyphil_sub_share", "뉴욕 필" if k else "NY Phil", ".1%")], "sv", lang))
     meth = s["by_method"]
     mlab = {"exact": ("카네기홀 곡명과 완전 일치", "exact match to a Carnegie Hall title"), "manual": ("수동표", "hand-made table"),
-            "feature": ("장르·번호·작품번호·조성 일치", "genre, number, opus and key match"), "catalog": ("작품목록 번호(BWV·K. 등)", "catalogue number (BWV, K., etc.)"),
+            "feature": ("장르·번호·작품번호·조성 일치", "genre, number, opus and key match"), "catalog": ("작품목록 번호(BWV·K. 등)", "catalog number (BWV, K., etc.)"),
             "none": ("작곡가를 붙이지 못함", "not attributed")}
     if k:
         b.append("<h3>작곡가를 붙인 방법</h3><p>곡목 문자열을 작품 단위로 나눈 뒤 다음 순서로 작곡가를 붙였다. 작품목록 번호(BWV·K.·D. 등)를 먼저 보고, 카네기홀 곡명과 완전히 같은지 본다. 그다음 장르·번호·작품번호·조성이 같은 참조 곡명이 한 작곡가로 모이는지 본다. 곡명에 고유어가 있으면 참조 곡명에도 그 고유어가 있어야 하고, 조성이 적혀 있으면 조성도 같아야 한다. 규칙으로 정해지지 않으면 손으로 만든 표를 쓴다. 「Violin Concerto」처럼 장르명뿐이거나 후보가 둘 이상인 곡에는 작곡가를 붙이지 않았다.</p>")
     else:
-        b.append("<h3>How composers were attached</h3><p>Programme strings were split into works, then attributed in this order: a catalogue number (BWV, K., D. and so on); an exact match to a Carnegie Hall title; then reference titles sharing genre, number, opus and key, used only when they point to one composer. A title with its own distinctive words must share one with the reference titles, and a stated key must match. What the rules cannot settle goes to a hand-made table. Bare genre titles such as \"Violin Concerto\", and titles with more than one candidate composer, were left unattributed.</p>")
+        b.append("<h3>How composers were attached</h3><p>Program strings were split into works, then attributed in this order: a catalog number (BWV, K., D. and so on); an exact match to a Carnegie Hall title; then reference titles sharing genre, number, opus and key, used only when they point to one composer. A title with its own distinctive words must share one with the reference titles, and a stated key must match. What the rules cannot settle goes to a hand-made table. Bare genre titles such as \"Violin Concerto\", and titles with more than one candidate composer, were left unattributed.</p>")
     b.append("<div class='wrap'><table><thead><tr><th>" + ("방법" if k else "Method") + "</th><th class='num'>" + ("곡 수" if k else "works") + "</th></tr></thead><tbody>"
              + "".join(f"<tr><td>{mlab[m][0 if k else 1]}</td><td class='num'>{meth.get(m, 0):,}</td></tr>" for m in ("catalog", "exact", "feature", "manual", "none")) + "</tbody></table></div>")
 
@@ -334,14 +334,14 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     else:
         b.append("<h2>7. Limits</h2><ul>"
                  "<li>The Vienna and Berlin Philharmonics and the Concertgebouw appear only through their Carnegie Hall concerts; their home seasons can be searched on their websites, but we found no downloadable public data.</li>"
-                 "<li>Seoul attributions rest on titles and concert pages. Unattributed works are not random (section 6). The Seoul data list planned programmes, including concerts later cancelled or changed, with no cancellation flag; the New York records are of concerts actually given.</li>"
+                 "<li>Seoul attributions rest on titles and concert pages. Unattributed works are not random (section 6). The Seoul data list planned programs, including concerts later canceled or changed, with no cancellation flag; the New York records are of concerts actually given.</li>"
                  "<li>Carnegie Hall composers were matched by name, without Wikidata IDs. Namesakes were separated by a hand-made table.</li>"
-                 "<li>Arrangements follow New York Philharmonic archive practice: simple arrangements count for the original composer, recompositions in the arranger's own catalogue (Pulcinella and the like) for the arranger.</li>"
+                 "<li>Arrangements follow New York Philharmonic archive practice: simple arrangements count for the original composer, recompositions in the arranger's own catalog (Pulcinella and the like) for the arranger.</li>"
                  "<li>Cosine and top-10 share measure only what is played and how often, not how well.</li></ul>")
     b.append("<p class='src'>" + ("자료: " if k else "Data: ") +
              "<a href='https://github.com/nyphilarchive/PerformanceHistory'>New York Philharmonic Performance History</a> (CC0); "
              "<a href='https://data.carnegiehall.org/'>Carnegie Hall Data Lab</a> (CC0); "
-             "<a href='https://doi.org/10.5281/zenodo.5995965'>Hartmann-Enke, Gewandhaus concert programmes</a> (CC BY 4.0); "
+             "<a href='https://doi.org/10.5281/zenodo.5995965'>Hartmann-Enke, Gewandhaus concert programs</a> (CC BY 4.0); "
              "<a href='https://data.seoul.go.kr/'>" + ("서울 열린데이터광장" if k else "Seoul Open Data Plaza") + "</a> OA-22909, OA-22910 (" + ("공공누리 제1유형" if k else "KOGL Type 1") + "); "
              "<a href='https://www.wikidata.org/'>Wikidata</a> (CC0).</p>")
     return "".join(b)

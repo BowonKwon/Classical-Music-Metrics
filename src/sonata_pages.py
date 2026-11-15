@@ -14,6 +14,7 @@ from pathlib import Path
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent))
+import axis  # noqa: E402
 from registry import METRICS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,7 +40,7 @@ FULL = {
     "Koželuh": ("레오폴트 코젤루흐(1747–1818)", "Leopold Koželuh (1747–1818)"),
     "Beethoven": ("루트비히 판 베토벤(1770–1827)", "Ludwig van Beethoven (1770–1827)"),
 }
-# colour index in build_site's --s palette: Beethoven and Mozart keep theirs, the five new composers share grey
+# color index in build_site's --s palette: Beethoven and Mozart keep theirs, the five new composers share gray
 COLOR = {"Beethoven": 1, "Mozart": 2}
 NEW_COLOR = 3
 UNDATED = {"J. C. Bach"}
@@ -146,9 +147,9 @@ def metric_section(m: dict, lang: str, svg_strip, legend, table_html, stat_spec)
     leg = legend([("베토벤" if k else "Beethoven", 1), ("모차르트" if k else "Mozart", 2), ("새로 더한 곡집" if k else "Added collections", NEW_COLOR)])
     st = lambda v, f=m["fmt"]: stat_spec(v, f)  # noqa: E731
     t_coll, t_n, t_med = ("작곡가" if k else "Composer"), ("악장" if k else "movements"), ("중앙값" if k else "median")
-    tbl = table_html(pd.DataFrame(summ), [("group", t_coll, None), ("n", t_n, "d"), ("median", t_med, st), ("q1", "Q1", st), ("q3", "Q3", st),
+    tbl = table_html(pd.DataFrame(summ), [("group", t_coll, None), ("n", t_n, "d"), ("median", t_med, st), ("q1", "1사분위" if k else "Q1", st), ("q3", "3사분위" if k else "Q3", st),
                                           ("mn", "최소" if k else "min", m["fmt"]), ("mx", "최대" if k else "max", m["fmt"])], f"son_{m['id']}", lang, filt=False)
-    return (f"<h2>{head}</h2><p>{intro}</p>{leg}<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'], med_label=t_med)}"
+    return (f"<h2>{head}</h2><p>{intro}</p>{leg}<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t_med)}"
             f"<figcaption>{'점 하나가 악장 하나, 세로 막대는 중앙값.' if k else 'One dot per movement; vertical bar = median.'} {' '.join(cap)}</figcaption></figure>{tbl}")
 
 
@@ -156,7 +157,7 @@ def metric_section(m: dict, lang: str, svg_strip, legend, table_html, stat_spec)
 N_SCORE = sum(m["table"] == "score" for m in METRICS)
 T = {
     "ko": dict(title="고전기 건반 소나타", lead=f"스카를라티부터 베토벤까지, 같은 주석 규칙으로 분석한 건반 소나타 곡집 일곱 개를 악보 지표 {N_SCORE}개로 나란히 본다."),
-    "en": dict(title="Classical-era keyboard sonatas", lead=f"From Scarlatti to Beethoven: seven keyboard-sonata collections analysed under one annotation standard, compared on the site's {N_SCORE} score metrics."),
+    "en": dict(title="Classical-era keyboard sonatas", lead=f"From Scarlatti to Beethoven: seven keyboard-sonata collections analyzed under one annotation standard, compared on the site's {N_SCORE} score metrics."),
 }
 
 
@@ -180,7 +181,7 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
                  f"C. P. E. 바흐 곡집에는 소나타 말고도 판타지아 {int((cpe_other.genre == 'fantasia').sum())}악장과 론도 {int((cpe_other.genre == 'rondo').sum())}악장이 있어(판타지아에는 「판타지아와 푸가」 1악장이 들어 있다), 비교에서는 소나타만 쓰고 나머지는 4절에 따로 두었다.</p>")
     else:
         b.append("<h2>1. The collections</h2>"
-                 f"<p>Seven keyboard-sonata collections that DCML (the Digital and Cognitive Musicology Lab, EPFL) analysed under one harmony annotation standard and published: {n_mov} movements, {n_bars:,} bars. Mozart and Beethoven are the same collections used elsewhere on this site; the other five are new in 1.8. "
+                 f"<p>Seven keyboard-sonata collections that DCML (the Digital and Cognitive Musicology Lab, EPFL) analyzed under one harmony annotation standard and published: {n_mov} movements, {n_bars:,} bars. Mozart and Beethoven are the same collections used elsewhere on this site; the other five are new in 1.8. "
                  f"The C. P. E. Bach collection also holds {int((cpe_other.genre == 'fantasia').sum())} fantasia and {int((cpe_other.genre == 'rondo').sum())} rondo movements (the fantasias include one Fantasia and Fugue); the comparison uses the sonatas only, and the rest are shown separately in section 4.</p>")
     b.append(f"<div class='wrap'><table><thead><tr>{''.join(f'<th>{h}</th>' for h in th)}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
     b.append("<p class='src'>" + ("작곡 연도는 원자료(metadata)의 작곡 시작·끝 연도다. J. C. 바흐 곡집은 시작 연도가 비어 있고 끝 연도 칸에는 출판 연도(Op. 5는 1765, Op. 17은 1780)만 있어 연도순 그림에서 뺐다. 마디 수는 악장마다 악보의 마지막 마디 번호를 더한 값이다. 주석자는 원자료에 적힌 이름이고, 스카를라티 곡집에는 이름 있는 주석자 앞에 「unknown」이 함께 적혀 있다(표에서는 뺐다)."
@@ -197,7 +198,8 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
         groups = [(nm(comp, lang), c.loc[c.composer == comp, mid].astype(float).tolist(), COLOR.get(comp, NEW_COLOR))
                   for comp in composer_order(s) if comp not in UNDATED and c.loc[c.composer == comp, mid].notna().any()]
         b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'])}</p>"
-                 f"<figure>{svg_strip(groups, m['fmt'], xlabel=m['unit'], med_label='중앙값' if k else 'median', row_h=26)}</figure>")
+                 f"<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}"
+                 f"<figcaption>{esc(axis.strip_note(groups, m['fmt'], lang, scope=True))}</figcaption></figure>")   # 1.17: each chart says what it shows
 
     # 3. what the data show / caveats
     def ext(mid):
@@ -232,6 +234,14 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
                  f"<li>{', '.join(small)} has fewer than 10 movements, so its medians move easily.</li>"
                  "<li>Most Scarlatti sonatas are single-movement pieces in binary form for harpsichord (Rodda 2020); Beethoven's are multi-movement sonatas for the piano. 'Keyboard sonata' covers different instruments and forms.</li>"
                  "<li>The collections are the ones researchers annotated, not a sample drawn to represent the period. Important sonata composers such as Haydn and Clementi are missing.</li></ul>")
+
+    # 1.17: at-a-glance box under the lead
+    from history_glance import _box  # noqa: E402
+    b.insert(1, _box(lang,
+                     (f"건반 소나타 곡집 {len(sm)}개, {n_mov}악장을 같은 지표로 견준다. 음역의 중앙값은 연도가 가장 이른 {nm(rng_first.composer, lang)} 곡집이 {rng_first.pitch_range_semitones:.0f}반음, 가장 늦은 {nm(rng_last.composer, lang)} 곡집이 {rng_last.pitch_range_semitones:.0f}반음이다(12반음이 한 옥타브)." if k else
+                      f"{len(sm)} collections of keyboard sonatas, {n_mov} movements, compared on the same metrics. The median pitch range is {rng_first.pitch_range_semitones:.0f} semitones in the earliest collection ({nm(rng_first.composer, lang)}) and {rng_last.pitch_range_semitones:.0f} in the latest ({nm(rng_last.composer, lang)}); 12 semitones make an octave."),
+                     ("화음 지표는 사람이 붙인 화성 기호를 센 것이라 곡집 사이의 차이에 주석자의 차이가 섞여 있다. 곡집은 연구자들이 주석한 것을 모은 것이지 시대를 대표하도록 뽑은 표본이 아니다." if k else
+                      "Chord metrics count harmony labels that people added, so differences between collections mix in differences between annotators. The collections are the ones researchers annotated, not a sample drawn to represent the period.")))
 
     # 4. C. P. E. Bach by genre
     rows4 = []

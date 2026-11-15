@@ -2,8 +2,8 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.16",
- "created": "2026-11-14",
+ "version": "1.17",
+ "created": "2026-11-15",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
   {
@@ -1186,7 +1186,7 @@
      "license": "CC0 1.0"
     },
     {
-     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
+     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programs 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
      "path": "https://doi.org/10.5281/zenodo.5995965",
      "license": "CC BY 4.0"
     }
@@ -1267,7 +1267,7 @@
      "license": "CC0 1.0"
     },
     {
-     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
+     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programs 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
      "path": "https://doi.org/10.5281/zenodo.5995965",
      "license": "CC BY 4.0"
     },
@@ -1299,7 +1299,7 @@
      "license": "CC0 1.0"
     },
     {
-     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programmes 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
+     "title": "Linus Hartmann-Enke, Leipzig Gewandhaus concert programs 1781–1895 (Zenodo 5995965): 17,237 work rows; the last concert is 28 March 1895",
      "path": "https://doi.org/10.5281/zenodo.5995965",
      "license": "CC BY 4.0"
     },

@@ -1,5 +1,5 @@
 """Scales and tuning page (1.6; second edition 1.7): scales.html in each language — theory and measurement,
-drawn on a 0-1200 cent ruler and playable in the browser (Web Audio; tones are synthesised, no recordings).
+drawn on a 0-1200 cent ruler and playable in the browser (Web Audio; tones are synthesized, no recordings).
 
   python src/cairo1932_peaks.py   ->  data/derived/scales_cairo1932.csv (needs the ORD-CC32 zip in data/raw/ordcc32/)
   python src/scales_pages.py      ->  data/derived/scales.csv (one row per scale)
@@ -17,6 +17,8 @@ import math
 from pathlib import Path
 
 import pandas as pd
+
+import axis
 
 ROOT = Path(__file__).resolve().parent.parent
 D = ROOT / "data/derived"
@@ -248,7 +250,8 @@ seq.forEach(function(x){tone(BASE*Math.pow(2,x/1200),t,.5);t+=.42})}
 document.querySelectorAll('.scale button[data-c]').forEach(function(b){b.addEventListener('click',function(){var c=JSON.parse(b.getAttribute('data-c')),d=b.getAttribute('data-d');play(c,b.getAttribute('data-m'),d?JSON.parse(d):null)})})})();</script>"""
 
 
-def ruler(cents, sd, width=900, height=58, lo=0, hi=1260, down=None, added=None):
+def ruler(cents, sd, width=900, height=58, lo=0, hi=1260, down=None, added=None, k=False):
+    ko = k   # the tick loop below reuses the name k (1.17 fix: it used to overwrite the language flag)
     L, R = 10, 10
     pw = width - L - R
     X = lambda v: L + (v - lo) / (hi - lo) * pw  # noqa: E731
@@ -258,17 +261,19 @@ def ruler(cents, sd, width=900, height=58, lo=0, hi=1260, down=None, added=None)
         o.append(f'<line x1="{x:.1f}" x2="{x:.1f}" y1="14" y2="34" stroke="var(--fg3)" stroke-opacity=".45" stroke-width="{1.4 if k % 12 == 0 else .8}"/>')
         if k % 2 == 0:
             o.append(f'<text x="{x:.1f}" y="{height - 4}" text-anchor="middle">{k * 100}</text>')
+    o.append(f'<text x="{X(1200) + 18:.1f}" y="{height - 4}">{"센트" if ko else "cents"}</text>')   # 1.17: the axis says what its numbers are
+    ct = (lambda v: f"{v:g}센트") if ko else (lambda v: f"{v:g} cents")  # noqa: E731
     o.append(f'<line x1="{X(0):.1f}" x2="{X(1200):.1f}" y1="24" y2="24" stroke="var(--fg3)" stroke-opacity=".5"/>')
     for i, v in enumerate(cents):
         if added is not None and v == added and i == len(cents) - 1:
-            o.append(f'<circle cx="{X(v):.1f}" cy="24" r="4" fill="none" stroke="var(--fg3)" stroke-width="1.5" stroke-dasharray="2 2"><title>{v:g} cents (added for playback, not in the source)</title></circle>')
+            o.append(f'<circle cx="{X(v):.1f}" cy="24" r="4" fill="none" stroke="var(--fg3)" stroke-width="1.5" stroke-dasharray="2 2"><title>{ct(v)} {"(들려주려고 더한 음, 자료에는 없다)" if ko else "(added for playback, not in the source)"}</title></circle>')
             continue
         if sd and sd[i]:
             o.append(f'<line x1="{X(v - sd[i]):.1f}" x2="{X(v + sd[i]):.1f}" y1="24" y2="24" stroke="var(--g2)" stroke-width="7" stroke-opacity=".45" stroke-linecap="round"/>')
-        o.append(f'<circle cx="{X(v):.1f}" cy="24" r="5.5" fill="var(--g1)" stroke="var(--card)" stroke-width="1.5"><title>{v:g} cents{f" ± {sd[i]:g}" if sd and sd[i] else ""}</title></circle>')
+        o.append(f'<circle cx="{X(v):.1f}" cy="24" r="5.5" fill="var(--g1)" stroke="var(--card)" stroke-width="1.5"><title>{ct(v)}{f" ± {sd[i]:g}" if sd and sd[i] else ""}</title></circle>')
     for v in (down or []):
         if v not in cents:
-            o.append(f'<circle cx="{X(v):.1f}" cy="24" r="4.5" fill="var(--card)" stroke="var(--g1)" stroke-width="2"><title>{v:g} cents (descending)</title></circle>')
+            o.append(f'<circle cx="{X(v):.1f}" cy="24" r="4.5" fill="var(--card)" stroke="var(--g1)" stroke-width="2"><title>{ct(v)} {"(내려갈 때만)" if ko else "(descending)"}</title></circle>')
     o.append("</svg>")
     return "".join(o)
 
@@ -364,9 +369,9 @@ def keyboard(s: int, k: bool) -> str:
     return "".join(o)
 
 
-def ruler_changed(cents: list[float], changed: int | None) -> str:
+def ruler_changed(cents: list[float], changed: int | None, k: bool = False) -> str:
     """The cent ruler of ruler(), with the degree lowered from the previous mode in orange and its old place hollow."""
-    s = ruler(cents, None, added=None)
+    s = ruler(cents, None, added=None, k=k)
     if changed is None:
         return s
     X = lambda v: 10 + v / 1260 * 880  # noqa: E731  same scale as ruler()
@@ -465,7 +470,7 @@ def modes_section(k: bool) -> str:
         absc = esc(json.dumps([v + 200 for v in cents]))
         pair = f"<button type='button' data-c='{absc}' data-p='{esc(json.dumps([v + 200 for v in prev]))}'>▶ {'위 줄과 이어서' if k else 'After the row above'}</button>" if prev else ""
         lowered = "" if changed is None else (f" · {changed + 1}음을 반음 내림" if k else f" · degree {changed + 1} lowered a semitone")
-        b.append(f"<div class='mode'><h3>D {esc(ko if k else en)}<span class='meta'>{lowered}</span></h3>{ruler_changed(cents, changed)}"
+        b.append(f"<div class='mode'><h3>D {esc(ko if k else en)}<span class='meta'>{lowered}</span></h3>{ruler_changed(cents, changed, k)}"
                  f"<div class='btns'><button type='button' data-c='{absc}' data-m='updown'>▶ {'올라갔다 내려오기' if k else 'Up and down'}</button>{pair}</div></div>")
         prev = cents
     b.append("<h3 style='margin-top:1rem'>" + ("이름의 역사" if k else "Where the names came from") + f"</h3><p>{HIST_KO if k else HIST_EN}</p>{names_map(k)}"
@@ -487,7 +492,7 @@ IN2_EN = ("For the modern system that gives the 22 śrutis ratios, the sources s
 GAMAKA_KO = ("벨의 토디 값은 선율선에서 머무는 부분만 골라 평균한 음 위치다. 0.1초·0.4초·0.2초 창으로 불규칙한 곡선, 높이 80센트 띠를 벗어나는 구간, 기울기가 큰 구간을 걸러 냈다(14쪽). 벨은 파#가 선율 움직임 속에서 겨우 암시될 뿐이라 위치를 잡기 매우 어렵다고 적었다(15쪽). "
              "라가의 음이 고정된 점이 아니라는 것은 카르나틱 노래의 측정에서도 보인다. 가수 19명의 녹음을 잰 비라라가반 외(2018)에 따르면, 한 음높이에 머무는 음의 정밀도는 길이가 길수록 좋아져 0.5초를 넘으면 약 10센트에 머물렀다. 가마카(꾸밈 움직임)에서 음높이 곡선이 방향을 바꾸는 점은 오차의 표준편차가 약 60센트였다. 이 두 값은 카르나틱 음악에서 잰 음별 오차라서, 힌두스타니 토디 행의 연주자 사이 표준편차와 바로 견줄 수 없다. 같은 스바라가 라가마다 다르게 불린다는 것은 코두리 외(2014)가 보였다. 젊은 전문 가수 5명이 드론만 두고 부른 바르남 28곡(라가 7개)에서 스바라마다 음높이 분포를 그렸다. 가(Ga)는 베가다에서 약 400센트의 날카로운 봉우리 하나였다. 모하남에서는 약 400센트와 700센트에 봉우리가 있고 그 사이가 이어졌으며, 아보기에서는 약 200~500센트에 퍼져 200·500센트 부근(리와 마의 자리)에 봉우리가 섰다. 슈리에서는 가의 봉우리가 리의 자리(약 200센트) 쪽으로 번졌다(투고판 4~7쪽, 그림 4). 이론 행의 점(클레먼츠 등)은 측정값이 아니다.")
 GAMAKA_EN = ("Bel's Toḍī values are note positions averaged over the stable parts of the melodic line only: windows of 0.1, 0.4 and 0.2 seconds removed irregular curve segments, segments leaving an 80-cent band, and segments with a steep slope (p. 14). Bel wrote that fa♯ is very hard to locate, being barely suggested in the melodic movement (p. 15). "
-             "That the notes of a rāga are not fixed points also shows in measurements of Carnatic singing. Measuring the recordings of nineteen singers, Viraraghavan et al. (2018) found that the precision of notes held at one pitch improves with duration and settles at about 10 cents beyond 0.5 seconds, while the points where the pitch curve turns within a gamaka (ornamental movement) have errors with a standard deviation of about 60 cents. These are per-note errors measured in Carnatic music, so they cannot be compared directly with the spread between performers in the Hindustani Toḍī row. That one svara is sung differently in different rāgas was shown by Koduri et al. (2014), who drew the pitch distribution of each svara in 28 varṇams in seven rāgas sung by five young professional singers with only the drone. Ga in Bēgaḍa was one sharp peak at about 400 cents; in Mōhanaṁ there were peaks at about 400 and 700 cents with a continuum between them; in Ābhōgi it spread over about 200–500 cents with peaks near 200 and 500 (the places of ri and ma); in Śrī its peak was smeared towards ri at about 200 cents (preprint, pp. 4–7, Fig. 4). The dots of the theory rows (Clements and others) are not measurements.")
+             "That the notes of a rāga are not fixed points also shows in measurements of Carnatic singing. Measuring the recordings of nineteen singers, Viraraghavan et al. (2018) found that the precision of notes held at one pitch improves with duration and settles at about 10 cents beyond 0.5 seconds, while the points where the pitch curve turns within a gamaka (ornamental movement) have errors with a standard deviation of about 60 cents. These are per-note errors measured in Carnatic music, so they cannot be compared directly with the spread between performers in the Hindustani Toḍī row. That one svara is sung differently in different rāgas was shown by Koduri et al. (2014), who drew the pitch distribution of each svara in 28 varṇams in seven rāgas sung by five young professional singers with only the drone. Ga in Bēgaḍa was one sharp peak at about 400 cents; in Mōhanaṁ there were peaks at about 400 and 700 cents with a continuum between them; in Ābhōgi it spread over about 200–500 cents with peaks near 200 and 500 (the places of ri and ma); in Śrī its peak was smeared toward ri at about 200 cents (preprint, pp. 4–7, Fig. 4). The dots of the theory rows (Clements and others) are not measurements.")
 
 
 # 1.15 — Jairazbhoy & Stone 1963, BSOAS 26(1): 123–124. Rag Yaman. Frequencies (c.p.s.) and printed cents.
@@ -532,12 +537,12 @@ def yaman_block(k):
     cap = ("라가 야만의 사·레·가 측정(자이라즈보이·스톤 1963, 123~124쪽). 센트는 원문에 찍힌 값(정수까지만 정확하다고 저자가 밝힘)"
            if k else "Rāg Yaman: measured sa, re, ga (Jairazbhoy & Stone 1963, pp. 123–124). Cents as printed (accurate to the nearest whole figure, the authors say)")
     # dot strip of sa-ga
-    W, H, lo, hi = 900, 92, 360, 450
+    W, H, lo, hi = 900, 98, 360, 450
     X = lambda v: 20 + (v - lo) / (hi - lo) * (W - 40)  # noqa: E731
     o = [f'<svg viewBox="0 0 {W} {H}" role="img">']
     for ref, lab in ((386.3, "5/4"), (400, "12평균율" if k else "equal"), (407.8, "81/64")):
         o.append(f'<line x1="{X(ref):.1f}" x2="{X(ref):.1f}" y1="10" y2="62" stroke="var(--fg3)" stroke-dasharray="3 3"/>'
-                 f'<text x="{X(ref):.1f}" y="88" text-anchor="middle">{ref:g} {lab}</text>')
+                 f'<text x="{X(ref):.1f}" y="94" text-anchor="middle">{ref:g} {lab}</text>')
     for v in range(lo, hi + 1, 10):
         o.append(f'<line x1="{X(v):.1f}" x2="{X(v):.1f}" y1="62" y2="67" stroke="var(--fg3)"/>' + (f'<text x="{X(v):.1f}" y="76" text-anchor="middle" style="font-size:10px">{v}</text>' if v % 20 == 0 else ""))
     perf = sorted({r[0] for r in YAMAN}, key=[r[0] for r in YAMAN].index)
@@ -575,7 +580,7 @@ def todi_table(k):
 # ---- 1.16: regions and places -------------------------------------------------------------------------------
 # Regions, not states: music belongs to communities, and no state borders are drawn. A row is put on the map only
 # when its source names a city or a site; rows that name only a region, or no place, are listed beside the map.
-REGIONS = [("europe", "유럽·지중해", "Europe and the Mediterranean", 60, 20), ("wasia", "서아시아·북아프리카", "West Asia and North Africa", 21, 46),
+REGIONS = [("europe", "유럽·지중해", "Europe and the Mediterranean", 64, 20), ("wasia", "서아시아·북아프리카", "West Asia and North Africa", 21, 46),
            ("sasia", "남아시아", "South Asia", 24, 82), ("seasia", "동남아시아", "Southeast Asia", 14, 101),
            ("easia", "동아시아", "East Asia", 40, 118), ("africa", "사하라 이남 아프리카", "Sub-Saharan Africa", 3, 22)]
 REGION_OF = {"pyth": "europe", "arch_enh": "europe", "arch_chr": "europe", "arch_dia": "europe", "just": "europe", "mean": "europe",
@@ -685,8 +690,13 @@ def region_overview(k):
     for code, ko, en, la, lo in REGIONS:  # region labels (no points)
         x, y = map_xy(la, lo)
         n_reg = int(((pf.region == code) & (pf.place_level == "region")).sum())
-        o.append(f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="middle" style="font-style:italic;fill:var(--fg3)">{esc(ko if k else en)}</text>'
-                 f'<text x="{x:.0f}" y="{y + 13:.0f}" text-anchor="middle" style="font-size:10px;fill:var(--fg3)">{("지도 밖 " + str(n_reg)) if k else (str(n_reg) + " off the map")}</text>')
+        nm_ = ko if k else en
+        if " and " in nm_ and len(nm_) > 20:   # 1.17: long English names on two lines, so that neighboring names do not collide
+            a, b_ = nm_.split(" and ", 1)
+            o.append(f'<text x="{x:.0f}" y="{y - 17:.0f}" text-anchor="middle" style="font-style:italic;fill:var(--fg3)">{esc(a)} and</text>')
+            nm_ = b_
+        o.append(f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="middle" style="font-style:italic;fill:var(--fg3)">{esc(nm_)}</text>'
+                 f'<text x="{x:.0f}" y="{y + 15:.0f}" text-anchor="middle" style="font-size:10px;fill:var(--fg3)">{("지도 밖 " + str(n_reg)) if k else (str(n_reg) + " off the map")}</text>')
     ea = next(r for r in REGIONS if r[0] == "easia")
     exy = map_xy(ea[3] - 3, ea[4])
     seen = {}
@@ -717,7 +727,8 @@ def region_overview(k):
     W, rh, L = 900, 30, 190
     H = 40 + rh * len(groups)
     Xd = lambda v: L + v / 50 * (W - L - 20)  # noqa: E731
-    d = [f'<svg viewBox="0 0 {W} {H}" role="img">']
+    d = [f'<svg viewBox="0 0 {W} {H + 18}" role="img">',
+         f'<text x="{(L + W - 20) / 2:.0f}" y="{H + 12}" text-anchor="middle">{"평균율과의 거리(센트) · 오른쪽일수록 12평균율의 음에서 멀다" if k else "Distance from equal temperament (cents) · further right = further from the equal-tempered notes"}</text>']
     for v in range(0, 51, 10):
         d.append(f'<line x1="{Xd(v):.1f}" x2="{Xd(v):.1f}" y1="14" y2="{H - 22}" stroke="var(--line)"/><text x="{Xd(v):.1f}" y="{H - 6}" text-anchor="middle">{v}</text>')
     d.append(f'<line x1="{Xd(25):.1f}" x2="{Xd(25):.1f}" y1="14" y2="{H - 22}" stroke="var(--fg3)" stroke-dasharray="4 3"/>'
@@ -757,7 +768,10 @@ def region_overview(k):
     return (f"<h2>{'지역으로 보기' if k else 'By region'}</h2><p>{intro}</p>" + "".join(o)
             + "<p class='src'>" + ("바탕: Natural Earth 1:110m 육지(퍼블릭 도메인), 이퀄 어스 도법, 남위 58도 아래는 뺐다. 색: 평균율과의 거리 — 강조색이 짙을수록 크다(0 → 50센트)." if k else
                                    "Base: Natural Earth 1:110m land (public domain), Equal Earth projection, south of 58°S left out. Color: distance from equal temperament — the stronger the accent color, the larger (0 → 50 cents).") + "</p>"
-            + f"<p>{metric}</p>" + "".join(d)
+            + f"<p>{metric}</p><h3 style='margin:1rem 0 .2rem'>{'음계마다 12평균율에서 떨어진 정도' if k else 'How far each scale lies from equal temperament'}</h3>"
+            + "<p class='src'>" + ("점 하나가 음계 하나다. 색칠한 점은 실측, 속이 빈 점은 이론값이다. 세로 점선은 음이 아무 데나 놓였을 때의 기댓값 25센트다. 점을 누르면 그 음계로 간다."
+                                   if k else "One dot per scale: filled dots are measured, hollow dots theoretical. The dashed vertical line is the value expected if notes fell anywhere, 25 cents. Click a dot to go to its scale.") + "</p>"
+            + "".join(d)
             + f"<h3>{'도시·장소를 특정하지 못한 줄 (문화권별)' if k else 'Rows with no city or site named (by region)'}</h3><ul>{off_reg}</ul>"
             + f"<h3>{'장소 없는 이론' if k else 'Theory with no place'}</h3><p>{off_none}</p>")
 
@@ -770,19 +784,77 @@ def lim_table(k):
     return f"<p>{LIM_KO if k else LIM_EN}</p><div class='wrap'><table><caption>{cap}</caption><thead><tr>{th}</tr></thead><tbody>{rows}</tbody></table></div>"
 
 
+# ---- 1.17: how to read a ruler, said again under each group heading (it used to be said once, in the page lead),
+# and a short opening for group 1. The numbers in the opening are read from the rows.
+WEST_KO = ("아홉 줄 모두 악기를 잰 값이 아니라 비율로 정한 이론값이다. 맨 아래 12평균율은 모든 점이 회색 눈금 위에 놓인다. 다른 줄에서는 점이 회색 눈금에서 비켜난 만큼이 12평균율과의 차이다. "
+           "첫 음에서 장3도 위의 음을 보면 12평균율에서 {et:.0f}센트, 피타고라스 음률에서 {pyth:.0f}센트, 순정률과 4분의 1 쉼표 중전음률에서 {just:.0f}센트다(100센트가 피아노의 반음 하나).")
+WEST_EN = ("All nine rows are theoretical values defined by ratios, not measurements of instruments. In the bottom row, 12-tone equal temperament, every dot sits on a gray tick; "
+           "in the other rows the distance of a dot from the gray tick is its difference from equal temperament. "
+           "The major third above the first note is {et:.0f} cents in equal temperament, {pyth:.0f} cents in Pythagorean tuning and {just:.0f} cents in just intonation and quarter-comma meantone (100 cents is one piano semitone).")
+
+
+def west_numbers(df) -> dict:
+    """Cents of the major third above the first note in four rows of group 1 (third diatonic degree; fifth of twelve chromatic notes)."""
+    c = {r.id: r.cents for r in df.itertuples()}
+    assert abs(c["just"][2] - c["mean"][4]) < 0.05, "just and quarter-comma meantone share the pure major third"
+    return dict(et=c["et12"][4], pyth=c["pyth"][2], just=c["just"][2])
+
+
+def ruler_key(rows, k: bool) -> str:
+    """One line on how to read the rulers of a group; only the marks that occur in that group are explained."""
+    has_sd = any(bool(r.sd) and any(r.sd) for r in rows.itertuples())
+    has_down = any(r.id in DOWN for r in rows.itertuples())
+    has_added = any(not (r.cents[-1] > 1150 or r.id in OCTAVE_MEASURED) for r in rows.itertuples())
+    if k:
+        t = "띠 읽는 법: 가로는 첫 음에서 잰 높이(센트 — 100센트가 피아노의 반음 하나, 1200센트가 한 옥타브)다. 색칠한 점이 그 음계의 음이고 회색 눈금이 12평균율이다."
+        t += " 주황 막대는 ±1 표준편차다." if has_sd else ""
+        t += " 속이 빈 점은 내려갈 때만 쓰는 음이다." if has_down else ""
+        t += " 점선 고리는 올라갔다 내려오는 소리를 들려주려고 더한 옥타브 음이고 자료에는 없다." if has_added else ""
+        return t
+    t = "Reading a ruler: left to right is height above the first note in cents (100 cents is one piano semitone, 1,200 cents an octave). Filled dots are the notes of the scale; gray ticks are 12-tone equal temperament."
+    t += " Orange bars show ±1 standard deviation." if has_sd else ""
+    t += " Hollow dots are notes used only in descent." if has_down else ""
+    t += " A dashed ring is an octave note added so that the scale can be played up and down; it is not in the source." if has_added else ""
+    return t
+
+
+def page_glance(df, lang: str) -> str:
+    """At-a-glance box for the page, filled from the rows (1.17)."""
+    from history_glance import _box  # noqa: E402
+    k = lang == "ko"
+    pf = places_frame().set_index("id").et_distance_cents
+    d = df.assign(dist=df.id.map(pf))
+    n, nt, nm_ = len(d), int((d.kind == "theory").sum()), int((d.kind == "measured").sum())
+    west = d[d.group == "west"]
+    top = d.loc[d.dist.idxmax()]
+    if k:
+        seen = (f"음계 {n}줄을 같은 자 위에 놓았다. 이론값이 {nt}줄, 악기나 연주를 잰 값이 {nm_}줄이다. 서양 조율의 이론값 아홉 줄은 음마다 12평균율에서 평균 {west.dist.min():g}~{west.dist.max():g}센트 떨어져 있다. "
+                f"가장 멀리 떨어진 줄은 {top.name_ko}{axis.ro(top.name_ko)} 평균 {top.dist:g}센트다(반음의 절반이 50센트).")
+        caution = "이 거리는 음계의 좋고 나쁨이 아니라 12평균율이라는 한 자와의 거리일 뿐이다. 이론값과 실측이 섞여 있고 지역마다 실린 음계의 수와 종류가 달라, 지역을 서로 견주는 근거로 쓰기 어렵다."
+    else:
+        seen = (f"{n} scales are laid on the same ruler: {nt} theoretical rows and {nm_} measured from instruments or performances. The nine theoretical rows of Western tuning lie, per note, {west.dist.min():g} to {west.dist.max():g} cents from 12-tone equal temperament on average. "
+                f"The row furthest from it is {top.name_en}, {top.dist:g} cents on average (half a semitone is 50 cents).")
+        caution = "The distance says nothing about a scale's merit; it is only the distance from one yardstick, equal temperament. Theory and measurement are mixed, and the number and kind of scales differ from region to region, so it is a poor basis for comparing regions."
+    return _box(lang, seen, caution)
+
+
 def render(lang: str) -> str:
     k = lang == "ko"
     df = pd.DataFrame(SCALES, columns=COLS)
     from history_pages import GCSS  # noqa: E402
     b = [f"<style>{GCSS}{CSS}{MODE_CSS}</style><div class='hero'><h1>{'음계와 조율' if k else 'Scales and tuning'}</h1><p class='lead'>"
          + ("한 옥타브(1200센트)를 어떻게 나누어 왔는지, 시대와 지역에 따라 견준다. 점 하나가 음 하나이고, 회색 눈금은 피아노의 12평균율(100센트 간격)이다. 단추를 누르면 브라우저가 그 자리에서 음을 합성해 들려준다."
-            if k else "How the octave (1,200 cents) has been divided, compared across periods and regions. Each dot is a note; the grey ticks are piano equal temperament (100 cents apart). The buttons play the scale, synthesised by your browser on the spot.")
+            if k else "How the octave (1,200 cents) has been divided, compared across periods and regions. Each dot is a note; the gray ticks are piano equal temperament (100 cents apart). The buttons play the scale, synthesized by your browser on the spot.")
          + "</p></div>"]
     b.append("<p class='src'>" + ("모든 음계를 같은 기준음(가온 다, 261.63 Hz) 위에 옮겨 들려준다. 실제 악기의 음높이는 다르다. 「평균율과 번갈아」는 각 음 다음에 가장 가까운 12평균율 음을 들려준다. 소리는 삼각파 합성음이라 악기 음색이 아니다. 「이론」은 비율이나 규칙으로 정한 값, 「실측」은 악기나 연주를 잰 값이다. 속이 빈 점은 내려갈 때만 쓰는 음이고, 점선 고리는 원자료에 없는 옥타브(1200센트)를 재생을 위해 붙인 자리다."
-                                 if k else "Every scale is played on the same reference, middle C (261.63 Hz); the instruments themselves sit at other pitches. 'Against equal temperament' follows each note with the nearest equal-tempered note. The sound is a synthesised triangle wave, not the instrument's timbre. 'Theory' marks values set by ratios or rules; 'measured' marks values taken from instruments or performances. A hollow dot is a note used only when descending; a dashed ring marks an octave (1,200 cents) that the source does not give and that is added only for playback.") + "</p>")
+                                 if k else "Every scale is played on the same reference, middle C (261.63 Hz); the instruments themselves sit at other pitches. 'Against equal temperament' follows each note with the nearest equal-tempered note. The sound is a synthesized triangle wave, not the instrument's timbre. 'Theory' marks values set by ratios or rules; 'measured' marks values taken from instruments or performances. A hollow dot is a note used only when descending; a dashed ring marks an octave (1,200 cents) that the source does not give and that is added only for playback.") + "</p>")
+    b.insert(1, page_glance(df, lang))
     b.append(region_overview(k))
     for g, (tko, ten) in GROUPS.items():
         b.append(f"<h2>{tko if k else ten}</h2>")
+        if g == "west":
+            b.append("<p>" + (WEST_KO if k else WEST_EN).format(**west_numbers(df)) + "</p>")
+        b.append("<p class='src'>" + ruler_key(df[df.group == g], k) + "</p>")
         if g == "east":
             b.append("<p>" + ("삼분손익은 율관 길이를 3분의 1씩 줄이고 늘려 음을 얻는 방법으로, 순정 5도를 쌓는 것과 같다. 12번째 음인 중려는 4/3(498센트)이 아니라 521.5센트에 놓인다. 5도 12개를 쌓으면 옥타브보다 피타고라스 쉼표(23.5센트)만큼 넘치기 때문이다. 한국 아악의 12율도 같은 계열이다. 유준희 외(2011)가 정리한 비율표에서 중려는 1.35다. 평조·계면조의 음 구성은 관례를 따랐고, 실제 연주에서 중려가 521센트 부근에 놓였는지는 이 값만으로는 알 수 없다."
                               if k else "Sanfen sunyi (三分損益) shortens and lengthens a pipe by a third in turn, which amounts to stacking pure fifths. The twelfth note, 仲呂, lands at 521.5 cents rather than 4/3 (498 cents), because twelve fifths overshoot the octave by the Pythagorean comma (23.5 cents). The twelve yul of Korean court music follow the same series; in the ratio table of Yoo et al. (2011), jungnyeo (仲呂) is 1.35. The note sets of pyeongjo and gyemyeonjo follow convention, and whether performers actually placed jungnyeo near 521 cents cannot be told from these values.") + "</p>")
@@ -801,7 +873,7 @@ def render(lang: str) -> str:
             down = DOWN.get(r.id)
             dattr = f" data-d='{esc(json.dumps(down + [1200.0]))}'" if down else ""
             b.append(f"<div class='scale' id='scale-{r.id}'><h3>{esc(r.name_ko if k else r.name_en)}<span class='kind {r.kind}'>{kind}</span></h3>"
-                     f"<div class='meta'>{esc(r.when_ko if k else r.when_en)}{n} · {esc(r.source)}</div>{ruler(cents, sd, down=down, added=1200.0 if add else None)}"
+                     f"<div class='meta'>{esc(r.when_ko if k else r.when_en)}{n} · {'출처' if k else 'Source'}: {esc(r.source)}</div>{ruler(cents, sd, down=down, added=1200.0 if add else None, k=k)}"
                      f"<div class='btns'><button type='button' data-c='{data}' data-m='up'>▶ {'올라가기' if k else 'Up'}</button>"
                      f"<button type='button' data-c='{data}' data-m='updown'{dattr}>▶ {'올라갔다 내려오기' if k else 'Up and down'}</button>"
                      f"<button type='button' data-c='{data}' data-m='compare'>▶ {'평균율과 번갈아' if k else 'Against equal temperament'}</button></div></div>")

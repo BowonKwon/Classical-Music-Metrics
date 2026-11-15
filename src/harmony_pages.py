@@ -13,6 +13,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent))
 from history_pages import GCSS, ticks  # noqa: E402
+import axis  # noqa: E402
 from registry import METRICS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,7 +33,7 @@ MIN_CORPORA = 2  # a period enters the line only with at least this many corpora
 T = {
     "ko": dict(title="화성의 역사", lead="16세기 말 건반 음악·마드리갈부터 1931년 재즈 춤곡까지, 같은 주석 규칙으로 화성 분석한 40개 곡집을 시대순으로 늘어놓고 화음과 음의 쓰임이 어떻게 달라졌는지 본다.",
                show="표 보기", rows="행"),
-    "en": dict(title="A history of harmony", lead="From late 16th-century keyboard music and madrigals to a jazz dance suite of 1931: forty collections analysed under one harmonic annotation standard, set in date order to see how the use of chords and notes changed.",
+    "en": dict(title="A history of harmony", lead="From late 16th-century keyboard music and madrigals to a jazz dance suite of 1931: forty collections analyzed under one harmonic annotation standard, set in date order to see how the use of chords and notes changed.",
                show="Show table", rows="rows"),
 }
 
@@ -62,9 +63,11 @@ def legend(lang, line=True):
     k = lang == "ko"
     items = [f"<span style='--c:{c}'>{ko if k else en}</span>" for ko, en, c in GENRE.values()]
     if line:
-        items.append(f"<span style='--c:var(--fg)'>{'구간 중앙값(코퍼스당 한 표)' if k else 'Period median (one vote per corpus)'}</span>")
-        items.append(f"<span style='--c:var(--g1)'>{'건반만' if k else 'Keyboard only'}</span>")
-    return "<div class='legend'>" + "".join(items) + "</div>"
+        sw = "<svg width='28' height='10' style='vertical-align:middle;margin-right:.4rem' aria-hidden='true'><line x1='1' x2='27' y1='5' y2='5' stroke='{c}' stroke-width='2.2'{d}/></svg>"
+        items.append(f"<span class='ln'>{sw.format(c='var(--fg)', d='')}{'구간 중앙값(곡집 하나가 한 표)' if k else 'Period median (one vote per collection)'}</span>")   # 1.17: lines are shown as lines
+        items.append(f"<span class='ln'>{sw.format(c='var(--g1)', d=' stroke-dasharray=\'5 4\'')}{'건반 곡집만의 구간 중앙값' if k else 'Period median, keyboard collections only'}</span>")
+        items.append(f"<span style='--c:var(--fg3)'>{'작고 흐린 점 = 300마디 미만의 작은 곡집' if k else 'small pale dot = collection under 300 bars'}</span>")
+    return "<style>.legend span.ln::before{display:none}.legend span.ln{display:inline-flex;align-items:center}</style><div class='legend'>" + "".join(items) + "</div>"
 
 
 def years(r, k):
@@ -99,7 +102,7 @@ def timeline(c, lang, width=900, row_h=17, label_w=300):
 
 def scatter(c, p, mid, lang, width=440, height=230):
     k = lang == "ko"
-    L, R, Tp, B = 46, 10, 10, 24
+    L, R, Tp, B = 46, 10, 26, 24
     pw, ph = width - L - R, height - Tp - B
     v = c[mid].dropna()
     hi = float(v.max()) * 1.08 if len(v) else 1
@@ -107,15 +110,25 @@ def scatter(c, p, mid, lang, width=440, height=230):
     X = lambda x: L + (x - X0) / (X1 - X0) * pw  # noqa: E731
     Y = lambda y: Tp + ph - (y - lo) / (hi - lo) * ph  # noqa: E731
     fmt = MET[mid]["fmt"]
-    o = [f'<svg viewBox="0 0 {width} {height}" role="img">']
+    m_ = MET[mid]
+    o = [f'<svg viewBox="0 0 {width} {height}" role="img">',
+         f'<text x="{L}" y="15" fill="var(--fg3)">{esc(axis.unit(m_, lang))} · {("위일수록 " + axis.HIGHER_KO[mid]) if k else ("higher up = " + axis.HIGHER_EN.get(mid, m_["higher"]))}</text>']   # 1.17: the vertical axis is named
     for t in ticks(lo, hi, 4):
         o.append(f'<line class="grid" x1="{L}" x2="{width - R}" y1="{Y(t):.1f}" y2="{Y(t):.1f}"/><text x="{L - 4}" y="{Y(t) + 4:.1f}" text-anchor="end">{format(t, fmt if "f" in fmt else ".0f")}</text>')
     for x in range(1600, X1 + 1, 100):
         o.append(f'<text x="{X(x):.1f}" y="{height - 6}" text-anchor="middle">{x}</text>')
     for scope, col, dash in (("all", "var(--fg)", ""), ("keyboard", "var(--g1)", ' stroke-dasharray="5 4"')):
         q = p[(p.scope == scope) & (p.corpora >= MIN_CORPORA)].dropna(subset=[mid]).sort_values("period")
-        pts = [(X(r.period + 25), Y(getattr(r, mid))) for r in q.itertuples()]
-        if len(pts) > 1:
+        # 1.17: the line is not drawn across a period left out for having too few collections; a period standing alone is a short dash
+        runs, prev = [], None
+        for r in q.itertuples():
+            if prev is None or r.period - prev > 50:
+                runs.append([])
+            runs[-1].append((X(r.period + 25), Y(getattr(r, mid))))
+            prev = r.period
+        for pts in runs:
+            if len(pts) == 1:
+                pts = [(pts[0][0] - 7, pts[0][1]), (pts[0][0] + 7, pts[0][1])]
             o.append(f'<polyline points="{" ".join(f"{a:.1f},{b:.1f}" for a, b in pts)}" fill="none" stroke="{col}" stroke-width="2.2" stroke-linejoin="round"{dash}/>')
     for r in c.dropna(subset=[mid]).itertuples():
         lab = f"{r.composer_ko if k else r.composer_en} · {r.collection_ko if k else r.collection_en}"
@@ -150,7 +163,10 @@ def render(lang, c, p, m):
                  f"<p>DCML's Distant Listening Corpus (Hentschel et al. 2025) holds {n_corp} collections of scores: {n_pieces:,} pieces and movements, {n_bars:,} bars. {n_lab:,} of the pieces carry Roman-numeral harmony labels added under one standard; chord metrics are counted on those {n_lab:,}, note metrics on all pieces. Five of them (two Bach, two Beethoven, Mozart) already feed this site's score metrics; 35 are new. "
                  f"By genre: {gcount.get('keyboard', 0)} keyboard, {gcount.get('chamber', 0)} chamber or solo, {gcount.get('vocal', 0)} vocal. There are no orchestral scores; the 'Wagner overtures' are piano arrangements and are counted as keyboard.</p>"
                  "<p>The sample was not drawn to represent its periods. It is the set of collections that researchers annotated, so keyboard music dominates and each period has only a few composers. Read the charts below as 'how these collections change', not as a history of all music.</p>")
-    b.append(legend(lang, line=False) + f"<figure>{timeline(c, lang)}</figure>")
+    b.append(f"<h3 style='margin:1rem 0 .2rem'>{'곡집마다 작곡 연도의 범위' if k else 'Years of composition, collection by collection'}</h3>"
+             + "<p class='src'>" + ("막대 하나가 곡집 하나이고 가로축은 연도다. 색은 장르다. DCML은 EPFL의 디지털·인지 음악학 연구실이고, 「주석」은 연구자가 악보의 화음마다 붙인 화성 기호(로마 숫자 — I은 으뜸화음, V는 딸림화음)를 가리킨다." if k
+                                   else "One bar per collection; the horizontal axis is the year and the color is the genre. DCML is the Digital and Cognitive Musicology Lab at EPFL; 'annotation' means the harmony labels (Roman numerals: I for the tonic chord, V for the dominant) that researchers added to each chord of a score.") + "</p>"
+             + legend(lang, line=False) + f"<figure>{timeline(c, lang)}</figure>")
     b.append(f"<p class='src'>{'막대는 원자료(metadata)에 적힌 작곡 연도의 범위로, 곡들의 가장 이른 시작 연도부터 가장 늦은 끝 연도까지다. 점선 막대는 일부 곡의 시작 연도가 미상(..)인 곡집이고, 표에서는 「?」로 적었다. 흐린 막대는 300마디 미만의 작은 곡집으로, 작곡가별 값을 따로 읽지 않는다. 아래 그림의 점은 이 범위가 아니라, 곡마다 시작·끝 연도의 가운데를 잡고 그 중앙값에 놓았다.' if k else "Bars show the composition range recorded in the metadata, from the earliest start year to the latest end year of the pieces. Dashed bars are collections where some pieces have an unknown start year (..), marked ? in the table. Faded bars are collections under 300 bars; their values are not read on their own. The dots in the charts below are placed not on this range but on the median of the pieces' midpoint years."}</p>")
 
     # 2. trends
@@ -161,19 +177,25 @@ def render(lang, c, p, m):
     kq = p[(p.scope == "keyboard") & (p.corpora >= MIN_CORPORA)].sort_values("period")
     ksev = kq["seventh_chord_ratio"].tolist()
     kups = sum(1 for a, z in zip(ksev, ksev[1:]) if z > a)
+    lo_a, hi_a = q.loc[q.applied_chord_ratio.idxmin()], q.loc[q.applied_chord_ratio.idxmax()]
+    lo_v, hi_v = q.loc[q.chord_vocabulary_per_100_labels.idxmin()], q.loc[q.chord_vocabulary_per_100_labels.idxmax()]
     if k:
         b.append("<h2>2. 시대에 따라</h2>"
-                 f"<p>곡집마다 악장 값의 중앙값을 내고(점), 곡집의 작곡 연도로 50년 구간을 나눈 뒤 그 중앙값들의 중앙값을 이었다(검은 선). 곡집 하나가 한 표다. 곡집이 {MIN_CORPORA}개 미만인 구간은 선에서 뺐다. 파란 점선은 건반 곡집만으로 낸 선이다. 점에 마우스를 올리면 곡집 이름이 나온다. 음표 지표는 꾸밈음과 붙임줄로 이어진 뒷음을 빼고 센다.</p>"
-                 f"<ul><li><b>{mname('seventh_chord_ratio', lang)}</b>은 {int(first.period)}년대 구간 {first.seventh_chord_ratio:.3f}에서 {int(last.period)}년대 구간 {last.seventh_chord_ratio:.3f}로 오른다. 선에 오른 구간끼리 앞뒤로 견주면 {len(sev) - 1}번 중 {ups}번 올랐고, 건반 선에서는 {len(ksev) - 1}번 중 {kups}번 올랐다.</li>"
-                 f"<li><b>{mname('chromatic_ratio', lang)}</b>은 {int(first.period)}년대 {first.chromatic_ratio:.3f}, {int(last.period)}년대 {last.chromatic_ratio:.3f}다. 20세기 곡집에서 크게 벌어진다.</li>"
-                 f"<li><b>{mname('applied_chord_ratio', lang)}</b>은 한 방향으로 움직이지 않는다.</li></ul>")
+                 f"<p>곡집마다 악장 값의 중앙값을 내고(점), 곡집의 작곡 연도로 50년 구간을 나눈 뒤 그 중앙값들의 중앙값을 이었다(실선). 곡집 하나가 한 표다. 곡집이 {MIN_CORPORA}개 미만인 구간은 선에서 뺐고, 그 자리에서 선을 끊었다(이웃이 없는 구간은 짧은 가로 줄). 파란 점선은 건반 곡집만으로 낸 선이다. 점에 마우스를 올리면 곡집 이름이 나온다. 음표 지표는 꾸밈음과 붙임줄로 이어진 뒷음을 빼고 센다.</p>"
+                 f"<ul><li><b>{mname('seventh_chord_ratio', lang)}</b>은 {int(first.period)}년대 구간 {first.seventh_chord_ratio:.3f}에서 {int(last.period)}년대 구간 {last.seventh_chord_ratio:.3f}{axis.ro(f'{last.seventh_chord_ratio:.3f}')} 오른다. 선에 오른 구간끼리 앞뒤로 견주면 {len(sev) - 1}번 중 {ups}번 올랐고, 건반 선에서는 {len(ksev) - 1}번 중 {kups}번 올랐다.</li>"
+                 f"<li><b>{mname('chromatic_ratio', lang)}</b>은 {int(first.period)}년대 {first.chromatic_ratio:.3f}, {int(last.period)}년대 {last.chromatic_ratio:.3f}{axis.kp(f'{last.chromatic_ratio:.3f}', '이다', '다')}. 20세기 곡집에서 크게 벌어진다.</li>"
+                 f"<li><b>{mname('applied_chord_ratio', lang)}</b>은 한 방향으로 움직이지 않는다. 선에 오른 구간 가운데 {int(lo_a.period)}년대 구간이 {lo_a.applied_chord_ratio:.3f}{axis.ro(f'{lo_a.applied_chord_ratio:.3f}')} 가장 낮고 {int(hi_a.period)}년대 구간이 {hi_a.applied_chord_ratio:.3f}{axis.ro(f'{hi_a.applied_chord_ratio:.3f}')} 가장 높다.</li>"
+                 f"<li><b>{mname('chord_vocabulary_per_100_labels', lang)}</b>도 한 방향이 아니다. {int(lo_v.period)}년대 구간이 {lo_v.chord_vocabulary_per_100_labels:.1f}{axis.ro(f'{lo_v.chord_vocabulary_per_100_labels:.1f}')} 가장 낮고 {int(hi_v.period)}년대 구간이 {hi_v.chord_vocabulary_per_100_labels:.1f}{axis.ro(f'{hi_v.chord_vocabulary_per_100_labels:.1f}')} 가장 높다.</li></ul>"
+                 "<p class='src'>여기서 「7음」은 일곱 개의 음이 아니라 화음의 밑음에서 7도 위에 있는 음이다(딸림7화음의 넷째 음). 「부속화음」은 다른 조의 으뜸화음을 향하는 화음이다(V/V처럼 「/」가 붙는 기호 — 딸림조의 딸림화음).</p>")
     else:
         b.append("<h2>2. Across the periods</h2>"
-                 f"<p>Each dot is a collection's median over its pieces. Collections are grouped into 50-year periods by composition year, and the black line joins the medians of those collection medians, one vote per collection; periods with fewer than {MIN_CORPORA} collections are left off the line. The dashed blue line uses keyboard collections only. Hover over a dot for its collection. Note metrics leave out grace notes and the tied continuations of notes.</p>"
-                 f"<ul><li><b>{mname('seventh_chord_ratio', lang)}</b> rises from {first.seventh_chord_ratio:.3f} in the {int(first.period)}s period to {last.seventh_chord_ratio:.3f} in the {int(last.period)}s. Between neighbouring periods on the line it goes up {ups} times out of {len(sev) - 1}, and {kups} out of {len(ksev) - 1} on the keyboard-only line.</li>"
+                 f"<p>Each dot is a collection's median over its pieces. Collections are grouped into 50-year periods by composition year, and the solid line joins the medians of those collection medians, one vote per collection; periods with fewer than {MIN_CORPORA} collections are left off the line, which breaks there (a period with no neighbor is a short dash). The dashed blue line uses keyboard collections only. Hover over a dot for its collection. Note metrics leave out grace notes and the tied continuations of notes.</p>"
+                 f"<ul><li><b>{mname('seventh_chord_ratio', lang)}</b> rises from {first.seventh_chord_ratio:.3f} in the {int(first.period)}s period to {last.seventh_chord_ratio:.3f} in the {int(last.period)}s. Between neighboring periods on the line it goes up {ups} times out of {len(sev) - 1}, and {kups} out of {len(ksev) - 1} on the keyboard-only line.</li>"
                  f"<li><b>{mname('chromatic_ratio', lang)}</b> is {first.chromatic_ratio:.3f} in the {int(first.period)}s and {last.chromatic_ratio:.3f} in the {int(last.period)}s, with a wide spread among the 20th-century collections.</li>"
-                 f"<li><b>{mname('applied_chord_ratio', lang)}</b> does not move in one direction.</li></ul>")
-    b.append(legend(lang) + "<div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:.6rem 1.2rem'>")
+                 f"<li><b>{mname('applied_chord_ratio', lang)}</b> does not move in one direction. Of the periods on the line, the {int(lo_a.period)}s period is lowest at {lo_a.applied_chord_ratio:.3f} and the {int(hi_a.period)}s highest at {hi_a.applied_chord_ratio:.3f}.</li>"
+                 f"<li><b>{mname('chord_vocabulary_per_100_labels', lang)}</b> does not move in one direction either: lowest in the {int(lo_v.period)}s period at {lo_v.chord_vocabulary_per_100_labels:.1f}, highest in the {int(hi_v.period)}s at {hi_v.chord_vocabulary_per_100_labels:.1f}.</li></ul>"
+                 "<p class='src'>A 'seventh' here is the note a seventh above the root of a chord (the fourth note of a dominant seventh chord). An 'applied chord' is a chord aimed at the tonic of another key (a label with a slash, such as V/V, the dominant of the dominant).</p>")
+    b.append(legend(lang) + "<div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr));gap:.6rem 1.2rem'>")
     for mid in LEAD:
         b.append(f"<div><h3 style='margin:.4rem 0 .1rem;font-size:.95rem'>{esc(mname(mid, lang))}</h3><p class='src' style='margin:.1rem 0'>{esc(MET[mid][lang]['definition'])}</p>{scatter(c, p, mid, lang)}</div>")
     b.append("</div>")
@@ -182,6 +204,14 @@ def render(lang, c, p, m):
     pt["period_l"] = pt.period.astype(str) + ("년대~" if k else "–") + (pt.period + 49).astype(str)
     b.append(table(pt, [("scope_l", "범위" if k else "scope", None), ("period_l", "구간" if k else "period", None), ("corpora", "곡집" if k else "collections", ".0f"), ("pieces", "곡" if k else "pieces", ".0f"), ("bars", "마디" if k else "bars", ",.0f")]
                    + [(mm, mname(mm, lang), MET[mm]["fmt"]) for mm in PERIOD_METRICS], "per", lang))
+
+    # 1.17: at-a-glance box under the lead (period medians, as in the list of section 2)
+    from history_glance import _box  # noqa: E402
+    b.insert(1, _box(lang,
+                     (f"곡집 {n_corp}개, {n_pieces:,}곡을 작곡 연도 순으로 놓고 화음과 음표 지표가 어떻게 달라지는지 본다. 곡집 중앙값을 50년 구간으로 묶으면 7화음 비율은 {int(first.period)}년대 구간 {first.seventh_chord_ratio:.3f}에서 {int(last.period)}년대 구간 {last.seventh_chord_ratio:.3f}{axis.ro(f'{last.seventh_chord_ratio:.3f}')}, 반음계 비율은 {first.chromatic_ratio:.3f}에서 {last.chromatic_ratio:.3f}{axis.ro(f'{last.chromatic_ratio:.3f}')} 오른다." if k else
+                      f"{n_corp} collections, {n_pieces:,} pieces, set in order of composition to see how chord and note metrics change. With collection medians grouped into 50-year periods, the seventh-chord ratio rises from {first.seventh_chord_ratio:.3f} in the {int(first.period)}s period to {last.seventh_chord_ratio:.3f} in the {int(last.period)}s, and the chromatic ratio from {first.chromatic_ratio:.3f} to {last.chromatic_ratio:.3f}."),
+                     ("시대를 대표하도록 뽑은 표본이 아니다. 연구자들이 주석을 붙인 곡집의 모음이라 건반 음악이 많고 시대마다 작곡가가 몇 명뿐이다. 화음 지표는 사람이 붙인 화성 기호를 센 것이다." if k else
+                      "The sample was not drawn to represent its periods: it is the set of collections researchers annotated, so keyboard music dominates and each period has only a few composers. Chord metrics count harmony labels that people added.")))
 
     # 3. caveats on annotation
     zero = c[(c.local_key_changes_per_100_measures.fillna(0) == 0)]
@@ -192,7 +222,7 @@ def render(lang, c, p, m):
                  f"<p>{int(early.composed_min.min())}~1650년의 곡집({', '.join(early.composer_ko.unique())})은 장·단조 체계가 굳기 전의 음악이다. 이 시기에 로마 숫자로 화음을 적으면 뒤 시대와 같은 이름의 화음이 같은 기능을 한다는 보장이 없다. 이 구간의 화음 지표는 따로 읽기 바란다. 음표에서 바로 세는 반음계 비율·음고류 엔트로피는 이 문제가 없다.</p>")
     else:
         b.append("<h2>3. What the annotation adds</h2>"
-                 f"<p>Chord metrics count harmony labels that people added. One standard still leaves room for judgment. On this site the <a href='metrics/local_key_changes_per_100_measures.html'>{mname('local_key_changes_per_100_measures', lang)}</a> has a median of 0 in {len(zero)} collections ({', '.join(zero.composer_en.unique())}). These collections do carry local-key labels, but most of their pieces stay in one key. The value depends heavily on the length and form of the pieces, and whether a brief move to another key is labelled as a local key or as applied chords is the annotator's call. So modulation rate and cadence density stay out of the period charts and appear only in the collection table below.</p>"
+                 f"<p>Chord metrics count harmony labels that people added. One standard still leaves room for judgment. On this site the <a href='metrics/local_key_changes_per_100_measures.html'>{mname('local_key_changes_per_100_measures', lang)}</a> has a median of 0 in {len(zero)} collections ({', '.join(zero.composer_en.unique())}). These collections do carry local-key labels, but most of their pieces stay in one key. The value depends heavily on the length and form of the pieces, and whether a brief move to another key is labeled as a local key or as applied chords is the annotator's call. So modulation rate and cadence density stay out of the period charts and appear only in the collection table below.</p>"
                  f"<p>The collections from {int(early.composed_min.min())} to 1650 predate the settled major–minor system. Writing their chords as Roman numerals does not guarantee that a chord of the same name does the same job as in later music, so read the chord metrics for this period on their own. Metrics counted straight from the notes, such as the chromatic ratio and pitch-class entropy, are not affected.</p>")
 
     # 4. Clara and Robert Schumann

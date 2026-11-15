@@ -3,7 +3,7 @@
 Reads the piecemap_110_* tables (piecemap_110.py) and score_metrics_110_by_movement.csv (score_metrics_110.py).
 Every number in the prose comes from those tables. Axes are not named (design 63 §2 B); a component whose
 leave-one-collection-out stability is below 0.8 is marked unstable and gets no interpretation (§8).
-Point colour: composition year in six 35-year bins, one hue (validated ordinal ramps, light and dark).
+Point color: composition year in six 35-year bins, one hue (validated ordinal ramps, light and dark).
 """
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent))
+import axis  # noqa: E402
 import colour_19 as col19  # noqa: E402
 import romantic_pages as rom  # noqa: E402
 from registry import METRICS  # noqa: E402
@@ -98,7 +99,7 @@ def year_legend(lang: str) -> str:
         lab = f"{a}–{a + YSTEP - 1}" if i < NBIN - 1 else f"{a}–"
         cells.append(f"<circle cx='{240 + i * 105}' cy='12' r='5' class='yb{i + 1}'/><text x='{250 + i * 105}' y='16' class='km-lab'>{lab}</text>")
     cells.append(f"<circle cx='{240 + NBIN * 105}' cy='12' r='5' fill='none' stroke='var(--fg3)'/><text x='{250 + NBIN * 105}' y='16' class='km-lab'>{'연도 미확인' if k else 'year unconfirmed'}</text>")
-    return f"<svg class='pm-leg' viewBox='0 0 960 24' width='100%' role='img' aria-label='{'작곡 연도 범례' if k else 'Composition year legend'}'><text x='224' y='16' text-anchor='end' class='km-lab'>{'작곡 연도' if k else 'Composed'}</text>{''.join(cells)}</svg>"
+    return f"<svg class='pm-leg' viewBox='0 0 {max(960, 250 + NBIN * 105 + 110)} 24' width='100%' role='img' aria-label='{'작곡 연도 범례' if k else 'Composition year legend'}'><text x='224' y='16' text-anchor='end' class='km-lab'>{'작곡 연도' if k else 'Composed'}</text>{''.join(cells)}</svg>"
 
 
 def filter_ctl(pts: pd.DataFrame, lang: str, mapname: str) -> str:
@@ -121,6 +122,34 @@ def loadings_table(L: pd.DataFrame, lang: str, mapname: str, table_html) -> str:
     return table_html(pd.DataFrame(rows), [("pc", "성분" if k else "Component", None), ("metric", "지표" if k else "Metric", None), ("v", "적재값" if k else "Loading", ".2f")], f"ld_{mapname}", lang, filt=False)
 
 
+def axis_reading(L: pd.DataFrame, lang: str, mapname: str, pc: str, r_year: float, unstable: bool) -> str:
+    """One plain sentence on what lies toward the right (component 1) or the top (component 2) of a map (1.17).
+    It is read off the five largest loadings, the same five as in the table below the map; it does not name the axis."""
+    k = lang == "ko"
+    horiz = pc == "pc1"
+    if unstable:
+        return (f"{'가로축(1성분)' if horiz else '세로축(2성분)'}은 곡집 하나에 따라 크게 바뀌므로 읽지 않는다." if k
+                else f"The {'horizontal axis (component 1)' if horiz else 'vertical axis (component 2)'} changes a lot with a single collection, so it is not read.")
+    x = L[L["map"] == mapname]
+    top = x.reindex(x[pc].abs().sort_values(ascending=False).index).head(5)
+    pos = [MET[r.metric][lang]["name"] for r in top.itertuples() if getattr(r, pc) > 0]
+    neg = [MET[r.metric][lang]["name"] for r in top.itertuples() if getattr(r, pc) < 0]
+    if k:
+        t = f"{'가로축(1성분)' if horiz else '세로축(2성분)'} 읽기: {'오른쪽' if horiz else '위쪽'}에 놓인 악장일수록 "
+        t += " · ".join(pos) + "의 값이 크" + ("고 " + " · ".join(neg) + "의 값이 작다." if neg else "다.") if pos else " · ".join(neg) + "의 값이 작다."
+        if abs(r_year) >= 0.5:
+            t += f" 작곡 연도가 늦은 악장일수록 {('오른쪽' if horiz else '위쪽') if r_year > 0 else ('왼쪽' if horiz else '아래쪽')}에 놓이는 경향이 있다(순위 상관 {r_year:.2f})."
+        return t.replace("-0", "−0")
+    low = lambda n: n[0].lower() + n[1:] if len(n) > 1 and n[1].islower() else n   # metric names in running text; acronyms keep their case  # noqa: E731
+    lst = lambda xs: (", ".join(xs[:-1]) + " and " + xs[-1]) if len(xs) > 1 else xs[0]  # noqa: E731
+    pos, neg = [low(n) for n in pos], [low(n) for n in neg]
+    t = f"Reading the {'horizontal axis (component 1)' if horiz else 'vertical axis (component 2)'}: the further {'right' if horiz else 'up'} a movement lies, the "
+    t += ("higher its " + lst(pos) + (", and the lower its " + lst(neg) + "." if neg else ".")) if pos else ("lower its " + lst(neg) + ".")
+    if abs(r_year) >= 0.5:
+        t += f" Movements composed later tend to lie further {('right' if horiz else 'up') if r_year > 0 else ('left' if horiz else 'down')} (rank correlation {r_year:.2f})."
+    return t.replace("-0", "−0")
+
+
 def fingerprint_block(lang: str) -> str:
     """Click a point in the harmony map -> its z-scores as a row of cells (JS reads the embedded JSON)."""
     k = lang == "ko"
@@ -135,14 +164,14 @@ def fingerprint_block(lang: str) -> str:
           "var w=900,x0=0,cw=(w-110)/r.length,s='<svg viewBox=\"0 0 '+w+' 160\" width=\"100%\" role=\"img\">';"
           "for(var i=0;i<r.length;i++){var x=x0+i*cw;s+='<rect x=\"'+(x+1).toFixed(1)+'\" y=\"4\" width=\"'+(cw-2).toFixed(1)+'\" height=\"22\" rx=\"2\" class=\"'+cls(r[i])+'\"><title>'+D.m[i]+': z = '+r[i]+'</title></rect>';"
           "s+='<text x=\"'+(x+cw/2).toFixed(1)+'\" y=\"34\" transform=\"rotate(50 '+(x+cw/2).toFixed(1)+' 34)\" class=\"km-lab\">'+D.m[i]+'</text>'}"
-          "el.innerHTML='<p><b>'+label+'</b></p>'+s+'</svg>'}"
+          "el.innerHTML='<p><b>'+label+'</b></p><div class=\"sx\" style=\"--vw:900\">'+s+'</svg></div>'}"
           "document.querySelectorAll('.pm circle').forEach(function(c){c.addEventListener('click',function(){"
           "document.querySelectorAll('.pm circle.sel').forEach(function(x){x.classList.remove('sel')});c.classList.add('sel');"
           "show(c.getAttribute('data-k'),c.querySelector('title').textContent)})});"
           "document.querySelectorAll('.pm-ctl select').forEach(function(s){s.addEventListener('change',function(){var v=s.value,svg=document.getElementById('pm-'+s.getAttribute('data-pm'));"
           "svg.querySelectorAll('circle').forEach(function(c){c.classList.toggle('dim',v!==''&&c.getAttribute('data-c')!==v)})})})})();</script>")
-    head = ("<p>화음 지도의 점을 누르면 그 악장의 「지문」이 여기에 나온다. 칸 하나가 지표 하나이고, 색은 화음 지도에 들어간 793악장 평균과 견준 값(z)이다. 파랑은 평균보다 낮고 주황은 높다. 색 한 단계가 표준편차 0.5이고, ±3 표준편차에서 가장 진하다.</p>"
-            if k else "<p>Click a point in the harmony map to see that movement's fingerprint here: one cell per metric, coloured by its z-score against the 793 movements of the harmony map (blue below the mean, orange above; one colour step per half a standard deviation, strongest at ±3).</p>")
+    head = ("<p>화음 지도의 점을 누르면 그 악장의 「지문」이 여기에 나온다. 칸 하나가 지표 하나이고, 색은 화음 지도에 들어간 793악장 평균과 견준 값(z)이다. 파랑은 평균보다 낮고 주황은 높다. 색 한 단계가 표준편차 0.5고, ±3 표준편차에서 가장 진하다.</p>"
+            if k else "<p>Click a point in the harmony map to see that movement's fingerprint here: one cell per metric, colored by its z-score against the 793 movements of the harmony map (blue below the mean, orange above; one color step per half a standard deviation, strongest at ±3).</p>")
     return head + "<div id='pm-fp'><p class='src'>" + ("(아직 고른 악장이 없다)" if k else "(no movement selected yet)") + "</p></div>" + js
 
 
@@ -162,13 +191,18 @@ def departure_section(lang: str, table_html, stat_spec) -> str:
             f"<text x='14' y='{h / 2}' text-anchor='middle' transform='rotate(-90 14 {h / 2})' class='pm-ax'>{'음표 추정 이탈도' if k else 'Note-only departure'}</text>")
     fig = f"<figure><svg viewBox='0 0 {w} {h}' width='100%' style='max-width:560px' role='img' aria-label='{'주석판과 음표 추정판의 비교' if k else 'Annotated vs note-only departure'}'>{axes}{dots}</svg>"
     more = float((ok["departure_mean_notes"] > ok["departure_mean"]).mean())
-    cap = (f"<figcaption>점 하나가 악장 하나({int(dep.n)}악장). 점선은 두 값이 같은 자리다. 스피어먼 순위 상관 {dep.rho:.2f}(악장 단위 부트스트랩 95% 구간 {dep.ci_lo:.2f}~{dep.ci_hi:.2f}; 곡집·작품 단위의 묶임은 반영하지 않았다). "
+    n0 = int((ok["departure_mean"] == 0).sum())
+    cap = (f"<figcaption>두 축 모두 으뜸조 이탈도다 — 악장이 으뜸조에서 조표 몇 개만큼 떨어져 있었는지를 길이로 가중해 평균한 값(0~6)으로, 0이면 내내 으뜸조(또는 나란한조)에 머문 악장이다. 가로는 화성 주석으로, 세로는 음표만으로 계산했다. "
+           f"가로 0 위에 세로로 늘어선 점 {n0}개는 주석으로는 이탈도가 0인 악장이다. "
+           f"점 하나가 악장 하나({int(dep.n)}악장). 점선은 두 값이 같은 자리다. 스피어먼 순위 상관 {dep.rho:.2f}(악장 단위 부트스트랩 95% 구간 {dep.ci_lo:.2f}~{dep.ci_hi:.2f}; 곡집·작품 단위의 묶임은 반영하지 않았다). "
            f"음표 추정판이 {more * 100:.0f}%의 악장에서 더 크다. 창이 짧아 추정된 조가 자주 바뀌는 효과, 기준 조를 다르게 잡는 효과 등이 함께 작용할 수 있으나, 이 자료로 원인을 가를 수는 없다. "
            "음표 추정판의 계산: 마디 기록(mc) 4개씩 겹치지 않는 창으로 나누고(마지막 짧은 창도 포함), 창마다 음 길이로 가중한 12음고류(옥타브를 무시한 음이름) 분포와 크룸한슬·케슬러(1982) 프로필"
            "(장조 6.35·2.23·3.48·2.33·4.38·4.09·2.52·5.19·2.39·3.66·2.29·2.88, 단조 6.33·2.68·3.52·5.38·2.60·3.53·2.54·4.75·3.98·2.69·3.34·3.17, 으뜸음부터 반음씩)의 상관이 가장 큰 조를 고른다. "
            "곡 전체의 조도 같은 방법으로 정하고, 창마다 그 조와의 조표 차(0~6으로 접음)를 창의 악보 길이로 가중 평균한다. 음표는 꾸밈음을 빼고, 붙임줄 뒷음은 같은 음높이·이어지는 시각의 앞 음에 합친다(성부가 달라도 잇는다).</figcaption></figure>"
            if k else
-           f"<figcaption>One dot per movement ({int(dep.n)} movements); the dashed line is where the two agree. Spearman rank correlation {dep.rho:.2f} (95% bootstrap interval over movements, {dep.ci_lo:.2f}–{dep.ci_hi:.2f}; clustering by collection or work is not taken into account). "
+           f"<figcaption>Both axes show departure from the home key: how many key-signature steps a movement lay from its home key, averaged with length as weight (0 to 6); 0 means it stayed in the home key (or its relative) throughout. The horizontal value is computed from the harmony annotation, the vertical one from the notes alone. "
+           f"The {n0} dots stacked above 0 on the horizontal axis are movements whose annotated departure is 0. "
+           f"One dot per movement ({int(dep.n)} movements); the dashed line is where the two agree. Spearman rank correlation {dep.rho:.2f} (95% bootstrap interval over movements, {dep.ci_lo:.2f}–{dep.ci_hi:.2f}; clustering by collection or work is not taken into account). "
            f"The note-only version is larger for {more * 100:.0f}% of movements. Short windows that make the estimated key change often and a different choice of reference key may both contribute, but these data cannot separate the causes. "
            "How the note-only version is computed: non-overlapping windows of 4 measure records (mc), the last shorter window included; in each, the key whose Krumhansl–Kessler (1982) profile "
            "(major 6.35, 2.23, 3.48, 2.33, 4.38, 4.09, 2.52, 5.19, 2.39, 3.66, 2.29, 2.88; minor 6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3.34, 3.17; from the tonic by semitone) correlates best with the duration-weighted pitch-class distribution. "
@@ -198,32 +232,52 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
               "<li>최종 계산에 쓴 지표 고르기 규칙은 셋이다. 앞의 둘은 계산 전에 정했다: 악장 길이(로그)와의 스피어먼 상관 절댓값이 0.5를 넘는 지표와, 결측이 30%를 넘는 지표를 뺀다(화음 지도의 결측률은 화성 주석이 있는 악장 기준). 셋째 규칙인 「정의상 일부 곡집·곡에만 값이 있는 지표를 뺀다」는 첫 계산에서 4중주 곡집 전체가 지도에서 빠지는 것을 보고 더했다.</li>"
               "<li>축에 이름을 붙이지 않는다. 대신 성분마다 적재값이 큰 지표 다섯을 표로 적는다. 곡집 하나를 뺐을 때 적재값이 크게 바뀌는(상관 0.8 미만) 성분은 「불안정」으로 표시하고 해석하지 않는다.</li>"
               f"<li>{esc(exl)}</li></ul>"
+              "<p class='src'>쉬운 말로: 지표마다 단위가 달라서 먼저 「평균에서 표준편차 몇 개만큼 떨어졌나」(z)로 바꿔 같은 자로 잰다. 주성분 분석은 점들이 가장 넓게 퍼지는 방향을 찾는 계산이고, 그 방향이 가로축이고, 가로축과 직각인 방향 가운데 가장 넓게 퍼지는 방향이 세로축이다. "
+              "적재값은 그 방향에 지표 하나하나가 얼마나 실려 있는지를 나타내는 수다. 절댓값이 클수록 그 축을 많이 좌우하고, 양수면 그 지표가 큰 악장이 대체로 오른쪽(세로축은 위쪽)에, 음수면 왼쪽(아래쪽)에 놓인다. 한 악장의 자리는 여러 지표가 함께 정하므로 지표 하나만 보면 예외가 있다. "
+              "스피어먼 상관은 두 가지 순서가 얼마나 같은지를 −1에서 1 사이로 나타낸 수이고, 부트스트랩은 악장을 원래와 같은 수만큼, 같은 악장이 여러 번 뽑혀도 되게 다시 뽑아 같은 계산을 되풀이해 결과가 얼마나 흔들리는지 보는 방법이다. 설명 분산은 전체 퍼짐 가운데 그 축이 담는 몫이다.</p>"
               if k else
               "<h2>1. How it is made</h2><ul>"
               "<li>For each map, each metric is standardized over the movements in that map (those with every value present; mean 0, population SD 1); principal component analysis finds the two directions of greatest spread, drawn as the horizontal (component 1) and vertical (component 2) axes.</li>"
               "<li>The final computation uses three selection rules. The first two were fixed before computing: drop metrics whose |Spearman correlation| with log movement length exceeds 0.5, and those missing for more than 30% of movements (for the harmony map, counted among movements with harmony labels). The third, 'drop metrics defined only for some collections or pieces', was added after the first run dropped every string-quartet collection from the map.</li>"
               "<li>Axes are not named. Instead the five metrics with the largest loadings are listed for each component. A component whose loadings change much when one collection is left out (correlation below 0.8) is marked unstable and not interpreted.</li>"
-              f"<li>Left out — {esc(exl)}</li></ul>"))
+              f"<li>Left out — {esc(exl)}</li></ul>"
+              "<p class='src'>In plain words: the metrics have different units, so each is first rewritten as 'how many standard deviations from the mean' (z) and measured on one scale. Principal component analysis finds the direction along which the points spread most; that direction is the horizontal axis, and the vertical axis is the direction of greatest spread among those at right angles to it. "
+              "A loading says how much one metric weighs in that direction: the larger its absolute value, the more the metric shapes the axis; if it is positive, movements high on that metric tend to lie to the right (or toward the top, for the vertical axis), and if negative, to the left (or the bottom). Where a movement lies depends on many metrics together, so there are exceptions for any single metric. "
+              "Spearman correlation states how far two orderings agree, between −1 and 1, and the bootstrap repeats the same computation on movements drawn again, as many as there were and with repeats allowed, to see how much the result moves. Variance explained is the share of the total spread that an axis holds.</p>"))
     # 2./3. maps
+    glance_bits = []
     for i, (mp, title_ko, title_en) in enumerate((("harmony", "화음 지도 — 음표 지표와 화음 지표", "Harmony map: note and chord metrics"),
                                                    ("notes", "음표 지도 — 음표 지표만", "Note map: note metrics only")), start=2):
         p = pts[pts["map"] == mp]
         s = st.loc[mp]
         q = p.dropna(subset=["year"])
         r1, r2 = q[["year", "pc1"]].corr(method="spearman").iloc[0, 1], q[["year", "pc2"]].corr(method="spearman").iloc[0, 1]
-        stab_txt = ("부트스트랩 200회에서 적재값과의 상관 중앙값은 1성분 {:.2f}·2성분 {:.2f}, 곡집 하나씩 뺐을 때의 최솟값은 1성분 {:.2f}·2성분 {:.2f}다. 작곡 연도와의 스피어먼 상관은 1성분 {:.2f}, 2성분 {:.2f}."
+        stab_txt = ("부트스트랩 200회에서 적재값과의 상관 중앙값은 1성분 {:.2f}·2성분 {:.2f}, 곡집 하나씩 뺐을 때의 최솟값은 1성분 {:.2f}·2성분 {:.2f}__DA__. 작곡 연도와의 스피어먼 상관은 1성분 {:.2f}, 2성분 {:.2f}."
                     if k else "Over 200 bootstrap resamples the median correlation with the full-data loadings is {:.2f} (component 1) and {:.2f} (component 2); leaving out one collection at a time, the minimum is {:.2f} and {:.2f}. Spearman correlation with composition year: {:.2f} (component 1), {:.2f} (component 2).").format(
-            s.pc1_boot_median, s.pc2_boot_median, s.pc1_loo_min, s.pc2_loo_min, r1, r2).replace("-0", "−0")
+            s.pc1_boot_median, s.pc2_boot_median, s.pc1_loo_min, s.pc2_loo_min, r1, r2).replace("-0", "−0").replace("__DA__", axis.kp(f"{s.pc2_loo_min:.2f}", "이다", "다"))
         if s.pc2_loo_min < STABLE:
             stab_txt += (" 2성분은 곡집 하나에 따라 크게 바뀌므로 해석하지 않는다." if k else " Component 2 changes a lot with a single collection, so it is not interpreted.")
         stab_txt += (" 부트스트랩 값은 난수 시드에 따라 조금 달라지고(특히 불안정한 성분), 판정은 곡집 빼기 최솟값으로 한다." if k else " Bootstrap values vary a little with the random seed (especially for an unstable component); the verdict uses the leave-one-collection-out minimum.")
+        glance_bits.append((mp, int(s.n_movements), (s.pc1_explained + s.pc2_explained) * 100, r1, s.pc1_loo_min < STABLE))
         b.append(f"<h2>{i}. {title_ko if k else title_en}</h2><p>"
                  + (f"{int(s.n_movements)}악장, 지표 {int(s.n_metrics)}개." if k else f"{int(s.n_movements)} movements, {int(s.n_metrics)} metrics.")
                  + ("" if mp == "notes" else (" 화성 주석이 있는 악장만 들어간다." if k else " Movements with harmony labels only."))
                  + (" 화성 주석이 없는 바흐 코랄도 들어간다." if (k and mp == "notes") else (" Bach's chorales, which have no harmony labels, are included." if mp == "notes" else ""))
+                 + "</p><p>" + axis_reading(L, lang, mp, "pc1", r1, s.pc1_loo_min < STABLE) + " " + axis_reading(L, lang, mp, "pc2", r2, s.pc2_loo_min < STABLE)
+                 + (" 아래 표의 적재값 다섯으로 읽은 대체적인 방향이고, 축 전체의 이름은 아니다. 악장 하나하나가 그대로 따른다는 뜻은 아니다. 점 하나가 악장 하나다." if k else " These are overall directions read from the five loadings in the table below; they are not names for the axes, and a single movement need not follow them. Each dot is one movement.")
                  + "</p>" + filter_ctl(p, lang, mp) + year_legend(lang)
                  + f"<figure>{scatter(p, lang, mp, s)}<figcaption>{stab_txt}</figcaption></figure>"
                  + loadings_table(L, lang, mp, table_html))
+    # 1.17: at-a-glance box under the lead, filled from the two maps
+    from history_glance import _box  # noqa: E402
+    gh, gn = glance_bits[0], glance_bits[1]
+    yr = ((f" 화음 지도에서는 작곡 연도가 늦은 악장일수록 오른쪽에 놓이는 경향이 있다(순위 상관 {gh[3]:.2f})." if k else f" On the harmony map, movements composed later tend to lie further right (rank correlation {gh[3]:.2f}).")
+          if (gh[3] >= 0.5 and not gh[4]) else "")
+    b.insert(2, _box(lang,
+                     (f"악장을 악보 지표로 견주어 닮은 것끼리 가까이 놓은 지도 두 장이다. 화음 지도에 {gh[1]:,}악장, 음표 지도에 {gn[1]:,}악장이 있다.{yr}" if k else
+                      f"Two maps that place movements close together when their score metrics are alike: {gh[1]:,} movements on the harmony map and {gn[1]:,} on the note map.{yr}"),
+                     (f"두 축이 담는 퍼짐은 전체의 일부다(화음 지도 {gh[2]:.0f}%, 음표 지도 {gn[2]:.0f}%). 평면에서 가까워도 다른 지표에서는 다를 수 있다. 축에는 이름을 붙이지 않았다." if k else
+                      f"The two axes hold only part of the spread ({gh[2]:.0f}% on the harmony map, {gn[2]:.0f}% on the note map), so movements close on the plane can still differ on other metrics. The axes are not named.")))
     # 4. fingerprint
     b.append(("<h2>4. 악장의 지문</h2>" if k else "<h2>4. A movement's fingerprint</h2>") + fingerprint_block(lang))
     # 5. departure
@@ -242,7 +296,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
              + "Weiß, C., Mauch, M., Dixon, S. & Müller, M. (2019; online 2018), 'Investigating style evolution of Western classical music: a computational approach', <i>Musicae Scientiae</i> 23(4): 486–507"
              + (" — 작곡 연도에 따른 연속적인 변화를 계산으로 살핀 연구; " if k else " — a computational study of continuous change over composition years; ")
              + "Herremans, D. & Chew, E. (2016), 'Tension ribbons: quantifying and visualising tonal tension', TENOR 2016"
-             + (" — 음 묶음의 중심과 곡 전체 조의 중심 사이 거리(tensile strain, 나선 배열); " if k else " — distance between the centre of a cluster of notes and that of the global key (tensile strain, spiral array); ")
+             + (" — 음 묶음의 중심과 곡 전체 조의 중심 사이 거리(tensile strain, 나선 배열); " if k else " — distance between the center of a cluster of notes and that of the global key (tensile strain, spiral array); ")
              + "Krumhansl, C. L. & Kessler, E. J. (1982), <i>Psychological Review</i> 89(4): 334–368" + (" — 조성 프로필. " if k else " — key profiles. ")
              + (" 표의 데이터는 <a href='../data/map/piecemap_110_points.csv'>점 좌표</a>·<a href='../data/map/piecemap_110_loadings.csv'>적재값</a>·<a href='../data/map/score_metrics_110_by_movement.csv'>이탈도</a> CSV로 내려받을 수 있다."
                 if k else " Data: <a href='../data/map/piecemap_110_points.csv'>point coordinates</a>, <a href='../data/map/piecemap_110_loadings.csv'>loadings</a>, <a href='../data/map/score_metrics_110_by_movement.csv'>departure metrics</a> (CSV).") + "</p>")

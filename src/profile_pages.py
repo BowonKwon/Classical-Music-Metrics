@@ -3,7 +3,7 @@
 Sections: 1 pitch-class distribution and its Fourier magnitudes; 2 root-transition matrices and transition
 entropy; 3 one movement at a time (key stretches, self-similarity matrix, 4-bar window series); 4 which
 candidates became metrics (rules fixed beforehand) and the variation inside a movement; 5 sources.
-Every number in the prose is computed here from the 1.12 tables. Heat-map colour: the validated six-step
+Every number in the prose is computed here from the 1.12 tables. Heat-map color: the validated six-step
 one-hue ramp of the piece map (piecemap_pages.YEAR_RAMPS), light and dark.
 """
 from __future__ import annotations
@@ -18,6 +18,7 @@ import pandas as pd
 from scipy.stats import spearmanr
 
 sys.path.insert(0, str(Path(__file__).parent))
+import axis  # noqa: E402
 import colour_19 as col19  # noqa: E402
 import gates_112  # noqa: E402
 import piecemap_pages as pmp  # noqa: E402
@@ -65,7 +66,8 @@ def css() -> str:
             ".pf-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem}"
             "#pf-one{max-width:640px}#pf-ssm{width:100%;image-rendering:pixelated;image-rendering:crisp-edges;border:1px solid var(--line);display:block}"
             "#pf-keys{display:block;width:100%;height:14px;margin-bottom:2px}#pf-lines{display:block;width:100%}"
-            ".pf-l1{stroke:var(--s1);fill:none;stroke-width:1.6}.pf-l2{stroke:var(--s2);fill:none;stroke-width:1.6}</style>")
+            ".pf-l1{stroke:var(--s1);fill:none;stroke-width:1.6}.pf-l2{stroke:var(--s2);fill:none;stroke-width:1.6}"
+            "@media(max-width:640px){.pf-two svg text,.pf-two svg .in{font-size:12px}}</style>")
 
 
 def binq(v: float, bins) -> int:
@@ -86,7 +88,7 @@ def proto_figure(lang: str) -> str:
     k = lang == "ko"
     out = []
     for i, (kk, pcs, lab) in enumerate(PROTO):
-        cx, cy, r = 70 + i * 145, 62, 40
+        cx, cy, r = 105 + i * 150, 62, 40   # 1.17: the first label no longer runs off the left edge
         w = np.zeros(12)
         w[pcs] = 1
         mag = abs((w * np.exp(-2j * np.pi * kk * np.arange(12) / 12)).sum()) / w.sum()
@@ -94,17 +96,21 @@ def proto_figure(lang: str) -> str:
                        f"fill='{'var(--s1)' if n in pcs else 'var(--fg3)'}'/>" for n in range(12))
         out.append(f"<circle cx='{cx}' cy='{cy}' r='{r}' fill='none' stroke='var(--grid)'/>{dots}"
                    f"<text x='{cx}' y='126' text-anchor='middle'>k = {kk}: {lab[0 if k else 1]}</text><text x='{cx}' y='142' text-anchor='middle' class='pfa'>|X{'₁₂₃₄₅₆'[kk - 1]}|/X₀ = {mag:.2f}</text>")
-    return f"<svg class='pf' viewBox='0 0 880 150' width='100%' role='img' aria-label='{'계수별 원형 계열' if k else 'A prototype for each coefficient'}'>{''.join(out)}</svg>"
+    return f"<svg class='pf' viewBox='0 0 960 150' width='100%' role='img' aria-label='{'계수별 원형 계열' if k else 'A prototype for each coefficient'}'>{''.join(out)}</svg>"
 
 
 def dft_heatmap(df: pd.DataFrame, lang: str) -> str:
     k = lang == "ko"
-    cw, rh, x0, y0 = 78, 24, 300, 26
+    cw, rh, x0, y0 = 78, 24, 300, 60   # 1.17: room for a second header line (one or two rows of words)
     cols = [f"dft_mag_{i}" for i in range(1, 7)]
     med = df.groupby("corpus")[cols].median()
     cnt = df.groupby("corpus").size()
     comp = df.drop_duplicates("corpus").set_index("corpus")["composer"]
-    out = [f"<text x='{x0 + i * cw + cw / 2}' y='16' text-anchor='middle'>|X{'₁₂₃₄₅₆'[i]}|/X₀</text>" for i in range(6)]
+    out = [f"<text x='{x0 + i * cw + cw / 2}' y='16' text-anchor='middle'>|X{'₁₂₃₄₅₆'[i]}|/X₀</text>"
+           + "".join(f"<text x='{x0 + i * cw + cw / 2}' y='{33 + j * 17}' text-anchor='middle' class='pfa'>{w}</text>"
+                     for j, w in enumerate(PROTO[i][2][0 if k else 1].replace('a ', '').replace('an ', '').replace('seven semitone neighbors', 'semitone cluster').replace('반음 이웃 일곱 음', '반음 이웃').split(' ', 1)))
+           for i in range(6)]
+    out.append(f"<text x='{x0 - 8}' y='33' text-anchor='end' class='pfa'>{'값이 커지는 음 묶음 →' if k else 'large for →'}</text>")
     for r, c in enumerate(ORDER):
         y = y0 + r * rh
         out.append(f"<text x='{x0 - 8}' y='{y + 16}' text-anchor='end'>{esc(pmp.coll_name(c, comp[c], lang))} ({cnt[c]})</text>")
@@ -147,7 +153,7 @@ def matrices_block(lang: str, comp: pd.Series) -> str:
                                "n": "전이" if k else "transitions", "from": "앞 근음" if k else "from", "to": "뒤 근음" if k else "to"}, ensure_ascii=False) + ";"
           "function q(p){for(var i=0;i<B.length;i++){if(p<B[i])return i+1}return 6}"
           "function one(m,mode){var c=26,x0=40,y0=40,s='',tot=0,i,j;for(i=0;i<12;i++)for(j=0;j<12;j++)tot+=m[i][j];"
-          "s+='<text x=\"'+(x0+6*c)+'\" y=\"12\" text-anchor=\"middle\">'+L[mode]+' · '+L.n+' '+tot.toLocaleString()+'</text>';"
+          "s+='<text x=\"'+(x0+6*c)+'\" y=\"14\" text-anchor=\"middle\">'+L[mode]+' · '+L.n+' '+tot.toLocaleString()+'</text>';"
           "for(j=0;j<12;j++)s+='<text x=\"'+(x0+j*c+c/2)+'\" y=\"34\" text-anchor=\"middle\" class=\"pfa\">'+DG[j]+'</text>';"
           "s+='<text x=\"'+(x0+12*c+6)+'\" y=\"34\" class=\"pfa\">n</text>';"
           "for(i=0;i<12;i++){var rs=0;for(j=0;j<12;j++)rs+=m[i][j];var ft=rs<MINROW?' faint':'';s+='<text x=\"'+(x0-6)+'\" y=\"'+(y0+i*c+17)+'\" text-anchor=\"end\" class=\"pfa\">'+DG[i]+'</text>'"
@@ -161,6 +167,31 @@ def matrices_block(lang: str, comp: pd.Series) -> str:
           "sel.addEventListener('change',show);show()})();</script>")
     return (f"<div class='pf-ctl'><label>{'곡집' if k else 'Collection'} <select id='pf-coll'>{opts}</select></label></div>"
             f"<div id='pf-mats' class='pf-two'></div>" + legend(ROW_BINS, lang, True) + js)
+
+
+def transition_note(lang: str) -> str:
+    """What to look at in the root-transition matrices (1.17): after a root on degree 5, how often the next root is degree 1."""
+    k = lang == "ko"
+    mat = pd.read_csv(D / "root_transitions_112.csv")
+    out = {}
+    for mode in ("major", "minor"):
+        sh, top = [], 0
+        for _, g in mat[mat["mode"] == mode].groupby("corpus"):
+            row = g[g.from_fifths == 1]
+            tot = row["count"].sum()
+            if tot < MIN_ROW:
+                continue
+            sh.append(float(row[row.to_fifths == 0]["count"].sum() / tot))
+            top += int(row.loc[row["count"].idxmax(), "to_fifths"] == 0)
+        out[mode] = (len(sh), top, min(sh), max(sh), float(np.median(sh)))
+    (nM, tM, aM, bM, mM), (nm_, tm, am, bm, mm) = out["major"], out["minor"]
+    if k:
+        return ("<p class='src'>무엇이 보이는가: 「음도」는 그 조의 으뜸음에서 센 음계의 몇째 음인지를 말한다(1이 으뜸음, 5가 딸림음). 5 행에서 가장 진한 칸을 보면 된다. "
+                f"장조 행렬 {nM}곡집 가운데 {tM}곳에서 5 다음에 가장 자주 오는 근음은 1이고, 그 비율은 곡집에 따라 {aM * 100:.0f}~{bM * 100:.0f}%(중앙값 {mM * 100:.0f}%)다. "
+                f"단조 행렬은 {nm_}곡집 가운데 {tm}곳에서 그렇고 {am * 100:.0f}~{bm * 100:.0f}%(중앙값 {mm * 100:.0f}%)다. 5 행의 전이가 {MIN_ROW}쌍 이상인 곡집만 셌다.</p>")
+    return ("<p class='src'>What to look at: a scale degree is the position of a note in the scale counted from the tonic of the key (1 is the tonic, 5 the dominant). Look for the darkest cell in row 5. "
+            f"In {tM} of the {nM} major-key matrices the root that most often follows 5 is 1, with a share of {aM * 100:.0f}% to {bM * 100:.0f}% depending on the collection (median {mM * 100:.0f}%). "
+            f"In the minor-key matrices this holds in {tm} of {nm_}, with {am * 100:.0f}% to {bm * 100:.0f}% (median {mm * 100:.0f}%). Only collections with at least {MIN_ROW} transitions in row 5 are counted.</p>")
 
 
 def entropy_table(lang: str, comp: pd.Series, table_html) -> tuple[str, pd.DataFrame]:
@@ -213,12 +244,14 @@ def one_block(lang: str, comp: pd.Series) -> str:
           "var s='';if(d.keys.length){for(i=0;i<d.keys.length;i++){var g=d.keys[i],x=0,x2=n;for(j=0;j<n;j++){if(d.mn[j]>=g[0]){x=j;break}}for(j=n-1;j>=0;j--){if(d.mn[j]<=g[1]){x2=j+1;break}}"
           "s+='<rect x=\"'+x+'\" y=\"0\" width=\"'+Math.max(x2-x,0.5)+'\" height=\"1\" class=\"kh-'+step(g[2])+'\"><title>'+g[4]+' ('+T.bar+' '+g[0]+'–'+g[1]+')</title></rect>'}}"
           "else s='<title>'+T.nokey+'</title>';ks.setAttribute('viewBox','0 0 '+n+' 1');ks.innerHTML=s;"
-          "var W=640,H=120,w=d.windows,md=0,mc=0;for(i=0;i<w.length;i++){md=Math.max(md,w[i][1]);if(w[i][2]!==null)mc=Math.max(mc,w[i][2])}"
-          "function path(ix,mx,cl){var pts=[];for(var q=0;q<w.length;q++){if(w[q][ix]===null)continue;pts.push(((w[q][0]+1)/n*W).toFixed(1)+','+(H-18-(mx?w[q][ix]/mx:0)*(H-36)).toFixed(1))}"
+          "var W=640,w=d.windows,md=0,mc=0;for(i=0;i<w.length;i++){md=Math.max(md,w[i][1]);if(w[i][2]!==null)mc=Math.max(mc,w[i][2])}"
+          "var sc=(ln.getBoundingClientRect().width||W)/W,fs=Math.max(11,Math.ceil(10.5/sc)),two=sc<0.75,top=two?2*fs+20:fs+9,bm=fs+8,H=top+84+bm,st='font-size:'+fs+'px;';"
+          "function path(ix,mx,cl){var pts=[];for(var q=0;q<w.length;q++){if(w[q][ix]===null)continue;pts.push(((w[q][0]+1)/n*W).toFixed(1)+','+(H-bm-(mx?w[q][ix]/mx:0)*(H-bm-top)).toFixed(1))}"
           "return '<polyline class=\"'+cl+'\" points=\"'+pts.join(' ')+'\"/>'}"
-          "ln.setAttribute('viewBox','0 0 '+W+' '+H);ln.innerHTML='<line x1=\"0\" y1=\"'+(H-18)+'\" x2=\"'+W+'\" y2=\"'+(H-18)+'\" stroke=\"var(--grid)\"/>'+path(1,md,'pf-l1')+path(2,mc,'pf-l2')"
-          "+'<text x=\"2\" y=\"11\" style=\"fill:var(--s1)\">'+T.dens+' · '+T.max+' '+md.toFixed(2)+'</text><text x=\"'+W+'\" y=\"11\" text-anchor=\"end\" style=\"fill:var(--s2)\">'+T.chrom+' · '+T.max+' '+mc.toFixed(2)+'</text>'"
-          "+'<text x=\"0\" y=\"'+(H-4)+'\" class=\"pfa\">'+T.bar+' '+d.mn[0]+'</text><text x=\"'+W+'\" y=\"'+(H-4)+'\" text-anchor=\"end\" class=\"pfa\">'+d.mn[n-1]+'</text>'}"
+          "ln.setAttribute('viewBox','0 0 '+W+' '+H);ln.innerHTML='<line x1=\"0\" y1=\"'+(H-bm)+'\" x2=\"'+W+'\" y2=\"'+(H-bm)+'\" stroke=\"var(--grid)\"/>'+path(1,md,'pf-l1')+path(2,mc,'pf-l2')"
+          "+'<text x=\"2\" y=\"'+(fs+2)+'\" style=\"'+st+'fill:var(--s1)\">'+T.dens+' · '+T.max+' '+md.toFixed(2)+'</text>'"
+          "+(two?'<text x=\"2\" y=\"'+(2*fs+12)+'\" style=\"'+st+'fill:var(--s2)\">':'<text x=\"'+W+'\" y=\"'+(fs+2)+'\" text-anchor=\"end\" style=\"'+st+'fill:var(--s2)\">')+T.chrom+' · '+T.max+' '+mc.toFixed(2)+'</text>'"
+          "+'<text x=\"0\" y=\"'+(H-4)+'\" class=\"pfa\" style=\"'+st+'\">'+T.bar+' '+d.mn[0]+'</text><text x=\"'+W+'\" y=\"'+(H-4)+'\" text-anchor=\"end\" class=\"pfa\" style=\"'+st+'\">'+d.mn[n-1]+'</text>'}"
           "function load(){fetch('../data/profiles/ssm_112/'+sel.value+'.json').then(function(r){return r.json()}).then(draw).catch(function(){ln.innerHTML='<text x=\"2\" y=\"12\">'+T.err+'</text>'})}"
           "sel.addEventListener('change',load);new MutationObserver(function(){if(cur)draw(cur)}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});load()})();</script>")
     return (f"<div class='pf-ctl'><label>{'악장' if k else 'Movement'} <select id='pf-piece'>{opts}</select></label></div>"
@@ -293,9 +326,12 @@ def render(lang, table_html):
                 f"다만 이 값은 긴 악장일수록 낮다(악장 길이와의 순위 상관 {mn(rho5)}). 그래서 지표로 내지 않고 이 면과 CSV에만 싣는다(4절). 첫째 계수는 곡집별 중앙값이 {med1.min():.2f}~{med1.max():.2f}로 작고 서로 비슷하다. 온음계 일곱 음이 반음계 원에 고르게 퍼져 있다는 점(일곱 음을 고르게 쓰면 0.04)과 맞는 결과다.</p>" if k else
                 f"<p>Collection medians follow (number of movements in parentheses). The median of the fifth coefficient runs from {med5[lo5]:.2f} ({name(lo5)}) to {med5[hi5]:.2f} ({name(hi5)}). "
                 f"It is lower for longer movements, though (rank correlation with movement length {mn(rho5)}), so it is not published as a metric, only here and in the CSV (section 4). The first coefficient is small and much the same everywhere (collection medians {med1.min():.2f} to {med1.max():.2f}), which fits the fact that the seven notes of a diatonic scale are spread evenly around the chromatic circle (0.04 when used equally).</p>")
-             + f"<figure>{dft_heatmap(df, lang)}{legend(DFT_BINS, lang, False)}</figure>"
+             + f"<figure>{dft_heatmap(df, lang)}{legend(DFT_BINS, lang, False)}<figcaption>"
+             + ("행 하나가 곡집 하나, 열 하나가 계수 하나다. 칸의 숫자는 그 곡집 악장들의 중앙값(0~1)이고 색이 진할수록 크다. 열 머리 둘째 줄은 위 그림에서 그 계수가 커지는 음 묶음이다. |X₀|로 나눈 것은 음이 울린 길이의 합으로 나눠 악장 길이와 상관없이 0~1로 맞춘다는 뜻이다."
+                if k else "One row per collection, one column per coefficient. The number in a cell is the median over that collection's movements (0 to 1); a darker cell is a larger value. The second header line names the set of notes that makes the coefficient large in the figure above. Dividing by |X₀| divides by the total sounding time, which puts every movement on a 0-to-1 scale whatever its length.")
+             + "</figcaption></figure>"
              + f"<figure>{sc}<figcaption>"
-             + (f"점 하나가 악장 하나({n_y:,}악장, 작곡 연도가 확인된 것). 세로는 다섯째 계수의 크기. 작곡 연도와의 순위 상관은 {mn(rho_y)}다. 곡집마다 장르와 악장 길이가 달라서, 이 기울기를 시대의 변화로만 읽을 수는 없다."
+             + (f"점 하나가 악장 하나({n_y:,}악장, 작곡 연도가 확인된 것). 세로는 다섯째 계수의 크기. 작곡 연도와의 순위 상관은 {mn(rho_y)}{axis.kp(mn(rho_y), '이다', '다')}. 곡집마다 장르와 악장 길이가 달라서, 이 기울기를 시대의 변화로만 읽을 수는 없다."
                 if k else f"One dot per movement ({n_y:,} movements with a confirmed year). Vertical: magnitude of the fifth coefficient. Rank correlation with the year composed: {mn(rho_y)}. Collections differ in genre and movement length, so the slope cannot be read as change over time alone.")
              + "</figcaption></figure>")
     # 2
@@ -313,9 +349,9 @@ def render(lang, table_html):
               "칸의 색과 숫자는 그 행 안에서의 비율(%)이고, 오른쪽 끝의 n은 그 행의 전이 수다. 전이가 30쌍 미만인 행은 흐리게 그렸다. 대각선 바로 왼쪽 칸이 5도 하행이다. 단조에서 자연단음계의 3·6·7음은 ♭3·♭6·♭7 자리다. "
               f"5도권을 열두 칸으로 접었으므로 ♯1과 ♭2 같은 이명동음은 한 칸이 되고, 접으면 같은 칸이 되는 전이 {drop}쌍은 뺐다.</p>" if k else
               f"<h2>2. Root-transition matrices</h2><p>In the 19 collections with harmony labels, {tot:,} pairs of successive chords in the same local key whose root changes were counted. Rows are the root of the first chord, columns that of the second, as scale degrees from the local tonic in circle-of-fifths order (the tonic, 1, in the middle; 5, 2, 6 … to the right; 4, ♭7, ♭3 … to the left). "
-              "Colour and number give the share within the row (%); n at the right is the number of transitions in the row. Rows with fewer than 30 transitions are drawn faint. The cell just left of the diagonal is a falling fifth. In minor keys the natural 3rd, 6th and 7th degrees are at ♭3, ♭6, ♭7. "
+              "Color and number give the share within the row (%); n at the right is the number of transitions in the row. Rows with fewer than 30 transitions are drawn faint. The cell just left of the diagonal is a falling fifth. In minor keys the natural 3rd, 6th and 7th degrees are at ♭3, ♭6, ♭7. "
               f"The line of fifths is folded to twelve cells, so enharmonic roots such as ♯1 and ♭2 share a cell; {drop} transitions whose two roots fold onto one cell were left out.</p>")
-             + matrices_block(lang, comp)
+             + matrices_block(lang, comp) + transition_note(lang)
              + (f"<h3>전이 엔트로피</h3><p>행렬 하나를 수치 하나로 줄인 값이다. 앞 근음이 정해졌을 때 뒤 근음이 얼마나 예측하기 어려운지를 행마다 엔트로피로 재고 log₂11로 나눈 뒤(Moss 외 2019가 화음 기호에 쓴 정규화 조건부 엔트로피의 방식을 근음에 적용했다), 행의 빈도로 가중 평균했다(가중 평균은 이 사이트가 더한 것이다). "
                 "0이면 뒤 근음이 늘 정해져 있고, 1이면 나머지 열한 음이 고르게 나온다. 같은 자료에서도 전이를 적게 뽑으면 엔트로피 추정값이 낮게 나오므로, 곡집·모드마다 전이 400쌍을 뽑아 계산하기를 200번 되풀이한 평균을 실었다. "
                 f"전체 표본으로 계산한 값보다 {diff.min():.3f}~{diff.max():.3f} 낮다. 전이가 400쌍에 못 미치는 {len(blank)}칸은 비웠다. "
@@ -337,8 +373,8 @@ def render(lang, table_html):
               "<li><b>아래 꺾은선</b>은 4마디 창마다의 음표 밀도와 반음계 비율이다. 두 선은 각자의 최댓값에 맞춰 그렸다.</li></ul>"
               f"<p>행렬은 조에 맞춰 옮기지 않은 음고류 분포로 만든다(옥타브는 무시한다). 같은 주제가 다른 조로 돌아오면 대개 덜 닮게 나오므로 위 띠와 함께 읽어야 한다. 도돌이표는 펴지 않았다. 마디 안의 음 순서와 리듬, 음역은 반영하지 않는다(음 길이는 분포의 가중치로만 쓴다).</p>" if k else
               f"<h2>3. One movement at a time</h2><p>{n_one} sample movements: for each collection, the one whose number of key changes is closest to the collection median, the one with the most, and the one with the fewest (the rule of the key maps on the 'Romantic pieces' page; the chorales are too short and are left out).</p>"
-              "<ul><li>The <b>strip on top</b> shows the annotated local keys: grey for the home key (and its relative), orange for keys on the sharp side, blue for the flat side, stronger the further away.</li>"
-              "<li>The <b>square</b> is the self-similarity matrix. Both axes are measures; the stronger a cell's colour, the more alike the pitch-class distributions of the two measures (cosine similarity; 0.5 or less is left blank, 1 is strongest). On the diagonal each measure with notes is compared with itself, so it is strongest. Strong lines parallel to the diagonal suggest passages that repeat; strong squares are stretches that use similar notes. Two measures with the same distribution can still differ in the order of notes and in rhythm, so whether a passage really repeats has to be checked in the score. A measure with only rests is an empty line, diagonal included.</li>"
+              "<ul><li>The <b>strip on top</b> shows the annotated local keys: gray for the home key (and its relative), orange for keys on the sharp side, blue for the flat side, stronger the further away.</li>"
+              "<li>The <b>square</b> is the self-similarity matrix. Both axes are measures; the stronger a cell's color, the more alike the pitch-class distributions of the two measures (cosine similarity; 0.5 or less is left blank, 1 is strongest). On the diagonal each measure with notes is compared with itself, so it is strongest. Strong lines parallel to the diagonal suggest passages that repeat; strong squares are stretches that use similar notes. Two measures with the same distribution can still differ in the order of notes and in rhythm, so whether a passage really repeats has to be checked in the score. A measure with only rests is an empty line, diagonal included.</li>"
               "<li>The <b>lines below</b> give note density and the chromatic ratio for each 4-bar window, each scaled to its own maximum.</li></ul>"
               "<p>The matrix uses pitch-class distributions that are not transposed to the local key (octaves are ignored). A theme that returns in another key usually looks less alike, so read it with the strip. Repeats are not unfolded. The order of notes within a measure, rhythm and register are not taken into account (note lengths serve only as weights).</p>")
              + one)

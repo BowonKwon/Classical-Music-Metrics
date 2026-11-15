@@ -7,7 +7,7 @@ tempo markings, instrument use (IMSLP, CC BY-SA 4.0) and the historical pitch of
 
 Reads data/derived/imslp_*.csv (work_activity.py, imslp_history.py) and
 data/proto/ellis_pitch_table1.csv (transcription). Genre colors are a validated
-5-slot set (dataviz validator, light and dark, adjacent pairs) plus neutral grey.
+5-slot set (dataviz validator, light and dark, adjacent pairs) plus neutral gray.
 """
 from __future__ import annotations
 
@@ -104,9 +104,10 @@ def ribbon(cy, birth, death, ymax, width=900, height=150):
          f'<rect x="{X(birth):.1f}" y="{T}" width="{X(death + 1) - X(birth):.1f}" height="{ph}" fill="var(--bg2)" rx="3"/>']
     for v in ticks(0, ymax, 3):
         o.append(f'<line class="grid" x1="{L}" x2="{width - R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/><text x="{L - 5}" y="{Y(v) + 4:.1f}" text-anchor="end">{v:g}</text>')
+    o.append(f'<text x="{L + 5}" y="{T + 11}" fill="var(--fg3)">{t("그해의 작품면 수", "work pages in the year")}</text>')   # 1.17: the vertical axis is named
     step = 10 if (x1 - x0) <= 60 else 20
     for yv in range(int(math.ceil(x0 / step) * step), x1, step):
-        o.append(f'<text x="{X(yv) + bw / 2:.1f}" y="{height - 6}" text-anchor="middle">{yv} <tspan fill="var(--fg3)">({yv - birth}{t("세", "")})</tspan></text>')
+        o.append(f'<text x="{X(yv) + bw / 2:.1f}" y="{height - 6}" text-anchor="{"start" if X(yv) - L < 30 else "middle"}">{yv} <tspan fill="var(--fg3)">({yv - birth}{t("세", "")})</tspan></text>')
     piv = cy.pivot_table(index="year", columns="genre", values="works", aggfunc="sum", fill_value=0)
     for yr, row in piv.iterrows():
         base, parts = 0.0, []
@@ -123,7 +124,7 @@ def ribbon(cy, birth, death, ymax, width=900, height=150):
     return "".join(o)
 
 
-def small_line(pts, xlo, xhi, ymax, fmt=".0%", width=300, height=130, color="var(--g1)", xsuffix=""):
+def small_line(pts, xlo, xhi, ymax, fmt=".0%", width=300, height=130, color="var(--g1)", xsuffix="", xticks=None):
     L, R, T, B = 36, 8, 8, 20
     pw, ph = width - L - R, height - T - B
     X = lambda v: L + (v - xlo) / (xhi - xlo) * pw  # noqa: E731
@@ -132,8 +133,8 @@ def small_line(pts, xlo, xhi, ymax, fmt=".0%", width=300, height=130, color="var
     for v in ticks(0, ymax, 3):
         o.append(f'<line class="grid" x1="{L}" x2="{width - R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/><text x="{L - 4}" y="{Y(v) + 4:.1f}" text-anchor="end">{format(v, fmt)}</text>')
     step = 20 if (xhi - xlo) <= 100 else 40
-    for xv in range(int(math.ceil(xlo / step) * step), int(xhi) + 1, step):
-        o.append(f'<text x="{X(xv):.1f}" y="{height - 5}" text-anchor="middle">{xv}{xsuffix}</text>')
+    for xv in (xticks if xticks is not None else range(int(math.ceil(xlo / step) * step), int(xhi) + 1, step)):   # 1.17: ticks can be put on the data points
+        o.append(f'<text x="{X(xv):.1f}" y="{height - 5}" text-anchor="{"start" if X(xv) - L < 14 else "end" if xticks is not None and xv == xhi else "middle"}">{xv}{xsuffix}</text>')
     if pts:
         area = f"M{X(pts[0][0]):.1f},{Y(0):.1f} " + " ".join(f"L{X(a):.1f},{Y(b):.1f}" for a, b in pts) + f" L{X(pts[-1][0]):.1f},{Y(0):.1f} Z"
         o.append(f'<path d="{area}" fill="{color}" fill-opacity=".14"/>')
@@ -162,13 +163,13 @@ def creation_vs_reception(df, width=300, height=140):
             o.append(f'<circle cx="{X(r.bin_start) + 1.5 + bw / 2:.1f}" cy="{Y(r.nyphil_share):.1f}" r="4.5" fill="var(--g1)" stroke="var(--card)" stroke-width="2"><title>{r.bin_start}–{r.bin_start + 4}: {t("뉴욕 필 연주", "NY Phil performances")} {r.nyphil_share:.0%}</title></circle>')
     step = 10 if (x1 - x0) <= 50 else 20
     for xv in range(int(math.ceil(x0 / step) * step), int(x1), step):
-        o.append(f'<text x="{X(xv):.1f}" y="{height - 5}" text-anchor="middle">{xv}</text>')
+        o.append(f'<text x="{X(xv):.1f}" y="{height - 5}" text-anchor="{"start" if X(xv) - L < 14 else "middle"}">{xv}</text>')
     o.append("</svg>")
     return "".join(o)
 
 
 def scatter(df, width=900, height=320):
-    L, R, T, B = 46, 14, 14, 30
+    L, R, T, B = 46, 14, 20, 30
     pw, ph = width - L - R, height - T - B
     x0, x1 = df.year_start.min() - 5, df.year_start.max() + 5
     ymax = df.orch_parts.max() * 1.08
@@ -179,7 +180,7 @@ def scatter(df, width=900, height=320):
         o.append(f'<line class="grid" x1="{L}" x2="{width - R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/><text x="{L - 6}" y="{Y(v) + 4:.1f}" text-anchor="end">{v:g}</text>')
     for xv in range(int(math.ceil(x0 / 25) * 25), int(x1), 25):
         o.append(f'<text x="{X(xv):.1f}" y="{height - 10}" text-anchor="middle">{xv}</text>')
-    o.append(f'<text x="{L}" y="10">{t("관악·타악·건반 파트 수", "wind, brass, percussion and keyboard parts")}</text>')
+    o.append(f'<text x="{L}" y="13">{t("관악·타악·건반 파트 수", "wind, brass, percussion and keyboard parts")}</text>')
     for r in df.itertuples():
         o.append(f'<circle cx="{X(r.year_start):.1f}" cy="{Y(r.orch_parts):.1f}" r="4" fill="var(--g1)" fill-opacity=".55" stroke="var(--card)" stroke-width="1.5"><title>{esc(name(r.composer))} {esc(r.work_title)} ({int(r.year_start)}): {int(r.orch_parts)}</title></circle>')
     med = df.groupby((df.year_start // 10) * 10)["orch_parts"].median()
@@ -260,7 +261,7 @@ def pitch_kind(particulars) -> str:
 
 
 def pitch_scatter(df, width=900, height=380):
-    L, R, T, B = 50, 14, 14, 30
+    L, R, T, B = 50, 14, 20, 30
     pw, ph = width - L - R, height - T - B
     x0, x1, y0, y1 = 1350, 1890, 360, 580
     X = lambda v: L + (v - x0) / (x1 - x0) * pw  # noqa: E731
@@ -271,7 +272,7 @@ def pitch_scatter(df, width=900, height=380):
     o.append(f'<line x1="{L}" x2="{width - R}" y1="{Y(440):.1f}" y2="{Y(440):.1f}" stroke="var(--fg3)" stroke-dasharray="4 4"/><text x="{L + 6}" y="{Y(440) - 5:.1f}">440 Hz</text>')
     for xv in range(1350, 1891, 50):
         o.append(f'<text x="{X(xv):.1f}" y="{height - 10}" text-anchor="middle">{xv}</text>')
-    o.append(f'<text x="{L}" y="10">{t("a′ 진동수 (Hz)", "frequency of a′ (Hz)")}</text>')
+    o.append(f'<text x="{L}" y="13">{t("a′ 진동수 (Hz)", "frequency of a′ (Hz)")}</text>')
     col = {k: c for k, _, _, c in PITCH_KIND}
     d = df.dropna(subset=["year"])
     for r in d.itertuples():
@@ -285,6 +286,17 @@ def pitch_scatter(df, width=900, height=380):
         o.append('<path d="' + " ".join(f"{'M' if i == 0 else 'L'}{X(a):.1f},{Y(b):.1f}" for i, (a, b) in enumerate(pts)) + '" fill="none" stroke="var(--fg)" stroke-width="2"/>')
     o.append("</svg>")
     return "".join(o)
+
+
+def tempo_key() -> str:
+    """Which tempo words fall in each of the six classes (1.17), read from the dictionary the counts were made with."""
+    from imslp_history import CLASS, VERNACULAR
+    parts = []
+    for cls in TEMPO:
+        it = [w.capitalize() for w, c in CLASS.items() if c == cls]
+        ver = [w.capitalize() for w, c in VERNACULAR.items() if c == cls and not w.startswith(("sehr ", "très ")) and w != "massig"][:3]
+        parts.append(f"{tname(cls)} — {', '.join(it)}" + (t(f"(자국어 예: {', '.join(ver)})", f" (vernacular, e.g. {', '.join(ver)})") if ver else ""))
+    return t("여섯 단계에 들어가는 템포어: ", "Tempo words in the six classes: ") + "; ".join(parts) + t(". 단계는 이 사이트가 정한 묶음이고 메트로놈 수치가 아니다.", ". The classes are this site's grouping, not metronome values.")
 
 
 LONG_CLS = " class='long'"
@@ -336,8 +348,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
                                  f"The unit is the <b>IMSLP work page</b>: one work can span several pages and one page can hold several works, so this is not a count of works composed. {len(W):,} pages for the ten composers (pages re-attributed to, or titled under the name of, another composer are dropped); of the {n_dated:,} with a composition year, {n_term} that give only a bound ('before', 'after') are left out of year-based counts. Reception uses the NY Phil archive, matched by catalog number.") + "</div>"]
     # 1
     b.append(f"<h2 id='s1'>1. {t('경력 띠 — 해마다 무엇을 썼나', 'Career ribbons — what was written each year')}</h2>{GL[1]}<p>"
-             + t("연도별 작품면 수(작곡 기간이 여러 해면 해마다 나누어 셈. 개정·후대 판본 연도는 넣지 않았다)를 장르별로 쌓았다. 옅은 바탕은 생애. 막대에 마우스를 올리면 그해 내역이 나온다. 작곡가마다 세로축이 다르다.",
-                 "Work pages per year by genre (a work dated over several years is split evenly across them; revision and later-version dates are not included). The pale band is the lifespan. Hover over a bar to see that year's breakdown. Each composer's panel has its own vertical scale.") + "</p>" + legend)
+             + t("연도별 작품면 수(작곡 기간이 여러 해면 해마다 나누어 셈. 개정·후대 판본 연도는 넣지 않았다)를 장르별로 쌓았다. 옅은 바탕은 생애. 막대에 마우스를 올리면 그해 내역이 나온다. 작곡가마다 세로축이 다르므로 막대 높이를 작곡가끼리 견주지 않는다. 여러 해에 걸친 작품을 나누어 세기 때문에 한 해의 값이 0.5 같은 소수로 나올 수 있다.",
+                 "Work pages per year by genre (a work dated over several years is split evenly across them; revision and later-version dates are not included). The pale band is the lifespan. Hover over a bar to see that year's breakdown. Each composer's panel has its own vertical scale, so bar heights should not be compared across composers; because a work spread over several years is split, a year can show a fraction such as 0.5.") + "</p>" + legend)
     for c in ORDER:
         cy = CY[CY.composer == c]
         if cy.empty:
@@ -364,8 +376,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     b.append("</div>")
     # 3
     b.append(f"<h2 id='s3'>3. {t('쓴 시기와 연주 비율', 'When it was written, how much it is played')}</h2>{GL[3]}<p>"
-             + t("회색 막대는 작곡 시기(5년)별 작품면 비율, 파란 점은 <b>작곡 연도까지 매칭된</b> 뉴욕 필 연주(작품 연주 U1) 가운데 그 시기에 쓴 작품의 비율. 가로축은 연주 시점이 아니라 작곡 시기다. 같은 % 축이다. 점이 막대보다 높으면 그 시기 작품이 상대적으로 많이 연주된다. 한 오케스트라의 기록이다.",
-                 "Gray bars: share of work pages composed in each five-year period. Blue dots: of the NY Phil work performances (U1) <b>matched to a dated page</b>, the share that falls on works from that period. The horizontal axis is the composition period, not the performance date; both are plotted on the same % axis. A dot above its bar means works from that period are played more than their share. One orchestra's record.") + "</p>"
+             + t("회색 막대는 작곡 시기(5년)별 작품면 비율, 파란 점은 <b>작곡 연도까지 매칭된</b> 뉴욕 필 연주(한 프로그램에 오른 작품 하나를 한 번으로 센 「작품 연주」) 가운데 그 시기에 쓴 작품의 비율. 가로축은 연주 시점이 아니라 작곡 시기다. 같은 % 축이다. 점이 막대보다 높으면 그 시기 작품이 상대적으로 많이 연주된다. 한 오케스트라의 기록이다.",
+                 "Gray bars: share of work pages composed in each five-year period. Blue dots: of the NY Phil work performances (each work on a program counted once) <b>matched to a dated page</b>, the share that falls on works from that period. The horizontal axis is the composition period, not the performance date; both are plotted on the same % axis. A dot above its bar means works from that period are played more than their share. One orchestra's record.") + "</p>"
              + f'<div class="legend"><span style="--c:var(--g6)">{t("작품면 비율", "share of work pages")}</span><span style="--c:var(--g1)">{t("뉴욕 필 연주 비율", "share of NY Phil performances")}</span></div><div class="grid2">')
     for c in ORDER:
         r = RP[RP.composer == c]
@@ -377,26 +389,33 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     b.append(table(MR.assign(composer=MR.composer.map(name)), [("composer", t("작곡가", "Composer"), None), ("u1", t("뉴욕 필 작품 연주", "NY Phil work perf."), ".0f"), ("matched_u1_share", t("매칭", "matched"), ".0%"), ("dated_u1_share", t("연도까지", "dated"), ".0%")], "mr"))
     # 4
     b.append(f"<h2 id='s4'>4. {t('교향곡 편성 — 관악·타악·건반 파트 수', 'Symphony orchestration — wind, brass, percussion and keyboard parts')}</h2>{GL[4]}<p>"
-             + t(f"이 10명의 교향곡 가운데 IMSLP 편성 상세가 있는 {len(SY)}곡(합창이 있는 교향곡 포함). 점 하나가 교향곡 하나, 검은 선은 10년 구간 중앙값. 편성란에 적힌 비현악 파트를 셌다(현악은 세지 않음, 수가 없는 악기는 1, 괄호 안 악기 포함, 타악기는 개별 악기가 적혀 있으면 그것만). 연주자 수나 악보의 실제 파트 수와 같다는 보장은 없다.",
-                 f"The {len(SY)} symphonies by these ten composers whose IMSLP page has instrumentation details (choral symphonies included). One dot per symphony; the black line is the median per decade. Non-string parts as listed (strings not counted; an instrument without a number counts once; bracketed instruments included; percussion counted by named instrument when listed). This need not equal the number of players or of parts in the score.") + f"</p><figure>{scatter(SY)}</figure>")
+             + t(f"이 10명의 교향곡 가운데 IMSLP 편성 상세가 있는 {len(SY)}곡(합창이 있는 교향곡 포함). 점 하나가 교향곡 하나, 점들을 가로지르는 실선은 10년 구간 중앙값. 편성란에 적힌 비현악 파트를 셌다(현악은 세지 않음, 수가 없는 악기는 1, 괄호 안 악기 포함, 타악기는 개별 악기가 적혀 있으면 그것만). 연주자 수나 악보의 실제 파트 수와 같다는 보장은 없다.",
+                 f"The {len(SY)} symphonies by these ten composers whose IMSLP page has instrumentation details (choral symphonies included). One dot per symphony; the solid line through the dots is the median per decade. Non-string parts as listed (strings not counted; an instrument without a number counts once; bracketed instruments included; percussion counted by named instrument when listed). This need not equal the number of players or of parts in the score.") + f"</p><figure>{scatter(SY)}</figure>")
     b.append(table(SY.sort_values("year_start").assign(composer=SY.composer.map(name)), [("composer", t("작곡가", "Composer"), None), ("work_title", t("작품", "Work"), None), ("year_start", t("연도", "Year"), ".0f"), ("orch_parts", t("파트", "Parts"), ".0f"), ("duration_min", t("연주 시간(분)", "Duration (min)"), ".0f")], "sy"))
     # 5
     okb = sorted(TL.loc[(TL.movements >= 20) & (TL.recognised_share >= 0.6), "bin"].astype(int).tolist())
     b.append(f"<h2 id='s5'>5. {t('템포 지시어의 구성 — 악장 줄에 어떤 템포어가 적혔나', 'Tempo markings — which tempo words the movement lists carry')}</h2>{GL[5]}<p>"
              + t("IMSLP 교향곡 범주(오르간 교향곡·여러 곡 묶음 면·목록 면 제외)의 악장 목록에서 줄마다 사전에 있는 첫 템포어(Adagio·Allegro·Vivo 등, 독일어·프랑스어 지시어 포함)를 뽑아 여섯 단계로 묶었다. <b>연주 속도(BPM)가 아니라 적힌 지시어의 구성</b>이다. 느린 서주가 있는 악장은 서주의 템포어로 잡히고, 판본이 둘 적힌 면은 두 판의 줄이 모두 들어간다. 25년 구간, 인식된 줄이 20개 이상이고 인식률(템포어가 잡힌 줄 / 목록 줄) 60% 이상인 구간만.",
                  "From the movement lists of the IMSLP Symphonies category (organ symphonies, multi-symphony pages and list pages excluded), the first tempo word on each line that is in the site's dictionary (Adagio, Allegro, Vivo …, German and French words included), grouped into six classes. <b>This is the make-up of written markings, not performed speed (bpm).</b> A movement with a slow introduction is classed by the introduction; pages listing two versions contribute both. 25-year bins with at least 20 recognized lines and a recognition rate (lines with a tempo word / listed lines) of at least 60%.") + "</p>"
-             + '<div class="legend">' + "".join(f'<span style="--c:{c}">{tname(k)}</span>' for k, c in zip(TEMPO, TEMPO_C)) + f"</div><figure>{stacked100(TP, okb)}</figure>")
+             + "<p class='src'>" + tempo_key() + "</p>"
+             + '<div class="legend">' + "".join(f'<span style="--c:{c}">{tname(k)}</span>' for k, c in zip(TEMPO, TEMPO_C)) + f"</div><figure>{stacked100(TP, okb)}"
+             + "<figcaption>" + t("가로축의 연도는 25년 구간의 시작 해다(1750 = 1750~1774년). 막대 하나가 그 구간의 템포어 줄 전체(100%)이고, 아래에서 위로 범례의 왼쪽에서 오른쪽 순서로 쌓았다. 칸에 마우스를 올리면 단계와 비율, 그 구간의 줄 수가 나온다.",
+                                  "The year on the horizontal axis is the first year of a 25-year bin (1750 = 1750–1774). Each bar is all the tempo lines of its bin (100%), stacked from bottom to top in the order of the legend from left to right. Hover over a segment for its class, share and the number of lines in the bin.") + "</figcaption></figure>")
     tl = TL[TL.bin.isin(okb)]
     pts = [(int(r.bin), float(r.non_italian_share)) for r in tl.itertuples()]
     b.append(f"<h3>{t('이탈리아어가 아닌 템포 지시어의 비율', 'Share of non-Italian tempo words')}</h3><p>" + t("Langsam·Lebhaft·Modéré·Slowly처럼 자국어로 쓴 템포어가 템포어가 잡힌 줄 가운데 차지하는 비율.", "Tempo words in the vernacular (Langsam, Lebhaft, Modéré, Slowly …) as a share of lines with a recognized tempo word.") + "</p>"
-             f"<figure>{small_line(pts, okb[0], okb[-1], max(p[1] for p in pts) * 1.2 or .1, fmt='.0%', width=900, height=200)}</figure>")
+             f"<figure>{small_line(pts, okb[0], okb[-1], max(p[1] for p in pts) * 1.2 or .1, fmt='.0%', width=900, height=200, xticks=okb)}"
+             + "<figcaption>" + t(f"가로축의 연도는 25년 구간의 시작 해이고, 점은 그 해 위에 찍었다. 세로는 그 구간에서 템포어가 잡힌 줄 가운데 이탈리아어가 아닌 줄의 비율이다. 그림에 실린 구간마다 줄 수가 다르다(가장 적은 구간 {int(tl.movements.min())}줄, 가장 많은 구간 {int(tl.movements.max())}줄). 아래 표에는 그림에서 뺀 구간도 있다.",
+                                  f"The year on the horizontal axis is the first year of a 25-year bin, and each point sits on that year. The vertical value is the share of non-Italian lines among the lines with a recognized tempo word in the bin. The number of lines differs among the bins drawn (fewest {int(tl.movements.min())}, most {int(tl.movements.max())}); the table below also lists bins left out of the chart.") + "</figcaption></figure>")
     b.append(table(TL[TL.movements >= 20], [("bin", t("25년 구간", "25-year bin"), ".0f"), ("works", t("교향곡", "symphonies"), ".0f"), ("listed_lines", t("목록 줄", "listed lines"), ".0f"), ("movements", t("템포어 인식 줄", "recognized lines"), ".0f"), ("recognised_share", t("인식률", "recognition"), ".0%"), ("non_italian_share", t("비이탈리아어", "non-Italian"), ".1%")], "tl"))
     # 6
     okb2 = sorted(IU.loc[IU.symphonies >= 20, "bin"].drop_duplicates().astype(int).tolist())
     nsy = int(IU.drop_duplicates("bin").loc[lambda d: d.symphonies >= 20, "symphonies"].sum())
     b.append(f"<h2 id='s6'>6. {t('악기 사용 변천 — 교향곡 편성란에 이름이 오른 악기', 'Instrument use — instruments named in symphony instrumentation')}</h2>{GL[6]}<p>"
              + t(f"IMSLP 교향곡 범주 3,140면 가운데 한 곡짜리 관현악 교향곡이면서 작곡 연도와 편성 상세가 모두 있는 {nsy}곡(구간당 20곡 이상인 구간만). 편성 상세가 없는 면이 70%를 넘어 <b>전체 교향곡의 확률 표본이 아니다</b>. 칸의 숫자는 그 25년 구간 교향곡 가운데 편성란에 그 악기 이름이 적힌 비율(%) — 선택·겸용 악기도 「적힘」으로 셌고, 실제 연주 여부나 최초 도입 시점을 뜻하지 않는다. 행 순서는 처음 절반을 넘는 구간 순으로 대략 맞췄다.",
-                 f"Of the 3,140 pages in the IMSLP Symphonies category, the {nsy} single orchestral symphonies with both a composition year and instrumentation details (bins with at least 20 only). More than 70% of pages have no detail, so this is <b>not a probability sample of all symphonies</b>. Each cell is the share (%) of that bin's symphonies whose instrumentation names the instrument — optional and doubling instruments count as named; it does not show actual use or first introduction. Rows are roughly ordered by the first bin in which the share exceeds one half.") + f"</p><figure>{heatmap(IU, okb2, INSTR_ORDER)}</figure>")
+                 f"Of the 3,140 pages in the IMSLP Symphonies category, the {nsy} single orchestral symphonies with both a composition year and instrumentation details (bins with at least 20 only). More than 70% of pages have no detail, so this is <b>not a probability sample of all symphonies</b>. Each cell is the share (%) of that bin's symphonies whose instrumentation names the instrument — optional and doubling instruments count as named; it does not show actual use or first introduction. Rows are roughly ordered by the first bin in which the share exceeds one half.") + f"</p><figure>{heatmap(IU, okb2, INSTR_ORDER)}<figcaption>"
+             + t(f"가로축의 연도는 25년 구간의 시작 해다. 색이 진할수록 비율이 높다. 숫자가 없는 칸은 5% 미만이다(0%인 칸 {int((IU[IU.bin.isin(okb2)].share == 0).sum())}개 포함). 정확한 값은 칸에 마우스를 올리거나 아래 표에서 본다.",
+                 f"The year on the horizontal axis is the first year of a 25-year bin. A darker cell is a higher share. Cells without a number are below 5% ({int((IU[IU.bin.isin(okb2)].share == 0).sum())} of them are 0%). Hover over a cell or open the table below for the exact value.") + "</figcaption></figure>")
     piv = IU[IU.bin.isin(okb2)].pivot(index="instrument", columns="bin", values="share").reindex(INSTR_ORDER).reset_index()
     piv["instrument"] = piv["instrument"].map(iname)
     piv.columns = [str(c) for c in piv.columns]
@@ -407,8 +426,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     ed = EP.dropna(subset=["year"])
     kc = ed["kind"].value_counts()
     b.append(f"<h2 id='s7'>7. {t('A음 높이의 역사 — 1361~1880년대 a′ 의 진동수', 'The pitch of a′, 1361 to the 1880s')}</h2>{GL[7]}<p>"
-             + t(f"A. J. Ellis 가 모은 역사적 음고 표(헬름홀츠 『On the Sensations of Tone』 영역 3판 1895, 부록 XX 섹션 H Table I, 495~504쪽 — 퍼블릭 도메인)를 쪽 이미지에서 옮기고 1885년 2판과 전부 대조한 {len(EP)}행 가운데 연도가 있는 {len(ed)}행. 점 하나가 Ellis 가 모은 a′ 기록 하나다. 대부분은 소리굽쇠·오르간 파이프·악기에서 잰 값이지만, 남은 파이프나 문헌에서 계산한 값과 제안·채택된 기준값(예: 1860년 Society of Arts 의 시행되지 않은 기준안, 1885년 런던 발명·음악 박람회의 채택값)도 있다. 가로축은 표에 적힌 연도라서 늘 측정한 해는 아니다. 오르간은 건립 연도가 붙은 것이 있고(1361년 할버슈타트 오르간은 프레토리우스가 적은 파이프 치수로 Ellis 가 모형을 만들어 계산한 값이다), 「1740~1812」 같은 기간은 첫해에 찍었다. 흐린 점은 연도가 「~이전/이후/무렵」이거나 기간인 것. 검은 선은 25년 구간 중앙값(5점 이상 구간)으로, 장소·기구·측정법이 다른 기록을 같은 무게로 합친 값이다. 점이 드문 구간을 건너 이어지므로 선이 지나는 해에 자료가 있다는 뜻은 아니다. 색은 설명 칸의 낱말로 나눈 용도의 대략의 구분이다. 제작자의 직업(오르간 제작자)은 용도로 보지 않았고, 교회 건물 이름이 없으면 오페라·관현악·악대 용도를 오르간보다 앞세웠다. 오페라 극장의 오르간처럼 둘에 걸치는 기록이 있어 시기별 용도 비교에는 쓰지 않는 편이 좋다. 같은 시기에도 장소와 용도에 따라 100 Hz 넘게 벌어진다. 이것은 측정된 표본의 분포이지 각 시대의 「표준」이 아니다. 표는 1880년대에서 끝난다.",
-                 f"A. J. Ellis's table of historical pitches (Helmholtz, On the Sensations of Tone, tr. Ellis, 3rd ed. 1895, Appendix XX, Section H, Table I, pp. 495–504 — public domain), transcribed from the page images and checked line by line against the 2nd edition of 1885: {len(ed)} of {len(EP)} rows have a date. Each dot is one a′ record collected by Ellis. Most were measured from a fork, organ pipe or instrument, but some are computed from surviving pipes or from documents, and some are proposed or adopted standards (for example the Society of Arts' unexecuted standard of 1860 and the pitch adopted by the London Inventions and Music Exhibition of 1885). The horizontal axis is the date given in the table, which is not always the year of measurement: some organs carry the year they were built (the value for the Halberstadt organ of 1361 is Ellis's calculation from a model built to the pipe dimensions given by Praetorius), and periods such as 1740–1812 are plotted at their first year. Faint dots have dates given as before / after / about, or as a period. The black line is the median per 25-year bin (bins with five or more points); it weights records of different places, instruments and methods equally, and because it joins across sparse bins, a line passing through a year does not mean there are records for that year. Colors are a rough grouping by use, from words in the description. A maker's trade (organ-builder) is not treated as a use, and an opera, orchestra or band use takes precedence over the word 'organ' unless a church building is named. Some records belong to both, such as an organ in an opera house, so the colors are not suited to comparing uses across periods. Pitches of the same period differ by more than 100 Hz depending on place and use. This is the spread of the measured sample, not each era's 'standard'. The table ends in the 1880s.") + "</p>"
+             + t(f"A. J. Ellis 가 모은 역사적 음고 표(헬름홀츠 『On the Sensations of Tone』 영역 3판 1895, 부록 XX 섹션 H Table I, 495~504쪽 — 퍼블릭 도메인)를 쪽 이미지에서 옮기고 1885년 2판과 전부 대조한 {len(EP)}행 가운데 연도가 있는 {len(ed)}행. 점 하나가 Ellis 가 모은 a′ 기록 하나다. 대부분은 소리굽쇠·오르간 파이프·악기에서 잰 값이지만, 남은 파이프나 문헌에서 계산한 값과 제안·채택된 기준값(예: 1860년 Society of Arts 의 시행되지 않은 기준안, 1885년 런던 발명·음악 박람회의 채택값)도 있다. 가로축은 표에 적힌 연도라서 늘 측정한 해는 아니다. 오르간은 건립 연도가 붙은 것이 있고(1361년 할버슈타트 오르간은 프레토리우스가 적은 파이프 치수로 Ellis 가 모형을 만들어 계산한 값이다), 「1740~1812」 같은 기간은 첫해에 찍었다. 흐린 점은 연도가 「~이전/이후/무렵」이거나 기간인 것. 점들을 가로지르는 실선은 25년 구간 중앙값(5점 이상 구간)으로, 장소·기구·측정법이 다른 기록을 같은 무게로 합친 값이다. 점이 드문 구간을 건너 이어지므로 선이 지나는 해에 자료가 있다는 뜻은 아니다. 색은 설명 칸의 낱말로 나눈 용도의 대략의 구분이다. 제작자의 직업(오르간 제작자)은 용도로 보지 않았고, 교회 건물 이름이 없으면 오페라·관현악·악대 용도를 오르간보다 앞세웠다. 오페라 극장의 오르간처럼 둘에 걸치는 기록이 있어 시기별 용도 비교에는 쓰지 않는 편이 좋다. 같은 시기에도 장소와 용도에 따라 100 Hz 넘게 벌어진다. 이것은 측정된 표본의 분포이지 각 시대의 「표준」이 아니다. 표는 1880년대에서 끝난다.",
+                 f"A. J. Ellis's table of historical pitches (Helmholtz, On the Sensations of Tone, tr. Ellis, 3rd ed. 1895, Appendix XX, Section H, Table I, pp. 495–504 — public domain), transcribed from the page images and checked line by line against the 2nd edition of 1885: {len(ed)} of {len(EP)} rows have a date. Each dot is one a′ record collected by Ellis. Most were measured from a fork, organ pipe or instrument, but some are computed from surviving pipes or from documents, and some are proposed or adopted standards (for example the Society of Arts' unexecuted standard of 1860 and the pitch adopted by the London Inventions and Music Exhibition of 1885). The horizontal axis is the date given in the table, which is not always the year of measurement: some organs carry the year they were built (the value for the Halberstadt organ of 1361 is Ellis's calculation from a model built to the pipe dimensions given by Praetorius), and periods such as 1740–1812 are plotted at their first year. Faint dots have dates given as before / after / about, or as a period. The solid line through the dots is the median per 25-year bin (bins with five or more points); it weights records of different places, instruments and methods equally, and because it joins across sparse bins, a line passing through a year does not mean there are records for that year. Colors are a rough grouping by use, from words in the description. A maker's trade (organ-builder) is not treated as a use, and an opera, orchestra or band use takes precedence over the word 'organ' unless a church building is named. Some records belong to both, such as an organ in an opera house, so the colors are not suited to comparing uses across periods. Pitches of the same period differ by more than 100 Hz depending on place and use. This is the spread of the measured sample, not each era's 'standard'. The table ends in the 1880s.") + "</p>"
              + '<div class="legend">' + "".join(f'<span style="--c:{c}">{(k_ko if LANG == "ko" else k_en)} ({int(kc.get(k, 0))})</span>' for k, k_ko, k_en, c in PITCH_KIND) + f"</div><figure>{pitch_scatter(EP)}</figure>")
     kname = {k: (k_ko if LANG == "ko" else k_en) for k, k_ko, k_en, _ in PITCH_KIND}
     b.append(table(EP.assign(year=EP.year.astype("Int64").astype(str).replace("<NA>", ""), kind=EP.kind.map(kname)), [("vib", "a′ (Hz)", ".1f"), ("cents", t("센트", "cents"), ".0f"), ("date_raw", t("연도(원문)", "date (as printed)"), None), ("place", t("장소", "place"), None), ("particulars", t("설명", "particulars"), None), ("authority", t("관측", "observer"), None), ("kind", t("구분", "group"), None), ("page", t("쪽", "page"), ".0f")], "ep"))

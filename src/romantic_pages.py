@@ -20,6 +20,7 @@ import pandas as pd
 sys.path.insert(0, str(Path(__file__).parent))
 import colour_19 as col19  # noqa: E402
 import sonata_pages as son  # noqa: E402
+import axis  # noqa: E402
 from registry import METRICS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -150,7 +151,7 @@ def _stat_table(df, m, lang, table_html, stat_spec, tid, keep=None):
         return ""
     st = lambda v, f=m["fmt"]: stat_spec(v, f)  # noqa: E731
     return table_html(pd.DataFrame(summ), [("group", "작곡가" if k else "Composer", None), ("n", "악장" if k else "movements", "d"), ("median", "중앙값" if k else "median", st),
-                                           ("q1", "Q1", st), ("q3", "Q3", st), ("mn", "최소" if k else "min", m["fmt"]), ("mx", "최대" if k else "max", m["fmt"])], tid, lang, filt=False)
+                                           ("q1", "1사분위" if k else "Q1", st), ("q3", "3사분위" if k else "Q3", st), ("mn", "최소" if k else "min", m["fmt"]), ("mx", "최대" if k else "max", m["fmt"])], tid, lang, filt=False)
 
 
 def kb_legend(legend, lang):
@@ -171,14 +172,14 @@ def metric_section(m: dict, lang: str, svg_strip, legend, table_html, stat_spec)
                    + ("1.8의 고전기 건반 소나타 곡집에 낭만기 피아노 소품 곡집 일곱을 이어 붙였다. 위에서 아래로 작곡 연도 중앙값 순이다(J. C. 바흐는 연도 미확인이라 뺐다). 소나타 악장과 성격 소품은 장르가 달라 길이와 짜임이 다르다. 자세한 설명은 <a href='../romantic.html'>낭만기 피아노 소품</a> 면에 있다."
                       if k else "The Classical-era keyboard sonatas of 1.8 continued with seven collections of Romantic piano pieces, top to bottom by median year of composition (J. C. Bach, whose years are unconfirmed, is left out). Sonata movements and character pieces differ in length and texture. See the <a href='../romantic.html'>Romantic piano miniatures</a> page.")
                    + "</p>" + kb_legend(legend, lang)
-                   + f"<figure>{svg_strip(g, m['fmt'], xlabel=m['unit'], med_label='중앙값' if k else 'median', row_h=26)}<figcaption>{'점 하나가 악장(곡) 하나, 세로 막대는 중앙값.' if k else 'One dot per movement or piece; vertical bar = median.'}</figcaption></figure>"
+                   + f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}<figcaption>{'점 하나가 악장(곡) 하나, 세로 막대는 중앙값.' if k else 'One dot per movement or piece; vertical bar = median.'}</figcaption></figure>"
                    + _stat_table(kb[kb["era"] == "romantic"], m, lang, table_html, stat_spec, f"rom_{mid}"))
     if mid not in CAD and mid in qt and qt[mid].notna().any():
         g = [(nm(c, lang), qt.loc[qt.composer == c, mid].astype(float).tolist(), 1 if c == "Beethoven" else CLASSICAL_COLOR) for c in order(qt) if qt.loc[qt.composer == c, mid].notna().any()]
         out.append(f"<h2>{'현악 4중주' if k else 'String quartets'}</h2><p>"
                    + ("플레옐(1784)·베토벤(1798~1826)·멘델스존(1827~1847)의 현악 4중주 악장. 세 곡집은 화성 주석 표준의 판이 모두 달라(2.3.0·1.0.0·2.1.0), 화음 지표 차이에는 주석 규칙의 차이가 섞여 있다."
                       if k else "String-quartet movements by Pleyel (1784), Beethoven (1798–1826) and Mendelssohn (1827–1847). The three collections use three versions of the harmony annotation standard (2.3.0, 1.0.0, 2.1.0), so differences in chord metrics mix in differences in the annotation rules.")
-                   + f"</p><figure>{svg_strip(g, m['fmt'], xlabel=m['unit'], med_label='중앙값' if k else 'median', row_h=26)}</figure>"
+                   + f"</p><figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}<figcaption>{'점 하나가 악장 하나, 세로 막대는 중앙값.' if k else 'One dot per movement; vertical bar = median.'}</figcaption></figure>"
                    + _stat_table(qt, m, lang, table_html, stat_spec, f"qt_{mid}"))
     return "".join(out)
 
@@ -210,7 +211,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
 
     n_rom, bars_rom = len(rom), int(rom["n_measures"].sum())
     b.append(("<h2>1. 곡집</h2><p>" + f"DCML이 같은 화성 주석 체계(DCML 표준, 곡집마다 판은 2.1~2.3)로 분석해 공개한 낭만기 피아노 곡집 일곱 개, {n_rom}곡 {bars_rom:,}마디다. 마주르카·서정 소품·어린이 정경처럼 짧은 성격 소품이 대부분이고, 리스트 「순례의 해」는 그보다 긴 곡이 많다. 이 면의 그림에서는 1.8의 고전기 건반 소나타 곡집 여섯(J. C. 바흐 제외) 뒤에 이어 놓는다."
-              if k else "<h2>1. The collections</h2><p>" + f"Seven collections of Romantic piano music that DCML analysed under one harmony annotation standard and published: {n_rom} pieces, {bars_rom:,} bars. Most are short character pieces (mazurkas, lyric pieces, Kinderszenen); Liszt's Années de pèlerinage has many longer ones. The charts on this page set them after the six dated Classical-era sonata collections of 1.8 (J. C. Bach left out).")
+              if k else "<h2>1. The collections</h2><p>" + f"Seven collections of Romantic piano music that DCML analyzed under one harmony annotation standard and published: {n_rom} pieces, {bars_rom:,} bars. Most are short character pieces (mazurkas, lyric pieces, Kinderszenen); Liszt's Années de pèlerinage has many longer ones. The charts on this page set them after the six dated Classical-era sonata collections of 1.8 (J. C. Bach left out).")
              + "</p>" + coll_table(sr)
              + "<p class='src'>" + ("마디 수는 곡마다 악보의 마지막 마디 번호를 더한 값이다. 주석 표준 판이 둘 이상 적힌 곡집은 곡마다 판이 다르다." if k else "Bars are the sum of each piece's last bar number. Collections with more than one standard version have different versions for different pieces.") + "</p>")
 
@@ -218,13 +219,18 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
     b.append(("<h2>2. 건반 음악 1740~1925</h2><p>위에서 아래로 작곡 연도 중앙값 순이다. 점 하나가 악장(곡) 하나, 세로 막대는 중앙값. 지표 이름을 누르면 정의와 공식이 있는 지표 면으로 간다. 마지막 넷은 1.9에서 새로 더한 지표다.</p>"
               if k else "<h2>2. Keyboard music, 1740–1925</h2><p>Top to bottom by median year of composition. One dot per movement or piece; vertical bar = median. Click a metric's name for its definition and formula. The last four are new in 1.9.</p>")
              + kb_legend(legend, lang))
+    cl, ro = sk[sk.era == "classical"], sk[sk.era == "romantic"]
     for mid in LEAD:
         m = MET[mid]
+        g = strip_groups(kb, mid, lang)
+        a, z = cl[mid].median(), ro[mid].median()   # 1.17: each chart says what it shows (same medians as section 3 and the table in 6)
+        era = (f" 곡집 중앙값의 중앙값은 고전기 곡집 {cl[mid].notna().sum()}개가 {axis.num(a, m['fmt'])}, 낭만기 곡집 {ro[mid].notna().sum()}개가 {axis.num(z, m['fmt'])}{axis.kp(axis.num(z, m['fmt']), '이다', '다')}." if k
+               else f" Median of the collection medians: {axis.num(a, m['fmt'])} for the {cl[mid].notna().sum()} Classical-era collections, {axis.num(z, m['fmt'])} for the {ro[mid].notna().sum()} Romantic ones.")
         b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'])}</p>"
-                 f"<figure>{svg_strip(strip_groups(kb, mid, lang), m['fmt'], xlabel=m['unit'], med_label='중앙값' if k else 'median', row_h=24)}</figure>")
+                 f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=24)}"
+                 f"<figcaption>{esc(axis.strip_note(g, m['fmt'], lang) + era)}</figcaption></figure>")
 
     # 3. what the data show
-    cl, ro = sk[sk.era == "classical"], sk[sk.era == "romantic"]
     items = []
     for mid in ["chromatic_ratio", "pitch_class_entropy", "key_clarity", "seventh_chord_ratio", "fifth_root_motion_ratio", "local_key_changes_per_100_measures", "key_change_distance_median", "outside_5oct_ratio"]:
         f = MET[mid]["fmt"]
@@ -240,7 +246,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
                         if k else f"median of the collection medians: Classical-era {format(a, f)}, Romantic {format(z, f)}. Among the Romantic collections, highest {hn} ({hv}), lowest {ln} ({lv}).") + "</li>")
     hm = ["chromatic_ratio", "pitch_class_entropy", "key_clarity", "seventh_chord_ratio", "fifth_root_motion_ratio", "local_key_changes_per_100_measures", "key_change_distance_median", "outside_5oct_ratio"]
     heat = ("<figure>" + col19.heatmap(sk, hm, [MET[x][lang]["name"] for x in hm], [nm(c, lang) for c in sk.composer], [MET[x]["fmt"] for x in hm], lang)
-            + col19.heat_legend(lang, len(sk)) + "<figcaption>" + ("파랑은 곡집 13개의 평균보다 낮고 주황은 높다. z는 곡집 중앙값 13개의 평균과 모표준편차(ddof=0)로 내고, 0.5 표준편차를 한 칸으로 반올림하며 ±3 표준편차에서 가장 진한 칸이다. 색은 지표마다 따로 맞춘 상대값이라 열끼리 색을 견주지 않는다. 칸에 마우스를 올리면 z 값이 나온다." if k else "Blue is below the mean of the 13 collections, orange above. z uses the mean and population standard deviation (ddof=0) of the 13 collection medians, rounded to steps of half a standard deviation and saturating at ±3. Colour is scaled separately for each metric, so do not compare colours across columns. Hover for the z value.") + "</figcaption></figure>")
+            + col19.heat_legend(lang, len(sk)) + "<figcaption>" + ("행 하나가 곡집 하나, 열 하나가 지표 하나다. 칸의 숫자는 그 곡집의 중앙값이고, 색은 그 값이 곡집 13개의 평균에서 얼마나 떨어져 있는지를 나타낸다. 파랑은 평균보다 낮고 주황은 높다. 떨어진 정도는 z로 잰다 — 평균과의 차이를 표준편차(값들이 평균에서 흩어진 정도)로 나눈 수로, z가 1이면 평균보다 표준편차 하나만큼 크다. 표준편차는 곡집 중앙값 13개를 전체로 보고 낸 값이다(모표준편차, ddof=0). 색은 0.5 표준편차를 한 칸으로 반올림하며 ±3 표준편차에서 가장 진한 칸이다. 색은 지표마다 따로 맞춘 상대값이라 열끼리 색을 견주지 않는다. 칸에 마우스를 올리면 z 값이 나온다." if k else "One row per collection, one column per metric. The number in a cell is that collection's median; the color shows how far that value lies from the mean of the 13 collections. Blue is below the mean, orange above. The distance is measured as z: the difference from the mean divided by the standard deviation (how widely the values scatter around the mean), so z = 1 means one standard deviation above the mean. The standard deviation treats the 13 collection medians as the whole set (population standard deviation, ddof=0). Color is rounded to steps of half a standard deviation and saturates at ±3. Color is scaled separately for each metric, so do not compare colors across columns. Hover for the z value.") + "</figcaption></figure>")
     small = [nm(r.composer, lang) for r in sr.itertuples() if r.movements < SMALL_N]
     mixed = [nm(r.composer, lang) for r in sr.itertuples() if "," in r.std]
     nohar = [nm(r.composer, lang) for r in sr.itertuples() if r.labelled < r.movements]
@@ -267,20 +273,38 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
                  + "<li>The five-octave reference (F1–F6) is fixed for comparison; real keyboard compasses differed by period and instrument.</li>"
                  "<li>The collections are the ones researchers annotated, not a sample drawn to represent the period. Large parts of the repertoire are missing: Chopin's other genres, the piano music of Brahms and Mendelssohn, Schubert's sonatas.</li></ul>")
 
+    # 1.17: at-a-glance box under the lead (medians of the collection medians, as in section 3)
+    from history_glance import _box  # noqa: E402
+
+    def pair(mid):
+        f = MET[mid]["fmt"]
+        return axis.num(cl[mid].median(), f), axis.num(ro[mid].median(), f)
+    (c1, r1), (c2, r2), (c3, r3) = pair("chromatic_ratio"), pair("key_clarity"), pair("local_key_changes_per_100_measures")
+    b.insert(1, _box(lang,
+                     (f"낭만기 피아노 곡집 {len(ro)}개({n_rom}곡)를 고전기 건반 소나타 곡집 {len(cl)}개 뒤에 놓고 같은 지표로 견준다. 곡집 중앙값의 중앙값으로 보면 반음계 비율은 고전기 {c1}, 낭만기 {r1}{axis.kp(r1, '이고', '고')}, 조성 명료도는 {c2}{axis.kp(c2, '과', '와')} {r2}, 전조 빈도(100마디당)는 {c3}{axis.kp(c3, '과', '와')} {r3}{axis.kp(r3, '이다', '다')}." if k else
+                      f"{len(ro)} collections of Romantic piano pieces ({n_rom} pieces) are set after {len(cl)} collections of Classical-era keyboard sonatas and compared on the same metrics. By the median of the collection medians, the chromatic ratio is {c1} for the Classical-era collections and {r1} for the Romantic ones, key clarity {c2} and {r2}, and the modulation rate (per 100 bars) {c3} and {r3}."),
+                     ("고전기 쪽은 소나타 악장이고 낭만기 쪽은 대부분 짧은 성격 소품이어서, 차이에는 시대와 장르가 섞여 있다. 곡집은 연구자들이 주석한 것을 모은 것이지 시대를 대표하도록 뽑은 표본이 아니다." if k else
+                      "The Classical-era side is sonata movements and the Romantic side mostly short character pieces, so the differences mix period with genre. The collections are the ones researchers annotated, not a sample drawn to represent the period.")))
+
     # 4. key maps
     comp_of = dict(zip(kb.corpus, kb.composer)) | dict(zip(qt.corpus, qt.composer))
     b.append(("<h2>4. 조성 지도</h2>" if k else "<h2>4. Key maps</h2>")
-             + col19.keymap_section(lang, lambda c: nm(comp_of[c], lang) + (f" · {WORK[c][0 if k else 1]}" if c in WORK else "")))
+             + col19.keymap_section(lang, lambda c: nm(comp_of[c], lang) + (f" · {WORK[c][0 if k else 1]}" if c in WORK else ""),
+                                    title_of=dict(zip(kb.piece_id, kb.movement_title)) | dict(zip(qt.piece_id, qt.movement_title))))
 
     # 5. string quartets
     qmids = [x for x in LEAD if x != "outside_5oct_ratio"]
     b.append(("<h2>5. 현악 4중주</h2><p>플레옐(1784)·베토벤(1798~1826)·멘델스존(1827~1847)의 현악 4중주 악장이다. 베토벤 곡집은 이 사이트의 다른 면에 쓰는 것 그대로다(수치 동일).</p>"
               if k else "<h2>5. String quartets</h2><p>String-quartet movements by Pleyel (1784), Beethoven (1798–1826) and Mendelssohn (1827–1847). The Beethoven collection is the one used elsewhere on this site (same values).</p>")
+             + ("<p class='src'>그림 읽는 법은 2절과 같다: 점 하나가 악장 하나, 세로 막대가 중앙값이다. 그림마다 아래에 세 곡집의 중앙값을 적었다.</p>" if k
+                else "<p class='src'>Read the charts as in section 2: one dot per movement, vertical bar = median. Under each chart are the medians of the three collections.</p>")
              + coll_table(sq) + legend([("베토벤" if k else "Beethoven", 1), ("플레옐·멘델스존" if k else "Pleyel, Mendelssohn", CLASSICAL_COLOR)]))
     for mid in qmids:
         m = MET[mid]
         g = [(nm(c, lang), qt.loc[qt.composer == c, mid].astype(float).tolist(), 1 if c == "Beethoven" else CLASSICAL_COLOR) for c in order(qt) if qt.loc[qt.composer == c, mid].notna().any()]
-        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><figure>{svg_strip(g, m['fmt'], xlabel=m['unit'], med_label='중앙값' if k else 'median', row_h=26)}</figure>")
+        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'])}</p>"
+                 f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}"
+                 f"<figcaption>{esc(axis.strip_note(g, m['fmt'], lang))}</figcaption></figure>")
     qsmall = [nm(r.composer, lang) for r in sq.itertuples() if r.movements < SMALL_N]
     b.append("<ul>" + ("<li>세 곡집의 화성 주석 표준 판이 모두 다르다(" + ", ".join(f"{nm(r.composer, lang)} {r.std}" for r in sq.itertuples()) + "). 화음 지표 차이에는 주석 규칙의 차이가 섞여 있을 수 있고, 그 크기는 이 자료로 따로 잴 수 없다.</li>"
                        "<li>종지 표지는 플레옐 곡집에만 있어 종지 지표 둘은 이 비교에 싣지 않는다.</li>"
@@ -306,7 +330,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
              + "Hentschel, J., Rammos, Y., Neuwirth, M. & Rohrmeier, M. (2025), 'A corpus and a modular infrastructure for the empirical study of (an)notated music', <i>Scientific Data</i> 12:685; "
              + "DCMLab corpora " + ", ".join(f"<a href='https://github.com/DCMLab/{c}'>{c}</a>" for c in ["chopin_mazurkas", "schumann_kinderszenen", "liszt_pelerinage", "grieg_lyric_pieces", "tchaikovsky_seasons", "dvorak_silhouettes", "medtner_tales", "pleyel_quartets", "mendelssohn_quartets", "ABC"]) + " (CC BY-NC-SA 4.0); "
              + kk + (" — 조성 명료도의 조성 프로필; " if k else " — tonal profiles for key clarity; ")
-             + "Machado, G. M., Oliveira, M. M. & Fernandes, L. A. F. (2009), 'A physiologically-based model for simulation of color vision deficiency', <i>IEEE Transactions on Visualization and Computer Graphics</i> 15(6): 1291–1298" + (" — 조성 지도 색의 색각 이상 모의; " if k else " — colour-vision-deficiency simulation for the key-map colours; ")
+             + "Machado, G. M., Oliveira, M. M. & Fernandes, L. A. F. (2009), 'A physiologically-based model for simulation of color vision deficiency', <i>IEEE Transactions on Visualization and Computer Graphics</i> 15(6): 1291–1298" + (" — 조성 지도 색의 색각 이상 모의; " if k else " — color-vision-deficiency simulation for the key-map colors; ")
              + "Viaccoz, C., Harasim, D., Moss, F. C. & Rohrmeier, M. (2023; online 2022), 'Wavescapes', <i>Musicae Scientiae</i> 27(2): 390–427; Palmer, S. E., Schloss, K. B., Xu, Z. & Prado-León, L. R. (2013), 'Music–color associations are mediated by emotion', <i>PNAS</i> 110(22): 8836–8841."
              + (" 지표 정의는 <a href='metrics/index.html'>지표</a> 면과 같다. 표의 데이터는 <a href='../data/romantic/collections_19_by_movement.csv'>CSV</a>와 <a href='../data/romantic/score_metrics_19_by_movement.csv'>새 지표 CSV</a>로 내려받을 수 있다."
                 if k else " Metric definitions are those of the <a href='metrics/index.html'>Metrics</a> pages. The data are downloadable as a <a href='../data/romantic/collections_19_by_movement.csv'>CSV</a> and a <a href='../data/romantic/score_metrics_19_by_movement.csv'>CSV of the new metrics</a>.")
