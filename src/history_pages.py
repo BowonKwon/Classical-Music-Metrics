@@ -34,9 +34,9 @@ GENRES = ["orchestral", "stage", "vocal", "chamber", "keyboard", "other"]
 GNAME = {"orchestral": ("관현악", "Orchestral"), "stage": ("극음악", "Stage"), "vocal": ("성악", "Vocal"),
          "chamber": ("실내악", "Chamber"), "keyboard": ("건반", "Keyboard"), "other": ("기타", "Other")}
 GCSS = """
-:root{--g1:#3a6fb0;--g2:#b5833f;--g3:#2e9a7c;--g4:#7f63ad;--g5:#c24f4f;--g6:#a7a49c}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#5a8ccf;--g2:#b5863a;--g3:#2f9e7e;--g4:#9078c4;--g5:#d0605e;--g6:#5f6168}}
-:root[data-theme="dark"]{--g1:#5a8ccf;--g2:#b5863a;--g3:#2f9e7e;--g4:#9078c4;--g5:#d0605e;--g6:#5f6168}
+:root{--g1:#2a78d6;--g2:#008300;--g3:#e9716c;--g4:#1baf7a;--g5:#eda100;--g6:#9a9a96}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73}}
+:root[data-theme="dark"]{--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73}
 .panel{margin:0 0 .4rem}.panel h3{margin:.9rem 0 .2rem;font-size:.95rem}.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.6rem 1rem}
 .box{background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-radius:8px;padding:.6rem .9rem;font-size:.92rem;margin:.6rem 0 1.2rem}
 .toc a{margin-right:1rem}
