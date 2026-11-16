@@ -275,7 +275,7 @@ def _pedal(m, lang, d):
 
 
 # 1.4 owner decision (2026-11-04): Korean spelling beside the archive name in the Korean box (conductors with 1,000+ work performances)
-KO_CONDUCTOR = {'Damrosch': '담로시', 'Stransky': '스트란스키', 'Bernstein': '번스타인', 'Mehta': '메타', 'Kostelanetz': '코스텔라네츠', 'Mitropoulos': '미트로풀로스', 'Masur': '마주어', 'Hoogstraten': '호흐스트라턴', 'Gilbert': '길버트', 'Maazel': '마젤', 'Barbirolli': '바비롤리', 'Toscanini': '토스카니니', 'Mengelberg': '멩엘베르크', 'Boulez': '불레즈', 'Leinsdorf': '라인스도르프', 'Rodzinski': '로진스키', 'Walter': '발터', 'Smallens': '스몰렌스', 'Schelling': '셸링', 'Slatkin': '슬래트킨'}
+KO_CONDUCTOR = {'Damrosch': '담로시', 'Stransky': '스트란스키', 'Bernstein': '번스타인', 'Mehta': '메타', 'Kostelanetz': '코스텔라네츠', 'Mitropoulos': '미트로풀로스', 'Masur': '마주어', 'Hoogstraten': '호흐스트라턴', 'Gilbert': '길버트', 'Maazel': '마젤', 'Barbirolli': '바비롤리', 'Toscanini': '토스카니니', 'Mengelberg': '멩엘베르흐', 'Boulez': '불레즈', 'Leinsdorf': '라인스도르프', 'Rodzinski': '로진스키', 'Walter': '발터', 'Smallens': '스몰렌스', 'Schelling': '셸링', 'Slatkin': '슬래트킨'}
 
 
 def _conductor(m, lang, d):

@@ -1,0 +1,140 @@
+wikidata_q,name_en,name_ko,requested,bmetr_conductor,status,n_movements,k_median,k_q1,k_q3,orchestra,link_years,release_group,n_spread_flag,movements,on_figure,in_partial_table
+Q1125383,Antonio Pappano,안토니오 파파노,False,,partial,1,,,,London Symphony Orchestra,,,0.0,7/2,False,False
+Q117025,Philippe Jordan,필리프 조르당,False,,full,7,0.9266666666666665,0.9096363547263098,0.9380018238549919,Wiener Symphoniker,2017,,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q117710,Lorin Maazel,로린 마젤,True,,full,7,0.7063617840163007,0.679831695555503,0.814669065190916,Symphonieorchester des Bayerischen Rundfunks,1995,Die 9 Symphonien,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q123603,Ernest Ansermet,에르네스트 앙세르메,False,,full,7,0.8120505109361756,0.7859694182986445,0.8511243816370715,Orchestre de la Suisse Romande,"1956,1958,1959,1960",The Stereo Years,1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q124472,Armin Jordan,아르민 조르당,False,,none,0,,,,,,,,,False,False
+Q128085,Georg Solti,게오르크 솔티,True,"Solti, Georg",full,7,0.7107895332010147,0.6879909833064741,0.82371128433563,Chicago Symphony Orchestra,"1973,1974",The Symphonies,6.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q13003,Arturo Toscanini,아르투로 토스카니니,True,"Toscanini, Arturo",full,7,0.9015025041736227,0.8642603111498021,0.9409019396950931,NBC Symphony Orchestra,"1949,1951,1952",9 Symphonies / Leonore Overture no. 3,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q1377591,Jaap van Zweden,야프 판즈베던,False,,partial,2,,,,New York Philharmonic,"2014,2015",,0.0,5/2 7/2,False,False
+Q1382392,Osmo Vänskä,오스모 벤스케,False,,full,7,0.8339093540532145,0.8202644878153966,0.8667174700962709,Minnesota Orchestra,"2004,2005,2007,2008",The Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q13894,Richard Strauss,리하르트 슈트라우스,False,,partial,2,,,,Staatskapelle Berlin,,,0.0,5/2 7/2,False,False
+Q139218,Lovro von Matačić,로브로 폰 마타치치,False,,partial,4,,,,NHK交響楽団; Česká filharmonie,,,0.0,2/2 3/2 6/2 7/2,False,False
+Q151608,Claudio Abbado,클라우디오 아바도,True,"Abbado, Claudio",full,7,0.8381586645942192,0.8320923541013684,0.9140663197854366,Berliner Philharmoniker,2001,The Symphonies,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q152505,Leonard Bernstein,레너드 번스타인,True,"Bernstein, Leonard",full,7,0.7703124244329448,0.7311571563086122,0.8280307958907269,Wiener Philharmoniker,"1977,1978",9 Symphonien,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q152768,Daniel Barenboim,다니엘 바렌보임,False,"Barenboim, Daniel",full,7,0.7574057450628365,0.698212759101391,0.8404416713848593,Staatskapelle Berlin,1999,The Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q153778,Myung-whun Chung,정명훈,True,,partial,2,,,,Seoul Philharmonic Orchestra; Staatskapelle Dresden,2004,,0.0,3/2 5/2,False,True
+Q154895,Herbert von Karajan,헤르베르트 폰 카라얀,True,"Karajan, Herbert von",full,7,0.8479553284570668,0.7678927806865663,0.9190703060481266,Berliner Philharmoniker,"1961,1962",The Symphonies,7.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q155136,Otto Klemperer,오토 클렘페러,False,"Klemperer, Otto",full,7,0.8040298032801781,0.7633759691411954,0.8301879164691777,Philharmonia Orchestra,,Otto Klemperer Conducts the Complete Beethoven Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q155712,André Previn,앙드레 프레빈,True,,partial,3,,,,London Symphony Orchestra; Royal Philharmonic Orchestra,"1973,1974",,1.0,5/2 6/2 7/2,False,True
+Q156193,Pierre Boulez,피에르 불레즈,False,,partial,1,,,,Philharmonia Orchestra,,,1.0,5/2,False,False
+Q156910,Bruno Walter,브루노 발터,False,"Walter, Bruno",full,7,0.7487642689690849,0.7318162788440414,0.8160872010727311,Columbia Symphony Orchestra,"1958,1959",The Nine Symphonies,7.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q157635,Zubin Mehta,주빈 메타,True,,partial,3,,,,Berliner Philharmoniker; התזמורת הפילהרמונית הישראלית; New York Philharmonic,1990,,0.0,3/2 5/2 8/2,False,True
+Q157785,Vladimir Ashkenazy,블라디미르 아시케나지,False,,partial,4,,,,NHK交響楽団; Philharmonia Orchestra,"1981,1982,1983",,3.0,2/2 5/2 6/2 7/2,False,False
+Q157814,Simon Rattle,사이먼 래틀,False,"Rattle, Simon",full,7,0.8801299261912608,0.824079569858138,0.9211865398063722,Berliner Philharmoniker,2015,Symphonien 1-9,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q157921,Kurt Masur,쿠르트 마주어,False,"Masur, Kurt",full,7,0.8273748723186926,0.8037393738096876,0.8570977103444998,Gewandhausorchester Leipzig,,The Nine Symphonies,1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q158017,Rafael Kubelík,라파엘 쿠벨리크,False,,several_orchestras,7,,,,Berliner Philharmoniker; Boston Symphony Orchestra; Koninklijk Concertgebouworkest; Orchestre de Paris; The Cleveland Orchestra; Wiener Philharmoniker; התזמורת הפילהרמונית הישראלית,"1971,1973,1974,1975",The Symphony Edition,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q158340,Mariss Jansons,마리스 얀손스,False,,full,7,0.9403307874747939,0.900301253478947,0.962304130720619,Symphonieorchester des Bayerischen Rundfunks,2012,The Symphonies and Reflections,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q158370,Bernard Haitink,베르나르트 하이팅크,True,"Haitink, Bernard",full,7,0.8111269985701287,0.7957155731215765,0.8451693404634582,Koninklijk Concertgebouworkest,"1985,1986",The Symphonies,2.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q160325,John Eliot Gardiner,존 엘리엇 가디너,False,"Gardiner, John Eliot",full,7,0.9439728353140918,0.899520732364028,0.9692772775003013,Orchestre Révolutionnaire et Romantique,"1991,1992,1993,1994",9 Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q160390,Gustavo Dudamel,구스타보 두다멜,False,,full,7,0.8206077373684292,0.7286123366214621,0.876444774373013,Orquesta Sinfónica Simón Bolívar,,The Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q160706,Carlos Kleiber,카를로스 클라이버,True,,partial,4,,,,Bayerisches Staatsorchester; Koninklijk Concertgebouworkest; Wiener Philharmoniker,"1974,1975,1983",,2.0,4/2 5/2 6/2 7/2,False,True
+Q165671,Sergiu Celibidache,세르지우 첼리비다케,True,,full,7,0.6554716729137113,0.6405652965240098,0.7066283328869151,Münchner Philharmoniker,"1987,1989,1993,1995,1996",Celibidache Edition - Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q168039,Philippe Herreweghe,필리프 헤레베허,False,,full,7,0.8907877169559412,0.8550189320475303,0.9250819126119234,Antwerp Symphony Orchestra,"2004,2007,2009",9 Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q169030,Zdeněk Mácal,즈데네크 마찰,False,,partial,2,,,,Milwaukee Symphony Orchestra; New Jersey Symphony Orchestra,1988,,0.0,4/2 6/2,False,False
+Q2030025,Mark Ermler,마르크 에르믈레르,False,,partial,1,,,,Royal Philharmonic Orchestra,1993,,0.0,6/2,False,False
+Q213569,Fritz Busch,프리츠 부슈,False,,none,0,,,,,,,,,False,False
+Q213892,William Steinberg,윌리엄 스타인버그,False,,full,7,0.8606811145510838,0.8360970857023363,0.900040467261985,Pittsburgh Symphony Orchestra,"1961,1962,1963,1964,1965",The Nine Complete Symphonies,1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q213913,Michael Gielen,미하엘 길렌,False,"Gielen, Michael",full,7,0.8837086092715231,0.8783750447127898,0.9374654610341493,SWR Sinfonieorchester Baden‐Baden und Freiburg,"1997,1998,2000",The Complete Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q214965,Jascha Horenstein,야샤 호렌슈타인,False,,partial,1,,,,SWR Sinfonieorchester Baden‐Baden und Freiburg,,,0.0,3/2,False,False
+Q215798,Carl Schuricht,카를 슈리히트,False,,full,7,0.8181714981822611,0.7886710613234765,0.9050124653545828,Orchestre de la Société des Concerts du Conservatoire,,9 Symphonies,7.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q2343238,Yuri Simonov,유리 시모노프,False,,none,0,,,,,,,,,False,False
+Q242931,Marin Alsop,마린 올솝,False,,none,0,,,,,,,,,False,False
+Q249545,Ádám Fischer,아담 피셔,False,,full,7,0.9182156133828996,0.9068644166444129,0.9362285667936182,DR UnderholdningsOrkestret,"2016,2017,2018,2019",Complete Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q25936092,Elim Chan,엘림 찬,False,,none,0,,,,,,,,,False,False
+Q2595770,Albert Coates,앨버트 코츠,False,,partial,1,,,,,,,0.0,7/2,False,False
+Q276038,Riccardo Muti,리카르도 무티,True,"Muti, Riccardo",full,7,0.8044821551990947,0.7650359664209199,0.8447790725421954,The Philadelphia Orchestra,"1985,1987,1988",Complete Symphonies,1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q278650,Sakari Oramo,사카리 오라모,False,,partial,2,,,,BBC Symphony Orchestra; Radion sinfoniaorkesteri,,,0.0,5/2 7/2,False,False
+Q297562,Leopold Stokowski,레오폴드 스토코프스키,False,,partial,4,,,,BBC Symphony Orchestra; London Philharmonic Orchestra; London Symphony Orchestra; New York Symphony Orchestra,"1963,1969",,0.0,3/2 5/2 6/2 7/2,False,False
+Q310638,George Szell,조지 셀,False,"Szell, George",full,7,0.7914702103462989,0.7843901377234946,0.9480833701152477,The Cleveland Orchestra,"1957,1959,1961,1962,1963,1964",The 9 Symphonies / Overtures,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q31261,Paul Kletzki,파울 클레츠키,False,,full,7,0.827899603374764,0.8033807478830537,0.8540408244611699,Česká filharmonie,"1965,1967,1968",Symphonies,7.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q313202,Herbert Blomstedt,헤르베르트 블롬슈테트,False,,full,7,0.7344678542618511,0.710822179868493,0.8062251659244594,Staatskapelle Dresden,"1975,1976,1977,1978,1979",Symphonies (complete),1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q313649,Seiji Ozawa,오자와 세이지,False,,orchestra_missing,7,,,,; サイトウ・キネン・オーケストラ,1997,German Masterworks,2.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q313714,Thomas Beecham,토머스 비첨,False,,partial,3,,,,Royal Philharmonic Orchestra,"1956,1959",,0.0,2/2 7/2 8/2,False,False
+Q314587,Esa-Pekka Salonen,에사페카 살로넨,False,,partial,4,,,,Los Angeles Philharmonic; Sinfonia Grange au Lac,"2008,2018",,0.0,3/2 4/2 7/2 8/2,False,False
+Q315589,Ferenc Fricsay,페렌츠 프리처이,False,,partial,4,,,,Berliner Philharmoniker,"1953,1958,1960,1961",,0.0,3/2 5/2 7/2 8/2,False,False
+Q316903,Giuseppe Sinopoli,주세페 시노폴리,False,,none,0,,,,,,,,,False,False
+Q316920,Felix Weingartner,펠릭스 바인가르트너,False,,several_orchestras,7,,,,London Philharmonic Orchestra; London Symphony Orchestra; Royal Philharmonic Orchestra; Wiener Philharmoniker,"1927,1933,1936,1938",The Art of Weingartner: Beethoven: 9 Symphonies,7.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q317182,Jordi Savall,조르디 사발,False,,full,7,0.9457301052444075,0.8966466708138574,0.967269780835953,Le Concert des Nations,"1994,2019,2020",,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q319741,Dimitri Mitropoulos,디미트리 미트로풀로스,False,,partial,1,,,,Minnesota Orchestra,,,0.0,6/2,False,False
+Q320609,Yevgeny Mravinsky,예브게니 므라빈스키,False,,partial,6,,,,Государственный академический симфонический оркестр России; Заслуженный коллектив России Академический симфонический оркестр Санкт-Петербургской филармонии,"1962,1964,1968,1973,1974",,1.0,2/2 3/2 4/2 5/2 6/2 7/2,False,False
+Q322172,Charles Mackerras,찰스 매케러스,False,,full,7,0.9166890159991913,0.9132611990708885,0.9703093831269134,Royal Liverpool Philharmonic Orchestra,"1992,1994,1997",The Nine Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q323075,Han-na Chang,장한나,True,,none,0,,,,,,,,,False,False
+Q336388,James Levine,제임스 러바인,False,,partial,1,,,,Metropolitan Opera Orchestra,,,0.0,3/2,False,False
+Q336725,Willem Mengelberg,빌럼 멩엘베르흐,False,"Mengelberg, Willem",full,7,0.7873396538896422,0.7548573309370515,0.8579464927492456,Koninklijk Concertgebouworkest,1940,The 9 Symphonies by Willem Mengelberg,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q344023,Eugene Ormandy,유진 오먼디,False,,full,7,0.7574288047952501,0.7532215703530518,0.8305476753131585,The Philadelphia Orchestra,"1961,1962,1964,1965,1966",The Nine Symphonies,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q346432,John Barbirolli,존 바비롤리,False,,partial,4,,,,BBC Symphony Orchestra; Hallé Orchestra,"1947,1957,1967,1968",,1.0,3/2 5/2 7/2 8/2,False,False
+Q353449,Serge Koussevitzky,세르게이 쿠세비츠키,False,,none,0,,,,,,,,,False,False
+Q355978,Antal Doráti,언털 도라티,False,,full,7,0.8543929600176494,0.7634857716170382,0.8962309282964387,Royal Philharmonic Orchestra,,Beethoven Complete Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q364179,Fritz Reiner,프리츠 라이너,False,,partial,5,,,,Chicago Symphony Orchestra; Pittsburgh Symphony Orchestra,"1945,1954,1955,1959,1961",,3.0,2/2 3/2 5/2 6/2 7/2,False,False
+Q366624,Colin Davis,콜린 데이비스,False,"Davis, Colin",full,7,0.7529114381150133,0.7457183074383096,0.7956046272629054,Staatskapelle Dresden,1992,The Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q371795,Riccardo Chailly,리카르도 샤이,True,"Chailly, Riccardo",full,7,0.9755286823497956,0.9561780450220159,1.00507724411834,Gewandhausorchester Leipzig,"2008,2009",The Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q372697,Adrian Boult,에이드리언 볼트,False,,partial,4,,,,London Philharmonic Orchestra,,,0.0,3/2 5/2 6/2 7/2,False,False
+Q389851,Péter Eötvös,페테르 외트뵈시,False,,partial,1,,,,Ensemble Modern,,,0.0,5/2,False,False
+Q41505182,Lahav Shani,라하브 샤니,False,,partial,1,,,,Rotterdams Philharmonisch Orkest,2019,,0.0,7/2,False,False
+Q430829,Carlo Maria Giulini,카를로 마리아 줄리니,False,,full,7,0.7675166345886435,0.7046582248332804,0.7909984504570465,Filarmonica della Scala,"1991,1992,1993",The Complete Sony Recordings,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q431025,Kirill Kondrashin,키릴 콘드라신,False,,partial,1,,,,Koninklijk Concertgebouworkest,,,0.0,3/2,False,False
+Q43334,John Pritchard,존 프리처드,False,,partial,1,,,,BBC Symphony Orchestra,1985,,0.0,7/2,False,False
+Q434972,Pierre Monteux,피에르 몽퇴,False,,several_orchestras,7,,,,London Symphony Orchestra; Wiener Philharmoniker,"1957,1958,1959,1960,1961",The Nine Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q435198,Christopher Hogwood,크리스토퍼 호그우드,False,"Hogwood, Christopher",full,7,0.9024350326578144,0.790740634081334,0.9351269074892233,Academy of Ancient Music,"1984,1985,1986,1987,1989",The Symphonies,1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q437262,Gennady Rozhdestvensky,겐나디 로즈데스트벤스키,False,,partial,1,,,,Большой симфонический оркестр имени П. И. Чайковского; Государственный академический симфонический оркестр России,,,0.0,6/2,False,False
+Q449504,Karel Ančerl,카렐 안체를,False,,partial,3,,,,Česká filharmonie,"1960,1968",,0.0,2/2 5/2 8/2,False,False
+Q450793,Václav Neumann,바츨라프 노이만,False,,partial,1,,,,Česká filharmonie,,,0.0,5/2,False,False
+Q464890,Victor de Sabata,빅토르 데 사바타,False,,partial,1,,,,London Philharmonic Orchestra,,,0.0,3/2,False,False
+Q469552,Yuri Temirkanov,유리 테미르카노프,False,,partial,1,,,,Государственный академический симфонический оркестр России,1969,,0.0,8/2,False,False
+Q478275,Kirill Petrenko,키릴 페트렌코,False,,partial,1,,,,Berliner Philharmoniker,,,0.0,7/2,False,False
+Q496386,Ahn Eak-tai,안익태,True,,none,0,,,,,,,,,False,False
+Q503253,István Kertész,이슈트반 케르테스,False,,partial,2,,,,Bamberger Symphoniker,,,0.0,2/2 4/2,False,False
+Q503355,Igor Markevitch,이고르 마르케비치,False,,partial,2,,,,Orchestre Lamoureux,1959,,0.0,5/2 8/2,False,False
+Q503940,Charles Munch,샤를 뮌슈,False,,partial,4,,,,Boston Symphony Orchestra,"1955,1957",,1.0,3/2 5/2 6/2 7/2,False,False
+Q508916,Eduard van Beinum,에뒤아르트 반 베이늄,False,,partial,2,,,,Koninklijk Concertgebouworkest; Philharmonia Orchestra,1958,,0.0,2/2 7/2,False,False
+Q509870,Leonard Slatkin,레너드 슬래트킨,False,,partial,1,,,,Saint Louis Symphony Orchestra,1992,,0.0,7/2,False,False
+Q511817,Andris Nelsons,안드리스 넬손스,False,,full,7,0.7521160679502769,0.7456645953066465,0.8249190699916372,Wiener Philharmoniker,"2017,2019",Complete Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q513314,Marek Janowski,마레크 야노프스키,False,,full,7,0.850858658195896,0.8023371625056348,0.9494811359672515,WDR Sinfonieorchester,"2018,2019",Complete Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q518038,André Cluytens,앙드레 클뤼탕스,False,"Cluytens, André",full,7,0.7800464127615594,0.767101903976995,0.8027179071236318,Berliner Philharmoniker,"1957,1958,1959,1960",Les 9 Symphonies,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q520493,Michael Tilson Thomas,마이클 틸슨 토머스,False,,several_orchestras,7,,,,English Chamber Orchestra; Orchestra of St. Luke’s,"1980,1982,1985,1986",Michael Tilson Thomas Conducts Beethoven,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q524328,Daniel Harding,대니얼 하딩,False,,partial,1,,,,Koninklijk Concertgebouworkest,,,0.0,6/2,False,False
+Q535547,Václav Talich,바츨라프 탈리흐,False,,partial,1,,,,Česká filharmonie,1938,,0.0,4/2,False,False
+Q537083,Roger Norrington,로저 노링턴,True,"Norrington, Roger",full,7,0.9416414787258777,0.9176685500593859,0.9629532703452084,London Classical Players,"1986,1987,1988",Symphonies 1-9 / Overtures,5.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q554610,Artur Rodziński,아르투르 로진스키,False,,partial,1,,,,Royal Philharmonic Orchestra,,,0.0,5/2,False,False
+Q57210,Arthur Nikisch,아르투르 니키슈,False,,partial,1,,,,Berliner Philharmoniker,1913,,1.0,5/2,False,False
+Q57285,Wilhelm Furtwängler,푸르트뱅글러,True,"Furtwängler, Wilhelm",several_orchestras,7,,,,Berliner Philharmoniker; Wiener Philharmoniker,"1947,1948,1950,1952,1953",Das Vermächtnis (The Legacy),4.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q57358,Hans Pfitzner,한스 피츠너,False,,partial,4,,,,Berliner Philharmoniker; Staatskapelle Berlin,,,0.0,3/2 4/2 6/2 8/2,False,False
+Q57419,Eugen Jochum,오이겐 요훔,False,"Jochum, Eugen",full,7,0.7580852430927394,0.7435418869246959,0.7985653964984551,Koninklijk Concertgebouworkest,"1967,1968,1969",The complete Symphonies,2.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q57425,Hans Knappertsbusch,한스 크나퍼츠부슈,True,,partial,5,,,,Berliner Philharmoniker; Münchner Philharmoniker; Philharmonisches Staatsorchester Bremen; Wiener Philharmoniker; hr‐Sinfonieorchester,"1952,1953,1954,1962",,0.0,2/2 3/2 5/2 7/2 8/2,False,True
+Q57500,Hermann Abendroth,헤르만 아벤트로트,False,,partial,3,,,,Gewandhausorchester Leipzig; Orkiestra Symfoniczna Filharmonii Narodowej,,,0.0,3/2 6/2 7/2,False,False
+Q57915,Rudolf Kempe,루돌프 켐페,False,,full,7,0.765495867768595,0.7289805515284766,0.8594784512438427,Münchner Philharmoniker,"1971,1972,1973",The Nine Symphonies,1.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q58039,Christoph von Dohnányi,크리스토프 폰 도흐나니,False,,full,7,0.8751311647429171,0.845425312601187,0.9164649636844395,The Cleveland Orchestra,"1983,1987",The Complete Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q59828688,Kim Eun-sun,김은선,True,,none,0,,,,,,,,,False,False
+Q60174,Hermann Scherchen,헤르만 셰르헨,False,,full,7,0.8177196826641913,0.7632558197221038,0.9294854603537521,Orchestra della Svizzera italiana,1965,9 Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q60455,Kurt Sanderling,쿠르트 잔덜링,False,,full,7,0.7298443506284276,0.6978514318212257,0.7869565990423091,Philharmonia Orchestra,1981,,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q60813,Christian Thielemann,크리스티안 틸레만,True,,full,7,0.7458563535911602,0.7153689355502311,0.8125107642812572,Wiener Philharmoniker,"2008,2009,2010",Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q60814,Christoph Eschenbach,크리스토프 에셴바흐,False,,partial,2,,,,Houston Symphony; The Philadelphia Orchestra,1995,,0.0,7/2 8/2,False,False
+Q61123,Joseph Keilberth,요제프 카일베르트,False,,partial,4,,,,Bamberger Symphoniker; Berliner Philharmoniker; Philharmonisches Staatsorchester Hamburg,,,2.0,3/2 5/2 6/2 7/2,False,False
+Q61180,Klaus Tennstedt,클라우스 텐슈테트,True,,partial,5,,,,London Philharmonic Orchestra,"1985,1989,1990,1991",,1.0,3/2 5/2 6/2 7/2 8/2,False,True
+Q61205,Wolfgang Sawallisch,볼프강 자발리슈,True,,full,7,0.7814761215629522,0.7629012608818602,0.8403430379775738,Koninklijk Concertgebouworkest,"1991,1993",The Great EMI Recordings,4.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q62692,Günter Wand,귄터 반트,False,"Wand, Günter",full,7,0.8547373819393991,0.8191245563523915,0.9252363053225477,NDR Elbphilharmonie Orchester,"1984,1985,1987,1988,2001",,3.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q62785,Horst Stein,호르스트 슈타인,False,,none,0,,,,,,,,,False,False
+Q63454,Franz Konwitschny,프란츠 콘비츠니,False,,full,7,0.7771368641845832,0.758529968068615,0.835682914706378,Gewandhausorchester Leipzig,"1959,1960,1961",The Symphonies / Overtures,4.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q644772,Hans Vonk,한스 퐁크,False,,partial,4,,,,Saint Louis Symphony Orchestra,"1998,1999",,0.0,3/2 5/2 7/2 8/2,False,False
+Q673146,Alan Gilbert,앨런 길버트,False,,none,0,,,,,,,,,False,False
+Q697836,Oswald Kabasta,오스발트 카바스타,False,,partial,1,,,,Münchner Philharmoniker,1943,,0.0,3/2,False,False
+Q700791,Paavo Järvi,파보 예르비,True,,full,7,0.9470420662686442,0.9191716107197591,0.9539700581740047,Deutsche Kammerphilharmonie Bremen,"2004,2005,2006,2007",Symphonies no. 1-9,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q711810,Frans Brüggen,프란스 브뤼헨,False,"Brüggen, Frans",full,7,0.8823529411764706,0.841182884879468,0.9171898351687597,Orchestra of the Eighteenth Century,"1987,1988,1989,1990,1991",The 9 Symphonies,2.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q731292,Malcolm Sargent,맬컴 사전트,False,,none,0,,,,,,,,,False,False
+Q734930,Edo de Waart,에도 더바르트,False,,partial,1,,,,Rotterdams Philharmonisch Orkest,,,0.0,3/2,False,False
+Q78526,Nikolaus Harnoncourt,니콜라우스 아르농쿠르,True,"Harnoncourt, Nikolaus",full,7,0.8487550021533229,0.8199192064620593,0.9053846587430571,Chamber Orchestra of Europe,1990,9 Symphonies,2.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q78527,Erich Kleiber,에리히 클라이버,False,,partial,5,,,,Koninklijk Concertgebouworkest; Staatskapelle Berlin; Wiener Philharmoniker,"1950,1953,1955",,0.0,2/2 3/2 5/2 6/2 7/2,False,False
+Q78540,Otmar Suitner,오트마어 주이트너,False,,full,7,0.8222663984539703,0.8160684570463828,0.8678917975348533,Staatskapelle Berlin,1983,,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q78602,Erich Leinsdorf,에리히 라인스도르프,False,"Leinsdorf, Erich",full,7,0.8005414944775466,0.7941268322537561,0.8732534160208307,Boston Symphony Orchestra,"1962,1967,1968,1969",Symphonies nos. 1–9,2.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q78721,Hans Swarowsky,한스 스바로프스키,False,,partial,3,,,,Bamberg Philharmonic; Münchner Philharmoniker; Münchner Symphoniker,,,0.0,3/2 5/2 6/2,False,False
+Q78811,Manfred Honeck,만프레트 호네크,False,,partial,4,,,,Pittsburgh Symphony Orchestra,"2014,2017",,0.0,3/2 5/2 6/2 7/2,False,False
+Q84241,Karl Böhm,카를 뵘,True,"Böhm, Karl",full,7,0.7577051248884149,0.7303518826873454,0.7756793765578254,Wiener Philharmoniker,"1970,1971",Complete Recordings on Deutsche Grammophon,3.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False
+Q89527,Hans Rosbaud,한스 로스바우트,False,,partial,1,,,,SWR Sinfonieorchester Baden‐Baden und Freiburg,1961,,0.0,8/2,False,False
+Q9298953,Dae-Jin Kim,김대진,True,,none,0,,,,,,,,,False,False
+Q933913,Iván Fischer,이반 피셔,False,,partial,5,,,,Budapest Festival Orchestra; Konzerthausorchester Berlin,"2006,2010,2016,2017",,0.0,3/2 4/2 5/2 6/2 7/2,False,False
+Q93751,Josef Krips,요제프 크립스,False,,full,7,0.8562367864693446,0.8047599802623167,0.886406598436033,London Symphony Orchestra,1960,The Nine Symphonies,7.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q93820,Franz Welser-Möst,프란츠 벨저 뫼스트,False,,none,0,,,,,,,,,False,False
+Q943125,Vladimir Jurowski,블라디미르 유롭스키,False,,partial,1,,,,London Philharmonic Orchestra,2014,,0.0,3/2,False,False
+Q951548,Yannick Nézet-Séguin,야니크 네제세갱,False,,full,7,0.8513256740613651,0.8314929967532751,0.9006484033068569,Chamber Orchestra of Europe,2021,The Symphonies,0.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,True,False
+Q967828,János Ferencsik,야노시 페렌치크,False,"Ferencsik, Janos",full,7,0.7548107646875633,0.7442573104681109,0.8006561319299432,Nemzeti Filharmonikus Zenekar,,Beethoven Collection: Symphonies nos. 1 - 9: Complete Recording,3.0,2/2 3/2 4/2 5/2 6/2 7/2 8/2,False,False

@@ -38,6 +38,12 @@ SOURCES = {
         "license": "MIT",
         "url": "https://github.com/Enchufa2/bmetr",
     },
+    "musicbrainz": {   # 1.18
+        "ko": "MusicBrainz 데이터 덤프(전체 내보내기 20261114-002230, mbdump.tar.bz2). 공동 편집 음반 데이터베이스의 핵심 자료. 베토벤 교향곡 악장 작품에 이어진 녹음, 그 지휘자 · 관현악단 관계, 그 녹음이 실린 트랙의 길이(밀리초)와 음반 · 바코드. 위키데이터 번호로 지휘자를 맞췄다.",
+        "en": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven symphony movement works, their conductor and orchestra relationships, the lengths (milliseconds) of the tracks carrying them, and releases with barcodes. Conductors matched by Wikidata ID.",
+        "license": "CC0 1.0",
+        "url": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+    },
     "asap": {
         "ko": "ASAP 데이터셋(Foscarin 외, ISMIR 2020). 악보와 박 단위로 정렬된 피아노 MIDI 연주 — 바흐 평균율 169개, 베토벤 소나타 271개(이 중 악보와 박 수가 맞는 정렬 확인본은 169·259개이고, 집계는 그것만 쓴다). 1.1에서 모차르트 6악장(K.310 1악장, K.331 3악장, K.332 전 악장, 환상곡 K.475)·연주 16개를 더했다 — 곡당 연주 1~5개라 표에만 싣고 비교 차트에는 넣지 않는다. 연주는 MAESTRO(국제 e-Competition 피아노 콩쿠르) 녹음에서 온다.",
         "en": "ASAP dataset (Foscarin et al., ISMIR 2020). Piano MIDI performances aligned beat-by-beat to scores: 169 Bach (Well-Tempered Clavier) and 271 Beethoven (sonatas); 169 and 259 of these have beat counts matching the score and only those are used. Version 1.1 adds Mozart: 6 movements (K.310/i, K.331/iii, K.332 complete, Fantasia K.475), 16 performances — one to five per piece, so they appear in tables but not in comparison charts. Performances come from MAESTRO (International Piano-e-Competition).",

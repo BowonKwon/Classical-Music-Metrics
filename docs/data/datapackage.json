@@ -2,8 +2,8 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.17",
- "created": "2026-11-15",
+ "version": "1.18",
+ "created": "2026-11-16",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
   {
@@ -523,6 +523,212 @@
      "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
      "path": "https://github.com/Enchufa2/bmetr",
      "license": "MIT"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_index",
+   "path": "beethoven_length_index.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 67,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    },
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_movements",
+   "path": "beethoven_length_movements.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 665,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    },
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_partial",
+   "path": "beethoven_length_partial.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 33,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    },
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_candidates",
+   "path": "beethoven_length_candidates.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 139,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_checks",
+   "path": "beethoven_length_checks.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 9,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    },
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_pipeline",
+   "path": "beethoven_length_pipeline.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 28,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    },
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_barcode",
+   "path": "beethoven_length_barcode.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 158,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Martín-Castro & Ucar (2020), \"Conductors' tempo choices shed light over Beethoven's metronome\", PLOS ONE 15(12): e0243616",
+     "path": "https://github.com/Enchufa2/bmetr",
+     "license": "MIT"
+    },
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "beethoven_length_dropped",
+   "path": "beethoven_length_dropped.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Performance metrics",
+   "rows": 62,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "MusicBrainz data dump (full export 20261114-002230, mbdump.tar.bz2), the core data of the collaboratively edited music database: recordings linked to Beethoven ",
+     "path": "https://musicbrainz.org/doc/MusicBrainz_Database/Download",
+     "license": "CC0 1.0"
     }
    ]
   },

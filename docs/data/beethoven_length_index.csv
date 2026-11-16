@@ -1,0 +1,68 @@
+conductor,source,ptype,orchestra,date,n_movements,k_median,k_q1,k_q3,requested,wikidata_q,release_group
+Sergiu Celibidache,musicbrainz,,Münchner Philharmoniker,"1987,1989,1993,1995,1996",7,0.6554716729137113,0.6405652965240098,0.7066283328869151,True,Q165671,Celibidache Edition - Symphonies
+Lorin Maazel,musicbrainz,,Symphonieorchester des Bayerischen Rundfunks,1995,7,0.7063617840163007,0.679831695555503,0.814669065190916,True,Q117710,Die 9 Symphonien
+"Furtwängler, Wilhelm",bmetr,Romantic,"Philharmonia Orchestra, Berliner Philharmoniker, Philharmonisches Staatsorchester Hamburg, Wiener Philharmoniker",1947-1954,7,0.7149291808527827,0.6617798605954321,0.803338313084587,,,
+"Hickox, Richard",bmetr,HI influence,Northern Sinfonia of England,1984-1988,7,0.7296015787377209,0.7183631271181943,0.8439186440685935,,,
+Kurt Sanderling,musicbrainz,,Philharmonia Orchestra,1981,7,0.7298443506284276,0.6978514318212257,0.7869565990423091,False,Q60455,
+Herbert Blomstedt,musicbrainz,,Staatskapelle Dresden,"1975,1976,1977,1978,1979",7,0.7344678542618511,0.710822179868493,0.8062251659244594,False,Q313202,Symphonies (complete)
+Christian Thielemann,musicbrainz,,Wiener Philharmoniker,"2008,2009,2010",7,0.7458563535911602,0.7153689355502311,0.8125107642812572,True,Q60813,Symphonies
+Andris Nelsons,musicbrainz,,Wiener Philharmoniker,"2017,2019",7,0.7521160679502769,0.7456645953066465,0.8249190699916372,False,Q511817,Complete Symphonies
+"Davis, Colin",bmetr,Romantic,Staatskapelle Dresden,1995,7,0.7524720770261687,0.7456903208575805,0.7957395795473778,,,
+"Ferencsik, Janos",bmetr,Romantic,Hungarian State Orchestra,1969-1976,7,0.7545670643854916,0.7443733272980735,0.7959003780808692,,,
+"Walter, Bruno",bmetr,Romantic,Columbia Symphony Orchestra,1958-1959,7,0.7562494458139829,0.7368145147563809,0.8242805844519635,,,
+"Böhm, Karl",bmetr,Romantic,Wiener Philharmoniker,1969-1972,7,0.7565989078773512,0.7337156239717884,0.7774104451402513,,,
+Eugene Ormandy,musicbrainz,,The Philadelphia Orchestra,"1961,1962,1964,1965,1966",7,0.7574288047952501,0.7532215703530518,0.8305476753131585,False,Q344023,The Nine Symphonies
+"Jochum, Eugen",bmetr,Romantic,Concertgebouw Orchestra,1967-1969,7,0.7629949070096257,0.7478998005732898,0.8036474699643534,,,
+Rudolf Kempe,musicbrainz,,Münchner Philharmoniker,"1971,1972,1973",7,0.765495867768595,0.7289805515284766,0.8594784512438427,False,Q57915,The Nine Symphonies
+Carlo Maria Giulini,musicbrainz,,Filarmonica della Scala,"1991,1992,1993",7,0.7675166345886435,0.7046582248332804,0.7909984504570465,False,Q430829,The Complete Sony Recordings
+"Bernstein, Leonard",bmetr,Romantic,Wiener Philharmoniker,1977-1979,7,0.7711368655124012,0.7312008366771036,0.8316569740263996,,,
+"Kegel, Herbert",bmetr,Romantic,Dresdner Philharmonie,1982-1984,7,0.7759618534778425,0.7463010950947693,0.8152473803580746,,,
+Franz Konwitschny,musicbrainz,,Gewandhausorchester Leipzig,"1959,1960,1961",7,0.7771368641845832,0.758529968068615,0.835682914706378,False,Q63454,The Symphonies / Overtures
+"Cluytens, André",bmetr,Romantic,Berliner Philharmoniker,1957-1960,7,0.7798647528217583,0.768421510322021,0.8038687835450302,,,
+Wolfgang Sawallisch,musicbrainz,,Koninklijk Concertgebouworkest,"1991,1993",7,0.7814761215629522,0.7629012608818602,0.8403430379775738,True,Q61205,The Great EMI Recordings
+"Mengelberg, Willem",bmetr,Romantic,Royal Concertgebouw Orchestra,1940,7,0.7844749744004912,0.7532199200168785,0.8568071678811725,,,
+"Szell, George",bmetr,Romantic,Cleveland Orchestra Chorus,1956-1964,7,0.7899621480385887,0.7839656437644406,0.9444571139749461,,,
+"Leinsdorf, Erich",bmetr,Romantic,Boston Symphony Orchestra,1961-1969,7,0.8036597432429008,0.7973040905853019,0.878661763775185,,,
+"Muti, Riccardo",bmetr,Romantic,Philadelphia Orchestra,1985-1988,7,0.8039966553372669,0.7640293140854898,0.8423920979172929,,,
+"Klemperer, Otto",bmetr,Romantic,Philarmonia Orchestra,1960,7,0.8053779109933261,0.7660811980159952,0.828955269787476,,,
+Ernest Ansermet,musicbrainz,,Orchestre de la Suisse Romande,"1956,1958,1959,1960",7,0.8120505109361756,0.7859694182986445,0.8511243816370715,False,Q123603,The Stereo Years
+"Haitink, Bernard",bmetr,Romantic,Royal Concertgebouw Orchestra,1985-1987,7,0.8163094434316057,0.8046983643976061,0.8492382365772794,,,
+Hermann Scherchen,musicbrainz,,Orchestra della Svizzera italiana,1965,7,0.8177196826641913,0.7632558197221038,0.9294854603537521,False,Q60174,9 Symphonies
+Carl Schuricht,musicbrainz,,Orchestre de la Société des Concerts du Conservatoire,,7,0.8181714981822611,0.7886710613234765,0.9050124653545828,False,Q215798,9 Symphonies
+Gustavo Dudamel,musicbrainz,,Orquesta Sinfónica Simón Bolívar,,7,0.8206077373684292,0.7286123366214621,0.876444774373013,False,Q160390,The Symphonies
+"Polizzi, Antonino",bmetr,Romantic,"Prague Symphony Orchestra, Budapest Symphony Orchestra",1986-1994,7,0.8216446115073134,0.777616344112539,0.8888330041440993,,,
+Otmar Suitner,musicbrainz,,Staatskapelle Berlin,1983,7,0.8222663984539703,0.8160684570463828,0.8678917975348533,False,Q78540,
+"Barenboim, Daniel",bmetr,Romantic,West-Eastern Divan Orchestra,2011,7,0.8245879849362825,0.776794085161185,0.8971532092885269,,,
+"Masur, Kurt",bmetr,Romantic,Leipzig Gewandhausorchester,1972- 1975,7,0.8266545589737152,0.8039251036854759,0.8582443354051292,,,
+Paul Kletzki,musicbrainz,,Česká filharmonie,"1965,1967,1968",7,0.827899603374764,0.8033807478830537,0.8540408244611699,False,Q31261,Symphonies
+Osmo Vänskä,musicbrainz,,Minnesota Orchestra,"2004,2005,2007,2008",7,0.8339093540532145,0.8202644878153966,0.8667174700962709,False,Q1382392,The Symphonies
+"Abbado, Claudio",bmetr,HI influence,Berliner Philharmoniker,2000-2001,7,0.8355216129669545,0.8302365791851409,0.9149603428934961,,,
+"Harnoncourt, Nikolaus",bmetr,HI influence,Chamber Orchestra of Europe,1990-1991,7,0.8490173727632849,0.820711392153396,0.9043074533993039,,,
+Marek Janowski,musicbrainz,,WDR Sinfonieorchester,"2018,2019",7,0.850858658195896,0.8023371625056348,0.9494811359672515,False,Q513314,Complete Symphonies
+"Karajan, Herbert von",bmetr,Romantic,Philharmonia Orchestra,1951-1955,7,0.8513250557610818,0.771668652936245,0.9318822724928789,,,
+Yannick Nézet-Séguin,musicbrainz,,Chamber Orchestra of Europe,2021,7,0.8513256740613651,0.8314929967532751,0.9006484033068569,False,Q951548,The Symphonies
+"Pletnev, Mikhail",bmetr,Romantic,Russian National Orchestra,2007,7,0.8540944370594846,0.772478842456444,0.8800005359933846,,,
+Antal Doráti,musicbrainz,,Royal Philharmonic Orchestra,,7,0.8543929600176494,0.7634857716170382,0.8962309282964387,False,Q355978,Beethoven Complete Symphonies
+"Solti, Georg",bmetr,Romantic,Chicago Symphony Orchestra,1986-1989,7,0.8549162535436913,0.765407513147728,0.867347851751884,,,
+Josef Krips,musicbrainz,,London Symphony Orchestra,1960,7,0.8562367864693446,0.8047599802623167,0.886406598436033,False,Q93751,The Nine Symphonies
+"Wand, Günter",bmetr,Romantic,NDR Symphony Orchestra,1985-1988,7,0.8601454254879464,0.8354444287036642,0.9306008831938373,,,
+William Steinberg,musicbrainz,,Pittsburgh Symphony Orchestra,"1961,1962,1963,1964,1965",7,0.8606811145510838,0.8360970857023363,0.900040467261985,False,Q213892,The Nine Complete Symphonies
+"Tremblay, Jean-Philippe",bmetr,HI influence,Orchestre de la Francophonie,2009,7,0.8627514903129657,0.8594204876170832,0.9087385067467145,,,
+"Rattle, Simon",bmetr,HI influence,Wiener Philharmoniker,2002,7,0.8689793631200736,0.8397098079247065,0.8867320088963901,,,
+"Hugget, M. and Goodman, R.",bmetr,HI,The Hanover Band,1982-1988,7,0.8742378434759964,0.8670405297780973,0.900708587593154,,,
+Christoph von Dohnányi,musicbrainz,,The Cleveland Orchestra,"1983,1987",7,0.8751311647429171,0.845425312601187,0.9164649636844395,False,Q58039,The Complete Symphonies
+"Gielen, Michael",bmetr,HI influence,SWR Sinfonieorchester Baden-Baden Freibu,1997-2000,7,0.8826807433289496,0.8774068647256994,0.9370178244046645,,,
+"Brüggen, Frans",bmetr,HI,Orchestra of the 18th Century,1984-1992,7,0.8826967414610651,0.8422764754997394,0.9205556344090897,,,
+Philippe Herreweghe,musicbrainz,,Antwerp Symphony Orchestra,"2004,2007,2009",7,0.8907877169559412,0.8550189320475303,0.9250819126119234,False,Q168039,9 Symphonies
+"Toscanini, Arturo",bmetr,Romantic,NBC Symphony Orchestra,1949-1952,7,0.9000293889596475,0.8690893915175626,0.9329390082230655,,,
+"Hogwood, Christopher",bmetr,HI,The Academy of Ancient Music,1985-1989,7,0.9112762237762237,0.7956304174454252,0.9407008538523377,,,
+Charles Mackerras,musicbrainz,,Royal Liverpool Philharmonic Orchestra,"1992,1994,1997",7,0.9166890159991913,0.9132611990708885,0.9703093831269134,False,Q322172,The Nine Symphonies
+Ádám Fischer,musicbrainz,,DR UnderholdningsOrkestret,"2016,2017,2018,2019",7,0.9182156133828996,0.9068644166444129,0.9362285667936182,False,Q249545,Complete Symphonies
+"Immerseel, Jos Van",bmetr,HI,Anima Eterna Orchestra,2005-2007,7,0.9196435805510395,0.8558907966493994,0.9234202880028564,,,
+Philippe Jordan,musicbrainz,,Wiener Symphoniker,2017,7,0.9266666666666665,0.9096363547263098,0.9380018238549919,False,Q117025,
+Mariss Jansons,musicbrainz,,Symphonieorchester des Bayerischen Rundfunks,2012,7,0.9403307874747939,0.900301253478947,0.962304130720619,False,Q158340,The Symphonies and Reflections
+"Gardiner, John Eliot",bmetr,HI,Orchestre Révolutionnaire et Romantique,1991-1994,7,0.9438021755839252,0.9003149438984703,0.9680165981023654,,,
+Jordi Savall,musicbrainz,,Le Concert des Nations,"1994,2019,2020",7,0.9457301052444075,0.8966466708138574,0.967269780835953,False,Q317182,
+Paavo Järvi,musicbrainz,,Deutsche Kammerphilharmonie Bremen,"2004,2005,2006,2007",7,0.9470420662686442,0.9191716107197591,0.9539700581740047,True,Q700791,Symphonies no. 1-9
+"Norrington, Roger",bmetr,HI,London Classical Players,1987-1990,7,0.9505087243755594,0.9186986154197465,0.9660468256212545,,,
+"Chailly, Riccardo",bmetr,HI influence,Gewandhausorchester Leipzig,2007-2009,7,0.9739399286116461,0.9570171880108067,1.002150483187219,,,
