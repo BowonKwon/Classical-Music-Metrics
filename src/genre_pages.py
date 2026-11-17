@@ -2,7 +2,8 @@
 
 Forest and trees (Shneiderman 1996; Tennekes & de Jonge 2014): six big groups, each with one hue from the
 validated categorical palette (slots 1-6 in palette order, which is also the stacking order, so every touching
-pair passes the adjacent CVD check); clicking a group in the legend expands it into its sub-genres, drawn in
+pair passes the adjacent CVD check; 1.18.1: stage moved off the palette's green to a purple, light #8a1a8c / dark #9454b4,
+because green sat too close to chamber's aqua — dark normal-vision dE 11.9 — and the adjacent check still passes); clicking a group in the legend expands it into its sub-genres, drawn in
 lightness steps of that hue (each ramp validated as ordinal), while the other groups fold into gray.
 Works dated only by a first publication within the composer's life are hatched.
 Every number in the prose comes from data/derived/genre_life_*.csv (genre_life_111.py).
@@ -24,14 +25,14 @@ ROOT = Path(__file__).resolve().parent.parent
 D = ROOT / "data/derived"
 FILES = ["genre_life_works.csv", "genre_life_age.csv", "genre_life_era.csv", "genre_life_validation.csv"]
 ORDER = ["orchestral", "secular", "chamber", "keyboard", "sacred", "stage", "other"]  # stacking order = palette order
-BASE = {"light": {"orchestral": "#2a78d6", "secular": "#eb6834", "chamber": "#1baf7a", "keyboard": "#eda100", "sacred": "#e87ba4", "stage": "#008300", "other": "#9a9a96"},
-        "dark": {"orchestral": "#3987e5", "secular": "#d95926", "chamber": "#199e70", "keyboard": "#c98500", "sacred": "#d55181", "stage": "#008300", "other": "#6e6f73"}}
+BASE = {"light": {"orchestral": "#2a78d6", "secular": "#eb6834", "chamber": "#1baf7a", "keyboard": "#eda100", "sacred": "#e87ba4", "stage": "#8a1a8c", "other": "#9a9a96"},
+        "dark": {"orchestral": "#3987e5", "secular": "#d95926", "chamber": "#199e70", "keyboard": "#c98500", "sacred": "#d55181", "stage": "#9454b4", "other": "#6e6f73"}}
 SHADES = {"light": {"orchestral": ["#8fb4e4", "#6690c8", "#3d6ead", "#0e4c92"], "secular": ["#dea08a", "#b1664b", "#842c00"],
                     "chamber": ["#82c1a2", "#51a17c", "#0e8158", "#006136"], "keyboard": ["#cfaa77", "#b18546", "#926100", "#743e00"],
-                    "sacred": ["#db9cb1", "#be758e", "#9f4e6d", "#81264e"], "stage": ["#94bf90", "#125d10"], "other": ["#9a9a96"]},
+                    "sacred": ["#db9cb1", "#be758e", "#9f4e6d", "#81264e"], "stage": ["#d19dcf", "#6f1f70"], "other": ["#9a9a96"]},
           "dark": {"orchestral": ["#3f6596", "#5e86bc", "#7ea9e3", "#9fceff"], "secular": ["#8e503a", "#c78168", "#ffb598"],
                    "chamber": ["#287353", "#4a9673", "#6bba94", "#8cdfb7"], "keyboard": ["#815b1f", "#a57c3f", "#ca9e5f", "#f1c17f"],
-                   "sacred": ["#8c4c64", "#b16c84", "#d88da7", "#ffafcb"], "stage": ["#437040", "#a5dc9f"], "other": ["#6e6f73"]}}
+                   "sacred": ["#8c4c64", "#b16c84", "#d88da7", "#ffafcb"], "stage": ["#784d96", "#dfb9fc"], "other": ["#6e6f73"]}}
 SUBS = {g: [s[0] for s in gl.SUB if s[3] == g] for g in ORDER}
 NAME = {
     "Bach, Johann Sebastian": ("바흐", "Bach"), "Haydn, Franz Joseph": ("하이든", "Haydn"), "Mozart, Wolfgang Amadeus": ("모차르트", "Mozart"),
@@ -134,7 +135,7 @@ def era_heatmap(era: pd.DataFrame, lang: str, ramp_light: list[str]) -> str:
     ncomp = era.groupby("period").n_composers.first()
     out = []
     for j, p in enumerate(periods):
-        out.append(f"<text x='{x0 + j * cw + cw / 2:.1f}' y='{y0 - 22}' text-anchor='middle' class='km-lab'>{p}</text>"
+        out.append(f"<text x='{x0 + j * cw + cw / 2:.1f}' y='{y0 - 24}' text-anchor='middle' class='km-lab'>{p}</text>"
                    f"<text x='{x0 + j * cw + cw / 2:.1f}' y='{y0 - 8}' text-anchor='middle' class='km-lab' style='font-size:10px'>n={int(ncomp[p])}</text>")
     edges = [0.025, 0.05, 0.10, 0.20, 0.35]  # fixed bins (%), six steps
     for i, sid in enumerate(rows):

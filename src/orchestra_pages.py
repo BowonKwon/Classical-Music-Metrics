@@ -225,9 +225,9 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
 
     # 4 touring
     if k:
-        b.append("<h2>4. 카네기홀 투어 프로그램의 쏠림</h2><p>상위 10명 작곡가가 연주 작품에서 차지하는 비율이다. 이 비율은 표본이 작을수록 기계적으로 커진다. 그래서 뉴욕 필 홈 시즌에서 같은 수의 작품을 500번 무작위로 뽑아 얻은 범위(회색 막대, 95%)와 견준다. 파란 점이 회색 막대 오른쪽에 있으면 크기를 맞춘 뒤에도 프로그램이 상위 작곡가에 더 몰려 있다는 뜻이다.</p>")
+        b.append("<h2>4. 카네기홀 투어 프로그램의 쏠림</h2><p>상위 10명 작곡가가 연주 작품에서 차지하는 비율이다. 이 비율은 표본이 작을수록 기계적으로 커진다. 그래서 뉴욕 필 홈 시즌(악단이 본거지에서 여는 한 해 공연 주기 — 보통 가을에 시작해 이듬해까지 이어진다)에서 같은 수의 작품을 500번 무작위로 뽑아 얻은 범위(회색 막대, 95%)와 견준다. 파란 점이 회색 막대 오른쪽에 있으면 크기를 맞춘 뒤에도 프로그램이 상위 작곡가에 더 몰려 있다는 뜻이다.</p>")
     else:
-        b.append("<h2>4. How narrow are touring programs at Carnegie Hall?</h2><p>The share of performed works by the ten most-played composers. This share rises mechanically as samples get smaller, so each orchestra is set against the range obtained by drawing the same number of works 500 times from New York Philharmonic home seasons (gray bar, 95%). A blue dot to the right of the gray bar means the programs lean toward the top composers even after matching sample size.</p>")
+        b.append("<h2>4. How narrow are touring programs at Carnegie Hall?</h2><p>The share of performed works by the ten most-played composers. This share rises mechanically as samples get smaller, so each orchestra is set against the range obtained by drawing the same number of works 500 times from New York Philharmonic home seasons (gray bar, 95%; a home season is the orchestra's yearly cycle of concerts in its home city, usually starting in the fall). A blue dot to the right of the gray bar means the programs lean toward the top composers even after matching sample size.</p>")
     leg = ("뉴욕 필 같은 크기 기준" if k else "NY Phil size-matched range", "")
     for win in ("1955-1989", "1990-2026"):
         tw = tour[(tour.window == win) & (tour.orchestra != "NY Phil (home seasons)")]

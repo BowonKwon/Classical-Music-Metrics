@@ -226,7 +226,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
         a, z = cl[mid].median(), ro[mid].median()   # 1.17: each chart says what it shows (same medians as section 3 and the table in 6)
         era = (f" 곡집 중앙값의 중앙값은 고전기 곡집 {cl[mid].notna().sum()}개가 {axis.num(a, m['fmt'])}, 낭만기 곡집 {ro[mid].notna().sum()}개가 {axis.num(z, m['fmt'])}{axis.kp(axis.num(z, m['fmt']), '이다', '다')}." if k
                else f" Median of the collection medians: {axis.num(a, m['fmt'])} for the {cl[mid].notna().sum()} Classical-era collections, {axis.num(z, m['fmt'])} for the {ro[mid].notna().sum()} Romantic ones.")
-        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'])}</p>"
+        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'] + (' ' + m[lang]['gloss'] if m[lang].get('gloss') else ''))}</p>"
                  f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=24)}"
                  f"<figcaption>{esc(axis.strip_note(g, m['fmt'], lang) + era)}</figcaption></figure>")
 
@@ -302,7 +302,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
     for mid in qmids:
         m = MET[mid]
         g = [(nm(c, lang), qt.loc[qt.composer == c, mid].astype(float).tolist(), 1 if c == "Beethoven" else CLASSICAL_COLOR) for c in order(qt) if qt.loc[qt.composer == c, mid].notna().any()]
-        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'])}</p>"
+        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'] + (' ' + m[lang]['gloss'] if m[lang].get('gloss') else ''))}</p>"
                  f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}"
                  f"<figcaption>{esc(axis.strip_note(g, m['fmt'], lang))}</figcaption></figure>")
     qsmall = [nm(r.composer, lang) for r in sq.itertuples() if r.movements < SMALL_N]

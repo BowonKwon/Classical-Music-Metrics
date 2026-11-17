@@ -197,7 +197,7 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
         m = MET[mid]
         groups = [(nm(comp, lang), c.loc[c.composer == comp, mid].astype(float).tolist(), COLOR.get(comp, NEW_COLOR))
                   for comp in composer_order(s) if comp not in UNDATED and c.loc[c.composer == comp, mid].notna().any()]
-        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'])}</p>"
+        b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'] + (' ' + m[lang]['gloss'] if m[lang].get('gloss') else ''))}</p>"
                  f"<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}"
                  f"<figcaption>{esc(axis.strip_note(groups, m['fmt'], lang, scope=True))}</figcaption></figure>")   # 1.17: each chart says what it shows
 

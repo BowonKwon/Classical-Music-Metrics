@@ -408,10 +408,10 @@ def names_map(k: bool) -> str:
     return "".join(o)
 
 
-MODE_INTRO_KO = ("이 절에서는 선법을 한 옥타브 안에서 온음과 반음이 놓이는 순서로 구별하고, 같은 일곱 음을 서로 다른 음에서 시작해 한 옥타브로 늘어놓아 견준다(선법을 끝음과 음역으로 더 나누는 이론도 있다. 아래 「이름의 역사」 참조). "
+MODE_INTRO_KO = ("선법은 어떤 음들을 쓰고 그 가운데 어느 음을 끝음(가락이 보통 머물러 끝나는 음)으로 삼는지로 정한 음계의 틀이다. 오늘의 장음계는 이오니아 선법, 자연단음계는 에올리아 선법과 같은 배열이다. 이 절에서는 선법을 한 옥타브 안에서 온음과 반음이 놓이는 순서로 구별하고, 같은 일곱 음을 서로 다른 음에서 시작해 한 옥타브로 늘어놓아 견준다(선법을 끝음과 음역으로 더 나누는 이론도 있다. 아래 「이름의 역사」 참조). "
                  "피아노의 흰 건반 일곱 개만 써도 시작음을 바꾸면 온음과 반음의 자리가 달라진다. 흰 건반 사이의 반음은 E–F와 B–C 두 곳뿐이고(검은 건반이 없는 자리), 시작음이 한 칸 오를 때마다 두 반음이 옥타브 안에서 한 칸씩 앞으로 온다. 맨 앞에 있던 반음은 맨 뒤로 돌아간다(E에서 F로 넘어갈 때). "
                  "이름은 오늘 쓰는 것을 붙였고, 한국어 표기는 교육부 편수자료(2023)의 음악 용어를 따랐다. 로크리아와 하이포도리아는 그 표에 없어 같은 방식으로 옮겼다.")
-MODE_INTRO_EN = ("Here modes are told apart by the order of tones and semitones within an octave, and the same seven notes are laid out an octave from different starting notes for comparison (some theories divide modes further by final and range; see 'Where the names came from' below). "
+MODE_INTRO_EN = ("A mode is a scale framework defined by which notes are used and which of them is the final, the note on which a melody in the mode usually comes to rest. Today's major scale has the same arrangement as the Ionian mode, the natural minor as the Aeolian. Here modes are told apart by the order of tones and semitones within an octave, and the same seven notes are laid out an octave from different starting notes for comparison (some theories divide modes further by final and range; see 'Where the names came from' below). "
                  "The seven white keys of a piano alone give different arrangements: change the starting key and the tones and semitones fall in different places. Between white keys there are only two semitones, E–F and B–C (where there is no black key); each time the starting key moves up one, the two semitones move one step earlier in the octave, and a semitone in first place wraps round to last (from E to F). "
                  "The names are today's.")
 TUN_KO = ("「조율」 단추로 이 일곱 줄을 12평균율, 피타고라스 음률(순정 5도를 쌓은 값), 4분의 1 쉼표 중전음률로 바꿔 들을 수 있다. 흰 건반의 높이만 바뀌고 온음·반음의 순서는 그대로다. "
@@ -607,7 +607,7 @@ PLACES = {
     "bayati_cairo": ("카이로 — 1932 회의 녹음", "Cairo (1932 Congress recordings)", [(30.044, 31.236)], "Q85"),
 }
 AWAY = {"koto_woman", "koto_master"}  # measured outside the region the music belongs to
-LABEL_AT = {"Q3766": (-14, -10, "end"), "Q85": (-14, 16, "end"), "Q84": (14, 16, "start")}  # place-label offsets (dx, dy, anchor); default right of the mark
+LABEL_AT = {"Q3766": (-14, -10, "end"), "Q85": (-14, 16, "end"), "Q84": (-14, -18, "end")}  # place-label offsets (dx, dy, anchor); default right of the mark
 
 
 def et_distance(cents):
@@ -720,7 +720,13 @@ def region_overview(k):
         r = pf[pf.coords == key].iloc[0]
         x0, y0 = map_xy(*map(float, key.split(";")[0].split(",")))
         dx, dy, anc = LABEL_AT.get(r.wikidata, (14, 4, "start"))
-        o.append(f'<text x="{x0 + dx:.0f}" y="{y0 + dy:.0f}" text-anchor="{anc}" style="font-size:11px">{esc(r.place_ko if k else r.place_en)}</text>')
+        lab = r.place_ko if k else r.place_en
+        if len(lab) > 34 and ", " in lab:  # 1.18.1: a long place name on two lines (the English London label reached the East Asia label)
+            cut = lab.rfind(", ", 0, len(lab) // 2 + 8) + 1
+            o.append(f'<text x="{x0 + dx:.0f}" y="{y0 + dy:.0f}" text-anchor="{anc}" style="font-size:11px">{esc(lab[:cut])}</text>'
+                     f'<text x="{x0 + dx:.0f}" y="{y0 + dy + 17:.0f}" text-anchor="{anc}" style="font-size:11px">{esc(lab[cut:].strip())}</text>')
+        else:
+            o.append(f'<text x="{x0 + dx:.0f}" y="{y0 + dy:.0f}" text-anchor="{anc}" style="font-size:11px">{esc(lab)}</text>')
     o.append("</svg>")
     # dot plot: et distance by region
     groups = [(c, names[c]) for c, *_ in REGIONS] + [("", "장소 없음" if k else "No place")]
@@ -786,9 +792,9 @@ def lim_table(k):
 
 # ---- 1.17: how to read a ruler, said again under each group heading (it used to be said once, in the page lead),
 # and a short opening for group 1. The numbers in the opening are read from the rows.
-WEST_KO = ("아홉 줄 모두 악기를 잰 값이 아니라 비율로 정한 이론값이다. 맨 아래 12평균율은 모든 점이 회색 눈금 위에 놓인다. 다른 줄에서는 점이 회색 눈금에서 비켜난 만큼이 12평균율과의 차이다. "
+WEST_KO = ("아홉 줄 모두 악기를 잰 값이 아니라 비율로 정한 이론값이다. 순정률은 음정을 3:2(5도)·5:4(장3도)처럼 작은 정수의 진동수 비로 맞춘 조율이고, 피타고라스 음률은 순정 5도(3:2)만 쌓아 얻은 조율, 4분의 1 쉼표 중전음률은 5도를 조금 좁혀 장3도를 순정(5:4)으로 맞춘 조율이다(「쉼표」는 악보의 쉼표가 아니라 두 음정의 작은 차이를 가리키는 「콤마」를 옮긴 말이다). 12음 건반으로 닫으면 장3도 몇 개와 5도 하나는 크게 어긋난 채 남는다(이 5도를 「늑대 5도」라 부른다). 12평균율은 옥타브(2:1) 안의 반음 열둘을 모두 같게 나누므로, 한 옥타브 안에서 동음과 옥타브를 뺀 음정의 진동수 비는 정수의 비가 아니다. 맨 아래 12평균율은 모든 점이 회색 눈금 위에 놓인다. 다른 줄에서는 점이 회색 눈금에서 비켜난 만큼이 12평균율과의 차이다. "
            "첫 음에서 장3도 위의 음을 보면 12평균율에서 {et:.0f}센트, 피타고라스 음률에서 {pyth:.0f}센트, 순정률과 4분의 1 쉼표 중전음률에서 {just:.0f}센트다(100센트가 피아노의 반음 하나).")
-WEST_EN = ("All nine rows are theoretical values defined by ratios, not measurements of instruments. In the bottom row, 12-tone equal temperament, every dot sits on a gray tick; "
+WEST_EN = ("All nine rows are theoretical values defined by ratios, not measurements of instruments. Just intonation tunes intervals to small whole-number frequency ratios such as 3:2 (the fifth) and 5:4 (the major third); Pythagorean tuning stacks only pure fifths (3:2); quarter-comma meantone narrows the fifths slightly so that the major thirds come out pure (5:4); a comma is a small difference between two intervals. Closed into twelve notes on a keyboard, it leaves a few major thirds and one fifth far out of tune (that fifth is called the wolf fifth). Equal temperament splits the octave (2:1) into twelve equal semitones, so within one octave every interval other than the unison and the octave has a frequency ratio that is not a whole-number ratio. In the bottom row, 12-tone equal temperament, every dot sits on a gray tick; "
            "in the other rows the distance of a dot from the gray tick is its difference from equal temperament. "
            "The major third above the first note is {et:.0f} cents in equal temperament, {pyth:.0f} cents in Pythagorean tuning and {just:.0f} cents in just intonation and quarter-comma meantone (100 cents is one piano semitone).")
 
@@ -843,8 +849,8 @@ def render(lang: str) -> str:
     df = pd.DataFrame(SCALES, columns=COLS)
     from history_pages import GCSS  # noqa: E402
     b = [f"<style>{GCSS}{CSS}{MODE_CSS}</style><div class='hero'><h1>{'음계와 조율' if k else 'Scales and tuning'}</h1><p class='lead'>"
-         + ("한 옥타브(1200센트)를 어떻게 나누어 왔는지, 시대와 지역에 따라 견준다. 점 하나가 음 하나이고, 회색 눈금은 피아노의 12평균율(100센트 간격)이다. 단추를 누르면 브라우저가 그 자리에서 음을 합성해 들려준다."
-            if k else "How the octave (1,200 cents) has been divided, compared across periods and regions. Each dot is a note; the gray ticks are piano equal temperament (100 cents apart). The buttons play the scale, synthesized by your browser on the spot.")
+         + ("한 옥타브(1200센트)를 어떻게 나누어 왔는지, 시대와 지역에 따라 견준다. 센트는 두 음의 높이 차이(음정)를 재는 단위다. 진동수의 비를 로그로 잰 값이라 같은 음정은 어느 높이에서 재도 같은 센트가 되고, 피아노의 반음 하나가 100센트, 진동수가 두 배인 옥타브가 1200센트다. 점 하나가 음 하나이고, 회색 눈금은 피아노의 12평균율(옥타브를 같은 크기의 반음 열둘로 나눈 조율, 100센트 간격)이다. 단추를 누르면 브라우저가 그 자리에서 음을 합성해 들려준다."
+            if k else "How the octave (1,200 cents) has been divided, compared across periods and regions. The cent is a unit for the distance in pitch between two notes (an interval). It measures the ratio of their frequencies on a logarithmic scale, so the same interval has the same size in cents at any pitch: one piano semitone is 100 cents, and the octave, a doubling of frequency, is 1,200. Each dot is a note; the gray ticks are piano equal temperament (the octave split into twelve equal semitones, 100 cents apart). The buttons play the scale, synthesized by your browser on the spot.")
          + "</p></div>"]
     b.append("<p class='src'>" + ("모든 음계를 같은 기준음(가온 다, 261.63 Hz) 위에 옮겨 들려준다. 실제 악기의 음높이는 다르다. 「평균율과 번갈아」는 각 음 다음에 가장 가까운 12평균율 음을 들려준다. 소리는 삼각파 합성음이라 악기 음색이 아니다. 「이론」은 비율이나 규칙으로 정한 값, 「실측」은 악기나 연주를 잰 값이다. 속이 빈 점은 내려갈 때만 쓰는 음이고, 점선 고리는 원자료에 없는 옥타브(1200센트)를 재생을 위해 붙인 자리다."
                                  if k else "Every scale is played on the same reference, middle C (261.63 Hz); the instruments themselves sit at other pitches. 'Against equal temperament' follows each note with the nearest equal-tempered note. The sound is a synthesized triangle wave, not the instrument's timbre. 'Theory' marks values set by ratios or rules; 'measured' marks values taken from instruments or performances. A hollow dot is a note used only when descending; a dashed ring marks an octave (1,200 cents) that the source does not give and that is added only for playback.") + "</p>")

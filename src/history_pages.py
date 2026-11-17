@@ -31,12 +31,18 @@ def t(ko: str, en: str) -> str:
 
 
 GENRES = ["orchestral", "stage", "vocal", "chamber", "keyboard", "other"]
+
+
+def gvar(i: int) -> str:
+    """Color of genre i. 1.18.1: stage has its own variable (--gst, purple); --g2 stays green because Harmony, Orchestras
+    and Scales use it for other things."""
+    return "var(--gst)" if GENRES[i] == "stage" else f"var(--g{i + 1})"
 GNAME = {"orchestral": ("관현악", "Orchestral"), "stage": ("극음악", "Stage"), "vocal": ("성악", "Vocal"),
          "chamber": ("실내악", "Chamber"), "keyboard": ("건반", "Keyboard"), "other": ("기타", "Other")}
 GCSS = """
-:root{--g1:#2a78d6;--g2:#008300;--g3:#e9716c;--g4:#1baf7a;--g5:#eda100;--g6:#9a9a96}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73}}
-:root[data-theme="dark"]{--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73}
+:root{--g1:#2a78d6;--g2:#008300;--g3:#e9716c;--g4:#1baf7a;--g5:#eda100;--g6:#9a9a96;--gst:#8a1a8c}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73;--gst:#9454b4}}
+:root[data-theme="dark"]{--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73;--gst:#9454b4}
 .panel{margin:0 0 .4rem}.panel h3{margin:.9rem 0 .2rem;font-size:.95rem}.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.6rem 1rem}
 .box{background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-radius:8px;padding:.6rem .9rem;font-size:.92rem;margin:.6rem 0 1.2rem}
 .toc a{margin-right:1rem}
@@ -116,7 +122,7 @@ def ribbon(cy, birth, death, ymax, width=900, height=150):
             if v <= 0:
                 continue
             y_top, y_bot = Y(base + v), Y(base)
-            o.append(f'<rect x="{X(yr):.1f}" y="{y_top:.1f}" width="{bw:.1f}" height="{max(y_bot - y_top - 1.0, 0.6):.1f}" fill="var(--g{gi + 1})"/>')
+            o.append(f'<rect x="{X(yr):.1f}" y="{y_top:.1f}" width="{bw:.1f}" height="{max(y_bot - y_top - 1.0, 0.6):.1f}" fill="{gvar(gi)}"/>')
             parts.append(f"{gname(g)} {v:.1f}")
             base += v
         o.append(f'<rect x="{X(yr):.1f}" y="{T}" width="{bw:.1f}" height="{ph}" fill="transparent"><title>{yr} ({t(f"{yr - birth}세", f"age {yr - birth}")}): {base:.1f} — {", ".join(parts)}</title></rect>')
@@ -336,7 +342,7 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     GL = history_glance.boxes(sys.modules[__name__], lang, W, AC, RP, MR, SY, TP, TL, IU, EPk, okb_, okb2_)
     n_term = int((W.year_kind == "terminus").sum())
     n_dated = int(W.year_start.notna().sum())
-    legend = '<div class="legend">' + "".join(f'<span style="--c:var(--g{i + 1})">{gname(g)}</span>' for i, g in enumerate(GENRES)) + "</div>"
+    legend = '<div class="legend">' + "".join(f'<span style="--c:{gvar(i)}">{gname(g)}</span>' for i, g in enumerate(GENRES)) + "</div>"
     im = data_root + "imslp/"
     b = [f"<style>{GCSS}</style>",
          f"<h1>{t('작품 활동과 역사', 'Works & history')}</h1>",

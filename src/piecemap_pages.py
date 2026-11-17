@@ -262,7 +262,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
         b.append(f"<h2>{i}. {title_ko if k else title_en}</h2><p>"
                  + (f"{int(s.n_movements)}악장, 지표 {int(s.n_metrics)}개." if k else f"{int(s.n_movements)} movements, {int(s.n_metrics)} metrics.")
                  + ("" if mp == "notes" else (" 화성 주석이 있는 악장만 들어간다." if k else " Movements with harmony labels only."))
-                 + (" 화성 주석이 없는 바흐 코랄도 들어간다." if (k and mp == "notes") else (" Bach's chorales, which have no harmony labels, are included." if mp == "notes" else ""))
+                 + (" 화성 주석이 없는 바흐 코랄(찬송가 선율에 붙인 네 성부 곡)도 들어간다." if (k and mp == "notes") else (" Bach's chorales (four-part hymn settings), which have no harmony labels, are included." if mp == "notes" else ""))
                  + "</p><p>" + axis_reading(L, lang, mp, "pc1", r1, s.pc1_loo_min < STABLE) + " " + axis_reading(L, lang, mp, "pc2", r2, s.pc2_loo_min < STABLE)
                  + (" 아래 표의 적재값 다섯으로 읽은 대체적인 방향이고, 축 전체의 이름은 아니다. 악장 하나하나가 그대로 따른다는 뜻은 아니다. 점 하나가 악장 하나다." if k else " These are overall directions read from the five loadings in the table below; they are not names for the axes, and a single movement need not follow them. Each dot is one movement.")
                  + "</p>" + filter_ctl(p, lang, mp) + year_legend(lang)

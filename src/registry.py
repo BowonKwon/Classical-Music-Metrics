@@ -193,14 +193,14 @@ METRICS = [
                  reading="Low when a few chords recur; high when labels keep changing. Short movements are biased upward.",
                  caveat="Length bias: movements with few labels score higher. Read together with the label count.")),
     dict(id="applied_chord_ratio", layer="A", group="harmony", table="score", unit="ratio", fmt=".3f", higher="more applied chords",
-         ko=dict(name="부속화음 비율", definition="다른 조의 으뜸화음을 향하는 화음(V/V 처럼 「/」가 붙는 부속화음)의 비율.", formula="relativeroot 가 있는 기호 수 / 화음 기호 수",
+         ko=dict(name="부속화음 비율", definition="다른 조의 으뜸화음을 향하는 화음(V/V 처럼 「/」가 붙는 부속화음)의 비율.", gloss="으뜸화음은 그 조의 중심 화음(첫 음 위에 쌓은 화음)이다. 부속화음은 다른 화음을 잠깐 으뜸화음처럼 삼아 그쪽을 향하는 화음으로, 대개 그 화음으로 이어진다. 다장조에서 V/V 는 솔 화음(V)을 향하는 레·파♯·라 화음이다. 이 지표는 주석에 「/」가 붙은 기호를 셀 뿐, 실제로 이어졌는지는 따지지 않는다.", formula="relativeroot 가 있는 기호 수 / 화음 기호 수",
                  reading="0.2면 다섯 화음 중 하나가 일시적으로 다른 조를 가리킨다.", caveat="주석 표준(DCML)의 판단을 그대로 따른다."),
-         en=dict(name="Applied-chord ratio", definition="Share of chords applied to another key's tonic (secondary dominants such as V/V).", formula="labels with a relative root / chord labels",
+         en=dict(name="Applied-chord ratio", definition="Share of chords applied to another key's tonic (secondary dominants such as V/V).", gloss="The tonic chord is the home chord of a key, built on its first note. An applied chord briefly treats another chord as a temporary tonic and points toward it, usually resolving to it: in C major, V/V is the D–F♯–A chord aimed at the G chord (V). The metric counts labels with a slash; it does not check whether the target actually follows.", formula="labels with a relative root / chord labels",
                  reading="0.2 means one chord in five points momentarily to another key.", caveat="Follows the DCML annotation standard's judgment.")),
     dict(id="seventh_chord_ratio", layer="A", group="harmony", table="score", unit="ratio", fmt=".3f", higher="more sevenths",
-         ko=dict(name="7화음 비율", definition="7음이 들어 있는 화음의 비율.", formula="숫자저음이 7·65·43·2(또는 42) 인 기호 수 / 화음 기호 수",
+         ko=dict(name="7화음 비율", definition="7음이 들어 있는 화음의 비율.", gloss="7화음은 밑음 위에 3도씩 쌓은 네 음 화음이다(예: 솔·시·레·파). 「7음」은 일곱 개의 음이 아니라 밑음에서 7도 위에 있는 구성음으로, 어느 성부에 놓여도(맨 아래에 와도) 7음이다.", formula="숫자저음이 7·65·43·2(또는 42) 인 기호 수 / 화음 기호 수",
                  reading="베토벤 소나타·4중주는 0.3 안팎으로 바흐 모음곡(0.24)보다 높다.", caveat="9화음·부가음은 따로 세지 않았다. 분모인 화음 기호에는 「화음 없음」 표지(@none)도 들어간다(드물다)."),
-         en=dict(name="Seventh-chord ratio", definition="Share of chords containing a seventh.", formula="labels with figured bass 7, 65, 43 or 2 (also 42) / chord labels",
+         en=dict(name="Seventh-chord ratio", definition="Share of chords containing a seventh.", gloss="A seventh chord stacks thirds on a root to make four notes (e.g. G–B–D–F); the seventh is the chord member a seventh above the root, wherever it is voiced (even in the bass).", formula="labels with figured bass 7, 65, 43 or 2 (also 42) / chord labels",
                  reading="Beethoven sonatas and quartets sit near 0.3, above Bach suites (0.24).", caveat="Ninths and added tones are not counted separately. The denominator of chord labels includes the rare no-chord label (@none).")),
     dict(id="local_key_changes_per_100_measures", layer="A", group="harmony", table="score", unit="changes/100 bars", fmt=".1f", higher="more modulation",
          ko=dict(name="전조 빈도", definition="주석자가 표시한 지역 조(local key)가 바뀌는 횟수, 100마디당.", formula="100 × 지역 조 변경 수 / 마디 수",
@@ -352,7 +352,7 @@ METRIC_BY_ID = {m["id"]: m for m in METRICS}
 
 # 1.8.1: state the common note preprocessing on every metric counted from the notes
 # (score_metrics.note_metrics: grace notes dropped, tied continuations merged into the note they continue)
-NOTE_RULE = {"ko": "음표는 꾸밈음을 빼고, 붙임줄로 이어진 뒷음은 앞 음에 합쳐 한 음으로 센다. 이어지는 앞 음을 찾지 못한 뒷음은 새 음으로 세지 않는다(최상성부 지표에서만 울리는 음으로 남는다).",
+NOTE_RULE = {"ko": "음표는 꾸밈음을 빼고, 붙임줄로 이어진 뒷음은 앞 음에 합쳐 한 음으로 센다. 이어지는 앞 음을 찾지 못한 뒷음은 새 음으로 세지 않는다(그런 뒷음은 최상성부 지표에서만 「울리고 있는 음」으로 친다).",
              "en": "Grace notes are left out, and a tied continuation is merged into the note it continues and counted once. A continuation whose preceding note cannot be found is not counted as a new note (it remains a sounding note only for the top-line metrics)."}
 for _m in METRICS:
     if _m.get("table") == "score" and _m.get("group") in ("pitch", "rhythm", "texture", "melody") and _m["id"] != "rhythm_entropy":  # rhythm_entropy states the tie handling itself

@@ -186,10 +186,10 @@ def transition_note(lang: str) -> str:
         out[mode] = (len(sh), top, min(sh), max(sh), float(np.median(sh)))
     (nM, tM, aM, bM, mM), (nm_, tm, am, bm, mm) = out["major"], out["minor"]
     if k:
-        return ("<p class='src'>무엇이 보이는가: 「음도」는 그 조의 으뜸음에서 센 음계의 몇째 음인지를 말한다(1이 으뜸음, 5가 딸림음). 5 행에서 가장 진한 칸을 보면 된다. "
+        return ("<p class='src'>무엇이 보이는가: 5 행(딸림음에서 출발하는 전이)에서 가장 진한 칸을 보면 된다. "
                 f"장조 행렬 {nM}곡집 가운데 {tM}곳에서 5 다음에 가장 자주 오는 근음은 1이고, 그 비율은 곡집에 따라 {aM * 100:.0f}~{bM * 100:.0f}%(중앙값 {mM * 100:.0f}%)다. "
                 f"단조 행렬은 {nm_}곡집 가운데 {tm}곳에서 그렇고 {am * 100:.0f}~{bm * 100:.0f}%(중앙값 {mm * 100:.0f}%)다. 5 행의 전이가 {MIN_ROW}쌍 이상인 곡집만 셌다.</p>")
-    return ("<p class='src'>What to look at: a scale degree is the position of a note in the scale counted from the tonic of the key (1 is the tonic, 5 the dominant). Look for the darkest cell in row 5. "
+    return ("<p class='src'>What to look at: the darkest cell in row 5 (moves out of the dominant). "
             f"In {tM} of the {nM} major-key matrices the root that most often follows 5 is 1, with a share of {aM * 100:.0f}% to {bM * 100:.0f}% depending on the collection (median {mM * 100:.0f}%). "
             f"In the minor-key matrices this holds in {tm} of {nm_}, with {am * 100:.0f}% to {bm * 100:.0f}% (median {mm * 100:.0f}%). Only collections with at least {MIN_ROW} transitions in row 5 are counted.</p>")
 
@@ -323,8 +323,10 @@ def render(lang, table_html):
                 if k else "The twelve dots are the twelve notes in semitone order; large dots are the notes used. The fifth coefficient responds to neighbors on the circle of fifths (a diatonic scale), the first to neighbors by semitone. A single note gives 1 for all six; twelve notes used equally give 0 for all.")
              + "</figcaption></figure>"
              + (f"<p>아래는 곡집별 중앙값이다(괄호는 악장 수). 다섯째 계수의 중앙값은 {name(lo5)} {med5[lo5]:.2f}에서 {name(hi5)} {med5[hi5]:.2f}까지다. "
+                + ("(「코랄」은 루터교 찬송가 선율에 네 성부 화성을 붙인 짧은 곡이다.) " if "코랄" in name(lo5) + name(hi5) else "") +
                 f"다만 이 값은 긴 악장일수록 낮다(악장 길이와의 순위 상관 {mn(rho5)}). 그래서 지표로 내지 않고 이 면과 CSV에만 싣는다(4절). 첫째 계수는 곡집별 중앙값이 {med1.min():.2f}~{med1.max():.2f}로 작고 서로 비슷하다. 온음계 일곱 음이 반음계 원에 고르게 퍼져 있다는 점(일곱 음을 고르게 쓰면 0.04)과 맞는 결과다.</p>" if k else
                 f"<p>Collection medians follow (number of movements in parentheses). The median of the fifth coefficient runs from {med5[lo5]:.2f} ({name(lo5)}) to {med5[hi5]:.2f} ({name(hi5)}). "
+                + ("(A chorale here is a short four-part setting of a Lutheran hymn tune.) " if "horale" in name(lo5) + name(hi5) else "") +
                 f"It is lower for longer movements, though (rank correlation with movement length {mn(rho5)}), so it is not published as a metric, only here and in the CSV (section 4). The first coefficient is small and much the same everywhere (collection medians {med1.min():.2f} to {med1.max():.2f}), which fits the fact that the seven notes of a diatonic scale are spread evenly around the chromatic circle (0.04 when used equally).</p>")
              + f"<figure>{dft_heatmap(df, lang)}{legend(DFT_BINS, lang, False)}<figcaption>"
              + ("행 하나가 곡집 하나, 열 하나가 계수 하나다. 칸의 숫자는 그 곡집 악장들의 중앙값(0~1)이고 색이 진할수록 크다. 열 머리 둘째 줄은 위 그림에서 그 계수가 커지는 음 묶음이다. |X₀|로 나눈 것은 음이 울린 길이의 합으로 나눠 악장 길이와 상관없이 0~1로 맞춘다는 뜻이다."
@@ -345,10 +347,10 @@ def render(lang, table_html):
     diff = (ok.entropy_all - ok.entropy_rarefied)
     both = e.pivot(index="corpus", columns="mode", values="entropy_rarefied").dropna()
     higher_minor = int((both["minor"] > both["major"]).sum())
-    b.append((f"<h2>2. 근음 전이 행렬</h2><p>화성 주석이 있는 19곡집에서, 같은 국소 조 안에서 근음이 바뀌는 연속 화음 {tot:,}쌍을 셌다. 행은 앞 화음의 근음, 열은 뒤 화음의 근음이고, 국소 조 으뜸음에서 본 음도를 5도권 순서로 놓았다(가운데가 으뜸음 1, 오른쪽으로 5·2·6…, 왼쪽으로 4·♭7·♭3…). "
+    b.append((f"<h2>2. 근음 전이 행렬</h2><p>화성 주석이 있는 19곡집에서, 같은 국소 조 안에서 근음이 바뀌는 연속 화음 {tot:,}쌍을 셌다. 행은 앞 화음의 근음, 열은 뒤 화음의 근음이고, 국소 조 으뜸음에서 본 음도(그 조의 으뜸음에서 센 음계의 몇째 음인지 — 1이 으뜸음, 5가 딸림음)를 5도권 순서로 놓았다(가운데가 으뜸음 1, 오른쪽으로 5·2·6…, 왼쪽으로 4·♭7·♭3…). "
               "칸의 색과 숫자는 그 행 안에서의 비율(%)이고, 오른쪽 끝의 n은 그 행의 전이 수다. 전이가 30쌍 미만인 행은 흐리게 그렸다. 대각선 바로 왼쪽 칸이 5도 하행이다. 단조에서 자연단음계의 3·6·7음은 ♭3·♭6·♭7 자리다. "
               f"5도권을 열두 칸으로 접었으므로 ♯1과 ♭2 같은 이명동음은 한 칸이 되고, 접으면 같은 칸이 되는 전이 {drop}쌍은 뺐다.</p>" if k else
-              f"<h2>2. Root-transition matrices</h2><p>In the 19 collections with harmony labels, {tot:,} pairs of successive chords in the same local key whose root changes were counted. Rows are the root of the first chord, columns that of the second, as scale degrees from the local tonic in circle-of-fifths order (the tonic, 1, in the middle; 5, 2, 6 … to the right; 4, ♭7, ♭3 … to the left). "
+              f"<h2>2. Root-transition matrices</h2><p>In the 19 collections with harmony labels, {tot:,} pairs of successive chords in the same local key whose root changes were counted. Rows are the root of the first chord, columns that of the second, as scale degrees from the local tonic (a scale degree is a note's position in the scale counted from the tonic: 1 is the tonic, 5 the dominant) in circle-of-fifths order (the tonic, 1, in the middle; 5, 2, 6 … to the right; 4, ♭7, ♭3 … to the left). "
               "Color and number give the share within the row (%); n at the right is the number of transitions in the row. Rows with fewer than 30 transitions are drawn faint. The cell just left of the diagonal is a falling fifth. In minor keys the natural 3rd, 6th and 7th degrees are at ♭3, ♭6, ♭7. "
               f"The line of fifths is folded to twelve cells, so enharmonic roots such as ♯1 and ♭2 share a cell; {drop} transitions whose two roots fold onto one cell were left out.</p>")
              + matrices_block(lang, comp) + transition_note(lang)

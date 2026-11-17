@@ -17,13 +17,14 @@ from pathlib import Path
 import pandas as pd
 
 import axis
+import registry
 import takeaways
 from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.18"
-BUILD_DATE = "2026-11-16"
+VERSION = "1.18.1"
+BUILD_DATE = "2026-11-17"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
     ("1.0", "2026-10-31", "바흐·베토벤 악보 14지표, 연주 6지표, 뉴욕 필 레퍼토리 4지표.", "Bach and Beethoven: 14 score metrics, 6 performance metrics, 4 NY Phil repertoire metrics."),
@@ -76,8 +77,10 @@ CHANGELOG = [
      "A 'By region' overview at the head of the 'Scales and tuning' page. A world map without borders (Natural Earth land, Equal Earth projection) shows only the scales whose sources name a city or a site (Cairo, Damascus, Yogyakarta and Surakarta, the Zavala District, and London, where the koto was measured); rows that name only a region, and theory with no place, are listed below the map. Scales are grouped into six cultural regions rather than states. A new value, each scale's distance from equal temperament (the mean distance in cents of the notes between the first note and its octave from the nearest equal-tempered note; 25 for notes at random), colors the map and is plotted by region. Coordinates from Wikidata, regions assigned by the editor. New data file scales_places.csv."),
     ("1.17", "2026-11-15", "그래프 설명을 보강했다. 띠 · 선 그림의 축에 지표 이름과 단위, 값이 크면 무엇을 뜻하는지를 적었다(전에는 r · ratio 같은 기호뿐이었다). 음계 · 지도 · 낭만 · 소나타 · 장르 · 화성 면 머리에 「한눈에 보기」를 두고, 작곡가 면 머리에 그 작곡가의 값으로 채운 요약을 두었으며, 낭만·소나타 면의 띠 그림과 장르·화성·프로필 면의 그림에는 무엇이 보이는지를 자료에서 계산해 적었다. 한국어판 지표 면의 작곡가 이름을 한글로 적었다. 조성 지도의 행 이름을 원자료 파일 ID에서 작품 번호와 악장으로 바꾸고 로마 숫자 읽는 법을 적었다. 템포 여섯 단계에 들어가는 템포어, 통계 용어(z · 주성분 · 적재값 · 부트스트랩) 풀이, 지휘자 세 갈래의 출처, 정기공연이 10건 미만인 시즌에서 선이 튀는 까닭을 적었다. 그림을 고친 곳: 화성 면의 시대별 선이 곡집이 모자라 뺀 구간을 가로질러 이어지던 것을 끊었다. 잘리거나 겹치던 축 이름 · 눈금 · 범례 · 열 머리글을 고쳤다. 선 끝의 이름이 겹치면 순서를 지킨 채 띄웠다. 좁은 화면에서는 넓은 그림을 줄이지 않고 옆으로 넘겨 보게 했다(전에는 일부 그림만 640px로 그렸고 나머지는 글자가 4px로 줄었다). 영어판의 철자를 미국식으로 통일했다(인용한 서지와 옮겨 적은 자료 값은 원문 그대로). 지표 값과 자료 표는 바뀌지 않았다. 데이터 꾸러미 설명 파일(datapackage.json)에서는 판 번호와 날짜, 자료원 설명의 영어 철자가 달라졌다.",
      "Chart explanations filled in. The axes of strip and line charts now carry the metric's name, its unit and what a larger value means (they used to show only a symbol such as r or ratio). The Scales, Map, Romantic, Sonatas, Genres and Harmony pages open with an 'At a glance' box, each composer page opens with a summary filled with that composer's values, and the strip charts of the Romantic and Sonatas pages and the charts of the Genres, Harmony and Profiles pages say what they show, computed from the data. On the Korean metric pages composers' names are in Korean. Rows of the key maps are named by opus number and movement instead of the source file ID, with a note on reading the Roman numerals. The tempo words in the six tempo classes, plain-language notes on the statistical terms (z, principal component, loading, bootstrap), the source of the three groups of conductors, and the reason the line jumps in seasons with fewer than ten subscription performances are now stated. Charts corrected: on the Harmony page the line across periods ran over a period left out for having too few collections; it now breaks there. Axis names, ticks, legends and column heads that were cut off or overlapped are fixed, and names at the ends of lines are moved apart, in order, when they would touch. On narrow screens wide charts are no longer shrunk but scroll sideways (before, only some were drawn at 640px and the rest shrank to 4px text). Spelling on the English pages is now American throughout (cited titles and transcribed data keep their original spelling). No metric value or data table changed; in the data package descriptor (datapackage.json) the version, the date and the spelling of a source description changed."),
-    ("1.18", BUILD_DATE, "「읽기」 면 2절에 「트랙 길이로 더한 지휘자」를 더했다. bmetr 의 지휘자 36명에 31명(틸레만 · 마젤 · 자발리슈 · 첼리비다케 · 파보 예르비와 「지휘의 계보」 명단의 26명)을 더해, 교향곡 2~8번 2악장 일곱의 길이 지수(메트로놈 이론 길이 ÷ 트랙 길이)를 한 그림에 그렸다. 새 지휘자의 트랙 길이는 MusicBrainz 데이터 덤프(2026-11-14, CC0)에서 가져왔다. 반복 기호가 있는 악장과 피날레는 쓰지 않는다. 같은 36명으로 견주면 길이 지수와 음원 템포의 지휘자 순위 상관은 0.80이다. 일부 교향곡만 있는 지휘자 여섯(정명훈 · 클라이버 · 텐슈테트 · 메타 · 프레빈 · 크나퍼츠부슈)은 그림 밖 표에 MusicBrainz에 있는 녹음 기록을 악단 · 해로 묶어 모두 악장별로 적었다(대표 녹음을 고르지 않는다. 같은 묶음이 같은 공연이라는 뜻은 아니다). 2절 머리에 bpm(1분에 치는 박의 수) 풀이를 더했다. 기존 지표 값은 바뀌지 않았다. 지휘자 이름 「멩엘베르크」를 국립국어원 네덜란드어 표기 용례대로 「멩엘베르흐」로 고쳤다(레퍼토리 지표 면 포함).",
+    ("1.18", "2026-11-16", "「읽기」 면 2절에 「트랙 길이로 더한 지휘자」를 더했다. bmetr 의 지휘자 36명에 31명(틸레만 · 마젤 · 자발리슈 · 첼리비다케 · 파보 예르비와 「지휘의 계보」 명단의 26명)을 더해, 교향곡 2~8번 2악장 일곱의 길이 지수(메트로놈 이론 길이 ÷ 트랙 길이)를 한 그림에 그렸다. 새 지휘자의 트랙 길이는 MusicBrainz 데이터 덤프(2026-11-14, CC0)에서 가져왔다. 반복 기호가 있는 악장과 피날레는 쓰지 않는다. 같은 36명으로 견주면 길이 지수와 음원 템포의 지휘자 순위 상관은 0.80이다. 일부 교향곡만 있는 지휘자 여섯(정명훈 · 클라이버 · 텐슈테트 · 메타 · 프레빈 · 크나퍼츠부슈)은 그림 밖 표에 MusicBrainz에 있는 녹음 기록을 악단 · 해로 묶어 모두 악장별로 적었다(대표 녹음을 고르지 않는다. 같은 묶음이 같은 공연이라는 뜻은 아니다). 2절 머리에 bpm(1분에 치는 박의 수) 풀이를 더했다. 기존 지표 값은 바뀌지 않았다. 지휘자 이름 「멩엘베르크」를 국립국어원 네덜란드어 표기 용례대로 「멩엘베르흐」로 고쳤다(레퍼토리 지표 면 포함).",
      "Section 2 of the Reading page gains 'Conductors added through track lengths'. To bmetr's 36 conductors it adds 31 (Thielemann, Maazel, Sawallisch, Celibidache, Paavo Järvi and 26 from the conductor-genealogy list) and plots, in one chart, a length index for the seven second movements of Symphonies 2–8 (theoretical duration at the marks ÷ track length). Track lengths for the added conductors come from the MusicBrainz data dump of 2026-11-14 (CC0). Movements with repeat signs and finales are not used. On the same 36 conductors, the length index and the audio tempo rank conductors with a correlation of 0.80. Six conductors with only some of the symphonies (Myung-whun Chung, Carlos Kleiber, Tennstedt, Mehta, Previn, Knappertsbusch) are listed in a table outside the chart with all their MusicBrainz records, grouped by orchestra and year, movement by movement (no representative recording is chosen; a group is not necessarily one concert). A note on bpm (beats per minute) opens section 2. Existing metric values are unchanged. In the Korean edition, Mengelberg's name now follows the National Institute of Korean Language's Dutch example (멩엘베르흐)."),
+    ("1.18.1", BUILD_DATE, "음악 용어의 첫 풀이를 그 자리에 더했다(7화음 · 부속화음 · 으뜸화음 · 음도 · 센트 · 12평균율 · 순정률 · 피타고라스 음률 · 중전음률 · 선법 · 코랄 · 시즌). 레퍼토리 지표 면의 시즌 표에서 진행 중인 시즌의 줄에 「(진행 중)」을 붙였다. 지표 면의 공식 칸을 문장마다 줄을 나누고, 음표 세는 규칙(두 문장)은 따로 한 줄로 두었다. 「작품·역사」 · 「작곡가와 장르」 면에서 극음악의 색을 초록에서 보라로 바꿨다(실내악의 청록과 가까웠다). 수치는 바뀌지 않았다.",
+     "First glosses of music terms where they first appear (seventh chord, applied chord, tonic, scale degree, cent, equal temperament, just intonation, Pythagorean tuning, meantone, mode, chorale, season). In the season tables of the repertoire metrics, the row of the season in progress is marked (in progress). The formula cell of metric pages starts a new line for each sentence, with the note-counting rule (two sentences) on a line of its own. On the Works and history and Composers and genres pages, stage works change from green to purple (green sat too close to the aqua of chamber music). No values change."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -218,6 +221,7 @@ a.stat:hover{text-decoration:none;border-color:var(--fg3)}
 .spec{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1rem 1.2rem;margin:1rem 0 1.4rem;box-shadow:var(--shadow)}
 dl{display:grid;grid-template-columns:max-content 1fr;gap:.55rem 1.4rem;margin:0}dt{color:var(--fg3);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding-top:.15rem}dd{margin:0;min-width:0}
 dd.formula{font-family:ui-monospace,"SF Mono",Consolas,"Noto Sans KR",monospace;font-size:.9rem;background:var(--bg2);border-radius:6px;padding:.45rem .65rem;line-height:1.6}
+dd.formula span{display:block}dd.formula span+span{margin-top:.25rem}dd.formula .fr{font-family:var(--body);font-size:.88rem}dd.formula .fn{color:var(--fg2)}
 @media(max-width:640px){dl{grid-template-columns:1fr}dt{margin-top:.5rem}}
 table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
 th,td{border-bottom:1px solid var(--line2);padding:.42rem .6rem;text-align:left;vertical-align:top}
@@ -262,6 +266,44 @@ def esc(s) -> str:
 
 
 MINUS = "\u2212"  # displayed negatives use the minus sign; data-v attributes and CSVs keep ASCII
+
+
+FORMULA_MATH = ("/", "=", "Σ", "×", "−", "≥", "²", "log", "|")
+
+
+def formula_html(text: str, lang: str) -> str:
+    """1.18.1: the formula cell, one sentence per line. Sentences that carry an expression stay in the monospace face,
+    rule sentences are set in the body face, and the common note rule (registry.NOTE_RULE) gets its own labeled line.
+    Only the layout changes; the text is the registry's, word for word."""
+    rule = registry.NOTE_RULE[lang]
+    has_rule = rule in text
+    main = text.replace(rule, "").strip() if has_rule else text.strip()
+    out = []
+    for sent in re.split(r"(?<=\.)\s+(?=\S)", main):
+        cls = "fx" if any(ch in sent for ch in FORMULA_MATH) else "fr"
+        out.append(f"<span class='{cls}'>{esc(sent)}</span>")
+    if has_rule:
+        out.append(f"<span class='fr fn'>{'음표 세는 규칙: ' if lang == 'ko' else 'Counting notes: '}{esc(rule)}</span>")
+    return "".join(out)
+
+
+TERM_GLOSS = {  # 1.18.1: first gloss of a music term, placed under the lead of each metric page that uses it
+    "ko": [("코랄", "「코랄」은 루터교 회중 찬송가와 그 선율이다. 이 사이트의 바흐 코랄은 그 선율에 네 성부 화성을 붙인 짧은 곡이다."),
+           ("시즌", "「시즌」은 악단의 한 해 공연 주기다. 보통 가을에 시작해 이듬해까지 이어지므로 「2025–26」처럼 두 해로 적는다.")],
+    "en": [("chorale", "A chorale is a Lutheran congregational hymn and its tune; the Bach chorales on this site are short four-part harmonizations of such tunes."),
+           ("season", "A season is the yearly cycle of an orchestra's concerts; it usually starts in the fall and runs into the next year, hence labels such as 2025–26.")],
+}
+
+
+def term_gloss(body_html: str, lang: str) -> str:
+    """The glosses of TERM_GLOSS whose term occurs in the page text (tags stripped), as one small paragraph."""
+    # prose only: tables (work titles such as Franck's organ chorales), links (file names such as
+    # tchaikovsky_seasons) and scripts are left out; English terms must be whole words
+    prose = re.sub(r"<(table|script|style|a)\b.*?</\1>", " ", body_html, flags=re.S)
+    prose = prose.replace("The Seasons", " ")  # 1.18.1 r2: Tchaikovsky's The Seasons is a work title, not an orchestra season
+    text = re.sub(r"<[^>]+>", " ", prose).lower()
+    hits = [g for term, g in TERM_GLOSS[lang] if (re.search(rf"\b{term}s?\b", text) if lang == "en" else term in text)]
+    return f"<p class='src'>{'낱말 풀이: ' if lang == 'ko' else 'Terms: '}{esc(' '.join(hits))}</p>" if hits else ""
 
 
 def minus(s: str) -> str:
@@ -925,8 +967,8 @@ def main():
             body = [f'<div class="eyebrow"><span class="tag layer">{LAYERS[m["layer"]][lang]}</span><span class="tag">{t["unit"]}: {esc(axis.unit(m, lang))}</span></div>',
                     f"<h1>{esc(ml['name'])}</h1>",
                     takeaways.box(m, lang, glance_data, t["coll"], {x["id"]: x for x in METRICS}),
-                    f"<p class='lead'>{esc(ml['definition'])}</p>",
-                    f"<div class='spec'><dl><dt>{t['formula']}</dt><dd class='formula'>{esc(ml['formula'])}</dd><dt>{t['reading']}</dt><dd>{esc(ml['reading'])}</dd><dt>{t['caveat']}</dt><dd>{esc(ml['caveat'])}</dd></dl></div>"]
+                    f"<p class='lead'>{esc(ml['definition'])}</p>" + (f"<p class='src'>{esc(ml['gloss'])}</p>" if ml.get("gloss") else ""),  # 1.18.1: plain-words gloss of the music term
+                    f"<div class='spec'><dl><dt>{t['formula']}</dt><dd class='formula'>{formula_html(ml['formula'], lang)}</dd><dt>{t['reading']}</dt><dd>{esc(ml['reading'])}</dd><dt>{t['caveat']}</dt><dd>{esc(ml['caveat'])}</dd></dl></div>"]
             if m["table"] == "score":
                 groups, summ = [], []
                 for (comp, coll), g in score.groupby(["composer", "collection"], sort=False):
@@ -1090,7 +1132,7 @@ def main():
                     ser = [(ml["name"], ser[0][1], 0), (t["lower"], [(int(r.season_start), float(r[lo])) for _, r in done.iterrows()], 2), (t["upper"], [(int(r.season_start), float(r[hi])) for _, r in done.iterrows()], 1)]
                 if len(ser) > 1:
                     body.append(legend([(n, ci) for n, _, ci in ser]))
-                cap = ('뉴욕 필하모닉 공연 기록, 완결 시즌별(1842–43 ~ %s). 진행 중인 시즌은 표에만 있다.' % takeaways.season(ny_last["season"])) if lang == "ko" else ('New York Philharmonic performance history, completed seasons, 1842–43 to %s. The season in progress is in the table only.' % takeaways.season(ny_last["season"]))
+                cap = ('뉴욕 필하모닉 공연 기록, 완결 시즌별(1842–43 ~ %s). 진행 중인 시즌은 그림에서 빼고 아래 표에만 「(진행 중)」으로 표시해 둔다.' % takeaways.season(ny_last["season"])) if lang == "ko" else ('New York Philharmonic performance history, completed seasons, 1842–43 to %s. The season in progress is left out of the chart and marked (in progress) in the table below.' % takeaways.season(ny_last["season"]))
                 if m.get("sub"):
                     cap += (" 「정기공연만」은 행사 유형이 Subscription Season 인 연주회만 센 값이다(스타디움·공원·투어·청소년 음악회를 뺀다)." if lang == "ko"
                             else " \"Subscription only\" counts concerts whose event type is Subscription Season (stadium, parks, tour and young people's concerts are left out).")
@@ -1107,7 +1149,8 @@ def main():
                     cols += [(m["band"][0], t["lower"], m["fmt"]), (m["band"][1], t["upper"], m["fmt"])]
                 if m["id"] in ("living_share", "repertoire_age_median"):
                     cols.append(("dated_coverage", t["coverage"], ".0%"))
-                body.append(table_html(ny_season.iloc[::-1], cols, "ny", lang))
+                nys = ny_season.iloc[::-1].assign(season=lambda d_: d_["season"].where(d_["season_complete"], d_["season"] + (" (진행 중)" if lang == "ko" else " (in progress)")))  # 1.18.1: mark the season in progress in the row itself
+                body.append(table_html(nys, cols, "ny", lang))
                 if m.get("composer_col"):
                     big = persons[persons["perf_u1"] >= 200].sort_values([m["composer_col"], "composer"], ascending=[False, True], kind="mergesort").copy()
                     big["name"] = big["composer"].map(lambda c: f"{KO_NAME[c]} ({c})" if lang == "ko" and c in KO_NAME else c)
@@ -1121,6 +1164,7 @@ def main():
                 body.append(f"<p class='src'>{esc(s[lang])} <a href='{s['url']}'>{s['url']}</a> · {t['license']}: {esc(s['license'])}</p>")
             files = [f for f, (sk, _) in DATA_FILES.items() if set(sk.split("+")) & set(srcs)]
             body.append("<p class='files'>" + "".join(f'<a href="../../data/{f}">{f}</a>' for f in files) + "</p>")
+            body.insert(4, term_gloss("".join(body), lang))
             (base / "metrics" / f"{m['id']}.html").write_text(page(lang, ml["name"], "".join(body), depth=2, desc=ml["definition"], active="metrics", leaf=metric_leaf(lang, m["id"])), encoding="utf-8")
 
         # ---------------- metrics index
@@ -1131,6 +1175,7 @@ def main():
                 if m["layer"] == lay:
                     body.append(f"<a class='card layer-{lay}' href='{m['id']}.html'><b>{esc(L(m)['name'])}</b><small>{esc(L(m)['definition'])}</small></a>")
             body.append("</div>")
+        body.insert(1, term_gloss(re.sub(r"</?a\b[^>]*>", "", "".join(body)), lang))  # 1.18.1: the cards are links, keep their text
         (base / "metrics" / "index.html").write_text(page(lang, t["nav_metrics"], "".join(body), depth=2, active="metrics"), encoding="utf-8")
 
         # ---------------- composers: ranking of every name + top-50 profiles
@@ -1165,6 +1210,11 @@ def main():
                 f"Birth and death years come from Wikidata (composers with 10+ performances, matched and reviewed; {n_dated} confirmed); the rest are blank. 'P.D.Q. Bach' is merged into Peter Schickele.")
         body = [f"<h1>{t['nav_composers']}</h1><p class='lead'>{esc(intro)}</p>", tab, f"<p class='src'>{esc(note)}</p>",
                 "<p class='files'>" + "".join(f'<a href="../../data/{f}">{f}</a>' for f in ("nyphil_composer_summary.csv", "aliases/nyphil_composers.csv", "aliases/composer_wikidata.csv")) + "</p>"]
+        # 1.18.1: the season range in the lead and the first/last-season columns need the season gloss; say which season is still running
+        _prog = [takeaways.season(x) for x in ny_season.loc[~ny_season["season_complete"], "season"]]
+        _sg = dict(TERM_GLOSS[lang])["시즌" if lang == "ko" else "season"]
+        _sg += ((f" {', '.join(_prog)} 시즌은 아직 진행 중이라, 그 시즌으로 끝나는 칸의 값은 바뀔 수 있다." if lang == "ko" else f" The {', '.join(_prog)} season is still in progress, so values that run to it may change.") if _prog else "")
+        body.insert(1, f"<p class='src'>{'낱말 풀이: ' if lang == 'ko' else 'Terms: '}{esc(_sg)}</p>")
         (base / "composers" / "index.html").write_text(page(lang, t["nav_composers"], "".join(body), depth=2, active="composers"), encoding="utf-8")
 
         comp_leaf = [(disp(x), f"{slug(x)}.html") for x in sorted(top50, key=lambda x: int(persons.loc[persons["composer"] == x, "rank_u1"].iloc[0]))]
@@ -1197,6 +1247,8 @@ def main():
             ww = ny_w50[ny_w50["composer"] == c]
             body.append(f"<h2>{t['top_works']}</h2>" + table_html(ww, [("work_title", t["work"], None), ("performances", t["perf_u1"], "d"), ("complete_performances", t["perf_u2"], "d"), ("first_season", t["first"], None), ("last_season", t["last"], None), ("rank", t["rank"] + " (all)", "d")], "ww", lang, filt=False))
             body.append(f"<p class='links'><a href='index.html'>← {t['nav_composers']}</a><a href='../metrics/excerpt_share.html'>{esc(next(L(m)['name'] for m in METRICS if m['id']=='excerpt_share'))} →</a></p>")
+            _li = next(i for i, x in enumerate(body) if x.startswith("<p class='lead'>"))
+            body.insert(_li + 1, term_gloss("".join(body), lang))  # 1.18.1
             (base / "composers" / f"{slug(c)}.html").write_text(page(lang, title, "".join(body), depth=2, desc=title, active="composers", leaf=dict(
                 crumbs=[(t["nav_home"], "../index.html"), (t["nav_composers"], "index.html")], cur=f"{slug(c)}.html",
                 groups=[(("상위 50명(작품 연주 순)" if lang == "ko" else "Top 50 (by work performances)"), comp_leaf)])), encoding="utf-8")
@@ -1311,7 +1363,7 @@ def main():
         if lang == "ko":
             body.append(f"""<p class="lead">야구는 타율과 OPS로 선수를 읽는다. 서양 고전 음악도 악보와 녹음이 데이터로 공개된 만큼은 같은 일을 할 수 있다. 이 판은 수치 사이트의 핵심 결과를 글로 읽는 판이다. 지표 하나하나의 정의와 전체 표는 <a href="metrics/index.html">지표</a> 면에 있다.</p>
 <h2>1. 악보 — 바흐 {H['n_bach']}악장, 베토벤 {H['n_beet']}악장, 모차르트 {H['n_moz']}악장</h2>
-<p>공개 주석 코퍼스에서 바흐의 코랄·영국 및 프랑스 모음곡·무반주 독주곡, 베토벤의 현악4중주 전곡과 피아노 소나타 28곡(22·25·27·28번은 코퍼스에 없다), 모차르트의 피아노 소나타 18곡을 가져와 같은 코드로 쟀다. 음표 {H['n_notes']:,}개다. 아래는 모음별 중앙값이다.</p>
+<p>공개 주석 코퍼스에서 바흐의 코랄(루터교 찬송가 선율에 네 성부 화성을 붙인 짧은 곡)·영국 및 프랑스 모음곡·무반주 독주곡, 베토벤의 현악4중주 전곡과 피아노 소나타 28곡(22·25·27·28번은 코퍼스에 없다), 모차르트의 피아노 소나타 18곡을 가져와 같은 코드로 쟀다. 음표 {H['n_notes']:,}개다. 아래는 모음별 중앙값이다.</p>
 {table_html(medtab, mt_cols, 'medtab', lang, filt=False)}
 <p>세 가지가 눈에 띈다. 첫째, <b>반음계 비율</b>은 코랄(0.06)에서 베토벤 소나타(0.15)까지 두 배 넘게 벌어지지만, 바흐 무반주 독주곡(0.11)과 베토벤 4중주(0.13)는 가깝다 — 작곡가 사이의 간격이 편성 사이의 간격보다 작을 수 있다는 뜻이고, 「바로크는 온음계, 고전은 반음계」라는 통념을 이 표만으로 세울 수는 없다(장르를 통제한 비교는 아니다). 둘째, <b>화성 리듬</b>은 반대 방향이다. 바흐 모음곡은 마디당 세 화음, 베토벤은 두 화음 미만으로, 베토벤이 한 화음을 더 오래 끈다. 셋째, <b>최상성부 도약 비율</b>은 코랄 소프라노(0.14)가 가장 낮고 베토벤 소나타(0.50)가 가장 높다. 성악적 선율과 기악적 분산화음의 차이가 숫자로 그대로 나온다.</p>
 <p>모차르트와 베토벤의 피아노 소나타는 편성과 장르가 같아 이 사이트에서 가장 통제된 비교다(베토벤은 28곡 91악장, 화성 지표는 화성 주석이 있는 64악장). 반음계 비율은 모차르트 {H['son_moz_chromatic_ratio']:.3f}·베토벤 {H['son_bee_chromatic_ratio']:.3f}, 부속화음 비율은 {H['son_moz_applied_chord_ratio']:.3f}·{H['son_bee_applied_chord_ratio']:.3f}, 최상성부 도약 비율은 {H['son_moz_top_leap_ratio']:.2f}·{H['son_bee_top_leap_ratio']:.2f}{axis.ro(format(H['son_bee_top_leap_ratio'], '.2f'))} 모두 베토벤이 높다. 그런데 100마디당 국지 조성 전환은 모차르트가 {H['son_moz_local_key_changes_per_100_measures']:.1f}회로 베토벤({H['son_bee_local_key_changes_per_100_measures']:.1f}회)보다 많다. 조를 더 자주 옮기면서 조표 밖 음은 덜 쓰는 셈이다. 짧은 거리의 전조를 자주 하는 쪽과 한 조 안에서 반음계를 더 쓰는 쪽의 차이로 읽을 수도 있지만, 이 표만으로 그 해석을 세우지는 않는다.</p>
@@ -1328,7 +1380,7 @@ def main():
 <li><b>박 단위 템포 흔들림</b>(루바토) 중앙값: 바흐 {H['asap_bach_rub']:.3f}, 베토벤 {H['asap_beet_rub']:.3f}. 베토벤에서 박마다 더 많이 늘고 준다.</li>
 <li><b>강약 폭</b>(velocity 표준편차) 중앙값: 바흐 {H['asap_bach_vel']:.1f}, 베토벤 {H['asap_beet_vel']:.1f}. 셈여림 대비는 베토벤이 뚜렷이 크다.</li></ul>
 <h2>4. 180년의 레퍼토리 — 뉴욕 필하모닉</h2>
-<p>1842년 12월 7일 첫 연주회(베토벤 5번으로 시작했다)부터 {H['ny_last_season']} 시즌까지 {H['ny_programs_complete']:,}개 프로그램이 공개돼 있다(진행 중인 시즌까지 {H['ny_programs']:,}개; 뉴욕 심포니·스타디움 콘서트 등 아카이브가 함께 보존한 관련 단체의 프로그램 포함). 작품이 오른 이름은 {H['ny_strings']:,}개, 그중 사람 작곡가가 {H['ny_persons']:,}명이다. 전 작곡가 순위는 <a href="composers/index.html">작곡가</a> 면에 있다.</p>
+<p>1842년 12월 7일 첫 연주회(베토벤 5번으로 시작했다)부터 {H['ny_last_season']} 시즌(악단의 한 해 공연 주기. 보통 가을에 시작해 이듬해까지 이어져 두 해로 적는다)까지 {H['ny_programs_complete']:,}개 프로그램이 공개돼 있다(진행 중인 시즌까지 {H['ny_programs']:,}개; 뉴욕 심포니·스타디움 콘서트 등 아카이브가 함께 보존한 관련 단체의 프로그램 포함). 작품이 오른 이름은 {H['ny_strings']:,}개, 그중 사람 작곡가가 {H['ny_persons']:,}명이다. 전 작곡가 순위는 <a href="composers/index.html">작곡가</a> 면에 있다.</p>
 <p><b>무엇을 한 번으로 세느냐가 먼저다.</b> 기록의 작품 항목 가운데 3분의 1 이상이 서곡·전주곡·아리아 같은 발췌다. 1.1은 한 프로그램에 오른 작품 하나를 한 번으로 세고(작품 연주 {H['ny_u1']:,}건), 그중 발췌가 아닌 것을 전곡 연주({H['ny_u2']:,}건)로 따로 센다. 작품 연주로 가장 많이 오른 것은 {esc(KO_NAME.get(H['ny_all_top_composer'], H['ny_all_top_composer']))}의 {esc(H['ny_all_top'])}(아카이브 표기, {H['ny_all_top_n']:,}회)인데 전곡은 {H['ny_all_top_u2']}회뿐이고 나머지는 1막 전주곡 등 발췌다. 전곡 연주로는 {esc(KO_NAME.get(H['ny_u2_top_composer'], H['ny_u2_top_composer']))}의 {esc(H['ny_u2_top'])}({H['ny_u2_top_n']:,}회)가 1위다. 바그너는 작품 연주로 {H['wag_rank_u1']}위, 전곡 연주로 {H['wag_rank_u2']}위다. 발췌 비율 자체도 1840년대 {H['dec_excerpt_1840']:.0%}(10년 중앙값)에서 1990년대 {H['dec_excerpt_1990']:.0%}까지 내려갔다가 2020년대 {H['dec_excerpt_2020']:.0%}로 올랐다.</p>
 {legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='시즌 작품 연주 점유율')}<figcaption>베토벤 점유율은 {H['ny_first_season']} 시즌 {H['ny_first_beet']:.1%}에서 {H['ny_last_season']} 시즌 {H['ny_last_beet']:.1%}로. 모차르트는 서거 200주년 전후(1990–91·1991–92)에 20%를 넘었다. 바흐는 시즌 중앙값 1.7%.</figcaption></figure>
 <figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='작곡가 집중도 (HHI)')}<figcaption>집중도는 {H['ny_first_hhi']:.3f}(그 시즌에 연주된 작곡가 {H['ny_first_comp']}명 — 약 {round(1 / H['ny_first_hhi'])}명이 고르게 나눠 가진 것과 같은 집중도)에서 {H['ny_last_hhi']:.3f}(작곡가 {H['ny_last_comp']}명 — 약 {round(1 / H['ny_last_hhi'])}명 균등 상당)로. 해마다 오르내리지만 첫 시즌과 최근 시즌을 비교하면 레퍼토리는 크게 넓어졌다.</figcaption></figure>
@@ -1340,7 +1392,7 @@ def main():
         else:
             body.append(f"""<p class="lead">Baseball reads its players through batting average and OPS. Classical music can do the same, to the extent that scores and recordings are available as open data. This is the reading edition of the site's main results; definitions and full tables live under <a href="metrics/index.html">Metrics</a>.</p>
 <h2>1. Scores — {H['n_bach']} Bach, {H['n_beet']} Beethoven and {H['n_moz']} Mozart movements</h2>
-<p>From open annotated corpora: Bach's chorales, English and French Suites and solo works; Beethoven's complete string quartets and 28 piano sonatas (Nos. 22, 25, 27 and 28 are not in the corpus); Mozart's 18 piano sonatas — {H['n_notes']:,} notes, measured by one codebase. Medians by collection:</p>
+<p>From open annotated corpora: Bach's chorales (short four-part harmonizations of Lutheran hymn tunes), English and French Suites and solo works; Beethoven's complete string quartets and 28 piano sonatas (Nos. 22, 25, 27 and 28 are not in the corpus); Mozart's 18 piano sonatas — {H['n_notes']:,} notes, measured by one codebase. Medians by collection:</p>
 {table_html(medtab, mt_cols, 'medtab', lang, filt=False)}
 <p>Three things stand out. First, the <b>chromatic ratio</b> more than doubles from the chorales (0.06) to Beethoven's sonatas (0.15), yet Bach's solo works (0.11) and Beethoven's quartets (0.13) sit close together — the gap between composers can be smaller than the gap between forces, so this table alone cannot establish the cliché "Baroque diatonic, Classical chromatic" (it is not a genre-controlled comparison). Second, <b>harmonic rhythm</b> runs the other way: Bach's suites change chord about three times a bar, Beethoven fewer than twice, so Beethoven holds each chord longer. Third, the <b>top-line leap ratio</b> is lowest in chorale sopranos (0.14) and highest in Beethoven's sonatas (0.50): vocal line versus instrumental figuration, in one number.</p>
 <p>Mozart's and Beethoven's piano sonatas share instrument and genre, which makes them the most controlled comparison on this site (Beethoven: 28 sonatas, 91 movements; harmony metrics on the 64 movements with harmony annotations). The chromatic ratio (Mozart {H['son_moz_chromatic_ratio']:.3f}, Beethoven {H['son_bee_chromatic_ratio']:.3f}), the applied-chord ratio ({H['son_moz_applied_chord_ratio']:.3f}, {H['son_bee_applied_chord_ratio']:.3f}) and the top-line leap ratio ({H['son_moz_top_leap_ratio']:.2f}, {H['son_bee_top_leap_ratio']:.2f}) are all higher in Beethoven. Yet Mozart changes local key more often: {H['son_moz_local_key_changes_per_100_measures']:.1f} times per 100 bars against {H['son_bee_local_key_changes_per_100_measures']:.1f}. He moves key more often while using fewer notes outside the signature. One could read this as frequent short-range modulation versus more chromaticism within a key, but the table alone does not establish that reading.</p>
@@ -1357,7 +1409,7 @@ def main():
 <li><b>Beat-to-beat tempo change</b> (rubato): Bach {H['asap_bach_rub']:.3f}, Beethoven {H['asap_beet_rub']:.3f}. More stretching per beat in Beethoven.</li>
 <li><b>Dynamic spread</b> (velocity SD): Bach {H['asap_bach_vel']:.1f}, Beethoven {H['asap_beet_vel']:.1f}. Markedly wider dynamics in Beethoven.</li></ul>
 <h2>4. 180 years of repertoire — the New York Philharmonic</h2>
-<p>{H['ny_programs_complete']:,} programs are publicly available, from the first concert on December 7, 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
+<p>{H['ny_programs_complete']:,} programs are publicly available, from the first concert on December 7, 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season (an orchestra's yearly cycle of concerts, which usually starts in the fall and runs into the next year, hence the two years) ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
 <p><b>What counts as one comes first.</b> More than a third of the archive's work entries are excerpts — overtures, preludes, arias. Version 1.1 counts each work on a program once ({H['ny_u1']:,} work performances) and, separately, those that are not excerpts ({H['ny_u2']:,} complete performances). The most performed work is {esc(H['ny_all_top_composer'].split(',')[0])}'s {esc(H['ny_all_top'])} (as titled in the archive; {H['ny_all_top_n']:,} times), but only {H['ny_all_top_u2']} of those were complete; the rest are excerpts such as the Act I prelude. By complete performances the leader is {esc(H['ny_u2_top_composer'].split(',')[0])}'s {esc(H['ny_u2_top'])} ({H['ny_u2_top_n']:,}). Wagner ranks {ordinal(H['wag_rank_u1'])} by work performances and {ordinal(H['wag_rank_u2'])} by complete performances. The excerpt share itself fell from {H['dec_excerpt_1840']:.0%} in the 1840s (decade median) to {H['dec_excerpt_1990']:.0%} in the 1990s and rose to {H['dec_excerpt_2020']:.0%} in the 2020s.</p>
 {legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='share of work performances per season')}<figcaption>Beethoven's share falls from {H['ny_first_beet']:.1%} in {H['ny_first_season']} to {H['ny_last_beet']:.1%} in {H['ny_last_season']}. Mozart passed 20% around the bicentenary of his death (1990–91, 1991–92). Bach's season median is 1.7%.</figcaption></figure>
 <figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers performed that season; as concentrated as about {round(1 / H['ny_first_hhi'])} equal composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers; about {round(1 / H['ny_last_hhi'])} equal ones). It swings from season to season, but comparing the first season with the latest, the repertoire has widened considerably.</figcaption></figure>
