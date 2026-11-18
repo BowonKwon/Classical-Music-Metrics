@@ -41,6 +41,8 @@ rast_meas,wasia,region,,,,,False,measured,10.9
 rast_mushaqa,wasia,site,다마스쿠스 — 무샤카,Damascus (Mushāqa),"33.513,36.292",Q3766,False,theory,16.7
 rast_cairo,wasia,site,카이로 — 1932 회의 녹음,Cairo (1932 Congress recordings),"30.044,31.236",Q85,False,measured,23.8
 bayati_cairo,wasia,site,카이로 — 1932 회의 녹음,Cairo (1932 Congress recordings),"30.044,31.236",Q85,False,measured,14.0
+qanun_1937,wasia,site,카이로 — 1937 카눈 측정,Cairo (1937 qanun measurement),"30.044,31.236",Q85,False,measured,12.1
+rast_qanun1937,wasia,site,카이로 — 1937 카눈 측정,Cairo (1937 qanun measurement),"30.044,31.236",Q85,False,measured,17.1
 sruti,sasia,region,,,,,False,theory,21.2
 sruti_clements,sasia,region,,,,,False,theory,10.7
 todi_bel,sasia,region,,,,,False,measured,5.9
