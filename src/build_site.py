@@ -25,7 +25,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.20"
+VERSION = "1.21"
 BUILD_DATE = "2026-11-19"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -88,8 +88,10 @@ CHANGELOG = [
     # Kept as an entry of its own so that it does not collide with edits to the entry above; it may be folded into it.
     ("1.19", "2026-11-18", "목차에서 절로 바로 가기. 절이 셋 이상인 면에 절 목록을 두고, 절 제목마다 바로가기 링크를 달았다. 넓은 화면에서는 위쪽 메뉴가 화면에 남는다.",
      "Straight from the contents to a section: a section list on pages with three or more sections, and a link on every section heading. On wide screens the top menu stays on screen."),
-    ("1.20", BUILD_DATE, "「음계와 조율」 면 3절에 1937년 이집트 카눈 실측을 더해 음계가 49개가 되었다. 모크타르·모샤라파(Nature 140: 548–549)가 조율사 세 사람이 맞춘 카눈의 진동수를 재어 평균한 음 위치 14개와, 그 가운데 라스트 음에서 시작하는 첫째 선법(셋째 음 356센트, 일곱째 음 1047센트)을 실었다. 「아직 넣지 않은 것」에서 이 논문을 빼고 번호를 고쳤다. 기존 음계의 값은 바뀌지 않았다.",
+    ("1.20", "2026-11-19", "「음계와 조율」 면 3절에 1937년 이집트 카눈 실측을 더해 음계가 49개가 되었다. 모크타르·모샤라파(Nature 140: 548–549)가 조율사 세 사람이 맞춘 카눈의 진동수를 재어 평균한 음 위치 14개와, 그 가운데 라스트 음에서 시작하는 첫째 선법(셋째 음 356센트, 일곱째 음 1047센트)을 실었다. 「아직 넣지 않은 것」에서 이 논문을 빼고 번호를 고쳤다. 기존 음계의 값은 바뀌지 않았다.",
      "The 1937 measurement of an Egyptian qanun added to section 3 of the 'Scales and tuning' page, 49 scales in all: the 14 note positions Mokhtar and Mosharrafa (Nature 140: 548–549) obtained by measuring and averaging a qanun tuned by three tuners, and the first of their modes, starting on the note Rast (third degree 356 cents, seventh 1,047). The paper is removed from 'Not yet included', and that list is renumbered. Existing scale values are unchanged."),
+    ("1.21", BUILD_DATE, "「음계와 조율」 면에 「먼저 읽기 — 비율로 음을 정하는 법」 절을 1절 앞에 두었다. 진동수의 비와 센트(식과 계산 예), 음정 아홉 개의 순정 · 평균율 값과 평균율로 함께 울릴 때의 맥놀이 수, 배음렬 1~16(그림), 피타고라스 음률 · 삼분손익 · 순정률 · 12평균율의 계산식, 『사기』 「율서」 · 『여씨춘추』 「음률」 원문(독음 · 해석)과 열두 율관 길이 표, 딴이름 한소리(C♯ · D♭)가 두 비율 계산에서 갈리는 값을 실었다. 두 음 이상을 함께 울리는 단추는 1~8배음을 합친 소리를 쓴다(다른 단추의 삼각파는 홀수 배음만 있어 장3도의 맥놀이가 거의 들리지 않는다). 1 · 2절 문단에서 이 절로 링크했다. 「아직 넣지 않은 것」에 실제 악기의 배음을 더했다. 음계와 그 값은 바뀌지 않았다.",
+     "A new section, 'Before you start: setting notes by ratio', ahead of section 1 of the 'Scales and tuning' page: frequency ratios and cents (formula and a worked example), just and equal-tempered values of nine intervals with the beats per second of the equal-tempered version, the harmonic series 1-16 (chart), the formulas of Pythagorean tuning, sanfen sunyi, just intonation and equal temperament, the Shiji 'Lüshu' and Lüshi chunqiu 'Yinlü' texts with a table of the twelve pipe lengths, and how the enharmonic pair C♯ / D♭ comes apart in two ratio calculations. In section 2 of the English edition, 'by a third in turn' is now 'by a third' (the steps do not always alternate). Buttons that sound notes together use harmonics 1-8 (the triangle wave of the other buttons has odd harmonics only, so a major third barely beats). Sections 1 and 2 link to it; 'Not yet included' adds harmonics of real instruments. Scales and their values are unchanged."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark

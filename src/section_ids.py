@@ -63,6 +63,7 @@ SECTIONS = {
     ],
     "scales": [
         ("by-region", "지역으로 보기", "By region"),
+        ("ratios", "먼저 읽기 — 비율로 음을 정하는 법", "Before you start: setting notes by ratio"),  # 1.21
         ("western-tuning", "1. 서양 조율의 역사 — 비율로 정의된 이론값", "1. Western tuning — values defined by ratios"),
         ("east-asia", "2. 동아시아 — 삼분손익과 일본의 두 음계", "2. East Asia — sanfen sunyi (三分損益) and Japan's two scales"),
         ("theory-and-measurement", "3. 이론과 실측", "3. Theory and measurement"),
