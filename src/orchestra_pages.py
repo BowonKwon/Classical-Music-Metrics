@@ -26,6 +26,9 @@ D, ALI = ROOT / "data/derived", ROOT / "data/aliases"
 ORCH_FILES = ["orch_touring_profiles.csv", "orch_check_nyphil_two_sources.csv", "orch_overlap_nyphil_gewandhaus.csv",
               "orch_seoul_vs_nyphil.csv", "seoulphil_works.csv"]
 ORCH_ALIAS_FILES = ["orch_composer_xwalk.csv", "orch_composer_manual.csv", "seoulphil_title_manual.csv"]
+import orchestra_kr_pages as krp  # noqa: E402  (1.19: Korean orchestras' own programs)
+ORCH_FILES += krp.KR_FILES
+ORCH_ALIAS_FILES += krp.KR_ALIAS_FILES
 
 ORCH = {  # key in orch_touring_profiles.csv -> (ko, en)
     "NY Phil (home seasons)": ("뉴욕 필하모닉(홈 시즌)", "New York Philharmonic (home seasons)"),
@@ -204,6 +207,9 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
          "연주회 × 작품" if k else "concert × work"),
         ("서울시립교향악단 공연 정보(서울 열린데이터광장 OA-22909·22910)" if k else "Seoul Philharmonic concerts (Seoul Open Data OA-22909, OA-22910)", "2009–2027", "KOGL 1" if not k else "공공누리 제1유형",
          "공연 × 곡목 문자열 → 작품으로 나눔" if k else "concert × program string, split into works"),
+        ("수원시립교향악단 · 부천필하모닉오케스트라 누리집의 지난 공연 면, 「부산시립교향악단 공연보(1962-2021)」" if k else "Past-concert pages on the Suwon Philharmonic and Bucheon Philharmonic websites; the Busan Philharmonic record book (1962–2021)",
+         "1982–2026 · 2006–2026 · 1962–2021", "누리집 공연 면과 악단이 펴낸 공연보(곡목과 작곡가만 표로 옮김)" if k else "website pages and the orchestra's record book (only works and composers tabulated)",
+         "공연 × 프로그램에 실린 작품" if k else "concert × work on the program"),
     ]
     hd = ("자료", "기간", "이용 조건", "세는 단위") if k else ("Source", "Years", "License", "Unit")
     b.append(f"<h2>2. {'자료' if k else 'Sources'}</h2><div class='wrap'><table><thead><tr>" + "".join(f"<th>{h}</th>" for h in hd) + "</tr></thead><tbody>"
@@ -323,20 +329,25 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     b.append("<div class='wrap'><table><thead><tr><th>" + ("방법" if k else "Method") + "</th><th class='num'>" + ("곡 수" if k else "works") + "</th></tr></thead><tbody>"
              + "".join(f"<tr><td>{mlab[m][0 if k else 1]}</td><td class='num'>{meth.get(m, 0):,}</td></tr>" for m in ("catalog", "exact", "feature", "manual", "none")) + "</tbody></table></div>")
 
-    # 7 limits
+    # 7 Korean orchestras' own programs (1.19)
+    b.append(krp.section(lang, 7, name, table))
+
+    # 8 limits
     if k:
-        b.append("<h2>7. 한계</h2><ul>"
+        b.append("<h2>8. 한계</h2><ul>"
                  "<li>빈 필·베를린 필·콘세르트헤바우는 카네기홀 공연만 보인다. 홈 시즌 기록은 누리집에서 검색할 수 있으나 내려받을 수 있는 공개 데이터를 찾지 못했다.</li>"
                  "<li>서울시향의 작곡가 귀속은 곡명과 공연 정보에 기댄다. 미귀속 곡은 무작위가 아니다(6절). 공연 정보는 예정 프로그램이라 취소·변경된 공연이 섞여 있고, 공개 데이터에는 취소 표시가 없다. 뉴욕 필 기록은 실제 연주 기록이다.</li>"
                  "<li>카네기홀 작곡가는 Wikidata ID 없이 이름으로만 맞췄다. 동명이인은 수동표로 갈랐다.</li>"
                  "<li>편곡은 뉴욕 필 아카이브 관행을 따랐다. 단순 편곡은 원작곡가로, 편곡자의 작품 목록에 든 재구성(「풀치넬라」 등)은 편곡자로 셌다.</li>"
+                 "<li>7절의 수원 · 부천 자료는 누리집 공연 면에 예고된 프로그램이고, 부산 자료는 악단이 펴낸 공연보다. 수원 · 부천에서는 곡목이 그림으로만 있는 공연과 프로그램 난이 빈 공연이 빠져 있고, 글자로 있어도 규칙으로 읽지 못한 줄이 있다. 빠진 것이 무작위라고 볼 근거가 없다. 자료의 성격과 남은 해가 악단마다 다르므로 네 악단을 견주는 표는 자료가 모두 있는 해의 정기연주회로만 만들었다. 「정기연주회」가 가리키는 공연의 범위도 악단마다 같지 않다.</li>"
                  "<li>코사인과 상위 10명 점유율은 「무엇을 얼마나 자주 하나」만 잰다. 연주의 질이나 해석은 재지 않는다.</li></ul>")
     else:
-        b.append("<h2>7. Limits</h2><ul>"
+        b.append("<h2>8. Limits</h2><ul>"
                  "<li>The Vienna and Berlin Philharmonics and the Concertgebouw appear only through their Carnegie Hall concerts; their home seasons can be searched on their websites, but we found no downloadable public data.</li>"
                  "<li>Seoul attributions rest on titles and concert pages. Unattributed works are not random (section 6). The Seoul data list planned programs, including concerts later canceled or changed, with no cancellation flag; the New York records are of concerts actually given.</li>"
                  "<li>Carnegie Hall composers were matched by name, without Wikidata IDs. Namesakes were separated by a hand-made table.</li>"
                  "<li>Arrangements follow New York Philharmonic archive practice: simple arrangements count for the original composer, recompositions in the arranger's own catalog (Pulcinella and the like) for the arranger.</li>"
+                 "<li>In section 7 the Suwon and Bucheon data are programs announced on website concert pages, and the Busan data come from the orchestra's own record book. For Suwon and Bucheon, concerts whose program exists only as an image, or whose program block is empty, are missing, and some lines of text could not be read by the rules; there is no reason to think what is missing is random. The sources differ in kind and in the years they cover, so the four-way tables use subscription concerts in the years all four cover. What an orchestra numbers as a subscription concert also differs.</li>"
                  "<li>Cosine and top-10 share measure only what is played and how often, not how well.</li></ul>")
     b.append("<p class='src'>" + ("자료: " if k else "Data: ") +
              "<a href='https://github.com/nyphilarchive/PerformanceHistory'>New York Philharmonic Performance History</a> (CC0); "

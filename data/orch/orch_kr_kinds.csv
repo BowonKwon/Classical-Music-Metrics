@@ -1,0 +1,10 @@
+orch,kind,concerts,concerts_with_program,works_with_composer,matched_to_canonical,lines_without_composer,distinct_composers,top5
+bucheon,그 밖의 공연,549,472,2238,1994,253,355,"Mozart, Wolfgang Amadeus 8%; Tchaikovsky, Pyotr Ilyich 6%; Beethoven, Ludwig van 5%; Brahms, Johannes 4%; Verdi, Giuseppe 3%"
+bucheon,정기,187,179,588,573,2,106,"Beethoven, Ludwig van 9%; Tchaikovsky, Pyotr Ilyich 6%; Strauss, Johann, II 6%; Mozart, Wolfgang Amadeus 5%; Brahms, Johannes 5%"
+busan,교류,101,94,471,397,5,132,"Tchaikovsky, Pyotr Ilyich 9%; Beethoven, Ludwig van 6%; Mozart, Wolfgang Amadeus 6%; Verdi, Giuseppe 6%; Wagner, Richard 4%"
+busan,정기,578,578,2265,2005,15,271,"Beethoven, Ludwig van 13%; Mozart, Wolfgang Amadeus 9%; Tchaikovsky, Pyotr Ilyich 6%; Brahms, Johannes 3%; Dvorak, Antonín 3%"
+busan,특별,707,614,3351,2548,196,491,"Mozart, Wolfgang Amadeus 7%; Beethoven, Ludwig van 6%; Strauss, Johann, II 4%; Verdi, Giuseppe 4%; Tchaikovsky, Pyotr Ilyich 4%"
+busan,해외,48,47,160,129,15,71,"Tchaikovsky, Pyotr Ilyich 9%; Shostakovich, Dmitri 8%; Rachmaninoff, Sergei 6%; Mozart, Wolfgang Amadeus 5%; Mendelssohn, Felix 3%"
+suwon,기획,265,90,416,376,22,120,"Beethoven, Ludwig van 8%; Mozart, Wolfgang Amadeus 8%; Tchaikovsky, Pyotr Ilyich 6%; Strauss, Johann, II 5%; Dvorak, Antonín 3%"
+suwon,정기,305,279,743,717,6,100,"Beethoven, Ludwig van 16%; Mozart, Wolfgang Amadeus 9%; Tchaikovsky, Pyotr Ilyich 9%; Brahms, Johannes 7%; Dvorak, Antonín 4%"
+suwon,특별,14,8,32,25,8,26,"Anderson, Leroy 6%; Beethoven, Ludwig van 6%; Lloyd Webber, Lord Andrew 6%; Loewe, Frederick 6%; Offenbach, Jacques 6%"

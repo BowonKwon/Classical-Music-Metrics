@@ -110,6 +110,12 @@ SOURCES = {
         "license": "KOGL Type 1 (attribution)",
         "url": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
     },
+    "krorch": {
+        "ko": "수원시립예술단(연간공연일정과 공연 상세 면) · 부천시립예술단(아카이브 「공연모음」) 누리집의 지난 공연 면과, 부산문화회관 누리집 시립교향악단 「공연보」 게시글에 실린 「부산시립교향악단 공연보(1962-2021)」. 2026년 11월 17일에 읽어, 프로그램 난에 적힌 작곡가와 곡목만 표로 옮겼다(orch_kr_works.csv). 수원 · 부천에서 곡목이 그림으로만 있는 공연은 빠져 있다. 수원 · 부천은 예고된 프로그램, 부산은 악단이 정리한 공연보이며 실제 연주를 따로 확인한 기록이 아니다. 공연 면과 공연보 자체는 싣지 않는다. 1.19에서 추가.",
+        "en": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the Busan Philharmonic's record book 1962–2021 (부산시립교향악단 공연보), posted on the orchestra's pages of the Busan Cultural Center website; read on 17 November 2026. Only the composers and works named in the program blocks were tabulated (orch_kr_works.csv); Suwon and Bucheon concerts whose program exists only as an image are missing. The Suwon and Bucheon data are announced programs and the Busan data the orchestra's own record; neither has been checked against what was actually played. The pages and the booklet themselves are not reproduced. Added in 1.19.",
+        "license": "website pages and a record book, rights with each organization (only works and composers tabulated)",
+        "url": "http://www.artsuwon.or.kr/?p=12",
+    },
 }
 
 METRICS = [

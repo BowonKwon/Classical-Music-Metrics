@@ -2,8 +2,8 @@
  "profile": "data-package",
  "name": "classical-music-metrics",
  "title": "Classical Music Metrics — derived data",
- "version": "1.18.1",
- "created": "2026-11-17",
+ "version": "1.19",
+ "created": "2026-11-18",
  "homepage": "https://bowonkwon.github.io/Classical-Music-Metrics/",
  "contributors": [
   {
@@ -1453,6 +1453,332 @@
    ]
   },
   {
+   "name": "orch-orch_kr_works",
+   "path": "orch/orch_kr_works.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 11112,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_concerts",
+   "path": "orch/orch_kr_concerts.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 2858,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_coverage_by_year",
+   "path": "orch/orch_kr_coverage_by_year.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 340,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    },
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
+    },
+    {
+     "title": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570)",
+     "path": "https://www.wikidata.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_summary",
+   "path": "orch/orch_kr_summary.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 4,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    },
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
+    },
+    {
+     "title": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570)",
+     "path": "https://www.wikidata.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_cosine",
+   "path": "orch/orch_kr_cosine.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 6,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    },
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
+    },
+    {
+     "title": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570)",
+     "path": "https://www.wikidata.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_composer_shares",
+   "path": "orch/orch_kr_composer_shares.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 184,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    },
+    {
+     "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
+     "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
+     "license": "KOGL Type 1 (attribution)"
+    },
+    {
+     "title": "Wikidata (Wikimedia Foundation) person items: year of birth (P569) and death (P570)",
+     "path": "https://www.wikidata.org/",
+     "license": "CC0 1.0"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_decades",
+   "path": "orch/orch_kr_decades.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 12,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_decade_pairs",
+   "path": "orch/orch_kr_decade_pairs.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 4,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_kinds",
+   "path": "orch/orch_kr_kinds.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 9,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_top_works",
+   "path": "orch/orch_kr_top_works.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 75,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_festival_works",
+   "path": "orch/orch_kr_festival_works.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 53,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_festival_vs_home",
+   "path": "orch/orch_kr_festival_vs_home.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 41,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "orch-orch_kr_skipped_concerts",
+   "path": "orch/orch_kr_skipped_concerts.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 138,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
    "name": "aliases-orch_composer_xwalk",
    "path": "aliases/orch_composer_xwalk.csv",
    "format": "csv",
@@ -1535,6 +1861,72 @@
      "title": "Seoul Philharmonic Orchestra concert data (Seoul Open Data Plaza OA-22909 Korean, OA-22910 English; source: Seoul Metropolitan Government)",
      "path": "https://data.seoul.go.kr/dataList/OA-22909/S/1/datasetView.do",
      "license": "KOGL Type 1 (attribution)"
+    }
+   ]
+  },
+  {
+   "name": "aliases-orch_kr_composer_alias",
+   "path": "aliases/orch_kr_composer_alias.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 404,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "aliases-orch_kr_not_composer",
+   "path": "aliases/orch_kr_not_composer.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 65,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
+    }
+   ]
+  },
+  {
+   "name": "aliases-orch_kr_festival_manual",
+   "path": "aliases/orch_kr_festival_manual.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "layer": "Orchestra comparison",
+   "rows": 2,
+   "licenses": [
+    {
+     "name": "CC-BY-4.0",
+     "path": "https://creativecommons.org/licenses/by/4.0/"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Past-concert pages on the websites of the Suwon City Arts Group (yearly listings and concert pages) and the Bucheon City Arts Group (concert archive), and the B",
+     "path": "http://www.artsuwon.or.kr/?p=12",
+     "license": "website pages and a record book, rights with each organization (only works and composers tabulated)"
     }
    ]
   },

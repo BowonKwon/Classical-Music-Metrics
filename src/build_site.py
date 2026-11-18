@@ -18,13 +18,15 @@ import pandas as pd
 
 import axis
 import registry
+import section_ids  # 1.19: ids of the section headings
+import site_nav     # 1.19: links on section headings, section lists, the header that stays on wide screens
 import takeaways
 from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.18.1"
-BUILD_DATE = "2026-11-17"
+VERSION = "1.19"
+BUILD_DATE = "2026-11-18"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
     ("1.0", "2026-10-31", "바흐·베토벤 악보 14지표, 연주 6지표, 뉴욕 필 레퍼토리 4지표.", "Bach and Beethoven: 14 score metrics, 6 performance metrics, 4 NY Phil repertoire metrics."),
@@ -79,8 +81,13 @@ CHANGELOG = [
      "Chart explanations filled in. The axes of strip and line charts now carry the metric's name, its unit and what a larger value means (they used to show only a symbol such as r or ratio). The Scales, Map, Romantic, Sonatas, Genres and Harmony pages open with an 'At a glance' box, each composer page opens with a summary filled with that composer's values, and the strip charts of the Romantic and Sonatas pages and the charts of the Genres, Harmony and Profiles pages say what they show, computed from the data. On the Korean metric pages composers' names are in Korean. Rows of the key maps are named by opus number and movement instead of the source file ID, with a note on reading the Roman numerals. The tempo words in the six tempo classes, plain-language notes on the statistical terms (z, principal component, loading, bootstrap), the source of the three groups of conductors, and the reason the line jumps in seasons with fewer than ten subscription performances are now stated. Charts corrected: on the Harmony page the line across periods ran over a period left out for having too few collections; it now breaks there. Axis names, ticks, legends and column heads that were cut off or overlapped are fixed, and names at the ends of lines are moved apart, in order, when they would touch. On narrow screens wide charts are no longer shrunk but scroll sideways (before, only some were drawn at 640px and the rest shrank to 4px text). Spelling on the English pages is now American throughout (cited titles and transcribed data keep their original spelling). No metric value or data table changed; in the data package descriptor (datapackage.json) the version, the date and the spelling of a source description changed."),
     ("1.18", "2026-11-16", "「읽기」 면 2절에 「트랙 길이로 더한 지휘자」를 더했다. bmetr 의 지휘자 36명에 31명(틸레만 · 마젤 · 자발리슈 · 첼리비다케 · 파보 예르비와 「지휘의 계보」 명단의 26명)을 더해, 교향곡 2~8번 2악장 일곱의 길이 지수(메트로놈 이론 길이 ÷ 트랙 길이)를 한 그림에 그렸다. 새 지휘자의 트랙 길이는 MusicBrainz 데이터 덤프(2026-11-14, CC0)에서 가져왔다. 반복 기호가 있는 악장과 피날레는 쓰지 않는다. 같은 36명으로 견주면 길이 지수와 음원 템포의 지휘자 순위 상관은 0.80이다. 일부 교향곡만 있는 지휘자 여섯(정명훈 · 클라이버 · 텐슈테트 · 메타 · 프레빈 · 크나퍼츠부슈)은 그림 밖 표에 MusicBrainz에 있는 녹음 기록을 악단 · 해로 묶어 모두 악장별로 적었다(대표 녹음을 고르지 않는다. 같은 묶음이 같은 공연이라는 뜻은 아니다). 2절 머리에 bpm(1분에 치는 박의 수) 풀이를 더했다. 기존 지표 값은 바뀌지 않았다. 지휘자 이름 「멩엘베르크」를 국립국어원 네덜란드어 표기 용례대로 「멩엘베르흐」로 고쳤다(레퍼토리 지표 면 포함).",
      "Section 2 of the Reading page gains 'Conductors added through track lengths'. To bmetr's 36 conductors it adds 31 (Thielemann, Maazel, Sawallisch, Celibidache, Paavo Järvi and 26 from the conductor-genealogy list) and plots, in one chart, a length index for the seven second movements of Symphonies 2–8 (theoretical duration at the marks ÷ track length). Track lengths for the added conductors come from the MusicBrainz data dump of 2026-11-14 (CC0). Movements with repeat signs and finales are not used. On the same 36 conductors, the length index and the audio tempo rank conductors with a correlation of 0.80. Six conductors with only some of the symphonies (Myung-whun Chung, Carlos Kleiber, Tennstedt, Mehta, Previn, Knappertsbusch) are listed in a table outside the chart with all their MusicBrainz records, grouped by orchestra and year, movement by movement (no representative recording is chosen; a group is not necessarily one concert). A note on bpm (beats per minute) opens section 2. Existing metric values are unchanged. In the Korean edition, Mengelberg's name now follows the National Institute of Korean Language's Dutch example (멩엘베르흐)."),
-    ("1.18.1", BUILD_DATE, "음악 용어의 첫 풀이를 그 자리에 더했다(7화음 · 부속화음 · 으뜸화음 · 음도 · 센트 · 12평균율 · 순정률 · 피타고라스 음률 · 중전음률 · 선법 · 코랄 · 시즌). 레퍼토리 지표 면의 시즌 표에서 진행 중인 시즌의 줄에 「(진행 중)」을 붙였다. 지표 면의 공식 칸을 문장마다 줄을 나누고, 음표 세는 규칙(두 문장)은 따로 한 줄로 두었다. 「작품·역사」 · 「작곡가와 장르」 면에서 극음악의 색을 초록에서 보라로 바꿨다(실내악의 청록과 가까웠다). 수치는 바뀌지 않았다.",
+    ("1.18.1", "2026-11-17", "음악 용어의 첫 풀이를 그 자리에 더했다(7화음 · 부속화음 · 으뜸화음 · 음도 · 센트 · 12평균율 · 순정률 · 피타고라스 음률 · 중전음률 · 선법 · 코랄 · 시즌). 레퍼토리 지표 면의 시즌 표에서 진행 중인 시즌의 줄에 「(진행 중)」을 붙였다. 지표 면의 공식 칸을 문장마다 줄을 나누고, 음표 세는 규칙(두 문장)은 따로 한 줄로 두었다. 「작품·역사」 · 「작곡가와 장르」 면에서 극음악의 색을 초록에서 보라로 바꿨다(실내악의 청록과 가까웠다). 수치는 바뀌지 않았다.",
      "First glosses of music terms where they first appear (seventh chord, applied chord, tonic, scale degree, cent, equal temperament, just intonation, Pythagorean tuning, meantone, mode, chorale, season). In the season tables of the repertoire metrics, the row of the season in progress is marked (in progress). The formula cell of metric pages starts a new line for each sentence, with the note-counting rule (two sentences) on a line of its own. On the Works and history and Composers and genres pages, stage works change from green to purple (green sat too close to the aqua of chamber music). No values change."),
+    ("1.19", BUILD_DATE, "「악단 비교」 면에 7절 「국내 교향악단의 정기연주회 프로그램」을 더했다. 수원시립교향악단(1982~2024년) · 부천필하모닉오케스트라(2006~2026년) 누리집의 지난 공연 면과 「부산시립교향악단 공연보(1962-2021)」에서 프로그램에 실린 작곡가와 곡목을 옮기고, 서울시립교향악단 공개 자료의 관현악 정기공연과 함께 네 자료가 모두 있는 2009~2021년으로 견줬다. 곡 수를 맞춘 상위 10명 작곡가의 비율, 작곡가별 비율과 코사인 유사도, 자료가 긴 부산시향(1962년부터)과 수원시향(1982년부터)의 10년 단위 표, 자주 실린 작품, 수원시향의 기획 · 특별 공연, 교향악축제 프로그램과 자기 정기연주회의 대조를 실었다. 순위는 매기지 않는다. 수원 · 부천 · 서울은 예고된 프로그램이고 부산은 악단이 펴낸 공연보이며, 실제 연주를 따로 확인한 기록이 아니다. 한계 절은 8절이 되었다. 기존 수치는 바뀌지 않았다.",
+     "Added section 7, Korean orchestras' own subscription programs, to the Orchestras page. Composers and works were taken from the past-concert pages of the Suwon Philharmonic (1982–2024) and the Bucheon Philharmonic (2006–2026) and from the Busan Philharmonic's own record book (1962–2021), and compared with the orchestral subscription concerts in the Seoul Philharmonic's public data over 2009–2021, the years all four sources cover: size-matched top-10 share, shares by composer and cosine similarity, tables by decade for the two long series (Busan from 1962, Suwon from 1982), most programmed works, Suwon's planned and special concerts, and Symphony Festival programs set against home programs. No ranking. The Suwon, Bucheon and Seoul data are announced programs and the Busan data the orchestra's own record; none has been checked against what was actually played. Limits are now section 8. Existing values are unchanged."),
+    # Kept as an entry of its own so that it does not collide with edits to the entry above; it may be folded into it.
+    ("1.19", BUILD_DATE, "목차에서 절로 바로 가기. 절이 셋 이상인 면에 절 목록을 두고, 절 제목마다 바로가기 링크를 달았다. 넓은 화면에서는 위쪽 메뉴가 화면에 남는다.",
+     "Straight from the contents to a section: a section list on pages with three or more sections, and a link on every section heading. On wide screens the top menu stays on screen."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -408,13 +415,36 @@ def wrap_wide_svgs(body: str) -> str:
     return _WIDE_SVG.sub(one, body)
 
 
+# 1.19: from which width the header stays on screen. The rule is the narrowest width at which the header is two lines
+# or fewer. With fifteen menu entries that is about 1,380px in Korean (site_nav.STICKY_FROM = 1400) and about 1,880px
+# in English, whose entries are longer. Measure again when the menu changes.
+NAV_FROM_EN = 1900
+
+
+def nav_assets(lang: str) -> tuple[str, str]:
+    """Navigation stylesheet and script for one language (the English pages take the wider threshold)."""
+    css, js = site_nav.NAV_CSS, site_nav.NAV_JS
+    if lang == "en":
+        a, b = f"@media(min-width:{site_nav.STICKY_FROM}px)", f"SF={site_nav.STICKY_FROM},"
+        if css.count(a) != 1 or js.count(b) != 1:
+            raise SystemExit("site_nav: the width from which the header stays is not where build_site expects it")
+        css, js = css.replace(a, f"@media(min-width:{NAV_FROM_EN}px)"), js.replace(b, f"SF={NAV_FROM_EN},")
+    return css, js
+
+
 def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", active: str = "", leaf=None) -> str:
+    nav_css, nav_js = nav_assets(lang)
+    # 1.19: every section heading has an id (section_ids.py, the same in both languages) and a link to itself
+    body = section_ids.add_ids(body, lang, active, title)
     if leaf:   # 1.4: breadcrumb, same-series list and previous/next on metric and composer pages
         body = leaf_html(lang, leaf, body)
     t = T[lang]
     if lang == "en":
         body = sentence_case_labels(body)
     body = wrap_wide_svgs(body)
+    body, _sections = site_nav.anchor_html(body, lang, title)
+    if not leaf:  # 1.19: a section list on pages with three or more sections (metric and composer pages keep their series list)
+        body = site_nav.with_toc(body, site_nav.page_toc(lang, _sections), lang)
     root = "../" * depth
     other = "en" if lang == "ko" else "ko"
     hub_path = "" if lang == "ko" else "en/"
@@ -442,13 +472,13 @@ def page(lang: str, title: str, body: str, depth: int = 1, desc: str = "", activ
 <script>(function(){{var q=new URLSearchParams(location.search).get("theme");if(q==="light"||q==="dark"){{localStorage.setItem("cmm-theme",q)}}else if(q==="auto"){{localStorage.removeItem("cmm-theme")}}var v=localStorage.getItem("cmm-theme");if(v)document.documentElement.setAttribute("data-theme",v)}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Noto+Serif+KR:wght@600&display=swap" rel="stylesheet">
-<style>{CSS}</style></head><body>
+<style>{CSS}{nav_css}</style></head><body>
 <header><a class="brand" href="{root}{lang}/index.html">{t['site']}</a>
 <nav>{navh}</nav>
 <div class="right"><a class="hub" href="https://bowonkwon.github.io/{'' if lang == 'ko' else 'en/'}">{'공개 자료 허브' if lang == 'ko' else 'All public materials'}</a><button id="theme" class="theme" type="button" aria-label="{'테마' if lang == 'ko' else 'Theme'}">\u25D1</button><a class="lang" href="{root}{other}/index.html">{t['lang_other']}</a></div></header>
 <main{' class="wide"' if leaf else ''}>{body}</main>
 <footer>{t['site']} · {t['version']} {VERSION} · {t['built']} {BUILD_DATE} · <a href="{REPO}">GitHub</a> · {t['hub']} <a href="https://bowonkwon.github.io/{hub_path}">bowonkwon.github.io</a></footer>
-<script>{JS}</script></body></html>"""
+<script>{JS}{nav_js}</script></body></html>"""
 
 
 # ----------------------------------------------------------------- SVG charts
@@ -856,6 +886,9 @@ def main():
                 "orch_overlap_nyphil_gewandhaus.csv": "nyphil+gewandhaus", "orch_seoul_vs_nyphil.csv": "seoulphil+nyphil+wikidata",
                 "seoulphil_works.csv": "seoulphil", "orch_composer_xwalk.csv": "nyphil+gewandhaus+carnegie",
                 "orch_composer_manual.csv": "nyphil+gewandhaus+carnegie", "seoulphil_title_manual.csv": "seoulphil"}
+    import orchestra_kr_pages
+    for f in orchestra_kr_pages.KR_FILES + orchestra_kr_pages.KR_ALIAS_FILES:
+        ORCH_SRC[f] = "krorch+seoulphil+wikidata" if f in ("orch_kr_summary.csv", "orch_kr_cosine.csv", "orch_kr_composer_shares.csv", "orch_kr_coverage_by_year.csv") else "krorch"
     for f in orchestra_pages.ORCH_FILES:
         DATA_FILES[f"orch/{f}"] = (ORCH_SRC[f], "E")
     for f in orchestra_pages.ORCH_ALIAS_FILES:
@@ -1259,7 +1292,7 @@ def main():
         for f, (sk, lay) in DATA_FILES.items():
             n = len(pd.read_csv(OUT / "data" / f))
             derived = table_licence(sk.split("+")).replace("CC-BY-NC-SA-4.0", "CC BY-NC-SA 4.0").replace("CC-BY-SA-4.0", "CC BY-SA 4.0").replace("CC-BY-NC-4.0", "CC BY-NC 4.0").replace("CC-BY-4.0", "CC BY 4.0")
-            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis', 'carnegie': 'Carnegie Hall', 'gewandhaus': 'Gewandhaus', 'seoulphil': 'Seoul Phil', 'damusc': 'DaMuSc', 'ordcc32': 'ORD-CC32'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
+            src_lic = " + ".join(f"{esc(SOURCES[k]['license'])} ({ {'nyphil': 'NY Phil', 'imslp': 'IMSLP', 'wikidata': 'Wikidata', 'ellis': 'Ellis', 'carnegie': 'Carnegie Hall', 'gewandhaus': 'Gewandhaus', 'seoulphil': 'Seoul Phil', 'krorch': 'Suwon and Bucheon sites, Busan record book', 'damusc': 'DaMuSc', 'ordcc32': 'ORD-CC32'}.get(k, k) })" for k in sk.split("+")) if "+" in sk else esc(SOURCES[sk]["license"])
             rows.append(f"<tr><td><a href='../data/{f}'>{f}</a></td><td>{LAYERS[lay][lang]}</td><td class='num'>{n:,}</td><td>{src_lic}</td><td>{derived}</td></tr>")
         body.append(f"<div class='wrap'><table><thead><tr><th>File</th><th>{t['layer']}</th><th class='num'>rows</th><th>{'원자료 라이선스' if lang=='ko' else 'Source license'}</th><th>{'이 표의 라이선스' if lang=='ko' else 'This table'}</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>")
         body.append("<p>" + ("「이 표의 라이선스」는 엮은이가 파생 표에 붙인 조건이다. CC BY-NC-SA 원자료(DCML·Sapp·ASAP)에서 만든 표는 그 조건을 이어받아 CC BY-NC-SA 4.0 으로 둔다. DCML 코랄(CC0)에서 나온 행은 NC-SA 행과 한 파일(score_metrics_by_movement.csv)에 섞여 있어 파일 단위로는 NC-SA 로 표시하지만, 그 361행만 따로 쓰는 데에는 엮은이가 조건을 붙이지 않는다. 뉴욕 필·Wikidata 원자료는 CC0 이고, bmetr 는 MIT(코드나 자료를 복제할 때 저작권·허락 고지를 남기는 조건)다. 이 표들은 원자료를 복제한 것이 아니라 엮은이가 계산하거나 검수해 더한 수치이며(aliases/ 의 작곡가 분류표·Wikidata 매칭표 포함), 그 부분에 CC BY 4.0 을 붙인다. bmetr 에서 온 표를 쓸 때는 원저자(Martín-Castro & Ucar 2020)를 함께 밝혀 주기 바란다. imslp/ 의 표는 IMSLP 작품면(CC BY-SA 4.0)을 가공한 것이라 같은 조건(CC BY-SA 4.0)을 이어받는다 — 다른 표와 라이선스가 다르므로 한 파일로 섞지 말기 바란다. ellis/ 의 표는 퍼블릭 도메인 원본(Ellis 1885·1895)을 엮은이가 옮겨 적은 것으로 CC BY 4.0 이다. 원본 악보·MIDI·음원은 이 저장소에 없다." if lang == "ko" else "'This table' is the license the editor attaches to the derived table. Tables built from CC BY-NC-SA sources (DCML, Sapp, ASAP) carry that condition forward as CC BY-NC-SA 4.0. Rows from the DCML chorales (CC0) sit in the same file as NC-SA rows (score_metrics_by_movement.csv), so the file is marked NC-SA, but the editor attaches no condition to those 361 rows used on their own. The NY Phil and Wikidata sources are CC0; bmetr is MIT (copies of its code or data must keep the copyright and permission notice). These tables are not copies of the sources but numbers the editor computed or reviewed (including the composer classification and Wikidata matching tables under aliases/), and CC BY 4.0 applies to that part. When using tables derived from bmetr, please also credit its authors (Martín-Castro & Ucar 2020). Tables under imslp/ are derived from IMSLP work pages (CC BY-SA 4.0) and carry that license forward; please do not merge them into files with differently licensed tables. Tables under ellis/ are the editor's transcription of a public-domain source (Ellis 1885/1895), CC BY 4.0. No original scores, MIDI or audio are redistributed here.") + "</p>")
@@ -1478,6 +1511,7 @@ def main():
                 parts = _re.split(r"(<script\b.*?</script>|<style\b.*?</style>)", h, flags=_re.S)
                 h = "".join(p if p.startswith(("<script", "<style")) else _re.sub(r"(?<![\w./=\"-])(\d{4})[\u2013-](\d{4})(?![\w./-])", r"\1~\2", p) for p in parts)
             fp.write_text(h, encoding="utf-8")
+    section_ids.check_pairs(OUT)  # 1.19: the same section ids in Korean and in English on every page
     print("built", OUT, "metrics", len(METRICS))
 
 

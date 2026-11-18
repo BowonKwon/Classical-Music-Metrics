@@ -45,7 +45,6 @@ GCSS = """
 :root[data-theme="dark"]{--g1:#3987e5;--g2:#008300;--g3:#d75553;--g4:#199e70;--g5:#c98500;--g6:#6e6f73;--gst:#9454b4}
 .panel{margin:0 0 .4rem}.panel h3{margin:.9rem 0 .2rem;font-size:.95rem}.grid2{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.6rem 1rem}
 .box{background:color-mix(in srgb,var(--accent) 7%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-radius:8px;padding:.6rem .9rem;font-size:.92rem;margin:.6rem 0 1.2rem}
-.toc a{margin-right:1rem}
 """
 ORDER = ["Bach, Johann Sebastian", "Haydn, Franz Joseph", "Mozart, Wolfgang Amadeus", "Beethoven, Ludwig van", "Schubert, Franz",
          "Brahms, Johannes", "Tchaikovsky, Pyotr Ilyich", "Dvorak, Antonín", "Mahler, Gustav", "Stravinsky, Igor"]
@@ -348,8 +347,7 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
          f"<h1>{t('작품 활동과 역사', 'Works & history')}</h1>",
          "<p class='lead'>" + t("작곡가 10명의 작품 활동을 시기별로, 교향곡의 편성·템포 지시어·악기 사용의 변화를 IMSLP 작품면으로, 그리고 A음 높이의 역사를 Ellis 의 19세기 측정표로 본다. 1.2 에서 더했다.",
                                "Ten composers' work activity over their lives, changes in symphonic orchestration, tempo markings and instrument use from IMSLP work pages, and the history of the pitch of a′ from Ellis's 19th-century tables. Added in 1.2.") + "</p>",
-         "<p class='toc'>" + "".join(f"<a href='#s{i}'>{i}. {x}</a>" for i, x in enumerate([t("경력 띠", "Career ribbons"), t("나이별 작품면", "Work pages by age"), t("쓴 시기와 연주 비율", "When it was written, how much it is played"),
-                                                                                              t("교향곡 편성", "Symphony orchestration"), t("템포 지시어", "Tempo markings"), t("악기 사용", "Instrument use"), t("A음 높이", "Pitch of a′")], 1)) + "</p>",
+         "<!--toc-->",  # 1.19: the section list that every page now gets (site_nav.TOC_MARK) stands where the hand-made list of 1.2 stood
          "<div class='box'>" + t(f"단위는 <b>IMSLP 작품면</b>이다 — 한 곡이 여러 면이거나 여러 곡이 한 면인 경우가 있어 「작곡한 작품 수」와 같지 않다. 10명의 작품면 {len(W):,}개(다른 작곡가로 재귀속돼 넘어간 면과 다른 작곡가 이름의 면은 뺐다), 작곡 연도가 적힌 면 {n_dated:,}개 가운데 「~이전/이후」처럼 한계만 적힌 {n_term}개는 연도 집계에서 뺐다. 수용은 뉴욕 필 공연 기록을 작품번호로 매칭했다.",
                                  f"The unit is the <b>IMSLP work page</b>: one work can span several pages and one page can hold several works, so this is not a count of works composed. {len(W):,} pages for the ten composers (pages re-attributed to, or titled under the name of, another composer are dropped); of the {n_dated:,} with a composition year, {n_term} that give only a bound ('before', 'after') are left out of year-based counts. Reception uses the NY Phil archive, matched by catalog number.") + "</div>"]
     # 1
