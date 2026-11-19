@@ -25,7 +25,7 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.22.1"
+VERSION = "1.22.2"
 BUILD_DATE = "2026-11-19"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
@@ -94,8 +94,10 @@ CHANGELOG = [
      "A new section, 'Before you start: setting notes by ratio', ahead of section 1 of the 'Scales and tuning' page: frequency ratios and cents (formula and a worked example), just and equal-tempered values of nine intervals with the beats per second of the equal-tempered version, the harmonic series 1-16 (chart), the formulas of Pythagorean tuning, sanfen sunyi, just intonation and equal temperament, the Shiji 'Lüshu' and Lüshi chunqiu 'Yinlü' texts with a table of the twelve pipe lengths, and how the enharmonic pair C♯ / D♭ comes apart in two ratio calculations. In section 2 of the English edition, 'by a third in turn' is now 'by a third' (the steps do not always alternate). Buttons that sound notes together use harmonics 1-8 (the triangle wave of the other buttons has odd harmonics only, so a major third barely beats). Sections 1 and 2 link to it; 'Not yet included' adds harmonics of real instruments. Scales and their values are unchanged."),
     ("1.22", "2026-11-19", "「먼저 읽기」의 음정 표를 고쳤다. 음정을 손으로 고르지 않고, 순정률 장음계 안의 두 음 사이에서 나오는 음정을 모두 모아 반음 크기 열두 가지(증4도·단7도·장7도를 더함)를 기본 줄로, 같은 크기의 다른 비(10/9, 32/27, 27/20, 64/45, 40/27, 27/16, 16/9)를 「다른 비」 줄로, 7배음에서 나오는 7/4를 한 줄 더 실었다. 표는 크기 순으로 놓고, 단순한 비 · 평균율과의 차이 · 맥놀이 순으로 바꾸는 단추를 두었다. 순정 비를 분수와 소수로, 평균율 비를 2^(k/12)와 소수로 나란히 적고, 장음계에서 그 비가 나오는 두 음을 적었다. 한 옥타브를 진동수 비 눈금과 센트 눈금으로 나란히 그린 그림을 더했다(순정 비 점을 누르면 소리가 난다). 다른 절과 음계 값은 바뀌지 않았다.",
      "The interval table of 'Before you start' is rebuilt. The intervals are no longer chosen by hand: every interval between two notes of the just major scale is collected, the twelve sizes (adding the augmented fourth, minor seventh and major seventh) are main rows, other ratios of the same size (10/9, 32/27, 27/20, 64/45, 40/27, 27/16, 16/9) are 'other ratio' rows, and 7/4 from the 7th harmonic is one more row. The table is in order of size, with buttons to reorder it by simplest ratio, distance from equal temperament or beats. Just ratios are given as fraction and decimal beside the equal-tempered 2^(k/12) and its decimal, with the two notes of the major scale each ratio comes from. A new chart sets one octave on a frequency-ratio scale and a cent scale side by side (click a just-ratio dot to hear it). Other sections and scale values are unchanged."),
-    ("1.22.1", BUILD_DATE, "화면만 고쳤다. 헤더가 화면 위에 붙지 않는 폭(한국어 1,400px, 영어 1,900px 아래)에서 아래로 내려가도 언어를 바꿀 수 있게 오른쪽 아래에 언어 전환 단추를 띄운다. 「먼저 읽기」 음정 표는 「순정 비」 열을 「음정」 바로 뒤로 옮기고, 표를 옆으로 밀어도 두 열이 왼쪽에 남게 했다. 값은 바뀌지 않았다.",
+    ("1.22.1", "2026-11-19", "화면만 고쳤다. 헤더가 화면 위에 붙지 않는 폭(한국어 1,400px, 영어 1,900px 아래)에서 아래로 내려가도 언어를 바꿀 수 있게 오른쪽 아래에 언어 전환 단추를 띄운다. 「먼저 읽기」 음정 표는 「순정 비」 열을 「음정」 바로 뒤로 옮기고, 표를 옆으로 밀어도 두 열이 왼쪽에 남게 했다. 값은 바뀌지 않았다.",
      "Display only. At widths where the header does not stay on screen (below 1,400px in Korean, 1,900px in English) a language switch now floats at the bottom right, so the language can be changed further down the page. In the interval table of 'Before you start' the just-ratio column moves next to the interval name, and both stay at the left when the table is scrolled sideways. No values changed."),
+    ("1.22.2", BUILD_DATE, "화면만 고쳤다. 「먼저 읽기」 음정 표의 높이를 화면의 80%로 묶고 열 이름 줄을 위에 붙였다. 가로 스크롤 막대가 늘 화면 안에 있어 위쪽 줄에서도 표를 옆으로 밀 수 있다. 값은 바뀌지 않았다.",
+     "Display only. The interval table of 'Before you start' is held to 80% of the screen height with its header row fixed at the top, so the horizontal scrollbar is always on screen and the upper rows can be scrolled sideways too. No values changed."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
