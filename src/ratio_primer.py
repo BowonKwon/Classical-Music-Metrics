@@ -186,10 +186,10 @@ def interval_table(k: bool) -> str:
              ("dev", T("평균율과의 차이가 큰 순", "furthest from equal temperament")), ("beat", T("맥놀이가 많은 순", "most beats"))]
     o = ["<div class='sortbar' role='group' aria-label='" + T("표 정렬", "Sort the table") + "'>" + T("정렬: ", "Sort: ")
          + "".join(f"<button type='button' class='sort' data-sort='{key}' aria-pressed='{'true' if key == 'size' else 'false'}'>{esc(lab)}</button>" for key, lab in sorts) + "</div>"]
-    head = [T("음정", "Interval"), T("반음", "Semitones"), T("순정 비", "Just ratio"), T("소수", "Decimal"), T("순정 센트", "Just, cents"),
+    head = [T("음정", "Interval"), T("순정 비", "Just ratio"), T("반음", "Semitones"), T("소수", "Decimal"), T("순정 센트", "Just, cents"),
             T("평균율 비", "Equal ratio"), T("소수", "Decimal"), T("평균율 센트", "Equal, cents"), T("평균율 − 순정", "Equal − just"),
             T("평균율로 함께 울릴 때 맥놀이(1초에)", "Beats per second, equal-tempered, together"), T("순정률 장음계에서 나오는 곳", "Where it occurs in the just major scale"), T("듣기", "Listen")]
-    num = (1, 3, 4, 6, 7, 8, 9)
+    num = (2, 3, 4, 6, 7, 8, 9)
     th = "".join(f"<th{' class=num' if i in num else ''}>{h}</th>" for i, h in enumerate(head))
     trs = []
     for order, row in enumerate(sorted(interval_rows(), key=lambda x: (x["semis"], cents(x["ratio"])))):
@@ -204,18 +204,19 @@ def interval_table(k: bool) -> str:
         btns = ("<div class='btns'>" + btn(T("순정 차례로", "just, in turn"), [[0], [c]], dur=0.7)
                 + btn(T("순정 함께", "just, together"), [[0, c]], dur=2.6)
                 + btn(T("평균율 함께", "equal, together"), [[0, e]], dur=2.6) + "</div>")
-        cells = [name, str(sm), f"<span class='ratio'>{frac(r)}</span>", f"{float(r):.4f}", f"{c:.1f}",
+        cells = [name, f"<span class='ratio'>{frac(r)}</span>", str(sm), f"{float(r):.4f}", f"{c:.1f}",
                  f"2^({sm}/12)", f"{2 ** (sm / 12):.4f}", f"{e}", f"{e - c:+.1f}", beats, where, btns]
         attrs = (f" data-order='{order}' data-size='{sm * 2000 + c:.3f}' data-simple='{r.numerator + r.denominator}' data-dev='{abs(e - c):.3f}'"
                  f" data-beat='{bt if audible else -1:.3f}'" + ("" if row["main"] else " class='alt'"))
         trs.append(f"<tr{attrs}>" + "".join(f"<td{' class=num' if i in num else ''}>{x}</td>" for i, x in enumerate(cells)) + "</tr>")
-    o.append(f"<div class='wrap'><table class='ivl'><thead><tr>{th}</tr></thead><tbody>{''.join(trs)}</tbody></table></div>")
+    o.append(f"<div class='wrap ivlwrap'><table class='ivl'><thead><tr>{th}</tr></thead><tbody>{''.join(trs)}</tbody></table></div>")
     o.append("<p class='src sortnote'>" + T("지금 순서: 크기 순(반음 수, 같은 반음이면 센트가 작은 쪽부터).", "Current order: by size (semitones, then cents).") + "</p>")
     return "".join(o)
 
 
 SORT_JS = """<script>(function(){var t=document.querySelector('.primer table.ivl');if(!t)return;var tb=t.tBodies[0],note=document.querySelector('.primer .sortnote');
-var NOTE=%s;function key(tr,k){return parseFloat(tr.getAttribute('data-'+k))}
+var NOTE=%s;function fix(){t.classList.remove('fix1','fix2');var c=tb.rows[0].cells,w=t.parentElement.clientWidth,a=c[0].getBoundingClientRect().width,b=c[1].getBoundingClientRect().width;
+t.style.setProperty('--c1',a+'px');t.classList.toggle('fix1',a<=.45*w);t.classList.toggle('fix2',a+b<=.6*w)}fix();addEventListener('resize',fix);addEventListener('load',fix);function key(tr,k){return parseFloat(tr.getAttribute('data-'+k))}
 function sortBy(k){var rows=Array.prototype.slice.call(tb.rows);rows.sort(function(a,b){var d;
 if(k==='size')d=key(a,'size')-key(b,'size');else if(k==='simple')d=key(a,'simple')-key(b,'simple');else if(k==='dev')d=key(b,'dev')-key(a,'dev');else d=key(b,'beat')-key(a,'beat');
 return d||key(a,'order')-key(b,'order')});rows.forEach(function(r){tb.appendChild(r)});
@@ -229,6 +230,9 @@ CSS = """.primer h3{margin:1.1rem 0 .3rem;font-size:1rem}.primer .btns{display:f
 .primer button:hover{border-color:var(--fg3)}.primer td .btns{margin:0;flex-wrap:nowrap}.primer .formula{font-size:.92rem;line-height:1.7;background:color-mix(in srgb,var(--fg3) 8%,transparent);border-radius:8px;padding:.45rem .8rem}
 .primer blockquote{margin:.5rem 0;padding:.4rem .8rem;border-left:3px solid var(--line)}.primer blockquote p{margin:.2rem 0}
 .primer .ratio{font-size:1.08rem;font-weight:700}.primer tr.alt td{color:var(--fg3)}.primer tr.alt .ratio{font-weight:600}.primer .alt-tag{font-size:.7rem;border:1px solid var(--line);border-radius:4px;padding:0 .3rem;margin-left:.25rem;white-space:nowrap}
+.primer table.ivl.fix1 th:first-child,.primer table.ivl.fix1 td:first-child,.primer table.ivl.fix2 th:nth-child(2),.primer table.ivl.fix2 td:nth-child(2){position:sticky;left:0;z-index:1;background:var(--card)}
+.primer table.ivl.fix2 th:nth-child(2),.primer table.ivl.fix2 td:nth-child(2){left:var(--c1,0px)}.primer .ivlwrap{padding-left:0}.primer table.ivl.fix1:not(.fix2) th:first-child,.primer table.ivl.fix1:not(.fix2) td:first-child{box-shadow:inset -1px 0 0 var(--line)}.primer table.ivl.fix2 th:nth-child(2),.primer table.ivl.fix2 td:nth-child(2){box-shadow:inset -1px 0 0 var(--line)}
+@media(max-width:640px){.primer table.ivl td:first-child,.primer table.ivl th:first-child{max-width:6.5em;min-width:5em;white-space:normal}.primer table.ivl td:first-child .alt-tag{display:inline-block;margin:.15rem 0 0}}
 .primer .sortbar{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin:.6rem 0 .2rem;font-size:.85rem}.primer .sortbar button[aria-pressed=true]{border-color:var(--g1);background:color-mix(in srgb,var(--g1) 18%,var(--card))}"""
 
 JS = """<script>(function(){var ac=null,W=null;function ctx(){if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)()}return ac}
