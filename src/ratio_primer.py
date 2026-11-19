@@ -30,11 +30,13 @@ def frac(r: F) -> str:
 
 
 # ---- A. ratios and cents -------------------------------------------------------------------------------------
-INTERVALS = [  # ko, en, ratio, equal-tempered semitones
-    ("옥타브", "octave", F(2, 1), 12), ("완전5도", "perfect fifth", F(3, 2), 7), ("완전4도", "perfect fourth", F(4, 3), 5),
-    ("장6도", "major sixth", F(5, 3), 9), ("장3도", "major third", F(5, 4), 4), ("단3도", "minor third", F(6, 5), 3),
-    ("단6도", "minor sixth", F(8, 5), 8), ("장2도", "major second", F(9, 8), 2), ("단2도", "minor second", F(16, 15), 1),
-]
+# 1.22: the intervals are not chosen by hand. interval_rows() collects every interval between two notes of the just
+# major scale below (C..B from three 4:5:6 triads, see JUST), one octave up at most; for each size in semitones the
+# simplest ratio (smallest numerator + denominator) is the main row and the others are 'other ratio' rows. 7/4, from
+# the 7th harmonic, is added as one more other-ratio row of the minor seventh.
+SEMI_NAME = {1: ("단2도", "minor second"), 2: ("장2도", "major second"), 3: ("단3도", "minor third"), 4: ("장3도", "major third"),
+             5: ("완전4도", "perfect fourth"), 6: ("증4도", "augmented fourth"), 7: ("완전5도", "perfect fifth"), 8: ("단6도", "minor sixth"),
+             9: ("장6도", "major sixth"), 10: ("단7도", "minor seventh"), 11: ("장7도", "major seventh"), 12: ("옥타브", "octave")}
 MAXH = 8  # harmonics in the playback tone
 
 
@@ -112,17 +114,128 @@ ENH = {  # system: (C sharp, D flat)
 }
 
 
+def interval_rows():
+    """[{semis, ratio, main, pairs_ko, pairs_en, name_ko, name_en}] from the just major scale, plus 7/4."""
+    found = {}
+    for i, a in enumerate(MAJOR):
+        for step in range(1, 8):
+            j = i + step
+            b = MAJOR[j % 7]
+            r = JUST[b] * (2 if j >= 7 else 1) / JUST[a]
+            semis = ET_SEMI[b] + (12 if j >= 7 else 0) - ET_SEMI[a]
+            ko = f"{MAJOR_KO[i]}–{MAJOR_KO[j % 7]}{'′' if j >= 7 else ''}"
+            en = f"{a}–{b}{'′' if j >= 7 else ''}"
+            found.setdefault((semis, r), ([], []))
+            found[(semis, r)][0].append(ko)
+            found[(semis, r)][1].append(en)
+    rows = []
+    for semis in sorted({k[0] for k in found}):
+        rats = sorted((r for (s_, r) in found if s_ == semis), key=lambda r: (r.numerator + r.denominator, r))
+        for n, r in enumerate(rats):
+            ko, en = SEMI_NAME[semis]
+            if semis == 6 and r == F(64, 45):
+                ko, en = "감5도", "diminished fifth"
+            rows.append(dict(semis=semis, ratio=r, main=(n == 0), pairs_ko=found[(semis, r)][0], pairs_en=found[(semis, r)][1], name_ko=ko, name_en=en))
+    rows.append(dict(semis=10, ratio=F(7, 4), main=False, pairs_ko=["7배음 ÷ 4배음"], pairs_en=["harmonic 7 ÷ harmonic 4"],
+                     name_ko="단7도", name_en="minor seventh"))
+    return rows
+
+
+def ratio_axes_svg(k: bool) -> str:
+    """Two rulers for one octave: frequency ratio on a plain scale (top) and cents (bottom), joined at the 13 equal-
+    tempered notes; the main just ratios as dots on both, clickable."""
+    width, L, R = 900, 24, 24
+    W = width - L - R
+    yt, yb, height = 70, 160, 214
+    X1 = lambda r: L + (float(r) - 1) * W  # noqa: E731
+    X2 = lambda c: L + c / 1200 * W  # noqa: E731
+    o = [f'<svg viewBox="0 0 {width} {height}" role="img" aria-label="{"한 옥타브를 진동수 비와 센트로 견준 그림" if k else "One octave as frequency ratio and as cents"}">']
+    o.append(f'<text x="{L}" y="12" style="fill:var(--fg3)">{"위: 진동수 비를 같은 간격으로 · 아래: 센트를 같은 간격으로(진동수로는 로그 눈금) · 회색 선: 평균율 반음 12개 · 색 점: 순정 비(누르면 소리)" if k else "Top: frequency ratio, evenly spaced · bottom: cents, evenly spaced (a log scale of frequency) · gray lines: the 12 equal-tempered semitones · colored dots: just ratios (click to hear)"}</text>')
+    for kk in range(13):
+        r = 2 ** (kk / 12)
+        o.append(f'<line x1="{X1(r):.1f}" y1="{yt}" x2="{X2(100 * kk):.1f}" y2="{yb}" stroke="var(--fg3)" stroke-opacity=".55" stroke-width="1"><title>{esc(f"2^({kk}/12) = {r:.4f} → {100 * kk}" + ("센트" if k else " cents"))}</title></line>')
+    for y in (yt, yb):
+        o.append(f'<line x1="{L}" x2="{L + W}" y1="{y}" y2="{y}" stroke="var(--fg3)" stroke-opacity=".7"/>')
+    for t in range(11):
+        r = 1 + t / 10
+        o.append(f'<line x1="{X1(r):.1f}" x2="{X1(r):.1f}" y1="{yt}" y2="{yt + 5}" stroke="var(--fg3)"/>'
+                 f'<text x="{X1(r):.1f}" y="{yt + 17}" text-anchor="middle" style="fill:var(--fg3)">{r:.1f}</text>')
+    for c in range(0, 1201, 100):
+        o.append(f'<line x1="{X2(c):.1f}" x2="{X2(c):.1f}" y1="{yb}" y2="{yb + 5}" stroke="var(--fg3)"/>')
+        if c % 200 == 0:
+            o.append(f'<text x="{X2(c):.1f}" y="{yb + 18}" text-anchor="middle" style="fill:var(--fg3)">{c}</text>')
+    o.append(f'<text x="{L + W}" y="{yb + 34}" text-anchor="end" style="fill:var(--fg3)">{"센트" if k else "cents"}</text>')
+    o.append(f'<text x="{L + W}" y="{yt + 31}" text-anchor="end" style="fill:var(--fg3)">{"진동수 비" if k else "frequency ratio"}</text>')
+    mains = [row for row in interval_rows() if row["main"]]
+    for n, row in enumerate(mains):
+        r, c = row["ratio"], cents(row["ratio"])
+        nm = row["name_ko"] if k else row["name_en"]
+        tip = esc(f"{nm} {frac(r)} = {float(r):.4f} → {c:.1f}" + ("센트" if k else " cents"))
+        dp = esc(json.dumps([[0, round(c, 3)]]))
+        o.append(f'<line x1="{X1(r):.1f}" y1="{yt}" x2="{X2(c):.1f}" y2="{yb}" stroke="var(--g2)" stroke-dasharray="3 3" stroke-opacity=".8"/>')
+        for x, y in ((X1(r), yt), (X2(c), yb)):
+            o.append(f'<circle cx="{x:.1f}" cy="{y}" r="5.5" fill="var(--g2)" stroke="var(--card)" stroke-width="1.2" style="cursor:pointer" data-p="{dp}" data-t="rich" data-d="2.4"><title>{tip}</title></circle>')
+        o.append(f'<text x="{X1(r):.1f}" y="{yt - (12 if n % 2 == 0 else 28)}" text-anchor="middle">{frac(r)}</text>')
+    o.append("</svg>")
+    return "".join(o)
+
+
+def interval_table(k: bool) -> str:
+    T = (lambda ko, en: ko if k else en)  # noqa: E731
+    sorts = [("size", T("크기 순", "by size")), ("simple", T("단순한 비 순(분자+분모)", "simplest ratio first (numerator + denominator)")),
+             ("dev", T("평균율과의 차이가 큰 순", "furthest from equal temperament")), ("beat", T("맥놀이가 많은 순", "most beats"))]
+    o = ["<div class='sortbar' role='group' aria-label='" + T("표 정렬", "Sort the table") + "'>" + T("정렬: ", "Sort: ")
+         + "".join(f"<button type='button' class='sort' data-sort='{key}' aria-pressed='{'true' if key == 'size' else 'false'}'>{esc(lab)}</button>" for key, lab in sorts) + "</div>"]
+    head = [T("음정", "Interval"), T("반음", "Semitones"), T("순정 비", "Just ratio"), T("소수", "Decimal"), T("순정 센트", "Just, cents"),
+            T("평균율 비", "Equal ratio"), T("소수", "Decimal"), T("평균율 센트", "Equal, cents"), T("평균율 − 순정", "Equal − just"),
+            T("평균율로 함께 울릴 때 맥놀이(1초에)", "Beats per second, equal-tempered, together"), T("순정률 장음계에서 나오는 곳", "Where it occurs in the just major scale"), T("듣기", "Listen")]
+    num = (1, 3, 4, 6, 7, 8, 9)
+    th = "".join(f"<th{' class=num' if i in num else ''}>{h}</th>" for i, h in enumerate(head))
+    trs = []
+    for order, row in enumerate(sorted(interval_rows(), key=lambda x: (x["semis"], cents(x["ratio"])))):
+        r, sm = row["ratio"], row["semis"]
+        c, e = cents(r), 100 * sm
+        bt = et_beats(r, sm)
+        audible = r.numerator <= MAXH
+        beats = f"{bt:.1f}" if audible else f"({bt:.1f})"
+        tag = "" if row["main"] else f" <span class='alt-tag'>{T('다른 비', 'other ratio')}</span>"
+        name = T(row["name_ko"], row["name_en"]) + tag
+        where = ", ".join(row["pairs_ko"] if k else row["pairs_en"])
+        btns = ("<div class='btns'>" + btn(T("순정 차례로", "just, in turn"), [[0], [c]], dur=0.7)
+                + btn(T("순정 함께", "just, together"), [[0, c]], dur=2.6)
+                + btn(T("평균율 함께", "equal, together"), [[0, e]], dur=2.6) + "</div>")
+        cells = [name, str(sm), f"<span class='ratio'>{frac(r)}</span>", f"{float(r):.4f}", f"{c:.1f}",
+                 f"2^({sm}/12)", f"{2 ** (sm / 12):.4f}", f"{e}", f"{e - c:+.1f}", beats, where, btns]
+        attrs = (f" data-order='{order}' data-size='{sm * 2000 + c:.3f}' data-simple='{r.numerator + r.denominator}' data-dev='{abs(e - c):.3f}'"
+                 f" data-beat='{bt if audible else -1:.3f}'" + ("" if row["main"] else " class='alt'"))
+        trs.append(f"<tr{attrs}>" + "".join(f"<td{' class=num' if i in num else ''}>{x}</td>" for i, x in enumerate(cells)) + "</tr>")
+    o.append(f"<div class='wrap'><table class='ivl'><thead><tr>{th}</tr></thead><tbody>{''.join(trs)}</tbody></table></div>")
+    o.append("<p class='src sortnote'>" + T("지금 순서: 크기 순(반음 수, 같은 반음이면 센트가 작은 쪽부터).", "Current order: by size (semitones, then cents).") + "</p>")
+    return "".join(o)
+
+
+SORT_JS = """<script>(function(){var t=document.querySelector('.primer table.ivl');if(!t)return;var tb=t.tBodies[0],note=document.querySelector('.primer .sortnote');
+var NOTE=%s;function key(tr,k){return parseFloat(tr.getAttribute('data-'+k))}
+function sortBy(k){var rows=Array.prototype.slice.call(tb.rows);rows.sort(function(a,b){var d;
+if(k==='size')d=key(a,'size')-key(b,'size');else if(k==='simple')d=key(a,'simple')-key(b,'simple');else if(k==='dev')d=key(b,'dev')-key(a,'dev');else d=key(b,'beat')-key(a,'beat');
+return d||key(a,'order')-key(b,'order')});rows.forEach(function(r){tb.appendChild(r)});
+document.querySelectorAll('.primer .sortbar button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-sort')===k?'true':'false')});if(note)note.textContent=NOTE[k]}
+document.querySelectorAll('.primer .sortbar button').forEach(function(b){b.addEventListener('click',function(){sortBy(b.getAttribute('data-sort'))})})})();</script>"""
+
+
 # ---- rendering ----------------------------------------------------------------------------------------------
 CSS = """.primer h3{margin:1.1rem 0 .3rem;font-size:1rem}.primer .btns{display:flex;gap:.35rem;flex-wrap:wrap;margin:.25rem 0 .5rem}
 .primer button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:.12rem .6rem;font-size:.8rem;cursor:pointer;white-space:nowrap}
 .primer button:hover{border-color:var(--fg3)}.primer td .btns{margin:0;flex-wrap:nowrap}.primer .formula{font-size:.92rem;line-height:1.7;background:color-mix(in srgb,var(--fg3) 8%,transparent);border-radius:8px;padding:.45rem .8rem}
-.primer blockquote{margin:.5rem 0;padding:.4rem .8rem;border-left:3px solid var(--line)}.primer blockquote p{margin:.2rem 0}"""
+.primer blockquote{margin:.5rem 0;padding:.4rem .8rem;border-left:3px solid var(--line)}.primer blockquote p{margin:.2rem 0}
+.primer .ratio{font-size:1.08rem;font-weight:700}.primer tr.alt td{color:var(--fg3)}.primer tr.alt .ratio{font-weight:600}.primer .alt-tag{font-size:.7rem;border:1px solid var(--line);border-radius:4px;padding:0 .3rem;margin-left:.25rem;white-space:nowrap}
+.primer .sortbar{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin:.6rem 0 .2rem;font-size:.85rem}.primer .sortbar button[aria-pressed=true]{border-color:var(--g1);background:color-mix(in srgb,var(--g1) 18%,var(--card))}"""
 
 JS = """<script>(function(){var ac=null,W=null;function ctx(){if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)()}return ac}
 function wave(a){if(!W){var re=new Float32Array(9),im=new Float32Array(9);for(var i=1;i<9;i++)im[i]=1/i;W=a.createPeriodicWave(re,im)}return W}
 function voice(f,t,d,kind,amp){var a=ctx(),o=a.createOscillator(),g=a.createGain();if(kind==='rich')o.setPeriodicWave(wave(a));else o.type=kind;o.frequency.value=f;
 g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(amp,t+.03);g.gain.setValueAtTime(amp,t+Math.max(.05,d-.2));g.gain.linearRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.05)}
-var BASE=261.63;document.querySelectorAll('.primer button[data-p]').forEach(function(b){b.addEventListener('click',function(){
+var BASE=261.63;document.querySelectorAll('.primer [data-p]').forEach(function(b){b.addEventListener('click',function(){
 var steps=JSON.parse(b.getAttribute('data-p')),kind=b.getAttribute('data-t')||'rich',d=parseFloat(b.getAttribute('data-d')||'.6'),am=b.getAttribute('data-a');am=am?JSON.parse(am):null;
 var a=ctx(),t=a.currentTime+.05;steps.forEach(function(st){var n=st.length;st.forEach(function(c,i){voice(BASE*Math.pow(2,c/1200),t,d,kind,(am?am[i]:1)*.2/Math.max(1,n*.75))});t+=d+.08})})})})();</script>"""
 
@@ -170,27 +283,26 @@ def section(k: bool) -> str:
 
     # A
     b.append(f"<h3 id='ratios-cents'>{T('진동수의 비와 센트', 'Frequency ratios and cents')}</h3>")
-    b.append("<p>" + T("음의 높이는 1초에 몇 번 떠는가(진동수, Hz)로 잰다. 두 음의 음정은 진동수의 차가 아니라 비로 정해진다(아래 식에서 f₁·f₂는 두 음의 진동수). 가온 다(261.63 Hz)에서 옥타브 위 다(523.26 Hz)까지는 261.63 Hz, 그 옥타브 위 다(1046.52 Hz)까지는 523.26 Hz로 차는 두 배가 되지만 비는 둘 다 2:1이다. 센트는 이 비를 로그로 바꾼 단위다. log₂ x는 2를 몇 제곱해야 x가 되는가를 나타내는 수다(log₂ 2 = 1, log₂ 4 = 2).",
-                       "Pitch is measured by how many times a second a sound vibrates (frequency, Hz). The interval between two notes is fixed by the ratio of their frequencies, not the difference (f₁ and f₂ below are the two frequencies). From middle C (261.63 Hz) to the C an octave up (523.26 Hz) the difference is 261.63 Hz, and to the next C (1046.52 Hz) it is 523.26 Hz, twice as much; the ratio is 2:1 both times. The cent turns the ratio into a logarithm: log₂ x is the power to which 2 must be raised to give x (log₂ 2 = 1, log₂ 4 = 2).") + "</p>")
+    b.append("<p>" + T("음의 높이는 1초에 몇 번 떠는가(진동수, 단위 Hz — 헤르츠, 1초에 떠는 횟수)로 잰다. 두 음의 음정은 진동수의 차가 아니라 비로 정해진다(아래 식에서 f₁·f₂는 두 음의 진동수). 가온 다(피아노 건반 가운데의 다, C4 — 261.63 Hz)에서 옥타브 위 다(523.26 Hz)까지는 261.63 Hz, 그 옥타브 위 다(1046.52 Hz)까지는 523.26 Hz로 차는 두 배가 되지만 비는 둘 다 2:1이다. 센트는 이 비를 로그로 바꾼 단위다. log₂ x는 2를 몇 제곱해야 x가 되는가를 나타내는 수다(log₂ 2 = 1, log₂ 4 = 2).",
+                       "Pitch is measured by how many times a second a sound vibrates (frequency, in hertz, Hz: vibrations per second). The interval between two notes is fixed by the ratio of their frequencies, not the difference (f₁ and f₂ below are the two frequencies). From middle C (the C near the middle of the piano keyboard, C4: 261.63 Hz) to the C an octave up (523.26 Hz) the difference is 261.63 Hz, and to the next C (1046.52 Hz) it is 523.26 Hz, twice as much; the ratio is 2:1 both times. The cent turns the ratio into a logarithm: log₂ x is the power to which 2 must be raised to give x (log₂ 2 = 1, log₂ 4 = 2).") + "</p>")
     b.append("<p class='formula'>" + T("센트 = 1200 × log₂(f₂ ÷ f₁)", "cents = 1200 × log₂(f₂ ÷ f₁)") + "<br>"
              + T(f"예: 3:2 → 1200 × log₂ 1.5 = 1200 × 0.58496 = {cents(F(3, 2)):.2f}센트 · 비 2 → 1200센트 · 비 2^(1/12) = 1.05946 → 100센트",
                  f"e.g. 3:2 → 1200 × log₂ 1.5 = 1200 × 0.58496 = {cents(F(3, 2)):.2f} cents · ratio 2 → 1,200 cents · ratio 2^(1/12) = 1.05946 → 100 cents") + "<br>"
-             + T(f"비를 곱하면 센트는 더해진다: 3/2 × 4/3 = 2 → {cents(F(3, 2)):.2f} + {cents(F(4, 3)):.2f} = 1200",
-                 f"Ratios multiply, cents add: 3/2 × 4/3 = 2 → {cents(F(3, 2)):.2f} + {cents(F(4, 3)):.2f} = 1,200") + "</p>")
-    rows = []
-    for ko, en, r, s in INTERVALS:
-        bt = et_beats(r, s)
-        beats = f"{bt:.1f}" if r.numerator <= MAXH else f"({bt:.1f})"
-        btns = ("<div class='btns'>" + btn(T("순정 차례로", "just, in turn"), [[0], [cents(r)]], dur=0.7)
-                + btn(T("순정 함께", "just, together"), [[0, cents(r)]], dur=2.6)
-                + btn(T("평균율 함께", "equal, together"), [[0, 100 * s]], dur=2.6) + "</div>")
-        rows.append([T(ko, en), frac(r), f"{cents(r):.1f}", f"{100 * s}", f"{100 * s - cents(r):+.1f}", beats, btns])
-    b.append(table([T("음정", "Interval"), T("비", "Ratio"), T("순정 센트", "Just, cents"), T("평균율 센트", "Equal, cents"),
-                    T("평균율 − 순정", "Equal − just"), T("평균율로 함께 울릴 때 맥놀이(1초에)", "Beats per second, equal-tempered, together"), T("듣기", "Listen")],
-                   rows, num_cols=(2, 3, 4, 5)))
+             + T(f"비를 곱하면 센트는 더해진다. 완전5도(3/2) 위에 완전4도(4/3)를 쌓으면 옥타브다: 3/2 × 4/3 = 2 → {cents(F(3, 2)):.2f} + {cents(F(4, 3)):.2f} = 1200",
+                 f"Ratios multiply, cents add. A perfect fifth (3/2) with a perfect fourth (4/3) on top makes an octave: 3/2 × 4/3 = 2 → {cents(F(3, 2)):.2f} + {cents(F(4, 3)):.2f} = 1,200") + "</p>")
+    b.append(ratio_axes_svg(k))
+    st1, st11 = 2 ** (1 / 12) - 1, 2 - 2 ** (11 / 12)
+    b.append("<p class='src'>" + T(f"평균율 반음 하나는 진동수에 2^(1/12) = 1.0595를 곱하는 것이다. 그래서 위의 비 눈금에서는 반음 간격이 오른쪽으로 갈수록 넓어지고(첫 반음 1 → 1.0595는 {st1:.4f}, 마지막 반음 1.8877 → 2는 {st11:.4f}), 아래 센트 눈금에서는 모두 100센트로 같다. 센트는 비를 곱하는 일을 더하는 일로 바꾼 눈금이다. 색 점과 점선은 아래 표의 기본 순정 비 열두 개다. 아래 센트 눈금에서 색 점이 가장 가까운 회색 선 끝에서 떨어진 가로 거리가 평균율과의 차이다.",
+                                   f"An equal-tempered semitone multiplies the frequency by 2^(1/12) = 1.0595. On the ratio ruler above, the semitones therefore widen toward the right (the first, 1 → 1.0595, spans {st1:.4f}; the last, 1.8877 → 2, spans {st11:.4f}), while on the cent ruler below each is 100 cents. Cents turn multiplying ratios into adding. The colored dots and dashed lines are the twelve main just ratios of the table below. On the cent ruler, the horizontal distance from a colored dot to the end of the nearest gray line is its difference from equal temperament.") + "</p>")
+    b.append("<p>" + T("아래 표의 줄은 한 줄을 빼고 손으로 고르지 않았다. 「네 가지 계산법」의 순정률 장음계(도~시) 안에서 두 음 사이(한 옥타브까지)에 나오는 음정을 모두 모아, 같은 크기(반음 수)끼리 가장 단순한 비(분자+분모가 작은 것)를 기본 줄로, 나머지를 「다른 비」 줄로 두었다. 순정률에서는 이름이 같은 음정도 어느 두 음 사이냐에 따라 비가 다르다. 예를 들어 도–솔은 3/2인데 레–라는 40/27로 신토닉 쉼표(81/80)만큼 좁다. 빼놓은 한 줄은 7/4다. 장음계에는 없고 7배음과 4배음 사이의 비(배음은 다음 소절)라서, 배음 소절과 잇기 위해 일부러 더했다. 증4도는 완전4도보다 반음 넓고 감5도는 완전5도보다 반음 좁은 음정이다. 「나오는 곳」 칸의 ′는 한 옥타브 위 음이다(도′는 위 도). 괄호 안의 맥놀이 값은 계산으로만 나오는 값이고 이 단추 소리로는 들리지 않는다(아래 문단). 표 위 단추로 순서를 바꿀 수 있다.",
+                       "The rows of the table below are not chosen by hand, with one exception. They are every interval between two notes (up to an octave) of the just major scale of 'Four ways of computing the notes'; for each size (in semitones) the simplest ratio (smallest numerator + denominator) is the main row and the others are 'other ratio' rows. In just intonation an interval of the same name can have different ratios depending on which two notes it joins: C–G is 3/2, but D–A is 40/27, narrower by the syntonic comma (81/80). The exception is 7/4: it is not in the major scale but is the ratio between the 7th and 4th harmonics (harmonics are the next subsection), added on purpose to connect with that subsection. An augmented fourth is a semitone wider than a perfect fourth, a diminished fifth a semitone narrower than a perfect fifth. In the 'Where it occurs' column ′ marks the octave above (C′ is the upper C). Beats in parentheses come from the arithmetic only and cannot be heard with these buttons (see the paragraph below). The buttons above the table change the order.") + "</p>")
+    b.append(interval_table(k) + SORT_JS % json.dumps({"size": T("지금 순서: 크기 순(반음 수, 같은 반음이면 센트가 작은 쪽부터).", "Current order: by size (semitones, then cents)."),
+                                                       "simple": T("지금 순서: 단순한 비 순(분자+분모가 작은 쪽부터).", "Current order: simplest ratio first (smallest numerator + denominator)."),
+                                                       "dev": T("지금 순서: 평균율과의 차이(센트, 부호 무시)가 큰 쪽부터.", "Current order: furthest from equal temperament first (cents, either direction)."),
+                                                       "beat": T("지금 순서: 맥놀이가 많은 쪽부터(괄호 값은 이 단추 소리로 들리지 않아 맨 뒤).", "Current order: most beats first (values in parentheses, inaudible with these buttons, last).")}, ensure_ascii=False))
     t3, t5 = et_beats(F(5, 4), 4), et_beats(F(3, 2), 7)
-    b.append("<p>" + T(f"진동수가 조금 다른 두 음이 함께 울리면 소리가 1초에 그 진동수 차만큼 커졌다 작아진다. 이것이 맥놀이다. 비 p/q인 음정에서는 아래 음의 p번째 배음과 위 음의 q번째 배음이 같은 높이에 온다(배음은 다음 소절). 순정으로 맞추면 이 두 배음이 꼭 겹쳐 그 사이에는 맥놀이가 없고(다른 배음끼리 가까우면 거칠음은 남을 수 있다), 평균율로 맞추면 조금 어긋나 표의 횟수만큼 맥놀이가 생긴다. 가온 다 위 평균율 장3도에서는 아래 음의 5배음(5 × 261.63 = 1308.2 Hz)과 위 음의 4배음(4 × 329.63 = 1318.5 Hz)이 1초에 {t3:.1f}번, 평균율 5도에서는 {t5:.1f}번 맥놀이를 낸다. 헬름홀츠는 2·3배음이 세고 4·5배음은 중간쯤이며 그보다 높은 배음은 빨리 약해지는 음색을 가정하고, 두 음을 함께 울릴 때 배음 사이의 맥놀이가 생기지 않거나 아주 약하게만 생기는 진동수 비를 협화(두 음이 함께 울릴 때 거칠지 않고 어울리는 것)라 불렀다(『음감각론』 엘리스 영역 3판, 1895, 10장, 194쪽). 표에서 괄호 안의 값은 겹치는 배음이 8번째보다 위(장2도는 아래 음의 9배음, 단2도는 16배음)라서, 이 단추의 소리(1~8배음)로는 들리지 않는 맥놀이다. 계산으로는 생긴다.",
-                       f"When two tones of slightly different frequency sound together, the sound swells and fades as many times a second as their frequencies differ: these are beats. In an interval of ratio p/q the p-th harmonic of the lower tone and the q-th harmonic of the upper tone fall at the same height (harmonics are the next subsection). Tuned just, these two harmonics coincide and do not beat against each other (other harmonics that lie close may still leave some roughness); tuned equal, they miss slightly and beat as often as the table says. In an equal-tempered major third above middle C, the lower tone's 5th harmonic (5 × 261.63 = 1308.2 Hz) and the upper tone's 4th (4 × 329.63 = 1318.5 Hz) beat {t3:.1f} times a second; in an equal-tempered fifth, {t5:.1f} times. Assuming a quality of tone whose 2nd and 3rd partials are strong, 4th and 5th moderate and higher ones rapidly weaker, Helmholtz called consonances those ratios at which two tones sounded together form no beats between their partials, or only very weak ones (On the Sensations of Tone, tr. Ellis, 3rd ed., 1895, ch. X, p. 194). Values in parentheses are beats between harmonics above the 8th (the lower tone's 9th for the major second, its 16th for the minor second); they exist in the arithmetic but cannot be heard with these buttons, whose tone stops at the 8th harmonic.") + "</p>")
+    b.append("<p>" + T(f"진동수가 조금 다른 두 음이 함께 울리면 소리가 1초에 그 진동수 차만큼 커졌다 작아진다. 이것이 맥놀이다. 비 p/q(p는 분자, q는 분모)인 음정에서는 아래 음의 p번째 배음과 위 음의 q번째 배음이 같은 높이에 온다(배음은 다음 소절). 순정으로 맞추면 이 두 배음이 꼭 겹쳐 그 사이에는 맥놀이가 없고(다른 배음끼리 가까우면 거칠음은 남을 수 있다), 평균율로 맞추면 조금 어긋나 표의 횟수만큼 맥놀이가 생긴다. 가온 다 위 평균율 장3도에서는 아래 음의 5배음(5 × 261.63 = 1308.2 Hz)과 위 음의 4배음(4 × 329.63 = 1318.5 Hz)이 1초에 {t3:.1f}번, 평균율 5도에서는 {t5:.1f}번 맥놀이를 낸다. 헬름홀츠는 2·3배음이 세고 4·5배음은 중간쯤이며 그보다 높은 배음은 빨리 약해지는 음색을 가정하고, 두 음을 함께 울릴 때 배음 사이의 맥놀이가 생기지 않거나 아주 약하게만 생기는 진동수 비를 협화(두 음이 함께 울릴 때 거칠지 않고 어울리는 것)라 불렀다(『음감각론』 엘리스 영역 3판, 1895, 10장, 194쪽). 표에서 괄호 안의 값은 겹치는 배음이 8번째보다 위(비 p/q의 p가 8보다 큼)라서, 이 단추의 소리(1~8배음)로는 들리지 않는 맥놀이다. 계산으로는 생긴다.",
+                       f"When two tones of slightly different frequency sound together, the sound swells and fades as many times a second as their frequencies differ: these are beats. In an interval of ratio p/q (p the numerator, q the denominator) the p-th harmonic of the lower tone and the q-th harmonic of the upper tone fall at the same height (harmonics are the next subsection). Tuned just, these two harmonics coincide and do not beat against each other (other harmonics that lie close may still leave some roughness); tuned equal, they miss slightly and beat as often as the table says. In an equal-tempered major third above middle C, the lower tone's 5th harmonic (5 × 261.63 = 1308.2 Hz) and the upper tone's 4th (4 × 329.63 = 1318.5 Hz) beat {t3:.1f} times a second; in an equal-tempered fifth, {t5:.1f} times. Assuming a quality of tone whose 2nd and 3rd partials are strong, 4th and 5th moderate and higher ones rapidly weaker, Helmholtz called consonances those ratios at which two tones sounded together form no beats between their partials, or only very weak ones (On the Sensations of Tone, tr. Ellis, 3rd ed., 1895, ch. X, p. 194). Values in parentheses are beats between harmonics above the 8th (p greater than 8 in the ratio p/q); they exist in the arithmetic but cannot be heard with these buttons, whose tone stops at the 8th harmonic.") + "</p>")
 
     # B
     b.append(f"<h3 id='ratios-harmonics'>{T('배음', 'Harmonics')}</h3>")
