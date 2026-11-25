@@ -158,7 +158,7 @@ def classify(tags: str, instr: str, title: str = "") -> str:
         return "other"  # 1.12.2: mechanical instruments (musical clocks, music boxes)
     orch_name = ORCH.search(t)
     if orch_name and not re.search(r"\b(symphonies|overtures?|serenades for orch|orch)\b", t) and small_scoring(t) \
-            and not re.search(r"\bbrandenburg concerto\b", (title or "").lower()):  # owner decision 11-11: the six Brandenburg Concertos stay together as concertos
+            and not re.search(r"\bbrandenburg concerto\b", (title or "").lower()):  # the six Brandenburg Concertos stay together as concertos
         orch_name = None  # 1.12.3: 'concertos' on a scoring for a few players (Telemann's Concerti à 4, Vivaldi's chamber concertos)
     if orch_name or large_ensemble(t) or re.search(r"\borchestras?\b", i):  # the word, not 'orchestration' (1.12.3)
         return "orchestral"

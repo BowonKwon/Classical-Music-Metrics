@@ -1,4 +1,4 @@
-"""1.10: how far and how long a movement leaves its home key (design 63).
+"""1.10: how far and how long a movement leaves its home key.
 
 From the annotated local keys (as in the 1.9 key maps, now for every movement with harmony labels):
   departure_mean     time-weighted mean distance of the local key's signature from the home key's,

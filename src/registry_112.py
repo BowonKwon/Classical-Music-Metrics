@@ -1,4 +1,4 @@
-"""1.12: one metric from the vector and matrix summaries (score_metrics_112.py, design 72).
+"""1.12: one metric from the vector and matrix summaries (score_metrics_112.py).
 Five candidates were tested against conditions fixed beforehand (gates_112.py). Two passed; of those, root-motion
 variety is published. The first Fourier magnitude (semitone clustering) passed too but is withheld: its values
 in tonal music cannot be given a reading (gates_112.WITHHELD). The reading quotes numbers from

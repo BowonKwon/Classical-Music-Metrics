@@ -2,7 +2,7 @@
 
 Reads data/derived/sonata_metrics_by_movement.csv (sonata_metrics.py). Every number in the prose is computed
 from that table. J. C. Bach's composition years are not in the source metadata, so he stays out of anything
-ordered by date and appears in the tables only (owner decision, 2026-11-09).
+ordered by date and appears in the tables only.
 """
 from __future__ import annotations
 

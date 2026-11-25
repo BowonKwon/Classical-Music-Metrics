@@ -300,7 +300,7 @@ def compute(raw: Path = RAW, out: Path = DER):
     # who is new on the figure: complete cycle, not one of the 36; partial rows only for requested conductors
     S["on_figure"] = (S.status == "full") & S.bmetr_conductor.eq("")
     S["in_partial_table"] = S.status.isin(["partial", "several_orchestras", "orchestra_missing"]) & S.requested & S.bmetr_conductor.eq("")
-    # partial table: every distinct performance, no representative pick (owner decision R1, 11-16)
+    # partial table: every distinct performance, no representative pick
     prow = []
     for c in S[S.in_partial_table].itertuples():
         pf = performances(R[R.artist_mbid == cand.set_index("wikidata_q").artist_mbid[c.wikidata_q]], T)

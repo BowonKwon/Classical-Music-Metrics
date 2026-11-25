@@ -26,7 +26,7 @@ def stat_spec(v, fmt: str) -> str:
     x = float(v)
     if fmt != ".0f" or x != x or x.is_integer():
         return fmt
-    return ".1f"   # 1.4 owner decision (2026-11-04): one decimal place (57.75 -> 57.8)
+    return ".1f"   # 1.4: one decimal place (57.75 -> 57.8)
 
 
 def _f(v, fmt):
@@ -274,7 +274,7 @@ def _pedal(m, lang, d):
     return "Performances using the soft pedal: " + ", ".join(f"{n} {_f(r['soft_used_share'], '.1%')} ({int(r['soft_used_n'])}/{int(r['n_performances'])})" for n, r in parts) + "."
 
 
-# 1.4 owner decision (2026-11-04): Korean spelling beside the archive name in the Korean box (conductors with 1,000+ work performances)
+# 1.4: Korean spelling beside the archive name in the Korean box (conductors with 1,000+ work performances)
 KO_CONDUCTOR = {'Damrosch': '담로시', 'Stransky': '스트란스키', 'Bernstein': '번스타인', 'Mehta': '메타', 'Kostelanetz': '코스텔라네츠', 'Mitropoulos': '미트로풀로스', 'Masur': '마주어', 'Hoogstraten': '호흐스트라턴', 'Gilbert': '길버트', 'Maazel': '마젤', 'Barbirolli': '바비롤리', 'Toscanini': '토스카니니', 'Mengelberg': '멩엘베르흐', 'Boulez': '불레즈', 'Leinsdorf': '라인스도르프', 'Rodzinski': '로진스키', 'Walter': '발터', 'Smallens': '스몰렌스', 'Schelling': '셸링', 'Slatkin': '슬래트킨'}
 
 

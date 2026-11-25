@@ -1,4 +1,4 @@
-"""1.10: three metrics of departure from the home key (score_metrics_110.py, design 63).
+"""1.10: three metrics of departure from the home key (score_metrics_110.py).
 Readings quote numbers from data/derived/score_metrics_110_by_movement.csv; tests/test_piecemap.py checks them."""
 
 _KEY = ("국소 조는 DCML 주석자가 정한 것이다. 조표 차는 국소 조의 조표(단조는 나란한조의 조표)에서 으뜸조의 조표를 뺀 뒤 이명동음으로 접어 0~6으로 센다(「전조 거리」와 같은 척도). "

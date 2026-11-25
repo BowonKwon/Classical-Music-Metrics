@@ -56,7 +56,7 @@ def gender_label(qids: list[str]) -> str:
     if not qids:
         return "unknown"
     labels = sorted({P21_LABEL.get(q, f"other:{q}") for q in qids})
-    # 1.4 owner decision (2026-11-04): several different P21 values -> unknown (counted in neither group; it widens the bounds)
+    # 1.4: several different P21 values -> unknown (counted in neither group; it widens the bounds)
     return labels[0] if len(labels) == 1 else "unknown"
 
 

@@ -201,7 +201,7 @@ def section(lang: str, D, ptype_color: dict, ptype_name: dict) -> str:
         mis=(f"트랙 길이에는 쉼·페르마타·앞뒤 무음이 들어 있어 박 하나하나의 속도와 같지 않다. 같은 지휘자 {n['n_old']}명을 음원 템포로 잰 순서와 순위 상관 {f2(n['rho7'])}이라, 순위 몇 자리 차이는 읽지 않는다(음원 템포 쪽은 교향곡 1~8번 전 악장의 끝부분에서 잰 값이라 견주는 악장이 같지 않다). 막대처럼 보이는 가로선은 일곱 악장 가운데 절반이 놓인 범위이지 오차 막대가 아니다." if ko else
              f"Track lengths include rests, fermatas and silence at the ends, so this is not the beat-by-beat tempo. For the same {n['n_old']} conductors its order matches the audio tempo with a rank correlation of {f2(n['rho7'])}, so do not read differences of a few places (the audio tempo is measured at the ends of all movements of Symphonies 1–8, so the movements compared are not the same). The horizontal line is the range of the middle half of the seven movements, not an error bar."))
 
-    # partial table: every distinct performance in MusicBrainz (owner decision 11-16)
+    # partial table: every distinct performance in MusicBrainz
     PA = pd.read_csv(D / "beethoven_length_partial.csv", keep_default_na=False)
     for c in ("k", "median_k_36", "rel_to_36", "length_s", "length_min_s", "length_max_s"):
         PA[c] = PA[c].astype(float)

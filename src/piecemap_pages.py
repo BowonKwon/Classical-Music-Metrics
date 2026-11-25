@@ -1,7 +1,7 @@
-"""1.10: 'Piece map' page (map.html), design 63.
+"""1.10: 'Piece map' page (map.html).
 
 Reads the piecemap_110_* tables (piecemap_110.py) and score_metrics_110_by_movement.csv (score_metrics_110.py).
-Every number in the prose comes from those tables. Axes are not named (design 63 §2 B); a component whose
+Every number in the prose comes from those tables. Axes are not named; a component whose
 leave-one-collection-out stability is below 0.8 is marked unstable and gets no interpretation (§8).
 Point color: composition year in six 35-year bins, one hue (validated ordinal ramps, light and dark).
 """

@@ -139,7 +139,7 @@ def wilson(k: int, n: int, z: float = 1.959963984540054) -> tuple[float, float]:
 
 
 def recording_level(ped: pd.DataFrame) -> pd.DataFrame:
-    """1.4 (owner decision 2026-11-04): ASAP cuts some MAESTRO recordings into several pieces (start/end in
+    """1.4: ASAP cuts some MAESTRO recordings into several pieces (start/end in
     metadata.csv). Count each recording once: pedal-down time and span are summed over its pieces, and the soft
     pedal counts as used if any piece uses it. Pieces without a MAESTRO path are recordings on their own."""
     p = ped.assign(_sus=ped["sustain_ratio"] * ped["span_s"], _any=ped["sustain_ratio_any"] * ped["span_s"],

@@ -1,4 +1,4 @@
-"""1.12: 'Pitch classes and chord progressions' page (profiles.html), design 72.
+"""1.12: 'Pitch classes and chord progressions' page (profiles.html).
 
 Sections: 1 pitch-class distribution and its Fourier magnitudes; 2 root-transition matrices and transition
 entropy; 3 one movement at a time (key stretches, self-similarity matrix, 4-bar window series); 4 which

@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 RAW, ALI, D = ROOT / "data/raw", ROOT / "data/aliases", ROOT / "data/derived"
 LIC = "CC-BY-NC-SA-4.0"
 PERIOD = 50
-MIN_BARS = 300  # smaller corpora enter periods but get no composer-level line (design 36 section 10)
+MIN_BARS = 300  # smaller corpora enter periods but get no composer-level line
 
 # Shown on the period axis: metrics that do not depend on whether an annotator marked local keys or cadences.
 PERIOD_METRICS = ["chromatic_ratio", "pitch_class_entropy", "tpc_vocabulary",

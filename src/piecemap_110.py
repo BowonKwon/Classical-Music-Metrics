@@ -1,4 +1,4 @@
-"""1.10: the piece map (design 63 §2 B, rules fixed in §8 before computing).
+"""1.10: the piece map.
 
 Every movement on the site becomes one vector of score metrics; two principal-component maps are drawn:
   notes    note metrics only, every movement with no missing value among them (chorales included)
@@ -6,7 +6,7 @@ Every movement on the site becomes one vector of score metrics; two principal-co
 Metric selection (fixed beforehand): drop a metric if |Spearman(metric, log length_qb)| > 0.5 over the movements
 of that map, or if more than 30% of those movements lack it. For the harmony map the 30% is counted among
 movements with harmony labels (counted over all movements, the 361 unannotated chorales alone would remove every
-chord metric; noted in design 63 §8).
+chord metric).
 z-scores (population SD), principal components by SVD, the sign of each component set so that its largest
 absolute loading is positive. Stability: 200 bootstrap resamples of movements and leave-one-collection-out;
 |correlation| of each component's loadings with the full-data loadings.
@@ -29,7 +29,7 @@ from registry import METRICS  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 D = ROOT / "data/derived"
 RHO_MAX, MISS_MAX, N_BOOT, SEED, STABLE = 0.5, 0.30, 200, 1910, 0.8
-# Added after the first computation (design 63 §9): metrics undefined by definition for whole collections or for
+# Added after the first computation: metrics undefined by definition for whole collections or for
 # some pieces. Kept under the 30% rule, they made complete-case selection drop entire collections (all quartets,
 # Bach's solo works) from the harmony map: 475 of 793 movements.
 DOMAIN_LIMITED = {"outside_5oct_ratio": "keyboard collections only", "cadences_per_100_measures": "collections with cadence labels",
@@ -150,7 +150,7 @@ def main(out: Path = D) -> dict:
     pd.DataFrame(stab).to_csv(out / "piecemap_110_stability.csv", index=False, lineterminator="\n")
     pd.concat([sel_n, sel_h]).to_csv(out / "piecemap_110_selection.csv", index=False, lineterminator="\n")
     zs[0].round(3).to_csv(out / "piecemap_110_z.csv", index=False, lineterminator="\n")
-    # annotated vs note-only departure (design 63 §8): Spearman with a 95% bootstrap interval
+    # annotated vs note-only departure: Spearman with a 95% bootstrap interval
     s110 = pd.read_csv(out / "score_metrics_110_by_movement.csv").dropna(subset=["departure_mean", "departure_mean_notes"])
     x, y = s110["departure_mean"].to_numpy(), s110["departure_mean_notes"].to_numpy()
     rng = np.random.default_rng(SEED)

@@ -1,4 +1,4 @@
-"""1.12: which of the five candidate summaries become metrics (design 72 §6-1, fixed before computing).
+"""1.12: which of the five candidate summaries become metrics.
 
 A candidate is published as a metric only if it passes all three:
   length   |Spearman rho| with log(length_qb) <= 0.5 over the movements that have a value
@@ -77,7 +77,7 @@ def verdicts(g: pd.DataFrame) -> dict[str, bool]:
     return {c: bool(g[g.candidate == c]["passed"].all()) for c in CANDIDATES}
 
 
-# Decided after computing (2026-11-10; design 72 section 11): the conditions are necessary, not sufficient.
+# Decided after computing (2026-11-10): the conditions are necessary, not sufficient.
 # A candidate that passes is still withheld if its values cannot be given a reading; it stays in the CSV.
 WITHHELD = {"dft_mag_1": "no reading for its values in tonal music"}
 

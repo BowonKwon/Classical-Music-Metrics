@@ -1,4 +1,4 @@
-"""1.9 color figures for romantic.html (design 62): key maps and a collection x metric heatmap.
+"""1.9 color figures for romantic.html: key maps and a collection x metric heatmap.
 
 Diverging key-signature scale: flats blue, sharps orange, no accidentals (or the home key's signature) gray.
 Six steps per arm; OKLCH ramps checked with the dataviz validator (--ordinal: monotone lightness, visible

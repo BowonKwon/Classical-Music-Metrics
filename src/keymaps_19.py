@@ -6,7 +6,7 @@ segment carries the key signature of its local key two ways:
   sig_rel  sig_abs minus the signature of the movement's global key, so the home key is 0
 Both are on the line of fifths, not folded: F-sharp major is +6, G-flat major -6, as written.
 
-Movements chosen by a fixed rule (design 62): per collection, among movements with harmony labels, the one
+Movements chosen by a fixed rule: per collection, among movements with harmony labels, the one
 whose number of key changes is closest to the collection median, the most, and the fewest (ties: piece id).
 
 Output: data/derived/keymaps_19.csv

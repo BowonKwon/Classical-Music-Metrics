@@ -1,8 +1,8 @@
-"""1.11: composers' work across their lives by genre (design 67), for 30 composers.
+"""1.11: composers' work across their lives by genre, for 30 composers.
 
 Big groups keep the 1.2 classifier (work_activity.classify) so the six groups match the 'Works & history' page,
 with vocal split into sacred and secular. Sub-genres come from the IMSLP tags and instrumentation by the
-rules in SUB below, fixed before computing (design 67 §5). Counting unit: work pages; durations where IMSLP
+rules in SUB below, fixed before computing. Counting unit: work pages; durations where IMSLP
 gives an average duration (about a third of pages) as a secondary view.
 
 The first ten composers are read from data/raw/imslp (1.2), the twenty added in 1.11 from data/raw/imslp_111;
@@ -11,7 +11,7 @@ nothing in the 1.2 tables changes.
 Outputs (data/derived):
   genre_life_works.csv      one row per work page: composer, years, age, group, subgenre, duration, date_basis
                             (composition | publication = first publication within the composer's life, used only
-                            where no composition year is known; owner decision 2026-11-10 | none)
+                            where no composition year is known | none)
   genre_life_age.csv        composer x 5-year age bin x subgenre: work pages and minutes
   genre_life_era.csv        25-year period x subgenre: mean over composers of each composer's share (one vote per
                             composer), with the pooled share for comparison
@@ -133,7 +133,7 @@ def voice_segments(t: str) -> list[tuple[int, list[str]]]:
 
 
 def secular_subgenre(t: str) -> str:
-    """1.12.1 (design 72, 3 E): cantatas first; then anything for chorus or several voices, and madrigals and the like;
+    """1.12.1: cantatas first; then anything for chorus or several voices, and madrigals and the like;
     then songs and arias by name; then a single voice by what goes with it (orchestra or strings: an aria; anything
     else, or nothing: a song); then the remaining song-like names; whatever is left is choral."""
     segs = voice_segments(t)
@@ -219,7 +219,7 @@ def build_works() -> pd.DataFrame:
         if ye is not None and ye > d:
             ye = int(d)
         basis = "composition" if (ys is not None and kind != "terminus") else None
-        if basis is None:  # owner decision 11-10: fall back on a first-publication year within the composer's life
+        if basis is None:  # fall back on a first-publication year within the composer's life
             ps = wa.years(r.get("Year of First Publication"))[0]
             if ps is not None and b + 4 <= ps <= d:
                 ys, ye, kind, basis = ps, ps, "publication", "publication"

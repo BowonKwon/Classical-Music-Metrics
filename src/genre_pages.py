@@ -1,4 +1,4 @@
-"""1.11: 'Composers and genres' page (genres.html), design 67.
+"""1.11: 'Composers and genres' page (genres.html).
 
 Forest and trees (Shneiderman 1996; Tennekes & de Jonge 2014): six big groups, each with one hue from the
 validated categorical palette (slots 1-6 in palette order, which is also the stacking order, so every touching
@@ -303,7 +303,7 @@ def render(lang, table_html):
     ens_ko, ens_en = gl.SUB_INFO["ensemble"][1], gl.SUB_INFO["ensemble"][2]
     r3c = sec[(3, "secular_choral")]
     r6c = sec[(6, "secular_cantata")]
-    val_ko = ("<li><b>분류 정확도.</b> 독립 검토자(Codex)가 우리 분류를 보지 않고 같은 체계로 작품면을 다시 분류했고, 그 답이 규칙의 분류와 같은 비율(일치율)을 쟀다. "
+    val_ko = ("<li><b>분류 정확도.</b> 독립 검토자(별도 AI 모델)가 우리 분류를 보지 않고 같은 체계로 작품면을 다시 분류했고, 그 답이 규칙의 분류와 같은 비율(일치율)을 쟀다. "
               "계산 전에 정한 기준은 큰 갈래 95%, 세부 장르 85%이고, 1.12.1에서 세속 성악의 세부 장르 셋에도 각각 85%를 두었다. 일곱 번 쟀다. 회차마다 앞 회차에 쓴 면을 빼고 새로 뽑았고, 규칙은 표본을 뽑기 전에 고쳤다."
               + vtab +
               "<p style='font-size:.9rem'>큰 갈래·세부 장르는 큰 갈래마다 40면씩 뽑은 주 표본 240면의 일치율이다. 오른쪽 세 칸은 규칙이 그 세부 장르로 분류한 면(주 표본과, 세속 성악에서 세부 장르마다 40면씩 더 뽑은 보강 표본) 가운데 검토자가 같은 답을 낸 비율이다. 괄호 안은 95% 구간(부트스트랩)이고 세미콜론 뒤는 면 수다.</p>"
@@ -329,7 +329,7 @@ def render(lang, table_html):
               "합창이 붙은 무대 모음곡(「다프니스와 클로에」 모음곡 등)은 무대에 남아 있다. 분류 체계에 관악 합주와 기계 악기의 자리가 따로 없어 각각 관현악과 기타로 보냈다. "
               "3차부터의 지시문은 세속 세부 장르 셋의 경계(중창과 캐논은 합창 쪽, 관현악 반주의 독창 아리아는 칸타타 쪽)를 2차보다 분명하게 적었고, 7차의 지시문은 세속 오라토리오 한 줄이 더 있다. 그래서 세속 세부 장르의 값은 회차끼리 같은 조건의 비교가 아니다. 세부 장르별 표본은 수십 면이어서 구간이 넓다. "
               "일곱 차례의 검증표는 <a href='../data/genres/genre_life_validation.csv'>CSV</a>로 공개한다. 일치율은 검토자와 규칙이 같은 답을 낸 비율이지 정답률이 아니다.</p></li>")
-    val_en = ("<li><b>Classification accuracy.</b> An independent reviewer (Codex) reclassified work pages blind under the same scheme, and agreement is the share of pages where the reviewer's answer equals the rules'. "
+    val_en = ("<li><b>Classification accuracy.</b> An independent reviewer (a separate AI model) reclassified work pages blind under the same scheme, and agreement is the share of pages where the reviewer's answer equals the rules'. "
               "The thresholds fixed beforehand were 95% for big groups and 85% for sub-genres; 1.12.1 added 85% for each of the three secular vocal sub-genres. There were seven rounds. Each drew a fresh sample that left out the pages of earlier rounds, and the rules were revised before the sample was drawn."
               + vtab +
               "<p style='font-size:.9rem'>Big groups and sub-genres: agreement on the main sample of 240 pages, 40 from each big group. The three columns on the right: among pages the rules put in that sub-genre (the main sample plus 40 extra pages per secular sub-genre), the share where the reviewer gave the same answer. In brackets, the bootstrap 95% interval and, after the semicolon, the number of pages.</p>"

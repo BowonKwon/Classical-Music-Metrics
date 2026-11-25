@@ -1,4 +1,4 @@
-"""1.12: vector and matrix summaries of a movement (design 72; rules fixed there before computing).
+"""1.12: vector and matrix summaries of a movement.
 
 A  Pitch-class distribution and its discrete Fourier transform. Notes are preprocessed as for key_clarity
    (grace notes dropped, ties merged, onsets only; pitch class = MIDI mod 12; weight = merged duration).

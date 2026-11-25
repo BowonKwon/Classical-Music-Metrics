@@ -1,4 +1,4 @@
-"""1.12.1 to 1.12.3: third to seventh validation samples for the genre classification (design 72, section 3 E), each
+"""1.12.1 to 1.12.3: third to seventh validation samples for the genre classification, each
 drawn after the rules it measures were fixed. Round 4 follows the two faults found in round 3, round 5 the faults
 found in round 4 (third revision), round 6 those found in round 5 (fourth revision), round 7 those found in round 6 (fifth revision, with secular
 oratorios written into the scheme); each leaves out the pages of all earlier rounds.

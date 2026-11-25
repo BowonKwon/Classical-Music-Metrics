@@ -1,4 +1,4 @@
-"""1.12: self-similarity matrices of sample movements (design 72 §3 C), with the window series of §3 D.
+"""1.12: self-similarity matrices of sample movements, with the window series of §3 D.
 
 For each measure (mc, score order, repeats not unfolded) the duration-weighted pitch-class distribution of the
 notes that start in it (same preprocessing as key_clarity). S[i, j] = cosine of the vectors of measures i and j;
