@@ -153,7 +153,7 @@ def secular_subgenre(t: str) -> str:
 
 
 def subgenre_of(group: str, tags: str, instr: str, title: str = "") -> str:
-    """Rules revised once after the Codex blind check (design 67 §10): trio sonatas and other works for three or more
+    """Rules revised once after a blind check: trio sonatas and other works for three or more
     players are ensembles; overture-suites are suites; songs for chorus or several voices are choral; organ only
     when the tags say organ; sonatinas are sonatas."""
     t = wa.effective_tags(tags, title, instr).lower()

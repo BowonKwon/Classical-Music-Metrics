@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 D, ALI, RAW = ROOT / "data/derived", ROOT / "data/aliases", ROOT / "data/raw"
 SEED, DRAWS = 0, 500
 
-UNATT = [  # rough classes of unattributed Seoul titles, for the limits note (Codex B-extra: claim was unquantified)
+UNATT = [  # rough classes of unattributed Seoul titles, for the limits note (claim was unquantified)
     ("premiere", r"premi[eè]re|commission|new work|초연|world premiere"),
     ("generic", r"^(?:(?:violin|viola|cello|piano|flute|clarinet|trumpet|horn|timpani|oboe|harp|sheng|double bass|guitar)\s+)?(?:concerto|symphony|sonata|sonatine|sinfonia|sinfonietta|overture|divertimento|passacaglia|romance|serenade|suite|quartet|quintet|sextet|septet|octet|trio)(?:\s+(?:for\s+[a-z ,&]+|no\.?\s*\d+|in\s+[a-g](?:[- ](?:flat|sharp))?\s+(?:major|minor)|op\.\s*\d+[\w.,\s]*))*\s*$"),
 ]
@@ -34,7 +34,7 @@ def seoul_vs_nyphil() -> tuple[pd.DataFrame, dict]:
     """Same computation as seoulphil_compare.py, saved for the page."""
     df = rm.apply_aliases(rm.load_entries(RAW), ALI / "nyphil_composers.csv")
     yr = pd.to_numeric(df["first_date"].str[:4], errors="coerce")
-    df = df[yr.between(2009, 2025)]  # calendar years, same as Seoul (Codex B17: seasons 2009-10..2025-26 ran into 2026)
+    df = df[yr.between(2009, 2025)]  # calendar years, same as Seoul (seasons 2009-10..2025-26 ran into 2026)
     pall = rm.to_pairs(df)
     pall = pall[pall["sub"] > 0]
     excluded = pall[pall.flag != "person"].groupby("flag")["sub"].sum().astype(int).to_dict()
@@ -59,7 +59,7 @@ def seoul_vs_nyphil() -> tuple[pd.DataFrame, dict]:
     for _ in range(DRAWS):
         _, c = np.unique(rng.choice(pool, N, replace=False), return_counts=True)
         vals.append(np.sort(c)[::-1][:10].sum() / N)
-    # robustness: drop 2020-21, when the Seoul data carry cancelled and changed concerts (Codex audit 41: F052, F057)
+    # robustness: drop 2020-21, when the Seoul data carry cancelled and changed concerts (F052, F057)
     yrs = allsp.date.str[:4].astype(int)
     a2 = allsp[~yrs.isin([2020, 2021])]
     n2 = len(a2)

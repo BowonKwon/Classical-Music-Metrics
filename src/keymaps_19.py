@@ -51,7 +51,7 @@ def segments(h: pd.DataFrame, length_qb: float, last_mn: int | None = None) -> l
     lk = g["localkey"].astype(str).tolist()
     qb = g["qb"].tolist()
     mn = g["mn"].astype(int).tolist()
-    # a change in the middle of a bar ends the previous segment in that bar, not the one before (Codex 61)
+    # a change in the middle of a bar ends the previous segment in that bar, not the one before
     onset0 = [Fraction(str(x)) == 0 for x in g["mn_onset"].fillna("0")] if "mn_onset" in g else [True] * len(g)
     last = int(last_mn) if last_mn is not None else int(max(mn))
     starts = [0] + [i for i in range(1, len(lk)) if lk[i] != lk[i - 1]]

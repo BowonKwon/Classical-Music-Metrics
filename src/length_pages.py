@@ -37,7 +37,7 @@ ORCH_KO = {"London Symphony Orchestra": "런던 교향악단", "Royal Philharmon
            "Staatskapelle Dresden": "드레스덴 슈타츠카펠레", "Seoul Philharmonic Orchestra": "서울시립교향악단",
            "New York Philharmonic": "뉴욕 필하모닉", "Symphonieorchester des Bayerischen Rundfunks": "바이에른 방송 교향악단", "Chicago Symphony Orchestra": "시카고 교향악단", "NDR Elbphilharmonie Orchester": "NDR 엘프필하모니 관현악단", "התזמורת הפילהרמונית הישראלית": "이스라엘 필하모닉 관현악단"}
 ORCH_EN = {"התזמורת הפילהרמונית הישראלית": "Israel Philharmonic Orchestra", "hr‐Sinfonieorchester": "hr-Sinfonieorchester"}
-# rows of the partial table whose official issue could not be confirmed from a primary source (Codex 117 T3.8)
+# rows of the partial table whose official issue could not be confirmed from a primary source
 UNCONFIRMED_ISSUE = {("Q160706", 5, 2, "Chicago Symphony Orchestra")}
 INNER_KO = {(2, 2): "2번 2악장", (3, 2): "3번 2악장", (4, 2): "4번 2악장", (5, 2): "5번 2악장", (6, 2): "6번 2악장", (7, 2): "7번 2악장", (8, 2): "8번 2악장"}
 

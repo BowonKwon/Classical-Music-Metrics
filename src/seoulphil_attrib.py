@@ -268,7 +268,7 @@ def main():
                     # a title with its own distinctive words must share one with the reference titles of that key
                     # reject only when the title carries two or more distinctive words and none occurs in the
                     # reference titles of that key ('Pelleas et Melisande Suite, Op. 46' is not 'Peer Gynt Suite, Op. 46')
-                    # 2026-11-07 Codex check: 'Romanian Rhapsody No. 1, Op. 11' had gone to Dohnanyi's Rhapsody Op. 11 and
+                    # 2026-11-07 check: 'Romanian Rhapsody No. 1, Op. 11' had gone to Dohnanyi's Rhapsody Op. 11 and
                     # 'Piano Quintet in E-flat, Op. 87' (Hummel) to Mendelssohn's Op. 87 (B-flat). Now: any distinctive word
                     # must recur in the reference titles (nicknames are already removed), and a stated key must match.
                     key_ok = not f["key"] or not keys[(k, c)] or f["key"] in keys[(k, c)]

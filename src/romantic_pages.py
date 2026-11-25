@@ -244,7 +244,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
     for mid in ["chromatic_ratio", "pitch_class_entropy", "key_clarity", "seventh_chord_ratio", "fifth_root_motion_ratio", "local_key_changes_per_100_measures", "key_change_distance_median", "outside_5oct_ratio"]:
         f = MET[mid]["fmt"]
         a, z = cl[mid].median(), ro[mid].median()
-        def ext(fn):  # collections exactly tied at the extreme (not merely equal after rounding; Codex 61)
+        def ext(fn):  # collections exactly tied at the extreme (not merely equal after rounding)
             best = fn(ro[mid])
             names = [nm(c, lang) for c, x in zip(ro.composer, ro[mid]) if x == best]
             return ("·" if k else ", ").join(names), format(best, f)

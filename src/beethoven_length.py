@@ -339,7 +339,7 @@ def compute(raw: Path = RAW, out: Path = DER):
     bt = bt.merge(d[["conductor", "symphony", "movement", "duration"]], on=["conductor", "symphony", "movement"])
     # per conductor the release carrying the most of the seven movements; ties: the smaller release MBID
     best = bt.groupby(["conductor", "release_mbid"]).size().reset_index(name="n").sort_values(["n", "release_mbid"], ascending=[False, True]).drop_duplicates("conductor", keep="first")
-    # one recording per movement on that release: the smaller recording MBID (Codex 119: Wand No. 5 has two)
+    # one recording per movement on that release: the smaller recording MBID (Wand No. 5 has two)
     bt = bt.merge(best[["conductor", "release_mbid"]]).sort_values("recording_mbid").drop_duplicates(["conductor", "symphony", "movement"])
     bt["diff_s"] = bt.length_ms / 1000 - bt.duration
     bt["rel_diff"] = bt.diff_s / bt.duration

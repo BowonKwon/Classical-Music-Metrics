@@ -89,7 +89,7 @@ EN_FIX = {"Dvorak, Antonín": "Antonín Dvořák", "Smetana, Bedrich": "Bedřich
 def name(c: str, lang: str) -> str:
     if not isinstance(c, str):
         return ""
-    if lang == "ko" and KO.get(c):  # an empty Wikidata label falls through to the Latin form (Codex B18)
+    if lang == "ko" and KO.get(c):  # an empty Wikidata label falls through to the Latin form
         return KO[c]
     if lang == "en" and c in EN_FIX:
         return EN_FIX[c]
