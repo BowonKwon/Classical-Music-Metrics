@@ -16,6 +16,7 @@ import math
 import sys
 from pathlib import Path
 
+import fig_notes  # 1.22.3: chart notes
 import history_glance
 import pandas as pd
 
@@ -287,8 +288,17 @@ def pitch_scatter(df, width=900, height=380):
     grp = d.groupby((d.year // 25) * 25)
     med = grp["vib"].median()[grp.size() >= 5]
     pts = [(y + 12.5, v) for y, v in med.items()]
-    if len(pts) > 1:
-        o.append('<path d="' + " ".join(f"{'M' if i == 0 else 'L'}{X(a):.1f},{Y(b):.1f}" for i, (a, b) in enumerate(pts)) + '" fill="none" stroke="var(--fg)" stroke-width="2"/>')
+    if len(pts) > 1:   # v1 3.13: a bin with fewer than five dots is a gap, so the line breaks there instead of joining across it;
+        runs = []          # a bin standing alone is a short dash (as on the harmony page)
+        for i, (a, b) in enumerate(pts):
+            if i == 0 or a - pts[i - 1][0] > 25:
+                runs.append([])
+            runs[-1].append((X(a), Y(b)))
+        segs = []
+        for r in runs:
+            r = r if len(r) > 1 else [(r[0][0] - 7, r[0][1]), (r[0][0] + 7, r[0][1])]
+            segs.append(" ".join(f"{'M' if j == 0 else 'L'}{x:.1f},{y:.1f}" for j, (x, y) in enumerate(r)))
+        o.append('<path d="' + " ".join(segs) + '" fill="none" stroke="var(--fg)" stroke-width="2"/>')
     o.append("</svg>")
     return "".join(o)
 
@@ -321,6 +331,90 @@ def files(names, root="../data/"):
     return "<p class='files'>" + "".join(f'<a href="{root}{f}">{f}</a>' for f in names) + "</p>"
 
 
+def notes(lang, W, CY, AC, RP, MR, SY, TP, TL, IU, EP, okb, okb2) -> dict:
+    """1.22.3: the line above and the labelled paragraphs of each chart of this page, numbers from the same tables."""
+    from axis import ro as _ro
+    H = {}
+    # 1 career ribbons — the first composer's tallest year
+    c0 = ORDER[0]
+    cy = CY[CY.composer == c0].groupby("year")["works"].sum()
+    y0 = int(cy.idxmax())
+    H[1] = (t("작곡가 10명이 해마다 쓴 작품면 수를 장르별로 쌓아, 작곡가마다 띠 하나로 그린 그림이다.", "Work pages written each year by each of ten composers, stacked by genre, one ribbon per composer."),
+            dict(one=t(f"{name(c0)} 띠에서 막대가 가장 높은 해는 {y0}년이고, 그해 작품면은 {cy.max():.1f}개다(여러 해에 걸친 작품을 나누어 세서 소수가 나온다).",
+                       f"In the {name(c0)} ribbon the tallest bar is {y0}, with {cy.max():.1f} work pages (works dated over several years are split, hence the fraction)."),
+                 mis=t("작곡가마다 세로 눈금이 다르다. 띠의 높이를 작곡가끼리 견주면 안 된다. 작품면은 IMSLP에 올라 있는 면이어서, 한 곡이 여러 면이거나 여러 곡이 한 면인 경우가 있다.",
+                       "Each composer has their own vertical scale, so ribbon heights must not be compared across composers. Work pages are pages on IMSLP; one work can span several pages and one page can hold several works."),
+                 terms=t("작품면 — IMSLP(공개 악보 도서관)에 작품마다 만들어진 면. 이 면의 세는 단위다.", "Work page — a page on IMSLP (an open sheet-music library) made for a work; the counting unit of this page.")))
+    # 2 age — the first composer's peak band
+    a0 = AC[AC.composer == c0]
+    pk = a0.loc[a0.share.idxmax()]
+    H[2] = (t("작곡가마다 연도가 확인된 작품면이 몇 살 무렵에 쓰였는지 5년 구간의 비율로 그린 작은 그림 10개다.", "For each composer, the share of dated work pages written at each age, in five-year bands — ten small charts."),
+            dict(one=t(f"{name(c0)} 그림의 가장 높은 점은 {int(pk.age_bin)}~{int(pk.age_bin) + 4}세 구간이고, 연도가 확인된 {name(c0)} 작품면의 {pk.share:.0%}가 그 5년에 쓰였다는 뜻이다.",
+                       f"The highest point of the {name(c0)} chart is the {int(pk.age_bin)}–{int(pk.age_bin) + 4} band: {pk.share:.0%} of {name(c0)}'s dated work pages fall in those five years."),
+                 mis=t("작은 그림마다 그 작곡가의 연도가 확인된 작품면 전체가 100%다. 그래서 작품면이 적은 작곡가의 점도 높게 나올 수 있다. 몇 살에 「많이」 썼는지는 그 작곡가 안에서의 비율로만 읽는다.",
+                       "Each chart adds up to 100% of that composer's pages, so a composer with few pages can still have high points; read 'most' only within each composer."),
+                 terms=t("나이 — 작곡 연도에서 출생 연도를 뺀 값(만 나이가 아니다).", "Age — composition year minus birth year (not exact age).")))
+    # 3 composed vs performed — the first composer drawn: the bin with the largest performance share
+    shown = [c for c in ORDER if not RP[RP.composer == c].empty and not MR[MR.composer == c].empty and MR[MR.composer == c].iloc[0].dated_u1_share >= 0.5]
+    c3 = shown[0]
+    r3 = RP[RP.composer == c3]
+    top = r3.loc[r3.nyphil_share.idxmax()]
+    H[3] = (t("작곡가마다 언제 쓴 작품이 작품면에서 차지하는 몫과 뉴욕 필 연주에서 차지하는 몫을 견준 작은 그림들이다.", "For each composer, the share of work pages and the share of New York Philharmonic performances that fall on works from each period of composition."),
+            dict(one=t(f"{name(c3)} 그림에서 점이 가장 높은 곳은 {int(top.bin_start)}~{int(top.bin_start) + 4}년이다. 그 5년에 쓴 작품은 작품면의 {top.works_share:.0%}, 연도까지 매칭된 뉴욕 필 연주의 {top.nyphil_share:.0%}를 차지한다.",
+                       f"In the {name(c3)} chart the highest dot is {int(top.bin_start)}–{int(top.bin_start) + 4}: works from those five years are {top.works_share:.0%} of the work pages and {top.nyphil_share:.0%} of the NY Phil performances matched to a dated page."),
+                 mis=t("가로축은 연주한 때가 아니라 작곡한 때다. 점과 막대는 같은 % 축이지만 분모가 다르다 — 막대는 그 작곡가의 작품면 전체, 점은 그 작곡가의 연도까지 매칭된 연주 전체다.",
+                       "The horizontal axis is when a work was written, not when it was played. Dots and bars share the % axis but not the denominator: bars are out of the composer's work pages, dots out of the composer's performances matched to a dated page.")))
+    # 4 orchestration — the earliest symphony drawn
+    e4 = SY.sort_values(["year_start", "page"], kind="mergesort").iloc[0]
+    n4 = int((SY.year_start == e4.year_start).sum())   # v1 2.18: dots sharing the earliest year
+    H[4] = (t(f"교향곡 {len(SY)}곡마다 작곡 연도와 편성란의 관악·타악·건반 파트 수를 점 하나로 찍은 그림이다.", f"Composition year against the number of wind, brass, percussion and keyboard parts, one dot for each of {len(SY)} symphonies."),
+            dict(one=(t(f"가장 왼쪽 점은 {name(e4.composer)}의 {esc(e4.work_title)}({int(e4.year_start)}년)이고 파트는 {int(e4.orch_parts)}개다.",
+                        f"The leftmost dot is {name(e4.composer)}'s {esc(e4.work_title)} ({int(e4.year_start)}), with {int(e4.orch_parts)} parts.") if n4 == 1 else
+                      t(f"가장 왼쪽인 {int(e4.year_start)}년에는 교향곡이 {n4}곡 있고, 파트 수가 같은 곡은 점이 겹친다. 그 하나가 {name(e4.composer)}의 {esc(e4.work_title)}로 파트는 {int(e4.orch_parts)}개다.",
+                        f"The leftmost year, {int(e4.year_start)}, has {n4} symphonies, and those with the same number of parts overlap. One of them is {name(e4.composer)}'s {esc(e4.work_title)}, with {int(e4.orch_parts)} parts.")),
+                 mis=t("점은 이 10명의 교향곡 가운데 IMSLP에 편성 상세가 있는 곡뿐이다. 시대 전체의 교향곡을 대표하지 않고, 10년 구간마다 곡 수가 다르다.",
+                       "The dots are only the symphonies of these ten composers whose IMSLP page lists the instrumentation; they do not represent all symphonies of the time, and decades hold different numbers of works."),
+                 terms=t("파트 — 편성란에 적힌 악기 줄 하나(예: 플루트 2는 파트 2). 현악은 세지 않았다.", "Part — one instrument line in the listed instrumentation (two flutes count as two parts); strings are not counted.")))
+    # 5 tempo classes — the first bin drawn, its largest class
+    tp0 = TP[TP.bin == okb[0]].sort_values("share", ascending=False, kind="mergesort").iloc[0]
+    H[5] = (t("25년 구간마다 교향곡 악장 목록에 적힌 템포어가 여섯 단계 가운데 어디에 드는지, 구간마다 막대 하나를 100%로 쌓은 그림이다.",
+              "For each 25-year bin, the tempo words written in symphony movement lists, sorted into six classes and stacked to 100% in one bar per bin."),
+            dict(one=t(f"맨 왼쪽 {okb[0]}년 막대({okb[0]}~{okb[0] + 24}년)에서 가장 큰 칸은 「{tname(tp0.tempo_class)}」{_ro(tname(tp0.tempo_class))}, 그 구간 템포어 줄의 {tp0.share:.0%}다.",
+                       f"In the leftmost bar ({okb[0]}–{okb[0] + 24}) the largest segment is '{tname(tp0.tempo_class)}', {tp0.share:.0%} of that bin's tempo lines."),
+                 mis=t("막대 높이는 모두 100%라 구간마다 줄 수가 달라도 같아 보인다(줄 수는 칸에 마우스를 올리면 나온다). 적힌 지시어의 구성이지 실제로 연주한 속도가 아니다.",
+                       "Every bar is 100% tall, so bins with very different numbers of lines look alike (hover for the count). This is the make-up of written words, not the speed actually played.")))
+    tl = TL[TL.bin.isin(okb)]
+    hi5 = tl.loc[tl.non_italian_share.idxmax()]
+    H[55] = (t("25년 구간마다 템포어 가운데 이탈리아어가 아닌 말(독일어·프랑스어·영어)의 비율을 이은 선 그림이다.", "For each 25-year bin, the share of tempo words that are not Italian (German, French, English), as a line."),
+             dict(short=t(f"가장 높은 구간은 {int(hi5.bin)}~{int(hi5.bin) + 24}년으로 {hi5.non_italian_share:.1%}다.", f"The highest bin is {int(hi5.bin)}–{int(hi5.bin) + 24}, at {hi5.non_italian_share:.1%}."),
+                  one=t(f"그 점은 그 25년에 템포어가 잡힌 {int(hi5.movements)}줄 가운데 {hi5.non_italian_share:.1%}가 이탈리아어가 아닌 말이라는 뜻이다.",
+                        f"That point means {hi5.non_italian_share:.1%} of the {int(hi5.movements)} lines with a recognized tempo word in those 25 years are not Italian."),
+                  mis=t("선은 구간 사이를 이었을 뿐이고, 줄 수가 적은 구간의 점은 몇 줄로도 크게 움직인다.", "The line only joins the bins; a bin with few lines moves a lot with a few of them.")))
+    # 6 instrument use — the instrument that rises most, read at the last bin
+    iu = IU[IU.bin.isin(okb2)].pivot(index="instrument", columns="bin", values="share")
+    r1 = (iu[okb2[-1]] - iu[okb2[0]]).sort_values(ascending=False).index[0]
+    n_last = int(IU[(IU.bin == okb2[-1])].symphonies.iloc[0])
+    H[6] = (t("25년 구간마다 교향곡의 편성란에 악기 이름이 적힌 비율을 칸의 색과 숫자로 그린 열지도다. 줄 하나가 악기 하나, 열 하나가 구간 하나다.",
+              "A heat map of how often each instrument is named in symphony instrumentation, per 25-year bin: one row per instrument, one column per bin."),
+            dict(one=t(f"「{iname(r1)}」 줄의 맨 오른쪽 칸({okb2[-1]}~{okb2[-1] + 24}년)은 {iu.loc[r1, okb2[-1]]:.0%}다. 그 구간 교향곡 {n_last}곡 가운데 그만큼의 편성란에 이 악기가 적혀 있다는 뜻이다.",
+                       f"The rightmost cell of the '{iname(r1)}' row ({okb2[-1]}–{okb2[-1] + 24}) is {iu.loc[r1, okb2[-1]]:.0%}: that share of the bin's {n_last} symphonies name it in their instrumentation."),
+                 mis=t("칸의 비율은 편성란에 적혔는지만 센다. 그 악기가 실제로 얼마나 연주했는지, 처음 쓰인 때가 언제인지는 말하지 않는다.",
+                       "A cell counts only whether the instrument is named; it says nothing about how much it plays or when it was first used.")))
+    # 7 pitch of a′ — the highest and lowest dated record
+    ed = EP.dropna(subset=["year"])
+    lo7, hi7 = ed.loc[ed.vib.idxmin()], ed.loc[ed.vib.idxmax()]
+    H[7] = (t(f"A. J. Ellis가 모은 a′ 음높이 기록(Ellis의 표 I) 가운데 연도가 있는 {len(ed)}건을 연도와 진동수(Hz)로 찍은 그림이다.", f"The {len(ed)} dated a′ records in A. J. Ellis's Table I, by year and frequency (Hz)."),
+            dict(short=t(f"가장 낮은 기록은 {lo7.vib:g} Hz({esc(lo7.date_raw)}), 가장 높은 기록은 {hi7.vib:g} Hz({esc(hi7.date_raw)})다.", f"The lowest record is {lo7.vib:g} Hz ({esc(lo7.date_raw)}), the highest {hi7.vib:g} Hz ({esc(hi7.date_raw)})."),
+                 how=t("점 하나가 기록 하나다. 가로는 연도, 세로는 a′의 진동수(Hz, 위일수록 높다)다. 색은 용도(위 범례)이고, 흐린 점은 연도가 「이전·이후·무렵·범위」로 적힌 기록이다. 점선은 440 Hz, 굵은 선은 점이 5개 이상인 25년 구간의 중앙값을 이은 것이고 점이 그보다 적은 구간에서는 끊었다. 점에 마우스를 올리면 원문의 연도·장소·값이 나온다.",
+                       "Each dot is one record. Across: the year; up: the frequency of a′ (Hz; higher is higher pitch). Color is the use (legend above); faint dots have a date given as before, after, circa or a range. The dashed line is 440 Hz; the thick line joins the medians of 25-year bins with five or more dots and breaks at bins with fewer. Hover for the date, place and value as printed."),
+                 one=t(f"가장 아래 점은 {lo7.vib:g} Hz다. 지금 흔히 쓰는 440 Hz보다 {1200 * __import__('math').log2(440 / lo7.vib):.0f}센트 낮다(100센트가 반음 하나).",
+                       f"The lowest dot is {lo7.vib:g} Hz, {1200 * __import__('math').log2(440 / lo7.vib):.0f} cents below today's common 440 Hz (100 cents is a semitone)."),
+                 mis=t("한 시기의 점들이 넓게 퍼져 있다. 한 해의 「표준 음높이」가 있었다고 읽으면 안 된다 — 같은 무렵에도 장소와 용도에 따라 크게 달랐다. 가로축은 표에 적힌 연도라 늘 잰 해는 아니다(오르간은 건립 연도인 것이 있다). 용도별로 다시 엮은 Ellis의 표 II는 표 I과 겹치는 기록이 많아 더하지 않았다(두 표의 행이 같은 관측인지는 행마다 맞춰 보지 않았다).",
+                       "Dots from one period spread widely; do not read a single 'standard pitch' for a year. Around the same time, pitch differed a great deal by place and use. The horizontal axis is the date given in the table, not always the year of measurement (some organs carry the year they were built). Ellis's Table II, which regroups records by use, overlaps Table I heavily and is not added (whether each of its rows is the same observation as a row of Table I was not checked row by row)."),
+                 terms=t("a′ — 가온 다 위의 라 음. Hz(헤르츠)는 1초에 떠는 횟수다.", "a′ — the A above middle C. Hz (hertz) is vibrations per second.")))
+    return H
+
+
 def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "data/proto"), data_root="../data/") -> str:
     global LANG
     LANG = lang
@@ -342,6 +436,10 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     n_term = int((W.year_kind == "terminus").sum())
     n_dated = int(W.year_start.notna().sum())
     legend = '<div class="legend">' + "".join(f'<span style="--c:{gvar(i)}">{gname(g)}</span>' for i, g in enumerate(GENRES)) + "</div>"
+    HN = notes(lang, W, CY, AC, RP, MR, SY, TP, TL, IU, EPk, okb_, okb2_)   # 1.22.3: chart notes
+
+    def hb(n, how):
+        return fig_notes.block(HN[n][0], dict(HN[n][1], how=how), lang)
     im = data_root + "imslp/"
     b = [f"<style>{GCSS}</style>",
          f"<h1>{t('작품 활동과 역사', 'Works & history')}</h1>",
@@ -351,9 +449,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
          "<div class='box'>" + t(f"단위는 <b>IMSLP 작품면</b>이다 — 한 곡이 여러 면이거나 여러 곡이 한 면인 경우가 있어 「작곡한 작품 수」와 같지 않다. 10명의 작품면 {len(W):,}개(다른 작곡가로 재귀속돼 넘어간 면과 다른 작곡가 이름의 면은 뺐다), 작곡 연도가 적힌 면 {n_dated:,}개 가운데 「~이전/이후」처럼 한계만 적힌 {n_term}개는 연도 집계에서 뺐다. 수용은 뉴욕 필 공연 기록을 작품번호로 매칭했다.",
                                  f"The unit is the <b>IMSLP work page</b>: one work can span several pages and one page can hold several works, so this is not a count of works composed. {len(W):,} pages for the ten composers (pages re-attributed to, or titled under the name of, another composer are dropped); of the {n_dated:,} with a composition year, {n_term} that give only a bound ('before', 'after') are left out of year-based counts. Reception uses the NY Phil archive, matched by catalog number.") + "</div>"]
     # 1
-    b.append(f"<h2 id='s1'>1. {t('경력 띠 — 해마다 무엇을 썼나', 'Career ribbons — what was written each year')}</h2>{GL[1]}<p>"
-             + t("연도별 작품면 수(작곡 기간이 여러 해면 해마다 나누어 셈. 개정·후대 판본 연도는 넣지 않았다)를 장르별로 쌓았다. 옅은 바탕은 생애. 막대에 마우스를 올리면 그해 내역이 나온다. 작곡가마다 세로축이 다르므로 막대 높이를 작곡가끼리 견주지 않는다. 여러 해에 걸친 작품을 나누어 세기 때문에 한 해의 값이 0.5 같은 소수로 나올 수 있다.",
-                 "Work pages per year by genre (a work dated over several years is split evenly across them; revision and later-version dates are not included). The pale band is the lifespan. Hover over a bar to see that year's breakdown. Each composer's panel has its own vertical scale, so bar heights should not be compared across composers; because a work spread over several years is split, a year can show a fraction such as 0.5.") + "</p>" + legend)
+    b.append(f"<h2 id='s1'>1. {t('경력 띠 — 해마다 무엇을 썼나', 'Career ribbons — what was written each year')}</h2>{GL[1]}" + hb(1, t("연도별 작품면 수(작곡 기간이 여러 해면 해마다 나누어 셈. 개정·후대 판본 연도는 넣지 않았다)를 장르별로 쌓았다. 옅은 바탕은 생애. 막대에 마우스를 올리면 그해 내역이 나온다. 작곡가마다 세로축이 다르므로 막대 높이를 작곡가끼리 견주지 않는다. 여러 해에 걸친 작품을 나누어 세기 때문에 한 해의 값이 0.5 같은 소수로 나올 수 있다.",
+                 "Work pages per year by genre (a work dated over several years is split evenly across them; revision and later-version dates are not included). The pale band is the lifespan. Hover over a bar to see that year's breakdown. Each composer's panel has its own vertical scale, so bar heights should not be compared across composers; because a work spread over several years is split, a year can show a fraction such as 0.5.")) + "" + legend)
     for c in ORDER:
         cy = CY[CY.composer == c]
         if cy.empty:
@@ -367,9 +464,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     gt["composer"] = gt["composer"].map(name)
     b.append(table(gt.rename(columns={g: gname(g) for g in GENRES}), [("composer", t("작곡가", "Composer"), None)] + [(gname(g), gname(g), "d") for g in GENRES], "gt"))
     # 2
-    b.append(f"<h2 id='s2'>2. {t('나이별 작품면 비율 — 몇 살에 가장 많이 썼나', 'Work pages by age — when did they write most?')}</h2>{GL[2]}<p>"
-             + t("작곡 연도가 확인된 작품면을 작곡 연도와 출생 연도의 차(만 나이가 아니다) 5년 구간으로 묶은 비율. 곡의 길이·규모는 통제하지 않아 「노동량」 비교가 아니다. 모든 칸이 같은 축(0~90세)이다.",
-                 "Share of dated work pages by five-year bands of composition year minus birth year (not exact age). Length and scale are not controlled, so this is not a comparison of workload. All panels share one axis (age 0–90).") + "</p><div class='grid2'>")
+    b.append(f"<h2 id='s2'>2. {t('나이별 작품면 비율 — 몇 살에 가장 많이 썼나', 'Work pages by age — when did they write most?')}</h2>{GL[2]}" + hb(2, t("작곡 연도가 확인된 작품면을 작곡 연도와 출생 연도의 차(만 나이가 아니다) 5년 구간으로 묶은 비율. 곡의 길이·규모는 통제하지 않아 「노동량」 비교가 아니다. 모든 칸이 같은 축(0~90세)이다.",
+                 "Share of dated work pages by five-year bands of composition year minus birth year (not exact age). Length and scale are not controlled, so this is not a comparison of workload. All panels share one axis (age 0–90).")) + "<div class='grid2'>")
     amax = AC.share.max() * 1.1
     for c in ORDER:
         a = AC[AC.composer == c].sort_values("age_bin")
@@ -379,9 +475,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
         b.append(f"<div><h3 style='margin:.4rem 0 .1rem;font-size:.92rem'>{esc(name(c))} <small style='color:var(--fg3);font-weight:400'>{t('정점', 'peak')} {int(pk.age_bin)}–{int(pk.age_bin) + 4} {pk.share:.0%}</small></h3>{small_line([(r.age_bin, r.share) for r in a.itertuples()], 0, 90, amax, xsuffix=t('세', ''))}</div>")
     b.append("</div>")
     # 3
-    b.append(f"<h2 id='s3'>3. {t('쓴 시기와 연주 비율', 'When it was written, how much it is played')}</h2>{GL[3]}<p>"
-             + t("회색 막대는 작곡 시기(5년)별 작품면 비율, 파란 점은 <b>작곡 연도까지 매칭된</b> 뉴욕 필 연주(한 프로그램에 오른 작품 하나를 한 번으로 센 「작품 연주」) 가운데 그 시기에 쓴 작품의 비율. 가로축은 연주 시점이 아니라 작곡 시기다. 같은 % 축이다. 점이 막대보다 높으면 그 시기 작품이 상대적으로 많이 연주된다. 한 오케스트라의 기록이다.",
-                 "Gray bars: share of work pages composed in each five-year period. Blue dots: of the NY Phil work performances (each work on a program counted once) <b>matched to a dated page</b>, the share that falls on works from that period. The horizontal axis is the composition period, not the performance date; both are plotted on the same % axis. A dot above its bar means works from that period are played more than their share. One orchestra's record.") + "</p>"
+    b.append(f"<h2 id='s3'>3. {t('쓴 시기와 연주 비율', 'When it was written, how much it is played')}</h2>{GL[3]}" + hb(3, t("회색 막대는 작곡 시기(5년)별 작품면 비율, 파란 점은 <b>작곡 연도까지 매칭된</b> 뉴욕 필 연주(한 프로그램에 오른 작품 하나를 한 번으로 센 「작품 연주」) 가운데 그 시기에 쓴 작품의 비율. 가로축은 연주 시점이 아니라 작곡 시기다. 같은 % 축이다. 점이 막대보다 높으면 그 시기 작품이 상대적으로 많이 연주된다. 한 오케스트라의 기록이다.",
+                 "Gray bars: share of work pages composed in each five-year period. Blue dots: of the NY Phil work performances (each work on a program counted once) <b>matched to a dated page</b>, the share that falls on works from that period. The horizontal axis is the composition period, not the performance date; both are plotted on the same % axis. A dot above its bar means works from that period are played more than their share. One orchestra's record.")) + ""
              + f'<div class="legend"><span style="--c:var(--g6)">{t("작품면 비율", "share of work pages")}</span><span style="--c:var(--g1)">{t("뉴욕 필 연주 비율", "share of NY Phil performances")}</span></div><div class="grid2">')
     for c in ORDER:
         r = RP[RP.composer == c]
@@ -392,9 +487,8 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     b.append("</div><p class='src'>" + t("스트라빈스키는 작품번호가 없어 매칭하지 못해 뺐다.", "Stravinsky is left out: his works carry no catalog numbers to match.") + "</p>")
     b.append(table(MR.assign(composer=MR.composer.map(name)), [("composer", t("작곡가", "Composer"), None), ("u1", t("뉴욕 필 작품 연주", "NY Phil work perf."), ".0f"), ("matched_u1_share", t("매칭", "matched"), ".0%"), ("dated_u1_share", t("연도까지", "dated"), ".0%")], "mr"))
     # 4
-    b.append(f"<h2 id='s4'>4. {t('교향곡 편성 — 관악·타악·건반 파트 수', 'Symphony orchestration — wind, brass, percussion and keyboard parts')}</h2>{GL[4]}<p>"
-             + t(f"이 10명의 교향곡 가운데 IMSLP 편성 상세가 있는 {len(SY)}곡(합창이 있는 교향곡 포함). 점 하나가 교향곡 하나, 점들을 가로지르는 실선은 10년 구간 중앙값. 편성란에 적힌 비현악 파트를 셌다(현악은 세지 않음, 수가 없는 악기는 1, 괄호 안 악기 포함, 타악기는 개별 악기가 적혀 있으면 그것만). 연주자 수나 악보의 실제 파트 수와 같다는 보장은 없다.",
-                 f"The {len(SY)} symphonies by these ten composers whose IMSLP page has instrumentation details (choral symphonies included). One dot per symphony; the solid line through the dots is the median per decade. Non-string parts as listed (strings not counted; an instrument without a number counts once; bracketed instruments included; percussion counted by named instrument when listed). This need not equal the number of players or of parts in the score.") + f"</p><figure>{scatter(SY)}</figure>")
+    b.append(f"<h2 id='s4'>4. {t('교향곡 편성 — 관악·타악·건반 파트 수', 'Symphony orchestration — wind, brass, percussion and keyboard parts')}</h2>{GL[4]}" + fig_notes.fx(scatter(SY), HN[4][0], dict(HN[4][1], how=t(f"이 10명의 교향곡 가운데 IMSLP 편성 상세가 있는 {len(SY)}곡(합창이 있는 교향곡 포함). 점 하나가 교향곡 하나, 점들을 가로지르는 실선은 10년 구간 중앙값. 편성란에 적힌 비현악 파트를 셌다(현악은 세지 않음, 수가 없는 악기는 1, 괄호 안 악기 포함, 타악기는 개별 악기가 적혀 있으면 그것만). 연주자 수나 악보의 실제 파트 수와 같다는 보장은 없다.",
+                 f"The {len(SY)} symphonies by these ten composers whose IMSLP page has instrumentation details (choral symphonies included). One dot per symphony; the solid line through the dots is the median per decade. Non-string parts as listed (strings not counted; an instrument without a number counts once; bracketed instruments included; percussion counted by named instrument when listed). This need not equal the number of players or of parts in the score.")), lang))
     b.append(table(SY.sort_values("year_start").assign(composer=SY.composer.map(name)), [("composer", t("작곡가", "Composer"), None), ("work_title", t("작품", "Work"), None), ("year_start", t("연도", "Year"), ".0f"), ("orch_parts", t("파트", "Parts"), ".0f"), ("duration_min", t("연주 시간(분)", "Duration (min)"), ".0f")], "sy"))
     # 5
     okb = sorted(TL.loc[(TL.movements >= 20) & (TL.recognised_share >= 0.6), "bin"].astype(int).tolist())
@@ -402,24 +496,20 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
              + t("IMSLP 교향곡 범주(오르간 교향곡·여러 곡 묶음 면·목록 면 제외)의 악장 목록에서 줄마다 사전에 있는 첫 템포어(Adagio·Allegro·Vivo 등, 독일어·프랑스어 지시어 포함)를 뽑아 여섯 단계로 묶었다. <b>연주 속도(BPM)가 아니라 적힌 지시어의 구성</b>이다. 느린 서주가 있는 악장은 서주의 템포어로 잡히고, 판본이 둘 적힌 면은 두 판의 줄이 모두 들어간다. 25년 구간, 인식된 줄이 20개 이상이고 인식률(템포어가 잡힌 줄 / 목록 줄) 60% 이상인 구간만.",
                  "From the movement lists of the IMSLP Symphonies category (organ symphonies, multi-symphony pages and list pages excluded), the first tempo word on each line that is in the site's dictionary (Adagio, Allegro, Vivo …, German and French words included), grouped into six classes. <b>This is the make-up of written markings, not performed speed (bpm).</b> A movement with a slow introduction is classed by the introduction; pages listing two versions contribute both. 25-year bins with at least 20 recognized lines and a recognition rate (lines with a tempo word / listed lines) of at least 60%.") + "</p>"
              + "<p class='src'>" + tempo_key() + "</p>"
-             + '<div class="legend">' + "".join(f'<span style="--c:{c}">{tname(k)}</span>' for k, c in zip(TEMPO, TEMPO_C)) + f"</div><figure>{stacked100(TP, okb)}"
-             + "<figcaption>" + t("가로축의 연도는 25년 구간의 시작 해다(1750 = 1750~1774년). 막대 하나가 그 구간의 템포어 줄 전체(100%)이고, 아래에서 위로 범례의 왼쪽에서 오른쪽 순서로 쌓았다. 칸에 마우스를 올리면 단계와 비율, 그 구간의 줄 수가 나온다.",
-                                  "The year on the horizontal axis is the first year of a 25-year bin (1750 = 1750–1774). Each bar is all the tempo lines of its bin (100%), stacked from bottom to top in the order of the legend from left to right. Hover over a segment for its class, share and the number of lines in the bin.") + "</figcaption></figure>")
+             + '<div class="legend">' + "".join(f'<span style="--c:{c}">{tname(k)}</span>' for k, c in zip(TEMPO, TEMPO_C)) + "</div>" + fig_notes.fx(stacked100(TP, okb), HN[5][0], dict(HN[5][1], how=t("가로축의 연도는 25년 구간의 시작 해다(1750 = 1750~1774년). 막대 하나가 그 구간의 템포어 줄 전체(100%)이고, 아래에서 위로 범례의 왼쪽에서 오른쪽 순서로 쌓았다. 칸에 마우스를 올리면 단계와 비율, 그 구간의 줄 수가 나온다.",
+                                  "The year on the horizontal axis is the first year of a 25-year bin (1750 = 1750–1774). Each bar is all the tempo lines of its bin (100%), stacked from bottom to top in the order of the legend from left to right. Hover over a segment for its class, share and the number of lines in the bin.")), lang))
     tl = TL[TL.bin.isin(okb)]
     pts = [(int(r.bin), float(r.non_italian_share)) for r in tl.itertuples()]
     b.append(f"<h3>{t('이탈리아어가 아닌 템포 지시어의 비율', 'Share of non-Italian tempo words')}</h3><p>" + t("Langsam·Lebhaft·Modéré·Slowly처럼 자국어로 쓴 템포어가 템포어가 잡힌 줄 가운데 차지하는 비율.", "Tempo words in the vernacular (Langsam, Lebhaft, Modéré, Slowly …) as a share of lines with a recognized tempo word.") + "</p>"
-             f"<figure>{small_line(pts, okb[0], okb[-1], max(p[1] for p in pts) * 1.2 or .1, fmt='.0%', width=900, height=200, xticks=okb)}"
-             + "<figcaption>" + t(f"가로축의 연도는 25년 구간의 시작 해이고, 점은 그 해 위에 찍었다. 세로는 그 구간에서 템포어가 잡힌 줄 가운데 이탈리아어가 아닌 줄의 비율이다. 그림에 실린 구간마다 줄 수가 다르다(가장 적은 구간 {int(tl.movements.min())}줄, 가장 많은 구간 {int(tl.movements.max())}줄). 아래 표에는 그림에서 뺀 구간도 있다.",
-                                  f"The year on the horizontal axis is the first year of a 25-year bin, and each point sits on that year. The vertical value is the share of non-Italian lines among the lines with a recognized tempo word in the bin. The number of lines differs among the bins drawn (fewest {int(tl.movements.min())}, most {int(tl.movements.max())}); the table below also lists bins left out of the chart.") + "</figcaption></figure>")
+             + fig_notes.fx(small_line(pts, okb[0], okb[-1], max(p[1] for p in pts) * 1.2 or .1, fmt='.0%', width=900, height=200, xticks=okb), HN[55][0], dict(HN[55][1], how=t(f"가로축의 연도는 25년 구간의 시작 해이고, 점은 그 해 위에 찍었다. 세로는 그 구간에서 템포어가 잡힌 줄 가운데 이탈리아어가 아닌 줄의 비율이다. 그림에 실린 구간마다 줄 수가 다르다(가장 적은 구간 {int(tl.movements.min())}줄, 가장 많은 구간 {int(tl.movements.max())}줄). 아래 표에는 그림에서 뺀 구간도 있다.",
+                                  f"The year on the horizontal axis is the first year of a 25-year bin, and each point sits on that year. The vertical value is the share of non-Italian lines among the lines with a recognized tempo word in the bin. The number of lines differs among the bins drawn (fewest {int(tl.movements.min())}, most {int(tl.movements.max())}); the table below also lists bins left out of the chart.")), lang))
     b.append(table(TL[TL.movements >= 20], [("bin", t("25년 구간", "25-year bin"), ".0f"), ("works", t("교향곡", "symphonies"), ".0f"), ("listed_lines", t("목록 줄", "listed lines"), ".0f"), ("movements", t("템포어 인식 줄", "recognized lines"), ".0f"), ("recognised_share", t("인식률", "recognition"), ".0%"), ("non_italian_share", t("비이탈리아어", "non-Italian"), ".1%")], "tl"))
     # 6
     okb2 = sorted(IU.loc[IU.symphonies >= 20, "bin"].drop_duplicates().astype(int).tolist())
     nsy = int(IU.drop_duplicates("bin").loc[lambda d: d.symphonies >= 20, "symphonies"].sum())
-    b.append(f"<h2 id='s6'>6. {t('악기 사용 변천 — 교향곡 편성란에 이름이 오른 악기', 'Instrument use — instruments named in symphony instrumentation')}</h2>{GL[6]}<p>"
-             + t(f"IMSLP 교향곡 범주 3,140면 가운데 한 곡짜리 관현악 교향곡이면서 작곡 연도와 편성 상세가 모두 있는 {nsy}곡(구간당 20곡 이상인 구간만). 편성 상세가 없는 면이 70%를 넘어 <b>전체 교향곡의 확률 표본이 아니다</b>. 칸의 숫자는 그 25년 구간 교향곡 가운데 편성란에 그 악기 이름이 적힌 비율(%) — 선택·겸용 악기도 「적힘」으로 셌고, 실제 연주 여부나 최초 도입 시점을 뜻하지 않는다. 행 순서는 처음 절반을 넘는 구간 순으로 대략 맞췄다.",
-                 f"Of the 3,140 pages in the IMSLP Symphonies category, the {nsy} single orchestral symphonies with both a composition year and instrumentation details (bins with at least 20 only). More than 70% of pages have no detail, so this is <b>not a probability sample of all symphonies</b>. Each cell is the share (%) of that bin's symphonies whose instrumentation names the instrument — optional and doubling instruments count as named; it does not show actual use or first introduction. Rows are roughly ordered by the first bin in which the share exceeds one half.") + f"</p><figure>{heatmap(IU, okb2, INSTR_ORDER)}<figcaption>"
-             + t(f"가로축의 연도는 25년 구간의 시작 해다. 색이 진할수록 비율이 높다. 숫자가 없는 칸은 5% 미만이다(0%인 칸 {int((IU[IU.bin.isin(okb2)].share == 0).sum())}개 포함). 정확한 값은 칸에 마우스를 올리거나 아래 표에서 본다.",
-                 f"The year on the horizontal axis is the first year of a 25-year bin. A darker cell is a higher share. Cells without a number are below 5% ({int((IU[IU.bin.isin(okb2)].share == 0).sum())} of them are 0%). Hover over a cell or open the table below for the exact value.") + "</figcaption></figure>")
+    b.append(f"<h2 id='s6'>6. {t('악기 사용 변천 — 교향곡 편성란에 이름이 오른 악기', 'Instrument use — instruments named in symphony instrumentation')}</h2>{GL[6]}" + fig_notes.fx(heatmap(IU, okb2, INSTR_ORDER), HN[6][0], dict(HN[6][1], how=t(f"IMSLP 교향곡 범주 3,140면 가운데 한 곡짜리 관현악 교향곡이면서 작곡 연도와 편성 상세가 모두 있는 {nsy}곡(구간당 20곡 이상인 구간만). 편성 상세가 없는 면이 70%를 넘어 <b>전체 교향곡의 확률 표본이 아니다</b>. 칸의 숫자는 그 25년 구간 교향곡 가운데 편성란에 그 악기 이름이 적힌 비율(%) — 선택·겸용 악기도 「적힘」으로 셌고, 실제 연주 여부나 최초 도입 시점을 뜻하지 않는다. 행 순서는 처음 절반을 넘는 구간 순으로 대략 맞췄다.",
+                 f"Of the 3,140 pages in the IMSLP Symphonies category, the {nsy} single orchestral symphonies with both a composition year and instrumentation details (bins with at least 20 only). More than 70% of pages have no detail, so this is <b>not a probability sample of all symphonies</b>. Each cell is the share (%) of that bin's symphonies whose instrumentation names the instrument — optional and doubling instruments count as named; it does not show actual use or first introduction. Rows are roughly ordered by the first bin in which the share exceeds one half.") + " " + t(f"가로축의 연도는 25년 구간의 시작 해다. 색이 진할수록 비율이 높다. 숫자가 없는 칸은 5% 미만이다(0%인 칸 {int((IU[IU.bin.isin(okb2)].share == 0).sum())}개 포함). 정확한 값은 칸에 마우스를 올리거나 아래 표에서 본다.",
+                 f"The year on the horizontal axis is the first year of a 25-year bin. A darker cell is a higher share. Cells without a number are below 5% ({int((IU[IU.bin.isin(okb2)].share == 0).sum())} of them are 0%). Hover over a cell or open the table below for the exact value.")), lang))
     piv = IU[IU.bin.isin(okb2)].pivot(index="instrument", columns="bin", values="share").reindex(INSTR_ORDER).reset_index()
     piv["instrument"] = piv["instrument"].map(iname)
     piv.columns = [str(c) for c in piv.columns]
@@ -432,12 +522,12 @@ def render(lang: str, D: Path = (ROOT / "data/derived"), proto: Path = (ROOT / "
     b.append(f"<h2 id='s7'>7. {t('A음 높이의 역사 — 1361~1880년대 a′ 의 진동수', 'The pitch of a′, 1361 to the 1880s')}</h2>{GL[7]}<p>"
              + t(f"A. J. Ellis 가 모은 역사적 음고 표(헬름홀츠 『On the Sensations of Tone』 영역 3판 1895, 부록 XX 섹션 H Table I, 495~504쪽 — 퍼블릭 도메인)를 쪽 이미지에서 옮기고 1885년 2판과 전부 대조한 {len(EP)}행 가운데 연도가 있는 {len(ed)}행. 점 하나가 Ellis 가 모은 a′ 기록 하나다. 대부분은 소리굽쇠·오르간 파이프·악기에서 잰 값이지만, 남은 파이프나 문헌에서 계산한 값과 제안·채택된 기준값(예: 1860년 Society of Arts 의 시행되지 않은 기준안, 1885년 런던 발명·음악 박람회의 채택값)도 있다. 가로축은 표에 적힌 연도라서 늘 측정한 해는 아니다. 오르간은 건립 연도가 붙은 것이 있고(1361년 할버슈타트 오르간은 프레토리우스가 적은 파이프 치수로 Ellis 가 모형을 만들어 계산한 값이다), 「1740~1812」 같은 기간은 첫해에 찍었다. 흐린 점은 연도가 「~이전/이후/무렵」이거나 기간인 것. 점들을 가로지르는 실선은 25년 구간 중앙값(5점 이상 구간)으로, 장소·기구·측정법이 다른 기록을 같은 무게로 합친 값이다. 점이 드문 구간을 건너 이어지므로 선이 지나는 해에 자료가 있다는 뜻은 아니다. 색은 설명 칸의 낱말로 나눈 용도의 대략의 구분이다. 제작자의 직업(오르간 제작자)은 용도로 보지 않았고, 교회 건물 이름이 없으면 오페라·관현악·악대 용도를 오르간보다 앞세웠다. 오페라 극장의 오르간처럼 둘에 걸치는 기록이 있어 시기별 용도 비교에는 쓰지 않는 편이 좋다. 같은 시기에도 장소와 용도에 따라 100 Hz 넘게 벌어진다. 이것은 측정된 표본의 분포이지 각 시대의 「표준」이 아니다. 표는 1880년대에서 끝난다.",
                  f"A. J. Ellis's table of historical pitches (Helmholtz, On the Sensations of Tone, tr. Ellis, 3rd ed. 1895, Appendix XX, Section H, Table I, pp. 495–504 — public domain), transcribed from the page images and checked line by line against the 2nd edition of 1885: {len(ed)} of {len(EP)} rows have a date. Each dot is one a′ record collected by Ellis. Most were measured from a fork, organ pipe or instrument, but some are computed from surviving pipes or from documents, and some are proposed or adopted standards (for example the Society of Arts' unexecuted standard of 1860 and the pitch adopted by the London Inventions and Music Exhibition of 1885). The horizontal axis is the date given in the table, which is not always the year of measurement: some organs carry the year they were built (the value for the Halberstadt organ of 1361 is Ellis's calculation from a model built to the pipe dimensions given by Praetorius), and periods such as 1740–1812 are plotted at their first year. Faint dots have dates given as before / after / about, or as a period. The solid line through the dots is the median per 25-year bin (bins with five or more points); it weights records of different places, instruments and methods equally, and because it joins across sparse bins, a line passing through a year does not mean there are records for that year. Colors are a rough grouping by use, from words in the description. A maker's trade (organ-builder) is not treated as a use, and an opera, orchestra or band use takes precedence over the word 'organ' unless a church building is named. Some records belong to both, such as an organ in an opera house, so the colors are not suited to comparing uses across periods. Pitches of the same period differ by more than 100 Hz depending on place and use. This is the spread of the measured sample, not each era's 'standard'. The table ends in the 1880s.") + "</p>"
-             + '<div class="legend">' + "".join(f'<span style="--c:{c}">{(k_ko if LANG == "ko" else k_en)} ({int(kc.get(k, 0))})</span>' for k, k_ko, k_en, c in PITCH_KIND) + f"</div><figure>{pitch_scatter(EP)}</figure>")
+             + '<div class="legend">' + "".join(f'<span style="--c:{c}">{(k_ko if LANG == "ko" else k_en)} ({int(kc.get(k, 0))})</span>' for k, k_ko, k_en, c in PITCH_KIND) + "</div>" + fig_notes.fx(pitch_scatter(EP), HN[7][0], HN[7][1], lang))
     kname = {k: (k_ko if LANG == "ko" else k_en) for k, k_ko, k_en, _ in PITCH_KIND}
     b.append(table(EP.assign(year=EP.year.astype("Int64").astype(str).replace("<NA>", ""), kind=EP.kind.map(kname)), [("vib", "a′ (Hz)", ".1f"), ("cents", t("센트", "cents"), ".0f"), ("date_raw", t("연도(원문)", "date (as printed)"), None), ("place", t("장소", "place"), None), ("particulars", t("설명", "particulars"), None), ("authority", t("관측", "observer"), None), ("kind", t("구분", "group"), None), ("page", t("쪽", "page"), ".0f")], "ep"))
     b.append("<p class='src'>" + t("자료", "Sources") + ": <a href='https://archive.org/details/onsensationsofto00helmrich'>Helmholtz, On the Sensations of Tone, tr. A. J. Ellis, 3rd ed. 1895</a> (Internet Archive); "
              + t("대조", "checked against") + " <a href='https://archive.org/details/onsensationston00unkngoog'>2nd ed. 1885</a>. "
-             + t("옮겨 적으며 찾은 두 판의 차이 22건(대소문자·문장 부호 포함. 센트 1건 — 1885년판의 오식 300 → 330, 진동수 0건)은 전사 CSV 의 note 칸에 있다. Table II 는 Table I 을 용도별로 다시 엮은 색인이라 두 표를 합쳐 독립된 관측 수로 셀 수 없고, 진동수가 없는 서술 기록 6행이 들어 있다.", "The 22 differences between the editions found during transcription (capitals and punctuation included; one in cents — the 1885 misprint 300 for 330 — and none in frequency) are recorded in the note column of the transcription. Table II regroups Table I by use, so the two tables cannot be added up as independent observations; it also has six descriptive rows without a frequency.") + "</p>")
+             + t("옮겨 적으며 찾은 두 판의 차이 22건(대소문자·문장 부호 포함. 센트 1건 — 1885년판의 오식 300 → 330, 진동수 0건)은 전사 CSV 의 note 칸에 있다. Table II 는 기록을 용도별로 다시 엮은 표로 Table I 과 겹치는 기록이 많아 두 표를 합쳐 독립된 관측 수로 셀 수 없고(행마다 같은 관측인지는 맞춰 보지 않았다), 진동수가 없는 서술 기록 6행이 들어 있다.", "The 22 differences between the editions found during transcription (capitals and punctuation included; one in cents — the 1885 misprint 300 for 330 — and none in frequency) are recorded in the note column of the transcription. Table II regroups records by use and overlaps Table I heavily, so the two tables cannot be added up as independent observations (whether each row is the same observation was not checked row by row); it also has six descriptive rows without a frequency.") + "</p>")
     b.append(files(["ellis/ellis_pitch_table1.csv", "ellis/ellis_pitch_table2.csv"], data_root))
     b.append("<h2>" + t("자료와 이용 허락", "Sources and licenses") + "</h2><p class='src'>" + t(
         "1~6절: <a href='https://imslp.org/'>IMSLP</a> 작품면(<a href='https://creativecommons.org/licenses/by-sa/4.0/'>CC BY-SA 4.0</a>)의 작곡 연도·장르 태그·편성·악장 칸을 엮은이가 파싱해 가공했다. 작품면 이름과 판 번호(revid)는 CSV 에 있다. 이 표들과 1~6절의 차트는 <b>CC BY-SA 4.0</b> 으로 공개한다(다른 표와 라이선스가 다르고, 사이트 글의 비영리 조건(CC BY-NC)은 이 차트에 적용하지 않는다). 수용은 <a href='https://github.com/nyphilarchive/PerformanceHistory'>뉴욕 필하모닉 공연 기록</a>(CC0), 생몰년은 <a href='https://www.wikidata.org/'>Wikidata</a>(CC0). 7절: 퍼블릭 도메인 원본을 엮은이가 옮겨 적은 표, CC BY 4.0. 편성 상세는 IMSLP 기여자가 적은 것이라 빠진 악기가 있을 수 있다(특히 18세기 팀파니·트럼펫·통주저음).",

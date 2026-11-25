@@ -225,10 +225,20 @@ def render(lang, table_html):
                       f"{len(W):,} IMSLP work pages by {len(comps)} composers, divided by age and genre. Sorted by the big group with the most work pages, the largest sets are {gn(by.index[0]).lower()} ({int(by.iloc[0])} composers) and {gn(by.index[1]).lower()} ({int(by.iloc[1])})."),
                      (f"작품면 수로 센 것이어서 가곡 한 곡과 교향곡 하나가 같은 무게다. 작곡 연도도 생전 출판 연도도 없는 작품면이 {undated:,}개({undated / len(W) * 100:.0f}%) 있어 나이별 그림에서 빠진다." if k else
                       f"These are counts of work pages, so a single song weighs as much as a symphony. {undated:,} work pages ({undated / len(W) * 100:.0f}%) have neither a composition year nor a publication year within the composer's life and are missing from the charts by age.")))
+    import fig_notes  # noqa: E402  (1.22.3: chart notes)
+    b.append(fig_notes.block((f"아래 {len(comps)}개 그림은 같은 틀이다. 작곡가 한 사람에 그림 하나, 나이 5년에 막대 하나다." if k else f"The {len(comps)} charts below share one template: one chart per composer, one bar per five years of age."),
+                             dict(how=("가로는 나이(5년 단위), 세로는 그 나이에 쓴 작품면 수다. 막대를 큰 갈래 색으로 쌓았고, 빗금은 작곡 연도가 없어 생전 출판 연도에 둔 작품이다. 작곡 연도도 생전 출판 연도도 없는 작품면은 막대에서 빠진다. 범례의 갈래를 누르면 그 갈래만 세부 장르로 펼쳐진다. 그림 아래에 이름·생몰년·작품면 수를 적었다." if k else
+                                       "Across: age in five-year steps; up: work pages written at that age. Bars are stacked by big group; hatching marks works with no composition year placed at a publication year within the composer's lifetime. Work pages with neither year are left out of the bars. Click a group in the legend to expand only that group into sub-genres. Under each chart: name, dates and number of work pages."),
+                                  mis=("세로 눈금이 작곡가마다 다르다(왼쪽 위 숫자가 그 그림의 최댓값). 막대 높이를 작곡가끼리 견주지 않는다. 작품면 하나가 한 표라서 가곡 한 곡과 교향곡 하나가 같은 무게이고, 한 면에 작품 여럿이 실려도 한 표다." if k else
+                                       "Each composer has their own vertical scale (the number at the top left is that chart's maximum), so do not compare bar heights between composers. Each work page is one vote, so a song weighs as much as a symphony, and a page holding several works still counts once.")), lang))
     b.append("<div class='gl-grid'>" + "".join(figs) + "</div>")
     # 2. era heatmap
     b.append(("<h2>2. 시대와 세부 장르</h2><p>25년 구간마다, 그 구간에 작품면이 있는 작곡가 각자의 세부 장르 비율을 낸 뒤 평균했다(작곡가 한 사람이 한 표, n은 그 구간의 작곡가 수). 작품면이 많은 작곡가(텔레만 1,431면, 바흐 1,246면)가 구간을 차지하지 않게 하려는 것이다. 칸 안 숫자는 %(5% 이상만), 마우스를 올리면 작품면을 모두 합친 비율도 나온다. 왼쪽 색 띠가 큰 갈래다. 작곡가가 세 명 미만인 구간(흐린 칸)은 한두 사람의 비율이다.</p>"
               if k else "<h2>2. Period and sub-genre</h2><p>For each 25-year period, each composer with work pages in it gets their own sub-genre shares, and these are averaged (one vote per composer; n is the number of composers). This keeps prolific composers (Telemann 1,431 pages, Bach 1,246) from taking over a period. Numbers are % (5% and over only); hover for the pooled share over all work pages. The color strip on the left is the big group. Periods with fewer than three composers (faded cells) are one or two people's shares.</p>")
+             + fig_notes.block(("25년 구간마다 세부 장르가 차지한 비율을 칸의 숫자와 색으로 그린 열지도다. 줄 하나가 세부 장르, 열 하나가 구간이다." if k else
+                                "A heat map of the share of each sub-genre in each 25-year period: one row per sub-genre, one column per period."),
+                               dict(mis=("작곡가 한 사람이 한 표라서, 칸의 비율은 그 구간 작곡가들의 평균이지 작품면을 모두 합친 비율이 아니다. 흐린 칸은 작곡가가 세 명 미만인 구간이라 한두 사람의 비율이다." if k else
+                                         "Each composer counts once, so a cell is the average over that period's composers, not the share of all work pages pooled. Faded cells are periods with fewer than three composers: one or two people's shares.")), lang)
              + era_heatmap(E, lang, pmp.YEAR_RAMPS["light"]) + era_note(E, lang))
     # 3. coverage and duration
     rows = []

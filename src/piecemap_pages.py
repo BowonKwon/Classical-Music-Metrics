@@ -303,8 +303,28 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
     return "".join(b)
 
 
+def _map_note(k, which):
+    return ((f"악장마다 {which[0]} 써서, 그 값들을 두 방향으로 줄여 평면에 놓은 지도다." if k else f"Each movement placed on a plane by reducing {which[1]} to two directions."),
+            dict(how=("점 하나가 악장 하나다. 색은 작곡 연도(위 범례)다. 위 칸에서 곡집을 고르면 그 곡집의 점만 진하게 남고, 점을 누르면 4절에 그 악장의 지문이 나온다. 아래 숫자는 축이 얼마나 안정한지를 잰 값이다." if k else
+                      "Each dot is one movement; color is the year of composition (legend above). Choosing a collection above leaves only its dots strong, and clicking a dot shows that movement's fingerprint in section 4. The numbers below measure how stable the axes are."),
+                 mis=("가로·세로축은 「1성분」 「2성분」이다. 여러 지표가 섞인 방향이라 한 가지 음악적 성질로 이름 붙일 수 없다. 평면에서 가깝다는 것은 이 두 방향에서 닮았다는 뜻일 뿐이다. 왼쪽·오른쪽은 계산이 정한 방향이라 좋고 나쁨이 아니다." if k else
+                      "The axes are component 1 and component 2. Each mixes many metrics, so neither can be named after one musical property. Close on the plane means alike along these two directions only. Left and right are directions the computation chose; neither is better."),
+                 terms=("주성분 — 여러 지표를 한꺼번에 볼 때 점들이 가장 넓게 퍼지는 방향(1성분). 2성분은 1성분과 직각인 방향 가운데 가장 넓게 퍼지는 방향이다. 「설명 분산」은 그 방향이 전체 퍼짐 가운데 담는 몫이다." if k else
+                        "Principal component — the direction along which the points spread most when many metrics are taken together (component 1). Component 2 is the direction of widest spread among those at right angles to component 1. 'Variance explained' is the share of the total spread a direction holds.")))
+
+
+PIECEMAP_NOTES = {
+    "ko": [_map_note(True, ("음표 지표와 화음 지표를 함께", "")), _map_note(True, ("음표 지표만", "")),
+           ("악장마다 으뜸조 이탈도를 화성 주석으로 잰 값(가로)과 음표만으로 잰 값(세로)으로 견준 그림이다.",
+            dict(mis="두 값이 다르다고 어느 한쪽이 틀렸다는 뜻은 아니다. 기준 조를 정하는 방법과 창의 길이가 다르다."))],
+    "en": [_map_note(False, ("", "note and chord metrics")), _map_note(False, ("", "note metrics only")),
+           ("Departure from the home key for each movement, from the harmony annotation (across) and from the notes alone (up).",
+            dict(mis="A difference between the two does not mean either is wrong; they fix the reference key and the window length differently."))],
+}
+
+
 def build(lang, path, page_fn, svg_strip, legend, table_html, stat_spec):
     k = lang == "ko"
     title = "곡 지도" if k else "Piece map"
     desc = "악장마다 악보 지표 벡터를 평면에 놓은 지도와 지문, 으뜸조 이탈도" if k else "Movements laid out by their score metrics, with fingerprints and departure from the home key"
-    path.write_text(page_fn(lang, title, render(lang, svg_strip, legend, table_html, stat_spec), desc=desc, active="map"), encoding="utf-8")
+    path.write_text(page_fn(lang, title, __import__('fig_notes').retrofit(render(lang, svg_strip, legend, table_html, stat_spec), PIECEMAP_NOTES[lang], lang), desc=desc, active="map"), encoding="utf-8")

@@ -149,8 +149,12 @@ def metric_section(m: dict, lang: str, svg_strip, legend, table_html, stat_spec)
     t_coll, t_n, t_med = ("작곡가" if k else "Composer"), ("악장" if k else "movements"), ("중앙값" if k else "median")
     tbl = table_html(pd.DataFrame(summ), [("group", t_coll, None), ("n", t_n, "d"), ("median", t_med, st), ("q1", "1사분위" if k else "Q1", st), ("q3", "3사분위" if k else "Q3", st),
                                           ("mn", "최소" if k else "min", m["fmt"]), ("mx", "최대" if k else "max", m["fmt"])], f"son_{m['id']}", lang, filt=False)
-    return (f"<h2>{head}</h2><p>{intro}</p>{leg}<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t_med)}"
-            f"<figcaption>{'점 하나가 악장 하나, 세로 막대는 중앙값.' if k else 'One dot per movement; vertical bar = median.'} {' '.join(cap)}</figcaption></figure>{tbl}")
+    import fig_notes  # noqa: E402  (1.22.3: chart notes)
+    _i, _p = fig_notes.metric_strip_more(groups, m, lang, "같은 지표를 고전기 건반 소나타 곡집마다 한 줄씩 늘어놓은 그림이다(위에서 아래로 작곡 연도 중앙값 순).",
+                                         "The same metric for each Classical-era keyboard-sonata collection, one row each (top to bottom by median year of composition).",
+                                         how_ko=("읽는 법은 이 면 맨 위 그림과 같다 — 점 하나가 악장 하나, 굵은 세로 막대가 중앙값이다. " + " ".join(cap)).strip(),
+                                         how_en=("Read it like the first chart on this page: one dot per movement, the thick vertical bar is the median. " + " ".join(cap)).strip())
+    return f"<h2>{head}</h2><p>{intro}</p>{leg}" + fig_notes.fx(svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t_med), _i, _p, lang) + tbl
 
 
 # ------------------------------------------------------------------ the comparison page
@@ -193,13 +197,18 @@ def render(lang, s, svg_strip, legend, table_html, stat_spec):
                       if k else "Top to bottom by median year of composition. One dot per movement; vertical bar = median. The first four are counted from the notes (leaving out grace notes and the tied continuations of notes), the last four from the harmony labels. Click a metric's name for its definition and formula.") + "</p>")
     leg = legend([("베토벤" if k else "Beethoven", 1), ("모차르트" if k else "Mozart", 2), ("새로 더한 곡집" if k else "Added collections", NEW_COLOR)])
     b.append(leg)
+    import fig_notes  # noqa: E402  (1.22.3: chart notes)
+    b.append(fig_notes.strip_block(lang, f"아래 {len(LEAD)}개 그림은 같은 틀이다. 지표 하나에 그림 하나, 곡집 하나에 줄 하나다." if k else f"The {len(LEAD)} charts below share one template: one chart per metric, one row per collection.",
+                                   row_ko="곡집 하나(위에서 아래로 작곡 연도 중앙값 순, 색은 위 범례)", row_en="one collection (top to bottom by median year of composition; colors in the legend above)",
+                                   mis_extra=("곡집마다 작곡가와 주석자가 다르다. 화음 지표에는 주석자의 판단이 섞여 있다." if k else "Each collection has its own composer and annotators; the chord metrics carry the annotators' judgment as well.")))
     for mid in LEAD:
         m = MET[mid]
         groups = [(nm(comp, lang), c.loc[c.composer == comp, mid].astype(float).tolist(), COLOR.get(comp, NEW_COLOR))
                   for comp in composer_order(s) if comp not in UNDATED and c.loc[c.composer == comp, mid].notna().any()]
         b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'] + (' ' + m[lang]['gloss'] if m[lang].get('gloss') else ''))}</p>"
-                 f"<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}"
-                 f"<figcaption>{esc(axis.strip_note(groups, m['fmt'], lang, scope=True))}</figcaption></figure>")   # 1.17: each chart says what it shows
+                 + fig_notes.fx(svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26),
+                                (f"{esc(m[lang]['name'])}{axis.kp(m[lang]['name'], '을', '를')} 곡집마다 한 줄씩 늘어놓은 그림이다." if k else f"{esc(m[lang]['name'])} by collection, one row each."),
+                                fig_notes.strip_parts(groups, m['fmt'], lang, full=False, scope=True), lang))   # 1.17: each chart says what it shows; 1.22.3: labelled notes
 
     # 3. what the data show / caveats
     def ext(mid):

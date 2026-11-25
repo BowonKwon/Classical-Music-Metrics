@@ -186,10 +186,10 @@ def transition_note(lang: str) -> str:
         out[mode] = (len(sh), top, min(sh), max(sh), float(np.median(sh)))
     (nM, tM, aM, bM, mM), (nm_, tm, am, bm, mm) = out["major"], out["minor"]
     if k:
-        return ("<p class='src'>무엇이 보이는가: 5 행(딸림음에서 출발하는 전이)에서 가장 진한 칸을 보면 된다. "
+        return ("<p class='src'>무엇이 보이는가: 5 행(딸림음에서 출발하는 전이)에서 색이 가장 강한 칸(밝은 화면에서는 가장 진하고, 어두운 화면에서는 가장 밝은 칸)을 보면 된다. "
                 f"장조 행렬 {nM}곡집 가운데 {tM}곳에서 5 다음에 가장 자주 오는 근음은 1이고, 그 비율은 곡집에 따라 {aM * 100:.0f}~{bM * 100:.0f}%(중앙값 {mM * 100:.0f}%)다. "
                 f"단조 행렬은 {nm_}곡집 가운데 {tm}곳에서 그렇고 {am * 100:.0f}~{bm * 100:.0f}%(중앙값 {mm * 100:.0f}%)다. 5 행의 전이가 {MIN_ROW}쌍 이상인 곡집만 셌다.</p>")
-    return ("<p class='src'>What to look at: the darkest cell in row 5 (moves out of the dominant). "
+    return ("<p class='src'>What to look at: the strongest cell in row 5 (moves out of the dominant) — darkest on a light screen, lightest on a dark one. "
             f"In {tM} of the {nM} major-key matrices the root that most often follows 5 is 1, with a share of {aM * 100:.0f}% to {bM * 100:.0f}% depending on the collection (median {mM * 100:.0f}%). "
             f"In the minor-key matrices this holds in {tm} of {nm_}, with {am * 100:.0f}% to {bm * 100:.0f}% (median {mm * 100:.0f}%). Only collections with at least {MIN_ROW} transitions in row 5 are counted.</p>")
 
@@ -324,13 +324,13 @@ def render(lang, table_html):
              + "</figcaption></figure>"
              + (f"<p>아래는 곡집별 중앙값이다(괄호는 악장 수). 다섯째 계수의 중앙값은 {name(lo5)} {med5[lo5]:.2f}에서 {name(hi5)} {med5[hi5]:.2f}까지다. "
                 + ("(「코랄」은 루터교 찬송가 선율에 네 성부 화성을 붙인 짧은 곡이다.) " if "코랄" in name(lo5) + name(hi5) else "") +
-                f"다만 이 값은 긴 악장일수록 낮다(악장 길이와의 순위 상관 {mn(rho5)}). 그래서 지표로 내지 않고 이 면과 CSV에만 싣는다(4절). 첫째 계수는 곡집별 중앙값이 {med1.min():.2f}~{med1.max():.2f}로 작고 서로 비슷하다. 온음계 일곱 음이 반음계 원에 고르게 퍼져 있다는 점(일곱 음을 고르게 쓰면 0.04)과 맞는 결과다.</p>" if k else
+                f"다만 이 값은 긴 악장일수록 대체로 낮다(악장 길이와의 순위 상관 {mn(rho5)}). 그래서 지표로 내지 않고 이 면과 CSV에만 싣는다(4절). 첫째 계수는 곡집별 중앙값이 {med1.min():.2f}~{med1.max():.2f}로 작고 서로 비슷하다. 온음계 일곱 음이 반음계 원에 고르게 퍼져 있다는 점(일곱 음을 고르게 쓰면 0.04)과 맞는 결과다.</p>" if k else
                 f"<p>Collection medians follow (number of movements in parentheses). The median of the fifth coefficient runs from {med5[lo5]:.2f} ({name(lo5)}) to {med5[hi5]:.2f} ({name(hi5)}). "
                 + ("(A chorale here is a short four-part setting of a Lutheran hymn tune.) " if "horale" in name(lo5) + name(hi5) else "") +
                 f"It is lower for longer movements, though (rank correlation with movement length {mn(rho5)}), so it is not published as a metric, only here and in the CSV (section 4). The first coefficient is small and much the same everywhere (collection medians {med1.min():.2f} to {med1.max():.2f}), which fits the fact that the seven notes of a diatonic scale are spread evenly around the chromatic circle (0.04 when used equally).</p>")
              + f"<figure>{dft_heatmap(df, lang)}{legend(DFT_BINS, lang, False)}<figcaption>"
-             + ("행 하나가 곡집 하나, 열 하나가 계수 하나다. 칸의 숫자는 그 곡집 악장들의 중앙값(0~1)이고 색이 진할수록 크다. 열 머리 둘째 줄은 위 그림에서 그 계수가 커지는 음 묶음이다. |X₀|로 나눈 것은 음이 울린 길이의 합으로 나눠 악장 길이와 상관없이 0~1로 맞춘다는 뜻이다."
-                if k else "One row per collection, one column per coefficient. The number in a cell is the median over that collection's movements (0 to 1); a darker cell is a larger value. The second header line names the set of notes that makes the coefficient large in the figure above. Dividing by |X₀| divides by the total sounding time, which puts every movement on a 0-to-1 scale whatever its length.")
+             + ("행 하나가 곡집 하나, 열 하나가 계수 하나다. 칸의 숫자는 그 곡집 악장들의 중앙값(0~1)이고, 칸 색이 배경과 대비가 강할수록 크다(밝은 화면에서는 진하게, 어두운 화면에서는 밝게). 열 머리 둘째 줄은 위 그림에서 그 계수가 커지는 음 묶음이다. |X₀|로 나눈 것은 음이 울린 길이의 합으로 나눠 악장 길이와 상관없이 0~1로 맞춘다는 뜻이다."
+                if k else "One row per collection, one column per coefficient. The number in a cell is the median over that collection's movements (0 to 1); the more a cell contrasts with the background, the larger the value (darker on a light screen, lighter on a dark one). The second header line names the set of notes that makes the coefficient large in the figure above. Dividing by |X₀| divides by the total sounding time, which puts every movement on a 0-to-1 scale whatever its length.")
              + "</figcaption></figure>"
              + f"<figure>{sc}<figcaption>"
              + (f"점 하나가 악장 하나({n_y:,}악장, 작곡 연도가 확인된 것). 세로는 다섯째 계수의 크기. 작곡 연도와의 순위 상관은 {mn(rho_y)}{axis.kp(mn(rho_y), '이다', '다')}. 곡집마다 장르와 악장 길이가 달라서, 이 기울기를 시대의 변화로만 읽을 수는 없다."
@@ -371,7 +371,7 @@ def render(lang, table_html):
     one, n_one = one_block(lang, comp)
     b.append((f"<h2>3. 악장 하나 들여다보기</h2><p>표본 {n_one}악장을 하나씩 볼 수 있다. 곡집마다 전조 횟수가 중앙값에 가장 가까운 곡, 가장 많은 곡, 가장 적은 곡이다(「낭만기 소품」 면 조성 지도와 같은 규칙. 코랄은 짧아서 뺐다).</p>"
               f"<ul><li><b>위 띠</b>는 주석된 국소 조다. 회색이 으뜸조(와 나란한조), 주황은 ♯ 쪽, 파랑은 ♭ 쪽으로 간 조이고 색이 강할수록 멀다.</li>"
-              f"<li><b>가운데 정사각형</b>은 자기 유사 행렬이다. 가로·세로가 모두 마디이고, 칸이 진할수록 두 마디의 {PC_KO} 분포가 닮았다(코사인 유사도. 0.5 이하는 바탕색이고 1에서 가장 진하다). 음이 있는 마디의 대각선은 자기 자신이라 가장 진하다. 대각선과 나란한 진한 줄은 대목이 되풀이된다는 단서이고, 진한 네모는 비슷한 음들을 쓰는 구간이다. 분포가 같아도 마디 안의 음 순서와 리듬은 다를 수 있으므로, 실제로 같은 대목인지는 악보로 확인해야 한다. 쉼표뿐인 마디는 대각선까지 빈 줄이다.</li>"
+              f"<li><b>가운데 정사각형</b>은 자기 유사 행렬이다. 가로·세로가 모두 마디이고, 칸 색이 강할수록 두 마디의 {PC_KO} 분포가 닮았다(코사인 유사도. 0.5 이하는 바탕색이고 1에서 가장 강하다). 음이 있는 마디의 대각선은 자기 자신이라 가장 강하다. 대각선과 나란한 강한 줄은 대목이 되풀이된다는 단서이고, 강한 네모는 비슷한 음들을 쓰는 구간이다. 분포가 같아도 마디 안의 음 순서와 리듬은 다를 수 있으므로, 실제로 같은 대목인지는 악보로 확인해야 한다. 쉼표뿐인 마디는 대각선까지 빈 줄이다.</li>"
               "<li><b>아래 꺾은선</b>은 4마디 창마다의 음표 밀도와 반음계 비율이다. 두 선은 각자의 최댓값에 맞춰 그렸다.</li></ul>"
               f"<p>행렬은 조에 맞춰 옮기지 않은 음고류 분포로 만든다(옥타브는 무시한다). 같은 주제가 다른 조로 돌아오면 대개 덜 닮게 나오므로 위 띠와 함께 읽어야 한다. 도돌이표는 펴지 않았다. 마디 안의 음 순서와 리듬, 음역은 반영하지 않는다(음 길이는 분포의 가중치로만 쓴다).</p>" if k else
               f"<h2>3. One movement at a time</h2><p>{n_one} sample movements: for each collection, the one whose number of key changes is closest to the collection median, the one with the most, and the one with the fewest (the rule of the key maps on the 'Romantic pieces' page; the chorales are too short and are left out).</p>"
@@ -419,8 +419,33 @@ def render(lang, table_html):
     return "".join(b)
 
 
+PROFILE_NOTES = {   # 1.22.3: the line above and the extra paragraphs of the three captioned charts, in page order
+    "ko": [("푸리에 계수 여섯 개가 각각 어떤 음 묶음에서 커지는지, 열두 음을 원 위에 놓고 보여 주는 예시 그림이다.",
+            dict(mis="실제 악장의 값이 아니라 계수의 뜻을 보여 주는 예다.")),
+           ("곡집마다 악장들의 푸리에 계수 여섯 개의 중앙값을 칸의 숫자와 색으로 그린 열지도다.",
+            dict(mis="{len_mis_ko}",
+                 terms="푸리에 계수 — 열두 음의 비율을 원 위에 놓았을 때 원을 k번 도는 무늬가 얼마나 강한지 잰 값(0~1). 여기 실은 계수의 크기는 조옮김해도 변하지 않는다.")),
+           ("작곡 연도가 확인된 악장마다 작곡 연도와 다섯째 계수의 크기를 점 하나로 찍은 그림이다.",
+            dict(terms="순위 상관 — 두 값을 각각 크기 순으로 줄 세웠을 때 그 순서가 얼마나 같이 가는지를 −1~1로 나타낸 수."))],
+    "en": [("An illustration of which sets of notes make each of the six Fourier coefficients large, with the twelve notes placed around a circle.",
+            dict(mis="These are examples showing what the coefficients mean, not values of real movements.")),
+           ("A heat map of the medians of the six Fourier coefficients over each collection's movements, as numbers and colors.",
+            dict(mis="{len_mis_en}",
+                 terms="Fourier coefficient — how strong a pattern that goes k times around the circle is in the shares of the twelve pitch classes (0 to 1); the magnitudes shown here do not change under transposition.")),
+           ("Composition year against the magnitude of the fifth coefficient, one dot for each movement with a confirmed year.",
+            dict(terms="Rank correlation — how far two orderings by size go together, from −1 to 1."))],
+}
+
+
 def build(lang, path, page_fn, table_html):
     k = lang == "ko"
     desc = (f"악장마다의 {PC_KO} 분포와 푸리에 계수, 근음 전이 행렬, 자기 유사 행렬, 곡 안의 변동" if k
             else "Pitch-class distributions and Fourier magnitudes by movement, root-transition matrices, self-similarity matrices, variation inside a movement")
-    path.write_text(page_fn(lang, PAGE[0 if k else 1], render(lang, table_html), desc=desc, active="profiles"), encoding="utf-8")
+    # v1 3.10: the length relation is stated for the coefficients it was measured on (the gate table), not for all six
+    g = pd.read_csv(D / "metrics_112_gates.csv")
+    r5 = float(g[(g.candidate == "dft_mag_5") & (g.check == "length")]["value"].iloc[0])
+    r1 = float(g[(g.candidate == "dft_mag_1") & (g.check == "length")]["value"].iloc[0])
+    lm = (f"다섯째 계수는 긴 악장일수록 대체로 작았다(악장 길이와의 순위 상관 {mn(r5)}). 첫째 계수는 이 관계가 약하다({mn(r1)}). 이 면에 실은 길이 검사는 첫째와 다섯째 계수에 대한 것이다. 곡집끼리 견주면 악장 길이의 차이가 함께 들어간다." if k else
+          f"The fifth coefficient was generally smaller in longer movements (rank correlation with movement length {mn(r5)}); for the first the relation is weak ({mn(r1)}); the length checks shown here are for the first and fifth coefficients only. Comparisons between collections carry differences in movement length.")
+    notes = [(i, {kk: (v.replace("{len_mis_ko}", lm).replace("{len_mis_en}", lm) if isinstance(v, str) else v) for kk, v in d.items()}) for i, d in PROFILE_NOTES[lang]]
+    path.write_text(page_fn(lang, PAGE[0 if k else 1], __import__('fig_notes').retrofit(render(lang, table_html), notes, lang), desc=desc, active="profiles"), encoding="utf-8")

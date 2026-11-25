@@ -220,7 +220,14 @@ def keymap_section(lang: str, label_of, title_of=None) -> str:
         for c in corpora:
             if c in set(df.corpus):
                 blocks.append(f"<figure style='margin:.2rem 0'>{keymap_svg(df, c, lang, label_of(c), title_of)}</figure>")
-    return head + toggle + scale_legend(lang) + cap + "".join(blocks) + note
+    import fig_notes  # noqa: E402  (1.22.3: chart notes)
+    fn = fig_notes.block(("아래 그림들은 같은 틀이다. 악장 하나를 막대 하나로, 그 안에서 국소 조가 바뀌는 자리를 색으로 칠한 조성 지도다." if k else
+                          "The charts below share one template: each bar is one movement, colored where its local key changes."),
+                         dict(how=("막대의 가로는 악장 안의 위치(처음→끝)이고 칸 하나가 국소 조가 이어지는 구간이다. 색의 뜻은 위 단추로 바꾼다(으뜸조와의 거리 / 실제 조). 칸에 마우스를 올리면 그 구간의 조와 마디가 나온다." if k else
+                                   "Across each bar is the position in the movement (start to end); each segment is a stretch in one local key. The buttons above switch what the color means (distance from the home key, or the actual key). Hover over a segment for its key and bars."),
+                              mis=("막대 길이는 모두 같다. 짧은 소품과 긴 악장이 같은 길이로 그려진다. 색은 5도권 거리를 옮긴 부호이지 조에 고유한 색이 있다는 뜻이 아니다." if k else
+                                   "All bars have the same length, so a short piece and a long movement are drawn alike. Color encodes distance on the circle of fifths; it does not mean a key has a color of its own.")), lang)
+    return head + toggle + scale_legend(lang) + cap + fn + "".join(blocks) + note
 
 
 def heatmap(rows: pd.DataFrame, mids: list[str], names: list[str], labels: list[str], fmts: list[str], lang: str) -> str:

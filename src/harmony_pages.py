@@ -166,7 +166,12 @@ def render(lang, c, p, m):
     b.append(f"<h3 style='margin:1rem 0 .2rem'>{'곡집마다 작곡 연도의 범위' if k else 'Years of composition, collection by collection'}</h3>"
              + "<p class='src'>" + ("막대 하나가 곡집 하나이고 가로축은 연도다. 색은 장르다. DCML은 EPFL의 디지털·인지 음악학 연구실이고, 「주석」은 연구자가 악보의 화음마다 붙인 화성 기호(로마 숫자 — I은 으뜸화음, V는 딸림화음)를 가리킨다." if k
                                    else "One bar per collection; the horizontal axis is the year and the color is the genre. DCML is the Digital and Cognitive Musicology Lab at EPFL; 'annotation' means the harmony labels (Roman numerals: I for the tonic chord, V for the dominant) that researchers added to each chord of a score.") + "</p>"
-             + legend(lang, line=False) + f"<figure>{timeline(c, lang)}</figure>")
+             + legend(lang, line=False) + __import__('fig_notes').fx(timeline(c, lang),
+                 ("곡집마다 작곡 연도의 범위를 막대 하나로 그린 그림이다." if k else "The span of composition years of each collection, one bar each."),
+                 dict(one=(f"가장 위 막대는 {c.iloc[0].composer_ko} · {c.iloc[0].collection_ko}{__import__('axis').ro(c.iloc[0].collection_ko)}, {years(c.iloc[0], True)}에 걸쳐 있다." if k else
+                           f"The top bar is {c.iloc[0].composer_en} · {c.iloc[0].collection_en}, spanning {years(c.iloc[0], False)}."),
+                      mis=("막대 길이는 작곡 기간이지 곡집의 크기가 아니다. 곡 수와 마디 수는 아래 5절 표에 있다." if k else
+                           "Bar length is the span of years, not the size of the collection; the numbers of pieces and bars are in the table of section 5.")), lang))
     b.append(f"<p class='src'>{'막대는 원자료(metadata)에 적힌 작곡 연도의 범위로, 곡들의 가장 이른 시작 연도부터 가장 늦은 끝 연도까지다. 점선 막대는 일부 곡의 시작 연도가 미상(..)인 곡집이고, 표에서는 「?」로 적었다. 흐린 막대는 300마디 미만의 작은 곡집으로, 작곡가별 값을 따로 읽지 않는다. 아래 그림의 점은 이 범위가 아니라, 곡마다 시작·끝 연도의 가운데를 잡고 그 중앙값에 놓았다.' if k else "Bars show the composition range recorded in the metadata, from the earliest start year to the latest end year of the pieces. Dashed bars are collections where some pieces have an unknown start year (..), marked ? in the table. Faded bars are collections under 300 bars; their values are not read on their own. The dots in the charts below are placed not on this range but on the median of the pieces' midpoint years."}</p>")
 
     # 2. trends
@@ -197,7 +202,13 @@ def render(lang, c, p, m):
                  f"<li><b>{mname('applied_chord_ratio', lang)}</b> does not move in one direction. Of the periods on the line, the {int(lo_a.period)}s period is lowest at {lo_a.applied_chord_ratio:.3f} and the {int(hi_a.period)}s highest at {hi_a.applied_chord_ratio:.3f}.</li>"
                  f"<li><b>{mname('chord_vocabulary_per_100_labels', lang)}</b> does not move in one direction either: lowest in the {int(lo_v.period)}s period at {lo_v.chord_vocabulary_per_100_labels:.1f}, highest in the {int(hi_v.period)}s at {hi_v.chord_vocabulary_per_100_labels:.1f}.</li></ul>"
                  "")
-    b.append(legend(lang) + "<div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr));gap:.6rem 1.2rem'>")
+    b.append(legend(lang) + __import__('fig_notes').block(
+        (f"아래 {len(LEAD)}개 그림은 같은 틀이다. 지표 하나에 그림 하나다." if k else f"The {len(LEAD)} charts below share one template, one chart per metric."),
+        dict(how=(f"점 하나가 곡집 하나다. 가로는 곡집의 작곡 연도, 세로는 그 곡집 악장 값의 중앙값이다. 실선은 50년 구간마다 곡집 중앙값들의 중앙값을 이은 것이고, 파란 점선은 건반 곡집만으로 낸 선이다(색은 위 범례). 곡집이 {MIN_CORPORA}개 미만인 구간은 선에서 빼고 그 자리에서 선을 끊었다. 작고 흐린 점은 300마디 미만의 작은 곡집이다. 점에 마우스를 올리면 곡집 이름과 값이 나온다." if k else
+                  f"Each dot is one collection: across, its year of composition; up, the median over its movements. The solid line joins the medians of the collection medians in 50-year periods; the dashed blue line uses keyboard collections only (colors in the legend above). Periods with fewer than {MIN_CORPORA} collections are left off and the line breaks there; small pale dots are collections under 300 bars. Hover over a dot for its collection and value."),
+             mis=("곡집 하나가 한 표라서 큰 곡집과 작은 곡집이 같은 무게다. 곡집은 시대를 대표하도록 뽑힌 것이 아니어서, 선은 「이 곡집들에서 이렇게 달라진다」로 읽는다." if k else
+                  "Each collection counts once, large or small, and the collections were not chosen to represent their periods, so read the lines as how these collections change.")), lang)
+             + "<div style='display:grid;grid-template-columns:repeat(auto-fill,minmax(min(380px,100%),1fr));gap:.6rem 1.2rem'>")
     for mid in LEAD:
         b.append(f"<div><h3 style='margin:.4rem 0 .1rem;font-size:.95rem'>{esc(mname(mid, lang))}</h3><p class='src' style='margin:.1rem 0'>{esc(MET[mid][lang]['definition'])}</p>{scatter(c, p, mid, lang)}</div>")
     b.append("</div>")

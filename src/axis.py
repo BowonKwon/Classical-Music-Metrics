@@ -4,7 +4,7 @@ Before 1.17 the axis of a chart carried the unit symbol only ("r", "ratio", "bit
 language versions, and nothing said which way was "more". A chart title now reads
     metric name (unit) · further right = <what a larger value means>
 with the unit and the direction in the page language. The English direction phrases are the registry's
-`higher` field, except for the seven in HIGHER_EN below, where that short field says more than the formula
+`higher` field, except for the eight in HIGHER_EN below, where that short field says more than the formula
 measures; the Korean ones are in HIGHER_KO, one per metric.
 """
 
@@ -25,6 +25,7 @@ HIGHER_EN = {
     "off_tonic_share": "more time outside the home key and its relative",
     "tempo_trend_bpm_per_decade": "the (measured − marked) difference grows more with later recordings",
     "repertoire_age_median": "more works by composers long dead",
+    "ratio_no_repeats": "longer than the time computed at the marks without repeats (1 = equal)",   # v1 3.02: a ratio of times, not of tempos
 }
 
 HIGHER_KO = {
@@ -45,7 +46,7 @@ HIGHER_KO = {
     "fifth_root_motion_ratio": "5도 하행 근음 진행이 많다", "key_change_distance_median": "먼 조로 옮겨 간다",
     "departure_mean": "으뜸조에서 멀리, 오래 벗어난다", "off_tonic_share": "으뜸조·나란한조 밖에서 보내는 시간이 길다", "departure_max": "가장 멀리 간 조가 멀다",
     "root_motion_entropy": "근음이 여러 음정으로 고르게 움직인다", "coda_tempo_diff_bpm": "메트로놈 표기보다 빠르다(0은 표기대로)",
-    "ratio_no_repeats": "표기보다 느리다(1은 표기대로)", "tempo_cv_across_performers": "연주마다 템포가 많이 다르다",
+    "ratio_no_repeats": "반복 없이 표기대로 계산한 시간보다 오래 걸렸다(1은 그 시간과 같음)", "tempo_cv_across_performers": "연주마다 템포가 많이 다르다",
     "local_tempo_change_median": "박마다 템포가 많이 흔들린다", "ibi_cv_median": "한 연주 안에서 템포가 많이 바뀐다",
     "velocity_sd_median": "셈여림 폭이 넓다", "tempo_trend_bpm_per_decade": "늦은 녹음일수록 (측정 − 표기) 차이가 더 커진다",
     "sustain_ratio": "댐퍼 페달을 오래 밟는다", "soft_used_share": "소프트 페달을 쓴 연주가 많다", "beethoven_share": "베토벤 작품 연주가 많다",
@@ -129,12 +130,24 @@ def strip_note(groups, fmt: str, lang: str, unit_ko: str = "곡집", unit_en: st
         return f"{unit_ko} 중앙값이 모두 {num(hi, fmt)}{ro(num(hi, fmt))} 같다." if k else f"All {unit_en} medians are {num(hi, fmt)}."
     sep = "·" if k else ", "
 
-    def who(v):
+    def who(v):   # v1 2.02: rows tied at an extreme are all named (up to five) with a 'tied' mark; more than five, three names and the count
         ns = [n for n, x in med if x == v]
-        return sep.join(ns) if len(ns) <= 3 else (f"{unit_ko} {len(ns)}개" if k else f"{len(ns)} {unit_en}s")
+        if len(ns) == 1:
+            return ns[0]
+        if len(ns) <= 5:
+            return sep.join(ns) + (" 공동" if k else " (tied)")
+        return f"{sep.join(ns[:3])} 등 {unit_ko} {len(ns)}개 공동" if k else f"{sep.join(ns[:3])} and {len(ns) - 3} more {unit_en}s (tied)"
+
+    def shown(v):   # v1 2.03: rows not exactly at the extreme but printed the same at the precision shown
+        ns = [n for n, x in med if x != v and num(x, fmt) == num(v, fmt)]
+        if not ns:
+            return ""
+        lst = sep.join(ns[:3]) + ((f" 등 {len(ns)}개" if k else f" and {len(ns) - 3} more") if len(ns) > 3 else "")
+        return f" 표시한 자릿수({num(v, fmt)})로는 {lst}도 같다." if k else f" At the precision shown ({num(v, fmt)}), the same value also appears for {lst}."
     hn, ln = who(hi), who(lo)
+    tail = shown(hi) + shown(lo)
     pre = (f"그림에 실린 {unit_ko} {len(med)}개 가운데 " if k else f"Among the {len(med)} {unit_en}s drawn: ") if scope else ""
     if not k and pre:
-        return f"{pre}highest median {hn} ({num(hi, fmt)}); lowest {ln} ({num(lo, fmt)})."
-    return (pre + f"중앙값이 가장 큰 {unit_ko}은 {hn}({num(hi, fmt)}), 가장 작은 {unit_ko}은 {ln}({num(lo, fmt)}){kp(ln, '이다', '다')}." if k
-            else f"Highest {unit_en} median: {hn} ({num(hi, fmt)}); lowest: {ln} ({num(lo, fmt)}).")
+        return f"{pre}highest median {hn} ({num(hi, fmt)}); lowest {ln} ({num(lo, fmt)}).{tail}".replace(" (tied) (", " (tied, ")
+    return (pre + f"중앙값이 가장 큰 {unit_ko}은 {hn}({num(hi, fmt)}), 가장 작은 {unit_ko}은 {ln}({num(lo, fmt)}){kp(ln, '이다', '다')}.{tail}" if k
+            else f"Highest {unit_en} median: {hn} ({num(hi, fmt)}); lowest: {ln} ({num(lo, fmt)}).{tail}".replace(" (tied) (", " (tied, "))

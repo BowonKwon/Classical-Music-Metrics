@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 import colour_19 as col19  # noqa: E402
 import sonata_pages as son  # noqa: E402
 import axis  # noqa: E402
+import fig_notes  # noqa: E402  (1.22.3: chart notes)
 from registry import METRICS  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -172,14 +173,18 @@ def metric_section(m: dict, lang: str, svg_strip, legend, table_html, stat_spec)
                    + ("1.8의 고전기 건반 소나타 곡집에 낭만기 피아노 소품 곡집 일곱을 이어 붙였다. 위에서 아래로 작곡 연도 중앙값 순이다(J. C. 바흐는 연도 미확인이라 뺐다). 소나타 악장과 성격 소품은 장르가 달라 길이와 짜임이 다르다. 자세한 설명은 <a href='../romantic.html'>낭만기 피아노 소품</a> 면에 있다."
                       if k else "The Classical-era keyboard sonatas of 1.8 continued with seven collections of Romantic piano pieces, top to bottom by median year of composition (J. C. Bach, whose years are unconfirmed, is left out). Sonata movements and character pieces differ in length and texture. See the <a href='../romantic.html'>Romantic piano miniatures</a> page.")
                    + "</p>" + kb_legend(legend, lang)
-                   + f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}<figcaption>{'점 하나가 악장(곡) 하나, 세로 막대는 중앙값.' if k else 'One dot per movement or piece; vertical bar = median.'}</figcaption></figure>"
+                   + fig_notes.fx(svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26),
+                                  *fig_notes.metric_strip_more(g, m, lang, "같은 지표를 고전기 건반 소나타와 낭만기 피아노 소품 곡집마다 한 줄씩 늘어놓은 그림이다(위에서 아래로 작곡 연도 중앙값 순).",
+                                                               "The same metric for each collection of Classical-era keyboard sonatas and Romantic piano pieces, one row each (top to bottom by median year of composition).",
+                                                               "악장(곡)", "movement or piece"), lang)
                    + _stat_table(kb[kb["era"] == "romantic"], m, lang, table_html, stat_spec, f"rom_{mid}"))
     if mid not in CAD and mid in qt and qt[mid].notna().any():
         g = [(nm(c, lang), qt.loc[qt.composer == c, mid].astype(float).tolist(), 1 if c == "Beethoven" else CLASSICAL_COLOR) for c in order(qt) if qt.loc[qt.composer == c, mid].notna().any()]
         out.append(f"<h2>{'현악 4중주' if k else 'String quartets'}</h2><p>"
                    + ("플레옐(1784)·베토벤(1798~1826)·멘델스존(1827~1847)의 현악 4중주 악장. 세 곡집은 화성 주석 표준의 판이 모두 달라(2.3.0·1.0.0·2.1.0), 화음 지표 차이에는 주석 규칙의 차이가 섞여 있다."
                       if k else "String-quartet movements by Pleyel (1784), Beethoven (1798–1826) and Mendelssohn (1827–1847). The three collections use three versions of the harmony annotation standard (2.3.0, 1.0.0, 2.1.0), so differences in chord metrics mix in differences in the annotation rules.")
-                   + f"</p><figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}<figcaption>{'점 하나가 악장 하나, 세로 막대는 중앙값.' if k else 'One dot per movement; vertical bar = median.'}</figcaption></figure>"
+                   + "</p>" + fig_notes.fx(svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26),
+                                           *fig_notes.metric_strip_more(g, m, lang, "같은 지표를 현악 4중주 곡집 셋으로 늘어놓은 그림이다.", "The same metric for the three string-quartet collections."), lang)
                    + _stat_table(qt, m, lang, table_html, stat_spec, f"qt_{mid}"))
     return "".join(out)
 
@@ -218,7 +223,10 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
     # 2. keyboard music strips
     b.append(("<h2>2. 건반 음악 1740~1925</h2><p>위에서 아래로 작곡 연도 중앙값 순이다. 점 하나가 악장(곡) 하나, 세로 막대는 중앙값. 지표 이름을 누르면 정의와 공식이 있는 지표 면으로 간다. 마지막 넷은 1.9에서 새로 더한 지표다.</p>"
               if k else "<h2>2. Keyboard music, 1740–1925</h2><p>Top to bottom by median year of composition. One dot per movement or piece; vertical bar = median. Click a metric's name for its definition and formula. The last four are new in 1.9.</p>")
-             + kb_legend(legend, lang))
+             + kb_legend(legend, lang)
+             + fig_notes.strip_block(lang, f"아래 {len(LEAD)}개 그림은 같은 틀이다. 지표 하나에 그림 하나, 곡집 하나에 줄 하나다." if k else f"The {len(LEAD)} charts below share one template: one chart per metric, one row per collection.",
+                                     "악장(곡)", "movement or piece", "곡집 하나(위에서 아래로 작곡 연도 중앙값 순, 색은 위 범례)", "one collection (top to bottom by median year of composition; colors in the legend above)",
+                                     mis_extra=("고전기 쪽은 소나타 악장, 낭만기 쪽은 대부분 짧은 성격 소품이라 줄 사이의 차이에는 시대와 장르가 섞여 있다." if k else "The Classical-era rows are sonata movements and the Romantic rows mostly short character pieces, so differences between rows mix period with genre.")))
     cl, ro = sk[sk.era == "classical"], sk[sk.era == "romantic"]
     for mid in LEAD:
         m = MET[mid]
@@ -227,8 +235,9 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
         era = (f" 곡집 중앙값의 중앙값은 고전기 곡집 {cl[mid].notna().sum()}개가 {axis.num(a, m['fmt'])}, 낭만기 곡집 {ro[mid].notna().sum()}개가 {axis.num(z, m['fmt'])}{axis.kp(axis.num(z, m['fmt']), '이다', '다')}." if k
                else f" Median of the collection medians: {axis.num(a, m['fmt'])} for the {cl[mid].notna().sum()} Classical-era collections, {axis.num(z, m['fmt'])} for the {ro[mid].notna().sum()} Romantic ones.")
         b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'] + (' ' + m[lang]['gloss'] if m[lang].get('gloss') else ''))}</p>"
-                 f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=24)}"
-                 f"<figcaption>{esc(axis.strip_note(g, m['fmt'], lang) + era)}</figcaption></figure>")
+                 + fig_notes.fx(svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=24),
+                                (f"{esc(m[lang]['name'])}{axis.kp(m[lang]['name'], '을', '를')} 곡집마다 한 줄씩 늘어놓은 그림이다." if k else f"{esc(m[lang]['name'])} by collection, one row each."),
+                                dict(fig_notes.strip_parts(g, m['fmt'], lang, "악장(곡)", "movement or piece", full=False), short=esc(axis.strip_note(g, m['fmt'], lang) + era)), lang))   # 1.22.3: labelled notes
 
     # 3. what the data show
     items = []
@@ -246,7 +255,7 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
                         if k else f"median of the collection medians: Classical-era {format(a, f)}, Romantic {format(z, f)}. Among the Romantic collections, highest {hn} ({hv}), lowest {ln} ({lv}).") + "</li>")
     hm = ["chromatic_ratio", "pitch_class_entropy", "key_clarity", "seventh_chord_ratio", "fifth_root_motion_ratio", "local_key_changes_per_100_measures", "key_change_distance_median", "outside_5oct_ratio"]
     heat = ("<figure>" + col19.heatmap(sk, hm, [MET[x][lang]["name"] for x in hm], [nm(c, lang) for c in sk.composer], [MET[x]["fmt"] for x in hm], lang)
-            + col19.heat_legend(lang, len(sk)) + "<figcaption>" + ("행 하나가 곡집 하나, 열 하나가 지표 하나다. 칸의 숫자는 그 곡집의 중앙값이고, 색은 그 값이 곡집 13개의 평균에서 얼마나 떨어져 있는지를 나타낸다. 파랑은 평균보다 낮고 주황은 높다. 떨어진 정도는 z로 잰다 — 평균과의 차이를 표준편차(값들이 평균에서 흩어진 정도)로 나눈 수로, z가 1이면 평균보다 표준편차 하나만큼 크다. 표준편차는 곡집 중앙값 13개를 전체로 보고 낸 값이다(모표준편차, ddof=0). 색은 0.5 표준편차를 한 칸으로 반올림하며 ±3 표준편차에서 가장 진한 칸이다. 색은 지표마다 따로 맞춘 상대값이라 열끼리 색을 견주지 않는다. 칸에 마우스를 올리면 z 값이 나온다." if k else "One row per collection, one column per metric. The number in a cell is that collection's median; the color shows how far that value lies from the mean of the 13 collections. Blue is below the mean, orange above. The distance is measured as z: the difference from the mean divided by the standard deviation (how widely the values scatter around the mean), so z = 1 means one standard deviation above the mean. The standard deviation treats the 13 collection medians as the whole set (population standard deviation, ddof=0). Color is rounded to steps of half a standard deviation and saturates at ±3. Color is scaled separately for each metric, so do not compare colors across columns. Hover for the z value.") + "</figcaption></figure>")
+            + col19.heat_legend(lang, len(sk)) + "<figcaption>" + ("행 하나가 곡집 하나, 열 하나가 지표 하나다. 칸의 숫자는 그 곡집의 중앙값이고, 색은 그 값이 곡집 13개의 평균에서 얼마나 떨어져 있는지를 나타낸다. 파랑은 평균보다 낮고 주황은 높다. 떨어진 정도는 z로 잰다 — 평균과의 차이를 표준편차(값들이 평균에서 흩어진 정도)로 나눈 수로, z가 1이면 평균보다 표준편차 하나만큼 크다. 표준편차는 곡집 중앙값 13개를 전체로 보고 낸 값이다(모표준편차, ddof=0). 색은 0.5 표준편차를 한 칸으로 반올림하며 ±3 표준편차에서 배경과 대비가 가장 강한 칸이다(밝은 화면에서는 가장 진하게, 어두운 화면에서는 가장 밝게). 색은 지표마다 따로 맞춘 상대값이라 열끼리 색을 견주지 않는다. 칸에 마우스를 올리면 z 값이 나온다." if k else "One row per collection, one column per metric. The number in a cell is that collection's median; the color shows how far that value lies from the mean of the 13 collections. Blue is below the mean, orange above. The distance is measured as z: the difference from the mean divided by the standard deviation (how widely the values scatter around the mean), so z = 1 means one standard deviation above the mean. The standard deviation treats the 13 collection medians as the whole set (population standard deviation, ddof=0). Color is rounded to steps of half a standard deviation and saturates at ±3. Color is scaled separately for each metric, so do not compare colors across columns. Hover for the z value.") + "</figcaption></figure>")
     small = [nm(r.composer, lang) for r in sr.itertuples() if r.movements < SMALL_N]
     mixed = [nm(r.composer, lang) for r in sr.itertuples() if "," in r.std]
     nohar = [nm(r.composer, lang) for r in sr.itertuples() if r.labelled < r.movements]
@@ -298,13 +307,17 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
               if k else "<h2>5. String quartets</h2><p>String-quartet movements by Pleyel (1784), Beethoven (1798–1826) and Mendelssohn (1827–1847). The Beethoven collection is the one used elsewhere on this site (same values).</p>")
              + ("<p class='src'>그림 읽는 법은 2절과 같다: 점 하나가 악장 하나, 세로 막대가 중앙값이다. 그림마다 아래에 세 곡집의 중앙값을 적었다.</p>" if k
                 else "<p class='src'>Read the charts as in section 2: one dot per movement, vertical bar = median. Under each chart are the medians of the three collections.</p>")
-             + coll_table(sq) + legend([("베토벤" if k else "Beethoven", 1), ("플레옐·멘델스존" if k else "Pleyel, Mendelssohn", CLASSICAL_COLOR)]))
+             + coll_table(sq) + legend([("베토벤" if k else "Beethoven", 1), ("플레옐·멘델스존" if k else "Pleyel, Mendelssohn", CLASSICAL_COLOR)])
+             + fig_notes.strip_block(lang, f"아래 {len(qmids)}개 그림은 같은 틀이다. 지표 하나에 그림 하나, 곡집 하나에 줄 하나다." if k else f"The {len(qmids)} charts below share one template: one chart per metric, one row per collection.",
+                                     row_ko="현악 4중주 곡집 하나", row_en="one string-quartet collection",
+                                     mis_extra=("세 곡집은 화성 주석 표준의 판이 모두 달라, 화음 지표 차이에는 주석 규칙의 차이가 섞여 있을 수 있다." if k else "The three collections use different versions of the harmony annotation standard, so differences in chord metrics may mix in differences in the rules.")))
     for mid in qmids:
         m = MET[mid]
         g = [(nm(c, lang), qt.loc[qt.composer == c, mid].astype(float).tolist(), 1 if c == "Beethoven" else CLASSICAL_COLOR) for c in order(qt) if qt.loc[qt.composer == c, mid].notna().any()]
         b.append(f"<h3 style='margin:1rem 0 .1rem'><a href='metrics/{mid}.html'>{esc(m[lang]['name'])}</a></h3><p class='src' style='margin:.1rem 0'>{esc(m[lang]['definition'] + (' ' + m[lang]['gloss'] if m[lang].get('gloss') else ''))}</p>"
-                 f"<figure>{svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26)}"
-                 f"<figcaption>{esc(axis.strip_note(g, m['fmt'], lang))}</figcaption></figure>")
+                 + fig_notes.fx(svg_strip(g, m['fmt'], xlabel=axis.axis(m, lang), med_label='중앙값' if k else 'median', row_h=26),
+                                (f"{esc(m[lang]['name'])}{axis.kp(m[lang]['name'], '을', '를')} 현악 4중주 곡집마다 한 줄씩 늘어놓은 그림이다." if k else f"{esc(m[lang]['name'])} for each string-quartet collection, one row each."),
+                                fig_notes.strip_parts(g, m['fmt'], lang, full=False), lang))   # 1.22.3: labelled notes
     qsmall = [nm(r.composer, lang) for r in sq.itertuples() if r.movements < SMALL_N]
     b.append("<ul>" + ("<li>세 곡집의 화성 주석 표준 판이 모두 다르다(" + ", ".join(f"{nm(r.composer, lang)} {r.std}" for r in sq.itertuples()) + "). 화음 지표 차이에는 주석 규칙의 차이가 섞여 있을 수 있고, 그 크기는 이 자료로 따로 잴 수 없다.</li>"
                        "<li>종지 표지는 플레옐 곡집에만 있어 종지 지표 둘은 이 비교에 싣지 않는다.</li>"
@@ -340,5 +353,9 @@ def render(lang, svg_strip, legend, table_html, stat_spec):
 
 
 def build(lang, path, page_fn, svg_strip, legend, table_html, stat_spec):
-    path.write_text(page_fn(lang, T[lang]["title"], render(lang, svg_strip, legend, table_html, stat_spec), desc=T[lang]["lead"], active="romantic"), encoding="utf-8")
+    path.write_text(page_fn(lang, T[lang]["title"], fig_notes.retrofit(render(lang, svg_strip, legend, table_html, stat_spec), [(
+        ("곡집마다 지표 여덟 개의 중앙값을 칸에 적고, 그 값이 곡집 평균에서 얼마나 떨어졌는지를 색으로 칠한 열지도다." if lang == "ko" else
+         "A heat map: each collection's median on eight metrics in the cells, colored by how far it lies from the mean of the collections."),
+        dict(mis=("색은 곡집끼리 견준 상대 위치다. 파랑이라고 그 값이 절대적으로 작다는 뜻이 아니라, 이 곡집들 가운데서 낮다는 뜻이다." if lang == "ko" else
+                  "Color is position relative to the other collections: blue means low among these collections, not low in any absolute sense.")))], lang), desc=T[lang]["lead"], active="romantic"), encoding="utf-8")
 

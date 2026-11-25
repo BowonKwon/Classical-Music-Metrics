@@ -17,6 +17,7 @@ from pathlib import Path
 import pandas as pd
 
 import axis
+import fig_notes  # 1.22.3: chart notes
 import registry
 import section_ids  # 1.19: ids of the section headings
 import site_nav     # 1.19: links on section headings, section lists, the header that stays on wide screens
@@ -25,8 +26,8 @@ from registry import LAYERS, METRICS, SOURCES
 
 ROOT = Path(__file__).resolve().parent.parent  # repository root; default paths do not depend on the working directory
 
-VERSION = "1.22.2"
-BUILD_DATE = "2026-11-19"
+VERSION = "1.22.3"
+BUILD_DATE = "2026-11-25"
 REPO = "https://github.com/BowonKwon/Classical-Music-Metrics"
 CHANGELOG = [
     ("1.0", "2026-10-31", "바흐·베토벤 악보 14지표, 연주 6지표, 뉴욕 필 레퍼토리 4지표.", "Bach and Beethoven: 14 score metrics, 6 performance metrics, 4 NY Phil repertoire metrics."),
@@ -96,8 +97,10 @@ CHANGELOG = [
      "The interval table of 'Before you start' is rebuilt. The intervals are no longer chosen by hand: every interval between two notes of the just major scale is collected, the twelve sizes (adding the augmented fourth, minor seventh and major seventh) are main rows, other ratios of the same size (10/9, 32/27, 27/20, 64/45, 40/27, 27/16, 16/9) are 'other ratio' rows, and 7/4 from the 7th harmonic is one more row. The table is in order of size, with buttons to reorder it by simplest ratio, distance from equal temperament or beats. Just ratios are given as fraction and decimal beside the equal-tempered 2^(k/12) and its decimal, with the two notes of the major scale each ratio comes from. A new chart sets one octave on a frequency-ratio scale and a cent scale side by side (click a just-ratio dot to hear it). Other sections and scale values are unchanged."),
     ("1.22.1", "2026-11-19", "화면만 고쳤다. 헤더가 화면 위에 붙지 않는 폭(한국어 1,400px, 영어 1,900px 아래)에서 아래로 내려가도 언어를 바꿀 수 있게 오른쪽 아래에 언어 전환 단추를 띄운다. 「먼저 읽기」 음정 표는 「순정 비」 열을 「음정」 바로 뒤로 옮기고, 표를 옆으로 밀어도 두 열이 왼쪽에 남게 했다. 값은 바뀌지 않았다.",
      "Display only. At widths where the header does not stay on screen (below 1,400px in Korean, 1,900px in English) a language switch now floats at the bottom right, so the language can be changed further down the page. In the interval table of 'Before you start' the just-ratio column moves next to the interval name, and both stay at the left when the table is scrolled sideways. No values changed."),
-    ("1.22.2", BUILD_DATE, "화면만 고쳤다. 「먼저 읽기」 음정 표의 높이를 화면의 80%로 묶고 열 이름 줄을 위에 붙였다. 가로 스크롤 막대가 늘 화면 안에 있어 위쪽 줄에서도 표를 옆으로 밀 수 있다. 값은 바뀌지 않았다.",
+    ("1.22.2", "2026-11-19", "화면만 고쳤다. 「먼저 읽기」 음정 표의 높이를 화면의 80%로 묶고 열 이름 줄을 위에 붙였다. 가로 스크롤 막대가 늘 화면 안에 있어 위쪽 줄에서도 표를 옆으로 밀 수 있다. 값은 바뀌지 않았다.",
      "Display only. The interval table of 'Before you start' is held to 80% of the screen height with its header row fixed at the top, so the horizontal scrollbar is always on screen and the upper rows can be scrolled sideways too. No values changed."),
+    ("1.22.3", BUILD_DATE, "그래프 설명을 풀어 썼다. 그래프마다 위에 무엇을 그린 그림인지 한 줄을 두고, 아래에 「한눈에」 「그림 보는 법」 「숫자 하나 읽어 보기」 「잘못 읽기 쉬운 것」 「낱말 풀이」를 필요한 만큼 나누어 적었다. 문장 속 수는 그림과 같은 자료에서 계산해 넣었다. 같은 틀로 그리는 그림(지표 면, 작곡가 면, 음계 띠 등)은 틀마다 같은 설명에 그 그림의 값을 끼웠다. 이름만 있던 축 몇 곳(bpm, ×, 코사인, 상위 10명의 몫)에 무엇을 재는지와 어느 쪽이 큰지를 적었다. 그림 앞 단락이나 캡션은 「그림 보는 법」으로 옮겼는데, 대부분 글자 그대로이고 몇 곳은 줄이거나 한 문장을 더했다. 설명 문장은 별도 모델(Codex)이 자료와 대조했고, 그 지적으로 여러 곳을 바로잡았다 — 공동 1위·꼴찌를 적고(다섯까지는 모두, 여섯 이상이면 이름 셋과 전체 수), 베토벤 템포 차는 악장 끝(코다)에서 잰 값이라고 밝히고, 소프트 페달의 95% 구간(윌슨 구간)과 악단 비교의 재표집 범위를 구별하고, 실측 띠의 표준편차 막대를 초록이라고 바로 적었다. 베토벤 실연 시간 그림의 막대 이름은 「♩=」 대신 「MM=」으로 적는다(표기 숫자가 어느 음표의 박인지는 악장마다 다르고 자료에는 숫자만 있다). A음 그림의 굵은 선은 점이 5개 미만인 구간에서 끊었다. 두 번째 대조의 지적으로 실연 시간 그림의 이론 시간 계산(구간마다 첫째 괄호 마디를 빼고 더한다), 페달 비율의 분모(파일마다 잰 뒤 더한다), 여성 작곡가 점유율 가운데 값의 분모, 실측 띠 본문의 막대 색(초록), 점 그림의 겹침 설명, Ellis 표 II 에 관한 서술을 고쳤다. 세 번째 대조의 지적으로 ASAP 자료의 출처를 MAESTRO 와 이어진 파일(e-콩쿠르 녹음)과 출처를 따로 확인하지 않은 파일로 나눠 적고, 페달 지표가 쓰는 파일 범위(정렬과 상관없이 456파일·359녹음)를 출처 단락에 바로 적고, 여성 작곡가 점유율의 세 값을 각각의 식으로 적었다. 네 번째 대조의 지적으로 출처 단락 첫 문장을 456파일 전체의 소개로 하고 박 단위 지표가 쓰는 444파일을 따로 적었으며, 359녹음을 세는 방법(같은 MAESTRO 경로는 합치고 경로가 없는 파일은 하나를 한 건으로)과 MAESTRO 의 출처(Hawthorne 외 2019)를 적고, 읽기용 판의 템포 산포 문장을 변동계수의 가운데 값으로 바꿨다. 실연 시간 그림은 막대 이름이 길어져 0 축과 막대 폭이 조금 옮겨졌고(값은 그대로), 접은 풀이의 제목에 쓰는 스타일을 더했다. 데이터 값과 판정 규칙은 바뀌지 않았다.",
+     "Chart notes written out. Every chart has a line above saying what it draws, and below it, as needed, In short, How the chart works, Reading one value, Easy to misread and Terms. The numbers in these sentences are computed from the same data as the chart. Charts drawn from one template (metric pages, composer pages, scale rulers and others) share one set of notes with that chart's values filled in. A few axes that carried only a symbol (bpm, ×, cosine, top-ten share) now say what they measure and which way is more. Paragraphs and captions that stood before a chart moved into How the chart works, mostly word for word, a few shortened or given one more sentence. The notes were checked against the data by a separate model (Codex), and several were corrected on its findings: tied highs and lows are named (all of them up to five; with six or more, three names and the number of the rest), the Beethoven tempo difference is said to be measured at the end of the movement (the coda), the 95% interval of the soft pedal (a Wilson interval) is told apart from the resampling range on the orchestra page, and the standard-deviation bars of the measured rulers are called green, as drawn. The bar labels of the Beethoven duration chart read 'MM=' instead of '♩=' (which note value the number counts differs by movement, and the data hold the number only). The thick line of the a′ chart now breaks at bins with fewer than five dots. On a second check, the notes were corrected for the theoretical time of the duration chart (section by section, first-ending bars left out), the denominator of the pedal share (measured per file, then added up), the denominator of the middle value of the women composers' share, the color of the bars in the text of the measured rulers (green), the description of overlap in dot charts, and what is said of Ellis's Table II. After the third check, the ASAP source is described as files linked to MAESTRO (e-Competition recordings) and files whose source was not checked, the source paragraph states the files the pedal metrics use (all 456 files, 359 recordings, aligned or not), and the three values of the women composers' share each have their own formula. After the fourth check the source paragraph opens with all 456 files and states the 444 used by beat-level metrics separately, says how the 359 recordings are counted (files sharing a MAESTRO path are joined, each file without one is one recording) and cites MAESTRO (Hawthorne et al. 2019), and the reading edition states the tempo spread as the middle coefficient of variation. In the duration chart the longer bar labels move the zero axis and the bar widths slightly (values unchanged), and a style for the headings of folded notes was added. No data value or rule changed."),
 ]
 
 # categorical palette (validated reference palette, slots 1-3), light/dark
@@ -362,6 +365,7 @@ def sentence_case_labels(html: str) -> str:
 
 
 CSS += ' main.wide{max-width:1300px} .crumbs{font-size:.84rem;color:var(--fg3);margin:-.4rem 0 .9rem} .crumbs .sep{margin:0 .25rem} .crumbs [aria-current]{color:var(--fg2)} .leaf{display:grid;grid-template-columns:220px minmax(0,1fr);gap:2rem;align-items:start} .sibs{position:sticky;top:4.2rem;max-height:calc(100vh - 5rem);overflow:auto;font-size:.84rem;border-right:1px solid var(--line);padding-right:.8rem} .sibs ol,.sibs-m ol{list-style:none;margin:.2rem 0 .8rem;padding:0} .sibs li a,.sibs-m li a{display:block;padding:.18rem .4rem;border-radius:6px;color:var(--fg2)} .sibs li a:hover,.sibs-m li a:hover{background:var(--bg2);text-decoration:none} .sibs a[aria-current],.sibs-m a[aria-current]{background:var(--bg2);color:var(--fg);font-weight:600} .sibs summary,.sibs-m summary{cursor:pointer;font-weight:600;color:var(--fg);margin:.3rem 0} .sibs .sg{font-weight:600;margin:.2rem 0} .sibs-m{display:none;border:1px solid var(--line);border-radius:10px;padding:.4rem .8rem;margin:0 0 1rem;font-size:.9rem} .pn{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:2.4rem;padding-top:1rem;font-size:.92rem} .pn a[rel=next]{margin-left:auto;text-align:right} .pn small{display:block;color:var(--fg3)} @media(max-width:860px){.leaf{display:block}.sibs{display:none}.sibs-m{display:block}} @media print{.crumbs,.sibs,.sibs-m,.pn{display:none}.leaf{display:block}}'
+CSS += fig_notes.CSS
 JS += ';document.addEventListener("keydown",function(e){if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;var t=e.target;if(t&&t.closest&&t.closest("input,textarea,select,[contenteditable]"))return;var a=null;if(e.key==="ArrowLeft")a=document.querySelector("a[rel=prev]");else if(e.key==="ArrowRight")a=document.querySelector("a[rel=next]");if(a){location.href=a.href}});var sb=document.querySelector(".sibs"),cu=sb&&sb.querySelector("a[aria-current]");if(cu){sb.scrollTop=cu.offsetTop-sb.clientHeight/2}'
 
 LEAF_T = {"ko": dict(crumbs="위치", sibs="같은 계열", others="이 계열의 다른 면", pn="이전·다음", prev="이전", next="다음", next_group="다음 계열"),
@@ -1025,7 +1029,8 @@ def main():
                 order = ["chorales", "english_french_suites", "solo_violin_cello_flute", "string_quartets", "piano_sonatas"]
                 groups.sort(key=lambda g: order.index(next(k for k in order if t["coll"][k] in g[0])))
                 summ.sort(key=lambda s: order.index(next(k for k in order if t["coll"][k] in s["group"])))
-                body.append(f"<h2>{t['by_collection']}</h2>{legend([(axis.composer(c, lang), COMPOSER_COLOR[c]) for c in COMPOSERS])}<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t['median'])}<figcaption>{t['dist_caption']} {missing_caption(score, m['id'], lang)}</figcaption></figure>")
+                _i, _p = fig_notes.metric_score(groups, m, lang, missing_caption(score, m['id'], lang))   # 1.22.3: chart notes
+                body.append(f"<h2>{t['by_collection']}</h2>{legend([(axis.composer(c, lang), COMPOSER_COLOR[c]) for c in COMPOSERS])}" + fig_notes.fx(svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t['median']), _i, _p, lang))
                 sdf = pd.DataFrame(summ)
                 st = lambda v, f=m["fmt"]: takeaways.stat_spec(v, f)  # noqa: E731
                 body.append(table_html(sdf, [("group", t["collection"], None), ("n", t["n"], "d"), ("median", t["median"], st), ("q1", t["q1"], st), ("q3", t["q3"], st), ("mn", t["min"], m["fmt"]), ("mx", t["max"], m["fmt"])], f"s_{m['id']}", lang, filt=False))
@@ -1039,12 +1044,15 @@ def main():
             elif m["table"] == "coda":
                 items = [(f"{r.conductor.split(',')[0]} ({t['ptype'][r.ptype]}, {str(r.date)[:4]})", r.median_diff_bpm, PTYPE_COLOR[r.ptype]) for r in cond.itertuples()]
                 body.append(legend([(t["ptype"][k], v) for k, v in PTYPE_COLOR.items()]) + PTYPE_NOTE[lang])
-                body.append(f"<figure>{svg_bars(items, '+.1f', xlabel='bpm')}<figcaption>{'지휘자별 중앙값(교향곡 1~8번 33악장). 녹음 연도는 괄호 안.' if lang=='ko' else 'Median per conductor over 33 movements of Symphonies 1–8; recording years in parentheses.'}</figcaption></figure>")
+                _i, _p = fig_notes.metric_coda(items, lang, f"{int(cond['n_movements'].min())}" if cond['n_movements'].nunique() == 1 else f"{int(cond['n_movements'].min())}~{int(cond['n_movements'].max())}", H['faster_n'], H['faster_of'])
+                body.append(fig_notes.fx(svg_bars(items, '+.1f', xlabel=axis.axis(m, lang)), _i, _p, lang))   # 1.22.3: axis title names the value (was 'bpm')
                 body.append(table_html(cond, [("conductor", "Conductor", None), ("ptype", "Style", None), ("date", "Rec.", None), ("n_movements", t["n"], "d"), ("median_diff_bpm", t["median"], "+.1f"), ("q1_diff_bpm", t["q1"], "+.1f"), ("q3_diff_bpm", t["q3"], "+.1f"), ("n_rectified", "rectified", "d")], "cond", lang))
                 src = "bmetr"
             elif m["table"] == "duration":
-                mv = mvsum.assign(label=mvsum["symphony"].astype(str) + "/" + mvsum["movement"].astype(str) + " " + mvsum["main_character"].astype(object).fillna("") + " ♩=" + mvsum["main_mark"].astype(int).astype(str))
-                body.append(f"<figure>{svg_bars([(r.label, r.ratio_no_rep_median, 1) for r in mv.itertuples()], '.2f', xlabel='×', zero_line=False)}<figcaption>{'악장별 중앙값(지휘자 36명), 반복 없음 가정.' if lang=='ko' else 'Median over 36 conductors per movement, assuming no repeats.'}</figcaption></figure>")
+                mv = mvsum.assign(label=mvsum["symphony"].astype(str) + "/" + mvsum["movement"].astype(str) + " " + mvsum["main_character"].astype(object).fillna("") + " MM=" + mvsum["main_mark"].astype(int).astype(str))   # v1 3.02: the beat unit differs by movement and is not in the data
+                _items = [(r.label, r.ratio_no_rep_median, 1) for r in mv.itertuples()]
+                _i, _p = fig_notes.metric_duration(_items, lang, int(mv['n'].max()))
+                body.append(fig_notes.fx(svg_bars(_items, '.2f', xlabel=axis.axis(m, lang), zero_line=False), _i, _p, lang))   # 1.22.3: axis title names the value (was '×')
                 body.append(table_html(mv, [("label", "Movement", None), ("n", t["n"], "d"), ("duration_median_s", "sec (median)", ".0f"), ("ratio_no_rep_median", "no repeats", ".2f"), ("ratio_with_rep_median", "with repeats", ".2f")], "mv", lang))
                 src = "bmetr"
             elif m["table"] == "asap_piece":
@@ -1052,7 +1060,8 @@ def main():
                 two = m["id"] == "tempo_cv_across_performers"
                 cap_ko = "점 하나가 곡 하나" + ("(연주 2개 이상인 곡만)" if two else "(연주가 하나인 곡은 그 연주의 값)") + ". 모차르트(6곡·연주 16개)는 소표본이라 차트에서 빼고 아래 표에만 둔다."
                 cap_en = "One dot per piece" + (" (pieces with two or more performances only)" if two else " (a single-performance piece shows that performance's value)") + ". Mozart (6 pieces, 16 performances) is too small a sample for the chart and appears only in the table below."
-                body.append(f"<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t['median'])}<figcaption>{cap_ko if lang=='ko' else cap_en}</figcaption></figure>")
+                _i, _p = fig_notes.metric_asap(groups, m, lang, cap_ko if lang == 'ko' else cap_en)
+                body.append(fig_notes.fx(svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t['median']), _i, _p, lang))
                 body.append(table_html(asap_piece.sort_values([m["id"], "composer", "title"], ascending=[False, True, True], kind="mergesort"), [("composer", t["composer"], None), ("title", "Piece", None), ("n_performances", "perf.", "d"), ("tempo_mean_bpm_median", "tempo (median)", ".0f"), (m["id"], ml["name"], m["fmt"])], "ap", lang))
                 src = "asap"
             elif m["table"] == "tempo_trend":
@@ -1063,8 +1072,8 @@ def main():
                 a_ = float(cy["median_diff_bpm"].mean() - b_ * cy["rec_year_mid"].mean())  # line through the conductor means, within-movement slope
                 pts = [(float(r.rec_year_mid), float(r.median_diff_bpm), PTYPE_COLOR[r.ptype], f"{r.conductor.split(',')[0]} ({t['ptype'][r.ptype]}, {r.date})") for r in cy.itertuples()]
                 body.append(legend([(t["ptype"][k], v) for k, v in PTYPE_COLOR.items()]) + PTYPE_NOTE[lang])
-                body.append(f"<figure>{svg_scatter(pts, '+.1f', xlabel=('녹음 연도(녹음 기간의 가운데 해)' if ko_ else 'recording year (midpoint of the recording dates)'), ylabel=('지휘자 중앙값, 측정 − 표기 (bpm)' if ko_ else 'conductor median, measured − mark (bpm)'), line=(a_, b_))}"
-                            f"<figcaption>{'점 하나가 지휘자(전집) 하나. 점선은 같은 악장 안 기울기(10년당 %s bpm)를 지휘자 평균점에 맞춰 그은 것이다. 지휘자와 녹음 연도는 한 쌍씩 묶여 있어 이 기울기를 연도의 영향으로 읽을 수 없다.' % fmt(fe['slope_bpm_per_decade'], '+.2f') if ko_ else 'One dot per conductor (cycle). The dashed line has the within-movement slope (%s bpm per decade), drawn through the conductors’ mean point. Each conductor comes with one recording period, so the slope cannot be read as an influence of the year.' % fmt(fe['slope_bpm_per_decade'], '+.2f')}</figcaption></figure>")
+                _i, _p = fig_notes.metric_trend(pts, lang, fmt(fe['slope_bpm_per_decade'], '+.2f'), len(pts))   # 1.22.3: chart notes (the caption's two sentences are now in 'how' and 'easy to misread')
+                body.append(fig_notes.fx(svg_scatter(pts, '+.1f', xlabel=('녹음 연도(녹음 기간의 가운데 해)' if ko_ else 'recording year (midpoint of the recording dates)'), ylabel=('지휘자 중앙값, 측정 − 표기 (bpm)' if ko_ else 'conductor median, measured − mark (bpm)'), line=(a_, b_)), _i, _p, lang))
                 model_ko = {"movement_fe": "악장 내 기울기(가운데 해)", "movement_fe_start": "악장 내 기울기(녹음 첫해)", "movement_fe_ptype": "악장 내 기울기 + 연주 양식 절편", "conductor_median": "지휘자 중앙값 단순 회귀"}
                 model_en = {"movement_fe": "within movement (midpoint year)", "movement_fe_start": "within movement (first year)", "movement_fe_ptype": "within movement + style intercepts", "conductor_median": "conductor medians, simple regression"}
                 tr = trend.assign(label=trend["model"].map(model_ko if ko_ else model_en), se_lbl=trend["se_kind"].map(lambda k: ("지휘자 군집" if k.startswith("cluster") else "보통 최소제곱") if ko_ else ("conductor clusters" if k.startswith("cluster") else "classical OLS")))
@@ -1078,7 +1087,8 @@ def main():
                 ko_ = lang == "ko"
                 groups = [(axis.composer(c, lang), pedal_rec[pedal_rec.composer == c]["sustain_ratio"].astype(float).tolist(), COMPOSER_COLOR[c]) for c in ("Bach", "Beethoven")]
                 _mz = pedal_sum.set_index("composer").loc["Mozart"]
-                body.append(f"<figure>{svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t['median'])}<figcaption>{f'점 하나가 녹음 하나(여러 곡으로 잘린 녹음은 합쳐 하나). 모차르트({int(_mz.n_pieces)}곡·{int(_mz.n_performances)}녹음)는 표에만 둔다.' if ko_ else f'One dot per recording (a recording cut into several pieces counts once). Mozart ({int(_mz.n_pieces)} pieces, {int(_mz.n_performances)} recordings) is in the table only.'}</figcaption></figure>")
+                _i, _p = fig_notes.metric_pedal(groups, lang, f'점 하나가 녹음 하나(여러 곡으로 잘린 녹음은 합쳐 하나). 모차르트({int(_mz.n_pieces)}곡·{int(_mz.n_performances)}녹음)는 표에만 둔다.' if ko_ else f'One dot per recording (a recording cut into several pieces counts once). Mozart ({int(_mz.n_pieces)} pieces, {int(_mz.n_performances)} recordings) is in the table only.')
+                body.append(fig_notes.fx(svg_strip(groups, m['fmt'], xlabel=axis.axis(m, lang), med_label=t['median']), _i, _p, lang))
                 ps = pedal_sum.assign(name=pedal_sum["composer"].map(lambda c: ("전체" if ko_ else "all") if c == "all" else c))
                 body.append(table_html(ps, [("name", t["composer"], None), ("n_performances", "녹음" if ko_ else "Recordings", "d"), ("n_asap_files", "ASAP 파일" if ko_ else "ASAP files", "d"), ("n_pieces", "곡" if ko_ else "Pieces", "d"),
                                             ("sustain_ratio_median", t["median"], ".3f"), ("sustain_ratio_q1", t["q1"], ".3f"), ("sustain_ratio_q3", t["q3"], ".3f"),
@@ -1090,7 +1100,10 @@ def main():
             elif m["table"] == "asap_soft":
                 ko_ = lang == "ko"
                 ps = pedal_sum[pedal_sum.composer != "all"]
-                body.append(f"<figure>{svg_bars([(axis.composer(r.composer, lang), float(r.soft_used_share), COMPOSER_COLOR[r.composer]) for r in ps.itertuples()], '.0%', xlabel=axis.axis(m, lang), zero_line=False)}<figcaption>{'막대는 소프트 페달을 쓴 연주의 비율. 95% 구간은 아래 표에 있다(모차르트는 16연주라 구간이 넓다).' if ko_ else 'Bars: share of performances using the soft pedal. The 95% intervals are in the table (Mozart has 16 performances, so its interval is wide).'}</figcaption></figure>")
+                _items = [(axis.composer(r.composer, lang), float(r.soft_used_share), COMPOSER_COLOR[r.composer]) for r in ps.itertuples()]
+                _r0 = ps.iloc[0]
+                _i, _p = fig_notes.metric_soft(_items, lang, (_items[0][0], float(_r0.soft_used_share), int(_r0.n_performances), float(_r0.soft_used_ci95_low), float(_r0.soft_used_ci95_high)))
+                body.append(fig_notes.fx(svg_bars(_items, '.0%', xlabel=axis.axis(m, lang), zero_line=False), _i, _p, lang))
                 ps = pedal_sum.assign(name=pedal_sum["composer"].map(lambda c: ("전체" if ko_ else "all") if c == "all" else c))
                 body.append(table_html(ps, [("name", t["composer"], None), ("n_performances", "녹음" if ko_ else "Recordings", "d"), ("soft_used_n", "쓴 녹음" if ko_ else "Used", "d"),
                                             ("soft_used_share", ml["name"], ".1%"), ("soft_used_ci95_low", "95% 하한" if ko_ else "95% low", ".1%"), ("soft_used_ci95_high", "95% 상한" if ko_ else "95% high", ".1%"),
@@ -1100,8 +1113,9 @@ def main():
                 ko_ = lang == "ko"
                 pc = ny_cond[ny_cond["conductor_flag"] == "person"]
                 big = pc[pc["perf_u1"] >= 1000].sort_values(["first_season", "conductor"], kind="mergesort")
-                body.append(f"<figure>{svg_bars([(f'{r.conductor.split(chr(44))[0]} ({takeaways.season(r.first_season)[:4]}–{takeaways.season(r.last_season)[:4]})', float(r.living_share), 2) for r in big.itertuples()], '.0%', xlabel=('생존 작곡가 점유율' if ko_ else 'living-composer share'), zero_line=False)}"
-                            f"<figcaption>{'작품 연주 1,000건 이상인 지휘자 %d명, 첫 시즌 순. 괄호는 지휘한 첫·마지막 시즌의 시작 연도. 하한·상한은 표에 있다.' % len(big) if ko_ else '%d conductors with 1,000+ work performances, by first season; in parentheses the start years of their first and last seasons. Bounds are in the table.' % len(big)}</figcaption></figure>")
+                _items = [(f'{r.conductor.split(chr(44))[0]} ({takeaways.season(r.first_season)[:4]}–{takeaways.season(r.last_season)[:4]})', float(r.living_share), 2) for r in big.itertuples()]
+                _i, _p = fig_notes.metric_conductor(_items, lang, len(big))
+                body.append(fig_notes.fx(svg_bars(_items, '.0%', xlabel=('생존 작곡가 점유율 · 오른쪽일수록 연주 당시 살아 있던 작곡가의 작품이 많다' if ko_ else 'living-composer share · further right = more works by composers alive at the time'), zero_line=False), _i, _p, lang))   # 1.22.3: axis title says which way is more
                 tab = ny_cond[ny_cond["perf_u1"] >= 200].copy()
                 tab["who"] = tab.apply(lambda r: r["conductor"] if r["conductor_flag"] == "person" else f"{r['conductor']} [{r['conductor_flag']}]", axis=1)
                 tab["first"] = tab["first_season"].map(takeaways.season)
@@ -1123,8 +1137,8 @@ def main():
                     pts = [(0, 0.0)] + [(int(r.t), 1 - float(r.surv)) for r in cv.itertuples() if r.t <= 30]
                     ser.append((c_.replace("-", "–") if c_ != "2000-" else ("2000–" if ko_ else "2000 on"), pts, ci))
                 body.append(legend([(n, ci) for n, _, ci in ser]))
-                body.append(f"<figure>{svg_lines(ser, '.0%', ylabel=('재연주된 작품의 누적 비율' if ko_ else 'cumulative share re-performed'), end_labels=False)}"
-                            f"<figcaption>{'작곡가가 살아 있던 작품, 첫 연주 시기별. 가로축은 첫 시즌부터의 햇수(30년까지), 세로축은 1 − Kaplan–Meier 생존. 2000년 이후 선은 지켜본 기간이 짧아 뒤로 갈수록 작품 수가 적다.' if ko_ else 'Works by living composers, by period of first performance. Horizontal: years since the first season (up to 30); vertical: 1 − Kaplan–Meier survival. The 2000-on line has short follow-up, so few works remain at later years.'}</figcaption></figure>")
+                _i, _p = fig_notes.metric_survival(ser, lang)
+                body.append(fig_notes.fx(svg_lines(ser, '.0%', ylabel=('재연주된 작품의 누적 비율' if ko_ else 'cumulative share re-performed'), end_labels=False), _i, _p, lang))
                 set_lbl = {"living_composer": ("작곡가 생존", "living composer"), "living_or_undated": ("생존 + 생몰년 미확인", "living + undated"), "all_works": ("모든 작품", "all works")}
                 ss = surv_sum.assign(set_name=surv_sum["set"].map(lambda k: set_lbl[k][0 if ko_ else 1]), coh=surv_sum["cohort"].map(lambda c: ("전체" if ko_ else "all") if c == "all" else c.replace("-", "–")))
                 body.append(table_html(ss, [("set_name", "묶음" if ko_ else "Set", None), ("coh", "첫 연주 시기" if ko_ else "First performed", None), ("n_works", "작품" if ko_ else "works", "d"),
@@ -1138,8 +1152,8 @@ def main():
                 ser = [(("하한" if ko_ else "Lower bound"), [(int(r.season_start), float(r.women_share_low)) for r in wc.itertuples()], 0),
                        (("가운데 값" if ko_ else "Middle value"), [(int(r.season_start), float(r.women_share)) for r in wc.itertuples() if r.women_share == r.women_share], 1),
                        (("상한" if ko_ else "Upper bound"), [(int(r.season_start), float(r.women_share_high)) for r in wc.itertuples()], 2)]
-                body.append(legend([(n, c) for n, _, c in ser]) + f"<figure>{svg_lines(ser, '.0%', ylabel=('여성 작곡가 작품 연주 비율' if ko_ else 'share of work performances by women'), end_labels=False)}"
-                            f"<figcaption>{'완결 시즌별. 하한은 성별 미상 작곡가를 모두 여성이 아닌 것으로, 상한은 모두 여성으로 둔 값이다. 가운데 값은 성별이 확인된 작곡가만으로 냈다.' if ko_ else 'By completed season. The lower bound counts composers of unknown gender as not women, the upper bound as women; the middle value uses composers with a recorded gender only.'}</figcaption></figure>")
+                _i, _p = fig_notes.metric_women(ser, lang, takeaways.season(wc.iloc[-1]['season']))
+                body.append(legend([(n, c) for n, _, c in ser]) + fig_notes.fx(svg_lines(ser, '.0%', ylabel=('여성 작곡가 작품 연주 비율' if ko_ else 'share of work performances by women'), end_labels=False), _i, _p, lang))
                 wc["decade"] = (wc["season_start"] // 10) * 10
                 rows = []
                 for dec, g in wc.groupby("decade"):
@@ -1155,7 +1169,13 @@ def main():
                 tt = ny_turn.dropna(subset=["jaccard_top10"])
                 ser = [("상위 10" if lang == "ko" else "top 10", [(int(r.decade), float(r.jaccard_top10)) for r in tt.itertuples()], 0),
                        ("상위 25" if lang == "ko" else "top 25", [(int(r.decade), float(r.jaccard_top25)) for r in tt.itertuples()], 1)]
-                body.append(f"<figure>{svg_lines(ser, m['fmt'], ylabel=axis.axis(m, lang, 'y'))}<figcaption>{'10년 단위. 점은 앞 10년과의 겹침.' if lang=='ko' else 'By decade; each point is the overlap with the previous decade.'}</figcaption></figure>")
+                _last = ny_turn.dropna(subset=["jaccard_top10"]).iloc[-1]
+                _done_max = int(ny_done["season_start"].max())
+                _open = int(_last.decade) + int(_last.n_seasons) - 1 > _done_max
+                _ln = ((f"마지막 {int(_last.decade)}년대는 시즌 {int(_last.n_seasons)}개를 묶었고, 아직 끝나지 않은 {fig_notes.season(_done_max + 1)} 시즌까지 넣은 값이다." if lang == "ko" else
+                        f"The last decade, the {int(_last.decade)}s, holds {int(_last.n_seasons)} seasons, including {fig_notes.season(_done_max + 1)}, which is still in progress.") if _open else "")
+                _i, _p = fig_notes.metric_turnover(ser, lang, _ln)   # v1 2.10
+                body.append(fig_notes.fx(svg_lines(ser, m['fmt'], ylabel=axis.axis(m, lang, 'y')), _i, _p, lang))
                 ko_ = lang == "ko"
                 body.append(table_html(ny_turn, [("decade", "10년" if ko_ else "decade", None), ("n_seasons", "시즌 수" if ko_ else "seasons", "d"), ("jaccard_top10", "상위 10" if ko_ else "top 10", ".2f"), ("jaccard_top25", "상위 25" if ko_ else "top 25", ".2f"), ("new_in_top10", "상위 10 신규 진입" if ko_ else "new in top 10", None)], "turn", lang, filt=False))
                 body.append(f"<h2>{t['decade_rank']}</h2>")
@@ -1177,12 +1197,14 @@ def main():
                     body.append(legend([(n, ci) for n, _, ci in ser]))
                 cap = ('뉴욕 필하모닉 공연 기록, 완결 시즌별(1842–43 ~ %s). 진행 중인 시즌은 그림에서 빼고 아래 표에만 「(진행 중)」으로 표시해 둔다.' % takeaways.season(ny_last["season"])) if lang == "ko" else ('New York Philharmonic performance history, completed seasons, 1842–43 to %s. The season in progress is left out of the chart and marked (in progress) in the table below.' % takeaways.season(ny_last["season"]))
                 if m.get("sub"):
-                    cap += (" 「정기공연만」은 행사 유형이 Subscription Season 인 연주회만 센 값이다(스타디움·공원·투어·청소년 음악회를 뺀다)." if lang == "ko"
+                    cap += (" 「정기공연만」은 행사 유형이 정기공연(원자료 분류: Subscription Season)인 연주회만 센 값이다(스타디움·공원·투어·청소년 음악회를 뺀다)." if lang == "ko"
                             else " \"Subscription only\" counts concerts whose event type is Subscription Season (stadium, parks, tour and young people's concerts are left out).")
                     for fr in done[done["subscription_performances"] < 10].itertuples():   # 1.17: a season with a handful of subscription performances makes that line jump
                         cap += (f" {takeaways.season(fr.season)} 시즌은 정기공연 작품 연주가 {int(fr.subscription_performances)}건뿐이어서 「정기공연만」 선이 크게 튄다." if lang == "ko"
                                 else f" The {takeaways.season(fr.season)} season has only {int(fr.subscription_performances)} subscription work performances, so the subscription-only line jumps there.")
-                body.append(f"<figure>{svg_lines(ser, m['fmt'], ylabel=axis.axis(m, lang, 'y'), end_labels=False)}<figcaption>{cap}</figcaption></figure>")
+                _i, _p = fig_notes.metric_season(ser, m, lang, int(done.iloc[0]['n_programs']), takeaways.season(done.iloc[0]['season']), band=bool(m.get('band')))
+                _p["how"] = _p["how"] + " " + cap   # the caption of 1.22.2 (scope, subscription-only rule, seasons with few subscription performances)
+                body.append(fig_notes.fx(svg_lines(ser, m['fmt'], ylabel=axis.axis(m, lang, 'y'), end_labels=False), _i, _p, lang))
                 cols = [("season", t["season"], None), ("n_programs", t["programs"], "d"), ("work_performances", t["perf_u1"], "d"), (m["id"], ml["name"], m["fmt"])]
                 if m.get("sub"):
                     cols.append((m["id"] + "_sub", t["subscription"], m["fmt"]))
@@ -1229,6 +1251,10 @@ def main():
 
         def disp(c):
             return f"{KO_NAME[c]} · {c}" if lang == "ko" and c in KO_NAME else c
+
+        def en_short(c):   # v1 4.03: 'Strauss, Johann, II' -> 'Johann Strauss II'; otherwise the surname
+            ps = [x.strip() for x in c.split(",")]
+            return f"{ps[1]} {ps[0]} {ps[2]}" if len(ps) == 3 and ps[2] in ("I", "II", "III", "Jr.", "Sr.") else ps[0]
 
         cdf["name_html"] = cdf["composer"].map(lambda c: f"<a href='{slug(c)}.html'>{esc(disp(c))}</a>" if c in top50 else esc(disp(c)))
         intro = ("뉴욕 필하모닉 공연 기록(1842–43 ~ %s)에 작품이 오른 모든 이름 %s개. 사람 작곡가 %s명과 전승곡·국가·작곡가 미상·공동 표기 등 사람이 아닌 표기를 구분했다. 순위는 사람 작곡가만 매긴다. 상위 50명은 이름을 누르면 프로필 면으로 간다. 작품 연주(U1)는 한 프로그램의 작품 하나 × 연주회 수, 전곡 연주(U2)는 그중 발췌가 아닌 것이다."
@@ -1277,12 +1303,13 @@ def main():
                          f"작품 연주는 모두 {int(r.perf_u1):,}건으로 작곡가 가운데 {int(r.rank_u1)}위다. 비중이 가장 컸던 시즌은 {takeaways.season(r.peak_season)}{axis.ro(takeaways.season(r.peak_season))}, 그 시즌 작품 연주의 {r.peak_share:.1%}였다."
                          + ("" if r.peak_season in set(ny_done["season"]) else " 이 시즌은 아직 끝나지 않아 값이 바뀔 수 있다."))
                         if lang == "ko" else
-                        (f"Works by {c.split(',')[0]} appear in the New York Philharmonic performance history in {int(r.n_seasons)} seasons, from {takeaways.season(r.first_season)} to {takeaways.season(r.last_season)}. "
+                        (f"Works by {en_short(c)} appear in the New York Philharmonic performance history in {int(r.n_seasons)} seasons, from {takeaways.season(r.first_season)} to {takeaways.season(r.last_season)}. "
                          f"They account for {int(r.perf_u1):,} work performances, rank {int(r.rank_u1)} among composers. The largest share came in {takeaways.season(r.peak_season)}: {r.peak_share:.1%} of that season's work performances."
                          + ("" if r.peak_season in set(ny_done["season"]) else " That season is not yet complete, so the value may change."))) + "</p>",
                     "<div class='spec'><dl>" + "".join(f"<dt>{esc(k)}</dt><dd>{esc(v)}</dd>" for k, v in facts) + "</dl></div>",
                     legend([(t["perf_u1"], 0), (t["perf_u2"] + (" (같은 분모)" if lang == "ko" else " (same denominator)"), 1)]),
-                    f"<figure>{svg_lines([(t['perf_u1'], pts1, 0), (t['perf_u2'], pts2, 1)], '.1%', ylabel=('그 시즌 작품 연주 가운데 이 작곡가의 몫' if lang == 'ko' else "share of the season's work performances"), end_labels=False)}<figcaption>{CAP_U1U2[lang]}</figcaption></figure>"]
+                    fig_notes.fx(svg_lines([(t['perf_u1'], pts1, 0), (t['perf_u2'], pts2, 1)], '.1%', ylabel=('그 시즌 작품 연주 가운데 이 작곡가의 몫' if lang == 'ko' else "share of the season's work performances"), end_labels=False),
+                                 *fig_notes.composer_line(KO_NAME.get(c, c.split(',')[0]) if lang == 'ko' else en_short(c), pts1, lang, takeaways.season(r.peak_season), r.peak_share, r.peak_season in set(ny_done['season'])), lang)]   # 1.22.3: chart notes (CAP_U1U2 is now the 'how' paragraph)
             dr = ny_dec[ny_dec["composer"] == c][["decade", "rank", "share"]].astype({"decade": int, "rank": int})
             dr["decade"] = dr["decade"].astype(str) + ("년대" if lang == "ko" else "s")
             if len(dr):
@@ -1348,7 +1375,7 @@ def main():
             body.append(f"""<h2>레퍼토리를 세는 단위 (1.1)</h2>
 <p>뉴욕 필 기록은 프로그램마다 작품 항목을 적는다. 같은 작품에서 서곡과 아리아를 따로 연주하면 항목이 둘이 된다. 1.0 은 항목 하나를 한 번으로 셌고(U0, 전체 {H['ny_u0']:,}건), 1.1 은 <b>한 프로그램에서 아카이브가 같은 작품 번호로 적은 항목을 한 번</b>으로 센다(U1, {H['ny_u1']:,}건). 같은 원작이라도 다른 작품 번호를 받은 편곡은 따로 센다. 어느 쪽이든 그 프로그램의 연주회 수를 곱한다. 그 가운데 악장·부분 표시가 하나도 없는 것을 전곡 연주(U2, {H['ny_u2']:,}건)로 따로 센다. U2는 기재에서 나온 대리 지표다 — 작품 번호 뒷부분이 부분을 가리키는데 악장 칸이 빈 73쌍은 전곡으로, 표시 없는 항목과 발췌 항목이 섞인 105쌍은 발췌로 잡힌다. 대상은 작곡가가 적힌 작품이 하나라도 있는 프로그램 {H['ny_programs']:,}개다(원자료의 프로그램 기록은 15,074개).</p>
 <p>단위에 따라 순위가 달라진다. 바그너는 작품 연주(U1)로 {H['wag_rank_u1']}위지만 발췌가 {H['wag_excerpt']:.0%}여서 전곡 연주(U2)로는 {H['wag_rank_u2']}위다. 그래서 점유율·집중도는 U1 로 내고, 발췌 비율을 따로 지표로 둔다. 1.0 의 네 지표는 표의 「1.0 단위」 열에 옛 정의 그대로 다시 계산해 두었다(완결 시즌 전부에서 1.0 공개값과 일치).</p>
-<p>「정기공연만」 계열은 행사 유형이 Subscription Season 인 연주회만 센다. 스타디움·공원·투어·청소년 음악회를 뺀 값이다.</p>
+<p>「정기공연만」 계열은 행사 유형이 정기공연(원자료 분류: Subscription Season)인 연주회만 센다. 스타디움·공원·투어·청소년 음악회를 뺀 값이다.</p>
 <h2>작곡가 이름 정리</h2>
 <p>아카이브의 작곡가 표기는 이미 표준형이어서 악센트·대소문자 변이로 갈리는 이름은 없었다. 대신 사람이 아닌 표기 91개를 분류하고, 한 사람의 필명 1건(P.D.Q. 바흐 → 피터 시켈리)을 합쳤다 — 전승곡(Traditional 등)·국가(Anthem)·작곡가 미상·작품 아님(해설·시연·즉흥)·공동 또는 편곡 복합 표기(「Vivaldi-Bach」, 「Lennon-McCartney」, 사선으로 이은 여러 이름, 밴드·단체명). 이 표기는 모든 분모에 남기되 작곡가로 세지 않는다. 복합 표기를 원작곡가에게 돌리지 않는 것은, 돌리면 편곡자의 몫이 원작곡가 점유율로 들어가기 때문이다. 분류표는 <a href="../data/aliases/nyphil_composers.csv">aliases/nyphil_composers.csv</a>.</p>
 <h2>작곡가 생몰년 (Wikidata)</h2>
@@ -1403,6 +1430,22 @@ def main():
         ny_pts_l = [(int(r.season_start), float(r.living_share)) for _, r in ny_done.iterrows()]
         ny_pts_lh = [(int(r.season_start), float(r.living_share_high)) for _, r in ny_done.iterrows()]
         cond_items = [(f"{r.conductor.split(',')[0]} ({t['ptype'][r.ptype]})", r.median_diff_bpm, PTYPE_COLOR[r.ptype]) for r in cond.itertuples()]
+        # 1.22.3: chart notes for the reading edition (numbers from the same lists the charts draw)
+        _nm = str(int(cond["n_movements"].min())) if cond["n_movements"].nunique() == 1 else f"{int(cond['n_movements'].min())}~{int(cond['n_movements'].max())}"
+        _xl_bpm = axis.axis(next(m_ for m_ in METRICS if m_["id"] == "coda_tempo_diff_bpm"), lang)   # the same axis title as the metric page
+        RD = {"cond": fig_notes.fx(svg_bars(cond_items, '+.1f', xlabel=_xl_bpm), *fig_notes.metric_coda(cond_items, lang, _nm, H['faster_n'], H['faster_of'], years=False), lang)}
+        _ser = [('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)]
+        _mz = [takeaways.season(r.season) for _, r in ny_done.iterrows() if float(r.mozart_share) > 0.20]
+        RD["shares"] = fig_notes.fx(svg_lines(_ser, '.0%', ylabel=('시즌 작품 연주 점유율' if lang == "ko" else 'share of work performances per season')),
+                                    *fig_notes.reading_shares(_ser, lang, _mz, float(pd.Series([y for _, y in ny_pts_j]).median())), lang)
+        _hhi_txt = ((f"집중도는 {H['ny_first_hhi']:.3f}(그 시즌에 연주된 작곡가 {H['ny_first_comp']}명 — 약 {round(1 / H['ny_first_hhi'])}명이 고르게 나눠 가진 것과 같은 집중도)에서 {H['ny_last_hhi']:.3f}(작곡가 {H['ny_last_comp']}명 — 약 {round(1 / H['ny_last_hhi'])}명 균등 상당)로. 해마다 오르내리지만 첫 시즌과 최근 시즌을 비교하면 레퍼토리는 크게 넓어졌다.")
+                    if lang == "ko" else
+                    (f"Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers performed that season; as concentrated as about {round(1 / H['ny_first_hhi'])} equal composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers; about {round(1 / H['ny_last_hhi'])} equal ones). It swings from season to season, but comparing the first season with the latest, the repertoire has widened considerably."))
+        RD["hhi"] = fig_notes.fx(svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel=('작곡가 집중도 (HHI) · 위일수록 소수 작곡가에게 몰려 있다' if lang == "ko" else 'composer concentration (HHI) · higher = more concentrated on a few composers')),
+                                 *fig_notes.reading_hhi([('HHI', ny_pts_h, 2)], lang, _hhi_txt), lang)
+        _ls = [(('생존 작곡가' if lang == "ko" else 'living composers'), ny_pts_l, 0), (('상한' if lang == "ko" else 'upper bound'), ny_pts_lh, 1)]
+        RD["living"] = fig_notes.fx(svg_lines(_ls, '.0%', ylabel=('생존 작곡가 점유율' if lang == "ko" else 'living-composer share')),
+                                    *fig_notes.reading_living(_ls, lang, ("완결 시즌별. 상한은 생몰년 미확인 작곡가를 모두 생존으로 둔 값이다." if lang == "ko" else "Completed seasons. The upper bound treats composers without dates as living.")), lang)
         if lang == "ko":
             body.append(f"""<p class="lead">야구는 타율과 OPS로 선수를 읽는다. 서양 고전 음악도 악보와 녹음이 데이터로 공개된 만큼은 같은 일을 할 수 있다. 이 판은 수치 사이트의 핵심 결과를 글로 읽는 판이다. 지표 하나하나의 정의와 전체 표는 <a href="metrics/index.html">지표</a> 면에 있다.</p>
 <h2>1. 악보 — 바흐 {H['n_bach']}악장, 베토벤 {H['n_beet']}악장, 모차르트 {H['n_moz']}악장</h2>
@@ -1415,20 +1458,20 @@ def main():
 <p>베토벤은 교향곡 1~8번에 메트로놈 숫자를 남겼고, 그것이 너무 빠르다는 논란이 두 세기째다. Martín-Castro와 Ucar(2020)는 지휘자 36명의 전집 녹음 {H['n_tracks']:,}트랙에서 템포를 추출했다. 그 공개 데이터를 다시 집계하면 다음과 같다(교향곡 9번은 원저자처럼 제외). 표와 그림의 값은 측정한 템포에서 메트로놈 표기를 뺀 차이이고, 단위 bpm 은 1분에 치는 박의 수(beats per minute)다. −12면 표기보다 1분에 12박 느리다는 뜻이다.</p>
 <div class="wrap"><table><thead><tr><th>연주 양식</th><th class="num">악장·지휘자 조합</th><th class="num">중앙값 (bpm)</th><th class="num">1사분위</th><th class="num">3사분위</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
 <p>낭만파 지휘자는 중앙값으로 분당 {abs(H['rom']):.1f}박 느리고, 시대악기 지휘자도 {abs(H['hi']):.0f}박 느리다. <b>지휘자별 중앙값이 표기보다 빠른 사람은 36명 중 한 명도 없다.</b> 다만 악장 하나하나로 보면 {H['faster_of']:,}건 가운데 {H['faster_n']}건({H['faster_n']/H['faster_of']:.1%})은 표기보다 빠르다 — 느린 쪽으로 치우친 것이지 모든 연주가 느린 것은 아니다. 원저자는 이 13 bpm 가량의 간격이 그 시대 멜첼 메트로놈 추의 높이(눈금에서 15 mm = 12 bpm)와 맞아떨어진다는 점에서 베토벤이 눈금을 잘못 읽었을 가능성을 제기했다. 그 해석의 옳고 그름과 무관하게, 「지휘자 36명이 모두 평균적으로 느리다」는 사실 자체는 데이터에서 확인된다.</p>
-{legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>지휘자별 중앙값(33악장). 가장 느린 뵘(−17.5)부터 가장 가까운 샤이(−1.0)까지.</figcaption></figure>
+{legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}{RD['cond']}
 {length_pages.section(lang, D, PTYPE_COLOR, t['ptype'])}
 <h2>3. 피아니스트들은 같은 곡을 얼마나 다르게 치는가</h2>
-<p>ASAP 데이터셋에서 악보와 박 수가 맞는 연주는 바흐 평균율 {H['asap_bach_pieces']}곡({H['asap_bach_perf']}연주)과 베토벤 소나타 {H['asap_beet_pieces']}악장({H['asap_beet_perf']}연주, 원자료 271개 중 12개 제외)이다. 연주자는 국제 피아노 e-콩쿠르 참가자다. 1.1에서 더한 모차르트는 {H['asap_moz_pieces']}곡·{H['asap_moz_perf']}연주뿐이라 아래 비교에서 빼고 지표 면의 표에만 실었다.</p>
-<ul><li><b>연주자 간 템포 산포</b>(연주가 2개 이상인 바흐 40곡·베토벤 33악장) 중앙값: 바흐 {H['asap_bach_cv']:.3f}, 베토벤 {H['asap_beet_cv']:.3f}. 같은 곡의 평균 템포 표준편차가 평균의 5~6% — 콩쿠르 참가자들은 템포 선택에서 생각보다 비슷하다.</li>
+<p>ASAP 데이터셋에서 악보와 박 수가 맞는 연주는 바흐 평균율 {H['asap_bach_pieces']}곡({H['asap_bach_perf']}연주)과 베토벤 소나타 {H['asap_beet_pieces']}악장({H['asap_beet_perf']}연주, 원자료 271개 중 12개 제외)이다. 이 가운데 MAESTRO 와 이어진 연주는 국제 피아노 e-콩쿠르 녹음이고, 나머지의 출처는 따로 확인하지 않았다. 1.1에서 더한 모차르트는 {H['asap_moz_pieces']}곡·{H['asap_moz_perf']}연주뿐이라 아래 비교에서 빼고 지표 면의 표에만 실었다.</p>
+<ul><li><b>연주자 간 템포 산포</b>(연주가 2개 이상인 바흐 40곡·베토벤 33악장) 중앙값: 바흐 {H['asap_bach_cv']:.3f}, 베토벤 {H['asap_beet_cv']:.3f}. 곡마다 연주별 평균 템포가 흩어진 정도를 표본 표준편차 ÷ 평균(변동계수)으로 재면, 그 가운데 값이 바흐 {H['asap_bach_cv']:.1%}, 베토벤 {H['asap_beet_cv']:.1%}다.</li>
 <li><b>박 단위 템포 흔들림</b>(루바토) 중앙값: 바흐 {H['asap_bach_rub']:.3f}, 베토벤 {H['asap_beet_rub']:.3f}. 베토벤에서 박마다 더 많이 늘고 준다.</li>
 <li><b>강약 폭</b>(velocity 표준편차) 중앙값: 바흐 {H['asap_bach_vel']:.1f}, 베토벤 {H['asap_beet_vel']:.1f}. 셈여림 대비는 베토벤이 뚜렷이 크다.</li></ul>
 <h2>4. 180년의 레퍼토리 — 뉴욕 필하모닉</h2>
 <p>1842년 12월 7일 첫 연주회(베토벤 5번으로 시작했다)부터 {H['ny_last_season']} 시즌(악단의 한 해 공연 주기. 보통 가을에 시작해 이듬해까지 이어져 두 해로 적는다)까지 {H['ny_programs_complete']:,}개 프로그램이 공개돼 있다(진행 중인 시즌까지 {H['ny_programs']:,}개; 뉴욕 심포니·스타디움 콘서트 등 아카이브가 함께 보존한 관련 단체의 프로그램 포함). 작품이 오른 이름은 {H['ny_strings']:,}개, 그중 사람 작곡가가 {H['ny_persons']:,}명이다. 전 작곡가 순위는 <a href="composers/index.html">작곡가</a> 면에 있다.</p>
 <p><b>무엇을 한 번으로 세느냐가 먼저다.</b> 기록의 작품 항목 가운데 3분의 1 이상이 서곡·전주곡·아리아 같은 발췌다. 1.1은 한 프로그램에 오른 작품 하나를 한 번으로 세고(작품 연주 {H['ny_u1']:,}건), 그중 발췌가 아닌 것을 전곡 연주({H['ny_u2']:,}건)로 따로 센다. 작품 연주로 가장 많이 오른 것은 {esc(KO_NAME.get(H['ny_all_top_composer'], H['ny_all_top_composer']))}의 {esc(H['ny_all_top'])}(아카이브 표기, {H['ny_all_top_n']:,}회)인데 전곡은 {H['ny_all_top_u2']}회뿐이고 나머지는 1막 전주곡 등 발췌다. 전곡 연주로는 {esc(KO_NAME.get(H['ny_u2_top_composer'], H['ny_u2_top_composer']))}의 {esc(H['ny_u2_top'])}({H['ny_u2_top_n']:,}회)가 1위다. 바그너는 작품 연주로 {H['wag_rank_u1']}위, 전곡 연주로 {H['wag_rank_u2']}위다. 발췌 비율 자체도 1840년대 {H['dec_excerpt_1840']:.0%}(10년 중앙값)에서 1990년대 {H['dec_excerpt_1990']:.0%}까지 내려갔다가 2020년대 {H['dec_excerpt_2020']:.0%}로 올랐다.</p>
-{legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='시즌 작품 연주 점유율')}<figcaption>베토벤 점유율은 {H['ny_first_season']} 시즌 {H['ny_first_beet']:.1%}에서 {H['ny_last_season']} 시즌 {H['ny_last_beet']:.1%}로. 모차르트는 서거 200주년 전후(1990–91·1991–92)에 20%를 넘었다. 바흐는 시즌 중앙값 1.7%.</figcaption></figure>
-<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='작곡가 집중도 (HHI)')}<figcaption>집중도는 {H['ny_first_hhi']:.3f}(그 시즌에 연주된 작곡가 {H['ny_first_comp']}명 — 약 {round(1 / H['ny_first_hhi'])}명이 고르게 나눠 가진 것과 같은 집중도)에서 {H['ny_last_hhi']:.3f}(작곡가 {H['ny_last_comp']}명 — 약 {round(1 / H['ny_last_hhi'])}명 균등 상당)로. 해마다 오르내리지만 첫 시즌과 최근 시즌을 비교하면 레퍼토리는 크게 넓어졌다.</figcaption></figure>
+{legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}{RD['shares']}
+{RD['hhi']}
 <p><b>넓어졌지만 오래된 쪽으로 넓어졌다.</b> 연주 시점에 살아 있던 작곡가의 몫은 1840년대 {H['dec_living_1840']:.0%}(10년 중앙값)에서 1990년대 {H['dec_living_1990']:.0%}까지 떨어졌다가 2020년대 {H['dec_living_2020']:.0%}로 올랐다. 연주된 음악의 작곡가가 사망한 지 몇 년 되었는지(작품 연주로 가중한 중앙값)는 {H['ny_first_season']} 시즌 {H['ny_first_age']:.0f}년에서 {H['ny_last_season']} 시즌 {H['ny_last_age']:.0f}년이다. 다만 최근 시즌은 생몰년을 확인하지 못한 신진 작곡가가 많아, {H['ny_last_season']} 시즌의 생존 작곡가 점유율 {H['ny_last_living']:.1%}는 하한 {H['ny_last_living_lo']:.1%}와 상한 {H['ny_last_living_hi']:.1%} 사이에 있다고 읽어야 한다.</p>
-<figure>{svg_lines([('생존 작곡가', ny_pts_l, 0), ('상한', ny_pts_lh, 1)], '.0%', ylabel='생존 작곡가 점유율')}<figcaption>완결 시즌별. 상한은 생몰년 미확인 작곡가를 모두 생존으로 둔 값이다.</figcaption></figure>
+{RD['living']}
 <p>최다 연주 작곡가 명단은 생각보다 자주 바뀐다. 10년 단위 상위 10명이 앞 10년과 겹치는 정도(자카드 지수)의 중앙값은 {H['turn_med10']:.2f}로, 10명 중 7명 남짓이 남고 서너 명이 바뀐다(<a href="metrics/canon_turnover.html">정전 회전율</a>).</p>
 <h2>5. 한계와 다음</h2>
 <p>이 판에 없는 것이 무엇인지가 있는 것만큼 중요하다. 베토벤 교향곡은 연주 지표만 있고 악보 지표가 없다(기계 판독 총보가 없어서다). 바흐의 녹음 데이터는 피아노 연주뿐이고, 시대악기 운동 전후의 연주 시간 변화는 아직 재지 못했다. 레퍼토리는 한 오케스트라의 기록이다. 각 지표의 한계 칸과 <a href="method.html">방법·출처</a> 면의 장기 과제 목록이 그 빈자리를 적어 둔다.</p>""")
@@ -1444,20 +1487,20 @@ def main():
 <p>Beethoven left metronome marks for Symphonies 1–8, and for two centuries they have been called too fast. Martín-Castro and Ucar (2020) extracted tempi from {H['n_tracks']:,} tracks by 36 conductors. Re-aggregating their open data (Symphony 9 excluded, as in the paper). Values in the table and chart are the measured tempo minus the metronome mark, in bpm (beats per minute): −12 means twelve beats a minute slower than the mark.</p>
 <div class="wrap"><table><thead><tr><th>Performance style</th><th class="num">movement × conductor</th><th class="num">median (bpm)</th><th class="num">Q1</th><th class="num">Q3</th></tr></thead><tbody>{ptype_rows}</tbody></table></div>
 <p>Romantic conductors sit {abs(H['rom']):.1f} beats a minute below the marks at the median; even period-instrument conductors are {abs(H['hi']):.0f} below. <b>No conductor's median is faster than the marks.</b> Movement by movement, though, {H['faster_n']} of {H['faster_of']:,} readings ({H['faster_n']/H['faster_of']:.1%}) run faster: the distribution leans slow, but not every performance is slow. The authors note that this gap of about 13 bpm matches the height of the weight on a Maelzel metronome of the period (15 mm on its scale = 12 bpm) and suggest Beethoven misread the scale. Whatever one makes of that reading, the fact that all 36 conductors are slower on average is borne out by the data.</p>
-{legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}<figure>{svg_bars(cond_items, '+.1f', xlabel='bpm')}<figcaption>Median per conductor over 33 movements, from the slowest (Böhm, −17.5) to the closest (Chailly, −1.0).</figcaption></figure>
+{legend([(t['ptype'][k], v) for k, v in PTYPE_COLOR.items()])}{RD['cond']}
 {length_pages.section(lang, D, PTYPE_COLOR, t['ptype'])}
 <h2>3. How differently do pianists play the same piece?</h2>
-<p>ASAP aligns {H['asap_bach_perf']} performances of {H['asap_bach_pieces']} Well-Tempered Clavier pieces and {H['asap_beet_perf']} performances of {H['asap_beet_pieces']} Beethoven sonata movements to their scores, beat by beat (12 of the 271 Beethoven performances whose beat counts do not match the score are left out). The performers are International Piano-e-Competition entrants. Mozart, added in 1.1, has only {H['asap_moz_pieces']} pieces and {H['asap_moz_perf']} performances, so it is left out of the comparison below and shown only in the metric tables.</p>
-<ul><li><b>Across-performer tempo spread</b> (median CV over pieces with two or more performances: 40 Bach, 33 Beethoven): Bach {H['asap_bach_cv']:.3f}, Beethoven {H['asap_beet_cv']:.3f}. The SD of a piece's mean tempi is 5–6% of the mean — competition pianists agree on tempo more than one might expect.</li>
+<p>ASAP aligns {H['asap_bach_perf']} performances of {H['asap_bach_pieces']} Well-Tempered Clavier pieces and {H['asap_beet_perf']} performances of {H['asap_beet_pieces']} Beethoven sonata movements to their scores, beat by beat (12 of the 271 Beethoven performances whose beat counts do not match the score are left out). Those linked to MAESTRO are International Piano-e-Competition recordings; the source of the rest was not checked. Mozart, added in 1.1, has only {H['asap_moz_pieces']} pieces and {H['asap_moz_perf']} performances, so it is left out of the comparison below and shown only in the metric tables.</p>
+<ul><li><b>Across-performer tempo spread</b> (median CV over pieces with two or more performances: 40 Bach, 33 Beethoven): Bach {H['asap_bach_cv']:.3f}, Beethoven {H['asap_beet_cv']:.3f}. Measured as the sample standard deviation of each performance's mean tempo within a piece divided by their mean (the coefficient of variation), the middle value over pieces is {H['asap_bach_cv']:.1%} for Bach and {H['asap_beet_cv']:.1%} for Beethoven.</li>
 <li><b>Beat-to-beat tempo change</b> (rubato): Bach {H['asap_bach_rub']:.3f}, Beethoven {H['asap_beet_rub']:.3f}. More stretching per beat in Beethoven.</li>
 <li><b>Dynamic spread</b> (velocity SD): Bach {H['asap_bach_vel']:.1f}, Beethoven {H['asap_beet_vel']:.1f}. Markedly wider dynamics in Beethoven.</li></ul>
 <h2>4. 180 years of repertoire — the New York Philharmonic</h2>
 <p>{H['ny_programs_complete']:,} programs are publicly available, from the first concert on December 7, 1842 (it opened with Beethoven's Fifth) to the {H['ny_last_season']} season (an orchestra's yearly cycle of concerts, which usually starts in the fall and runs into the next year, hence the two years) ({H['ny_programs']:,} including the season in progress; the archive also holds programs of related bodies such as the New York Symphony and the Stadium concerts, which are included). {H['ny_strings']:,} names appear, {H['ny_persons']:,} of them individual composers; the full ranking is on the <a href="composers/index.html">Composers</a> page.</p>
 <p><b>What counts as one comes first.</b> More than a third of the archive's work entries are excerpts — overtures, preludes, arias. Version 1.1 counts each work on a program once ({H['ny_u1']:,} work performances) and, separately, those that are not excerpts ({H['ny_u2']:,} complete performances). The most performed work is {esc(H['ny_all_top_composer'].split(',')[0])}'s {esc(H['ny_all_top'])} (as titled in the archive; {H['ny_all_top_n']:,} times), but only {H['ny_all_top_u2']} of those were complete; the rest are excerpts such as the Act I prelude. By complete performances the leader is {esc(H['ny_u2_top_composer'].split(',')[0])}'s {esc(H['ny_u2_top'])} ({H['ny_u2_top_n']:,}). Wagner ranks {ordinal(H['wag_rank_u1'])} by work performances and {ordinal(H['wag_rank_u2'])} by complete performances. The excerpt share itself fell from {H['dec_excerpt_1840']:.0%} in the 1840s (decade median) to {H['dec_excerpt_1990']:.0%} in the 1990s and rose to {H['dec_excerpt_2020']:.0%} in the 2020s.</p>
-{legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}<figure>{svg_lines([('Beethoven', ny_pts_b, 1), ('Mozart', ny_pts_m, 2), ('Bach', ny_pts_j, 0)], '.0%', ylabel='share of work performances per season')}<figcaption>Beethoven's share falls from {H['ny_first_beet']:.1%} in {H['ny_first_season']} to {H['ny_last_beet']:.1%} in {H['ny_last_season']}. Mozart passed 20% around the bicentenary of his death (1990–91, 1991–92). Bach's season median is 1.7%.</figcaption></figure>
-<figure>{svg_lines([('HHI', ny_pts_h, 2)], '.3f', ylabel='composer concentration (HHI)')}<figcaption>Concentration falls from {H['ny_first_hhi']:.3f} ({H['ny_first_comp']} composers performed that season; as concentrated as about {round(1 / H['ny_first_hhi'])} equal composers) to {H['ny_last_hhi']:.3f} ({H['ny_last_comp']} composers; about {round(1 / H['ny_last_hhi'])} equal ones). It swings from season to season, but comparing the first season with the latest, the repertoire has widened considerably.</figcaption></figure>
+{legend([('Beethoven', 1), ('Mozart', 2), ('Bach', 0)])}{RD['shares']}
+{RD['hhi']}
 <p><b>Wider, but wider toward the past.</b> The share of composers alive at the time fell from {H['dec_living_1840']:.0%} in the 1840s (decade median) to {H['dec_living_1990']:.0%} in the 1990s and rose to {H['dec_living_2020']:.0%} in the 2020s. The time since the composers' deaths (median weighted by work performances) went from {H['ny_first_age']:.0f} years in {H['ny_first_season']} to {H['ny_last_age']:.0f} in {H['ny_last_season']}. Recent seasons include many emerging composers without dates, so the {H['ny_last_season']} living share of {H['ny_last_living']:.1%} should be read as lying between {H['ny_last_living_lo']:.1%} and {H['ny_last_living_hi']:.1%}.</p>
-<figure>{svg_lines([('living composers', ny_pts_l, 0), ('upper bound', ny_pts_lh, 1)], '.0%', ylabel='living-composer share')}<figcaption>Completed seasons. The upper bound treats composers without dates as living.</figcaption></figure>
+{RD['living']}
 <p>The list of most-performed composers changes more than one might think. The median overlap (Jaccard) of each decade's top 10 with the previous decade's is {H['turn_med10']:.2f}: roughly seven of ten stay and three or four change (<a href="metrics/canon_turnover.html">canon turnover</a>).</p>
 <h2>5. Limits and next steps</h2>
 <p>What is missing matters as much as what is here. The Beethoven symphonies have performance metrics but no score metrics (no open machine-readable full scores). Bach's performance data is piano only; the change in recorded durations around the period-instrument movement is not yet measured. The repertoire series is one orchestra. The caveats on each metric page and the long-term list under <a href="method.html">Method & sources</a> record those gaps.</p>""")

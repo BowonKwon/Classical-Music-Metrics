@@ -26,6 +26,8 @@ D, ALI = ROOT / "data/derived", ROOT / "data/aliases"
 ORCH_FILES = ["orch_touring_profiles.csv", "orch_check_nyphil_two_sources.csv", "orch_overlap_nyphil_gewandhaus.csv",
               "orch_seoul_vs_nyphil.csv", "seoulphil_works.csv"]
 ORCH_ALIAS_FILES = ["orch_composer_xwalk.csv", "orch_composer_manual.csv", "seoulphil_title_manual.csv"]
+import fig_notes  # noqa: E402  (1.22.3: chart notes)
+import axis  # noqa: E402  (v1 4.05: particle after a number)
 import orchestra_kr_pages as krp  # noqa: E402  (1.19: Korean orchestras' own programs)
 ORCH_FILES += krp.KR_FILES
 ORCH_ALIAS_FILES += krp.KR_ALIAS_FILES
@@ -120,11 +122,12 @@ def svg_interval(items, lo_x, hi_x, width=900, row_h=30, label_w=300, xlabel="",
     a dot (or a dark bar when observed is itself a range) = this orchestra."""
     L, R, top = label_w, 16, 8
     pw = width - L - R
-    height = top + row_h * len(items) + 30
+    base = top + row_h * len(items) + 30
+    height = base + (18 if xlabel else 0)   # 1.22.3: room for the axis title below the tick labels
     X = lambda v: L + (v - lo_x) / (hi_x - lo_x) * pw  # noqa: E731
     o = [f'<svg viewBox="0 0 {width} {height}" role="img">']
     for v in ticks(lo_x, hi_x, 6):
-        o.append(f'<line class="grid" x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{top}" y2="{height - 24}"/><text x="{X(v):.1f}" y="{height - 8}" text-anchor="middle">{v:.0%}</text>')
+        o.append(f'<line class="grid" x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{top}" y2="{base - 24}"/><text x="{X(v):.1f}" y="{base - 8}" text-anchor="middle">{v:.0%}</text>')
     for i, (lab, olo, ohi, blo, bhi) in enumerate(items):
         y = top + i * row_h + row_h / 2
         o.append(f'<text x="{L - 8}" y="{y + 4:.1f}" text-anchor="end">{esc(lab)}</text>')
@@ -134,21 +137,24 @@ def svg_interval(items, lo_x, hi_x, width=900, row_h=30, label_w=300, xlabel="",
         else:
             o.append(f'<rect x="{X(olo):.1f}" y="{y - 3:.1f}" width="{X(ohi) - X(olo):.1f}" height="6" rx="3" fill="var(--g1)"><title>{esc(legend[1])}: {olo:.1%}–{ohi:.1%}</title></rect>')
     if xlabel:
-        o.append(f'<text x="{L + pw / 2:.1f}" y="{height}" text-anchor="middle" style="fill:var(--fg3)"></text>')
+        o.append(f'<text x="{L + pw / 2:.1f}" y="{height - 4}" text-anchor="middle">{esc(xlabel)}</text>')
     o.append("</svg>")
     return "".join(o)
 
 
-def svg_pairs(rows, width=900, row_h=24, label_w=200, lab=("", "")) -> str:
+def svg_pairs(rows, width=900, row_h=24, label_w=200, lab=("", ""), xlabel="") -> str:
     """rows: (label, a, b) shares; two thin bars per row (a = Seoul, b = NY Phil)."""
     L, R, top = label_w, 50, 6
     pw = width - L - R
     mx = max(max(a, b) for _, a, b in rows) * 1.08
-    height = top + row_h * len(rows) + 26
+    base = top + row_h * len(rows) + 26
+    height = base + (18 if xlabel else 0)   # 1.22.3: room for the axis title
     X = lambda v: L + v / mx * pw  # noqa: E731
     o = [f'<svg viewBox="0 0 {width} {height}" role="img">']
     for v in ticks(0, mx, 5):
-        o.append(f'<line class="grid" x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{top}" y2="{height - 22}"/><text x="{X(v):.1f}" y="{height - 6}" text-anchor="middle">{v:.0%}</text>')
+        o.append(f'<line class="grid" x1="{X(v):.1f}" x2="{X(v):.1f}" y1="{top}" y2="{base - 22}"/><text x="{X(v):.1f}" y="{base - 6}" text-anchor="middle">{v:.0%}</text>')
+    if xlabel:
+        o.append(f'<text x="{L + pw / 2:.1f}" y="{height - 4}" text-anchor="middle">{esc(xlabel)}</text>')
     for i, (name_, a, b) in enumerate(rows):
         y = top + i * row_h
         o.append(f'<text x="{L - 8}" y="{y + row_h / 2 + 4:.1f}" text-anchor="end">{esc(name_)}</text>')
@@ -158,14 +164,18 @@ def svg_pairs(rows, width=900, row_h=24, label_w=200, lab=("", "")) -> str:
     return "".join(o)
 
 
-def dline(pts, xlo, xhi, lang, width=900, height=200) -> str:
+def dline(pts, xlo, xhi, lang, width=900, height=200, ylabel="") -> str:
     """Decade line (cosine 0-1). Tooltips name the decade (proto_work_activity.small_line labels 5-year bins)."""
     L, R, T_, B = 40, 36, 8, 27   # 1.17: the 0.00 of the vertical axis no longer touches the first decade name
+    if ylabel:   # 1.22.3: the axis title sits above the plot; the drawing keeps its height
+        T_, height = 26, height + 18
     pw, ph = width - L - R, height - T_ - B
     X = lambda v: L + (v - xlo) / (xhi - xlo) * pw  # noqa: E731
     Y = lambda v: T_ + ph - v * ph  # noqa: E731
     dec = (lambda a: f"{a}년대") if lang == "ko" else (lambda a: f"{a}s")
     o = [f'<svg viewBox="0 0 {width} {height}" role="img">']
+    if ylabel:
+        o.append(f'<text x="{L}" y="13">{esc(ylabel)}</text>')
     for v in (0, .25, .5, .75, 1):
         o.append(f'<line class="grid" x1="{L}" x2="{width - R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/><text x="{L - 4}" y="{Y(v) + 4:.1f}" text-anchor="end">{v:.2f}</text>')
     for a, _ in pts:
@@ -226,19 +236,39 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
         b.append(f"<h2>3. 카네기홀 기록은 믿을 만한가</h2><p>같은 악단을 두 출처에서 잰 결과를 견줬다. 뉴욕 필의 자체 기록과 카네기홀 기록에서 각각 작곡가 점유율을 구하고, 두 분포가 얼마나 닮았는지를 코사인 유사도(1이면 같은 분포)로 쟀다. 뉴욕 필이 카네기홀을 본거지로 쓰던 시기(1892~1962년)에 해당하는 1890~1960년대에는 {hr}로 거의 같다. 1962년 링컨 센터로 옮긴 뒤로는 카네기홀 출연이 특별 공연 몇 건으로 줄어 {pr}로 떨어진다. 따라서 이 면의 카네기홀 수치는 <b>그 악단이 카네기홀에서 한 공연</b>에 대한 것이다.</p>")
     else:
         b.append(f"<h2>3. Can the Carnegie Hall records be trusted?</h2><p>We measured the same orchestra from two sources. Composer shares for the New York Philharmonic were computed from its own archive and from the Carnegie Hall records, and compared by cosine similarity (1 means identical distributions). In the 1890s–1960s, covering the years Carnegie Hall was the orchestra's home (1892–1962), the two agree closely ({hr.replace('~', '–')}). After the move to Lincoln Center in 1962 its Carnegie appearances shrink to a few special concerts and the similarity falls to {pr.replace('~', '–')}. Carnegie figures on this page therefore describe <b>what an orchestra played at Carnegie Hall</b>.</p>")
-    b.append(f"<figure>{dline(pts, 1890, 2020, lang)}</figure>")
+    _lo3 = min(pts, key=lambda p: p[1])
+    b.append(fig_notes.fx(dline(pts, 1890, 2020, lang, ylabel=('코사인 유사도 · 1에 가까울수록 두 기록의 작곡가 분포가 닮았다' if k else "cosine similarity · closer to 1 = the two records' composer shares are more alike")),
+                          ("뉴욕 필의 작곡가 점유율을 자체 기록과 카네기홀 기록에서 따로 내어, 10년마다 두 값이 얼마나 닮았는지 이은 선 그림이다." if k else
+                           "The New York Philharmonic's composer shares computed separately from its own archive and from the Carnegie Hall records, and how alike the two are, decade by decade."),
+                          dict(how=("점 하나가 10년 하나다. 가로는 10년 구간, 세로는 두 기록의 작곡가 점유율 사이의 코사인 유사도(0~1)다." if k else "Each point is one decade. Across: the decade; up: the cosine similarity (0 to 1) between the composer shares in the two records."),
+                               one=(f"가장 낮은 점은 {_lo3[0]}년대의 {_lo3[1]:.3f}{axis.kp(f'{_lo3[1]:.3f}', '이다', '다')}." if k else f"The lowest point is the {_lo3[0]}s, at {_lo3[1]:.3f}."),
+                               mis=("값이 낮아진 것은 카네기홀 기록이 틀렸다는 뜻이 아니다. 악단이 본거지를 옮긴 뒤 카네기홀 기록에는 그 악단의 일부 공연만 남는다." if k else
+                                    "A lower value does not mean the Carnegie Hall records are wrong: after the orchestra moved, they hold only part of its concerts."),
+                               terms=("코사인 유사도 — 작곡가마다의 점유율을 하나의 화살표(벡터)로 보고 두 화살표의 방향이 얼마나 같은지 잰 값. 0~1이고 1이면 비율이 똑같다. 많이 연주된 작곡가의 몫이 값을 주로 정한다. 「상위 20명 자카드」(아래 표) — 두 기록에서 가장 많이 연주된 20명의 명단에 모두 든 사람 수 ÷ 어느 한쪽에라도 든 사람 수(0~1)." if k else "Cosine similarity — treats the composer shares as one arrow (vector) and measures how closely two arrows point the same way: 0 to 1, with 1 for identical proportions. The shares of the most-played composers mostly decide it. 'Top-20 Jaccard' (table below) — the number of people on both top-20 lists ÷ the number on either list (0 to 1).")), lang))
     b.append(table(ck.assign(period=ck.period.astype(str) + ("s" if not k else "년대")), [("period", "10년" if k else "decade", None), ("cosine", "코사인" if k else "cosine", ".3f"), ("top20_jaccard", "상위 20명 자카드" if k else "top-20 Jaccard", ".2f"), ("shared_composers", "공통 작곡가" if k else "shared composers", ".0f")], "ck", lang))
 
     # 4 touring
     if k:
-        b.append("<h2>4. 카네기홀 투어 프로그램의 쏠림</h2><p>상위 10명 작곡가가 연주 작품에서 차지하는 비율이다. 이 비율은 표본이 작을수록 기계적으로 커진다. 그래서 뉴욕 필 홈 시즌(악단이 본거지에서 여는 한 해 공연 주기 — 보통 가을에 시작해 이듬해까지 이어진다)에서 같은 수의 작품을 500번 무작위로 뽑아 얻은 범위(회색 막대, 95%)와 견준다. 파란 점이 회색 막대 오른쪽에 있으면 크기를 맞춘 뒤에도 프로그램이 상위 작곡가에 더 몰려 있다는 뜻이다.</p>")
+        b.append("<h2>4. 카네기홀 투어 프로그램의 쏠림</h2><p>상위 10명 작곡가가 연주 작품에서 차지하는 비율이다. 이 비율은 표본이 작을수록 커지기 쉽다(작품이 적으면 작곡가도 적게 나온다). 그래서 뉴욕 필 홈 시즌(악단이 본거지에서 여는 한 해 공연 주기 — 보통 가을에 시작해 이듬해까지 이어진다)에서 같은 수의 작품을 500번 무작위로 뽑아 얻은 범위(회색 막대, 95%)와 견준다. 파란 점이 회색 막대 오른쪽에 있으면 크기를 맞춘 뒤에도 프로그램이 상위 작곡가에 더 몰려 있다는 뜻이다.</p>")
     else:
-        b.append("<h2>4. How narrow are touring programs at Carnegie Hall?</h2><p>The share of performed works by the ten most-played composers. This share rises mechanically as samples get smaller, so each orchestra is set against the range obtained by drawing the same number of works 500 times from New York Philharmonic home seasons (gray bar, 95%; a home season is the orchestra's yearly cycle of concerts in its home city, usually starting in the fall). A blue dot to the right of the gray bar means the programs lean toward the top composers even after matching sample size.</p>")
+        b.append("<h2>4. How narrow are touring programs at Carnegie Hall?</h2><p>The share of performed works by the ten most-played composers. This share tends to rise as samples get smaller (fewer works bring fewer composers), so each orchestra is set against the range obtained by drawing the same number of works 500 times from New York Philharmonic home seasons (gray bar, 95%; a home season is the orchestra's yearly cycle of concerts in its home city, usually starting in the fall). A blue dot to the right of the gray bar means the programs lean toward the top composers even after matching sample size.</p>")
     leg = ("뉴욕 필 같은 크기 기준" if k else "NY Phil size-matched range", "")
+    _t4 = tour[(tour.window == "1955-1989") & (tour.orchestra != "NY Phil (home seasons)")].iloc[0]
+    b.append(fig_notes.block(("아래 두 그림은 같은 틀이다. 기간 하나에 그림 하나, 악단 하나에 줄 하나다." if k else "The two charts below share one template: one chart per period, one row per orchestra."),
+                             dict(how=("파란 점이 그 악단의 카네기홀 공연에서 상위 10명 작곡가가 차지한 몫이다. 회색 막대는 뉴욕 필 홈 시즌에서 그 악단과 같은 수의 작품 연주를 500번 뽑았을 때 그 몫이 들어간 가운데 95%의 범위다. 점이 회색 막대 오른쪽에 있으면 같은 크기의 뉴욕 필 표본보다 상위 작곡가에 더 몰려 있다. 괄호는 공연 수다." if k else
+                                       "The blue dot is the share of the top ten composers in that orchestra's Carnegie Hall concerts. The gray bar is the middle 95% of that share in 500 draws of the same number of work performances from New York Philharmonic home seasons. A dot to the right of its gray bar is more concentrated on the top composers than a New York sample of the same size. Concerts in brackets."),
+                                  one=(f"첫 그림 맨 위 줄({oname(_t4.orchestra)})의 점은 {_t4.top10_share:.1%}에 있고, 같은 크기의 뉴욕 필 표본 범위는 {_t4.base_top10_lo:.1%}~{_t4.base_top10_hi:.1%}다." if k else
+                                       f"The top row of the first chart, {oname(_t4.orchestra)}, is at {_t4.top10_share:.1%}; the range for a New York sample of the same size is {_t4.base_top10_lo:.1%} to {_t4.base_top10_hi:.1%}."),
+                                  mis=("표본이 작으면 상위 10명의 몫이 커지기 쉽다. 그래서 회색 막대도 작품 연주가 적은 줄일수록 대체로 오른쪽에 놓인다(괄호의 공연 수가 아니라 아래 표의 작품 연주 수로 맞췄다). 점끼리 바로 견주지 말고 각자 자기 회색 막대와 견준다. 투어 프로그램의 성격이지 악단 전체의 성격이 아니다." if k else
+                                       "A small sample tends to give a larger top-ten share, which is why the gray bars generally sit further right in rows with fewer work performances (matched on the work performances in the table below, not on the concerts in brackets). Compare each dot with its own gray bar, not with the other dots. This describes touring programs, not the orchestras as a whole.")), lang))
     for win in ("1955-1989", "1990-2026"):
         tw = tour[(tour.window == win) & (tour.orchestra != "NY Phil (home seasons)")]
         items = [(f"{oname(r.orchestra)} ({int(r.concerts)})", r.top10_share, r.top10_share, r.base_top10_lo, r.base_top10_hi) for r in tw.itertuples()]
-        b.append(f"<h3>{win.replace('-', '–')} <small style='color:var(--fg3);font-weight:400'>{'괄호는 공연 수' if k else 'concerts in brackets'}</small></h3><figure>{svg_interval(items, 0.2, 1.0, legend=leg)}</figure>")
+        b.append(f"<h3>{win.replace('-', '–')} <small style='color:var(--fg3);font-weight:400'>{'괄호는 공연 수' if k else 'concerts in brackets'}</small></h3>" + fig_notes.fx(svg_interval(items, 0.2, 1.0, legend=leg, xlabel=("상위 10명 작곡가의 몫 · 오른쪽일수록 소수 작곡가에게 몰려 있다" if k else "share of the top ten composers · further right = more concentrated")),
+                          (f"{win.replace('-', '–')}년 카네기홀 공연에서 악단마다 상위 10명 작곡가가 차지한 몫을 같은 크기의 뉴욕 필 표본과 견준 그림이다." if k else f"Top-ten share of each orchestra's Carnegie Hall concerts in {win.replace('-', '–')}, against New York samples of the same size."),
+                          dict(short=((f"줄 {len(items)}개의 점이 모두 회색 막대보다 오른쪽에 있다." if k else f"All {len(items)} dots lie right of their gray bar.")
+                                     if sum(1 for _, o, _h, lo, hi in items if o > hi + 1e-12) == len(items) else
+                                     (f"줄 {len(items)}개 가운데 {sum(1 for _, o, _h, lo, hi in items if o > hi + 1e-12)}개의 점이 회색 막대보다 오른쪽에 있다." if k else f"{sum(1 for _, o, _h, lo, hi in items if o > hi + 1e-12)} of the {len(items)} dots lie right of their gray bar."))), lang))
     tt = tour.copy()
     tt["orch"] = tt.orchestra.map(oname)
     tt["top3"] = tt.top3.map(lambda s: "; ".join(f"{name(x.rsplit(' ', 1)[0], lang)} {x.rsplit(' ', 1)[1]}" for x in str(s).split("; ")))
@@ -264,7 +294,13 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
         b.append("<h2>5. 19세기 라이프치히와 뉴욕</h2><p>게반트하우스 연주회 프로그램(1781–1895)과 뉴욕 필 기록이 겹치는 1840~1890년대를 10년마다 견줬다. 두 악단의 작곡가 점유율 코사인은 1850년대 0.92에서 1890년대 0.67로 내려간다(게반트하우스 자료는 1895년 3월 28일 연주회에서 끝나므로 1890년대는 1890년~1895년 3월이다). 이 자료로는 원인을 가릴 수 없다. 이름을 맞추는 표에 민감한 수치라서, 첫 시안에서 동명이인을 잘못 맞췄을 때는 1840년대 값이 0.71이었다.</p>")
     else:
         b.append("<h2>5. Leipzig and New York in the nineteenth century</h2><p>The Gewandhaus programs (1781–1895) and the New York Philharmonic records overlap from the 1840s to the 1890s and are compared decade by decade. The cosine between their composer shares falls from 0.92 in the 1850s to 0.67 in the 1890s (the Gewandhaus data end with the concert of 28 March 1895, so the 1890s cover 1890 to March 1895). These data cannot say why. The figure is sensitive to the name-matching table: in the first draft, before namesakes were separated, the 1840s value was 0.71.</p>")
-    b.append(f"<figure>{dline(gp, 1840, 1890, lang, height=190)}</figure>")
+    _hi5, _lo5 = max(gp, key=lambda p: p[1]), min(gp, key=lambda p: p[1])
+    b.append(fig_notes.fx(dline(gp, 1840, 1890, lang, height=190, ylabel=('코사인 유사도 · 1에 가까울수록 두 악단의 작곡가 분포가 닮았다' if k else "cosine similarity · closer to 1 = the two orchestras' composer shares are more alike")),
+                          ("라이프치히 게반트하우스와 뉴욕 필의 작곡가 점유율이 10년마다 얼마나 닮았는지 이은 선 그림이다." if k else "How alike the composer shares of the Leipzig Gewandhaus and the New York Philharmonic are, decade by decade."),
+                          dict(short=(f"가장 높은 10년은 {_hi5[0]}년대({_hi5[1]:.3f}), 가장 낮은 10년은 {_lo5[0]}년대({_lo5[1]:.3f})다." if k else f"Highest in the {_hi5[0]}s ({_hi5[1]:.3f}), lowest in the {_lo5[0]}s ({_lo5[1]:.3f})."),
+                               how=("점 하나가 10년 하나다. 세로는 두 악단의 작곡가 점유율 사이의 코사인 유사도(0~1)다." if k else "Each point is one decade; up is the cosine similarity (0 to 1) between the two orchestras' composer shares."),
+                               mis=("값이 내려간 까닭은 이 자료로 가릴 수 없다. 게반트하우스 자료는 1895년 3월에서 끝나서 1890년대는 몇 해뿐이다." if k else "These data cannot say why the value falls. The Gewandhaus data end in March 1895, so the 1890s cover only a few years."),
+                               terms=("코사인 유사도 — 작곡가마다의 점유율을 하나의 화살표(벡터)로 보고 두 화살표의 방향이 얼마나 같은지 잰 값. 0~1이고 1이면 비율이 똑같다. 많이 연주된 작곡가의 몫이 값을 주로 정한다. 「상위 20명 자카드」(아래 표) — 두 기록에서 가장 많이 연주된 20명의 명단에 모두 든 사람 수 ÷ 어느 한쪽에라도 든 사람 수(0~1)." if k else "Cosine similarity — treats the composer shares as one arrow (vector) and measures how closely two arrows point the same way: 0 to 1, with 1 for identical proportions. The shares of the most-played composers mostly decide it. 'Top-20 Jaccard' (table below) — the number of people on both top-20 lists ÷ the number on either list (0 to 1).")), lang))
     b.append(table(g.assign(period=g.period.astype(str) + ("s" if not k else "년대")), [("period", "10년" if k else "decade", None), ("cosine", "코사인" if k else "cosine", ".3f"), ("top20_jaccard", "상위 20명 자카드" if k else "top-20 Jaccard", ".2f"), ("shared_composers", "공통 작곡가" if k else "shared composers", ".0f")], "gw", lang))
 
     # 6 Seoul
@@ -305,7 +341,12 @@ def render(lang: str, tour: pd.DataFrame, check: pd.DataFrame, gw: pd.DataFrame,
     top = sv.head(15)
     lab = ("서울시향", "뉴욕 필") if k else ("Seoul Phil", "NY Phil")
     b.append(f"<h3>{'서울시향 상위 15명' if k else 'Seoul Philharmonic top 15'}</h3><div class='legend'><span style='--c:var(--g1)'>{lab[0]}</span><span style='--c:var(--g2)'>{lab[1]}</span></div>"
-             f"<figure>{svg_pairs([(name(r.composer, lang), r.seoul_share, r.nyphil_sub_share) for r in top.itertuples()], lab=lab)}</figure>")
+             + fig_notes.fx(svg_pairs([(name(r.composer, lang), r.seoul_share, r.nyphil_sub_share) for r in top.itertuples()], lab=lab, xlabel=("정기공연 작품 가운데 그 작곡가의 몫" if k else "share of subscription works by that composer")),
+                            ("서울시향 정기공연에서 많이 연주된 작곡가 15명의 몫을, 같은 기간 뉴욕 필 정기공연의 몫과 한 줄에 나란히 그린 그림이다." if k else "The fifteen composers most played in Seoul Philharmonic subscription concerts, each with its Seoul share beside its New York Philharmonic share for the same years."),
+                            dict(how=("줄 하나가 작곡가 하나다(서울시향 몫이 큰 순서). 위 막대가 서울시향, 아래 막대가 뉴욕 필이다(색은 위 범례)." if k else "Each row is one composer, in order of Seoul share; the upper bar is Seoul, the lower bar New York (colors in the legend above)."),
+                                 one=(f"맨 위 줄({name(top.iloc[0].composer, lang)})의 막대는 서울시향 {top.iloc[0].seoul_share:.1%}, 뉴욕 필 {top.iloc[0].nyphil_sub_share:.1%}다." if k else f"At the top, {name(top.iloc[0].composer, lang)}: Seoul {top.iloc[0].seoul_share:.1%}, New York {top.iloc[0].nyphil_sub_share:.1%}."),
+                                 mis=("서울시향 몫은 작곡가를 붙인 곡만으로 나눈 값이다. 작곡가를 모르는 곡이 있어, 서울시향 막대는 실제보다 조금 클 수 있다." if k else "Seoul shares are out of attributed works only; because some works have no known composer, Seoul bars may be slightly larger than the true shares."),
+                                 terms=("귀속 — 곡목에 적힌 곡 이름으로 작곡가를 찾아 붙이는 일. 「미귀속」은 작곡가를 붙이지 못한 곡이다." if k else "Attribution — finding and attaching the composer from the title in the program; 'unattributed' works are those without one.")), lang))
     sx = sv.set_index("composer")
     sh_ = lambda c, col: float(sx.at[c, col]) if c in sx.index else 0.0  # noqa: E731
     bs, bn = sh_("Beethoven, Ludwig van", "seoul_share"), sh_("Beethoven, Ludwig van", "nyphil_sub_share")

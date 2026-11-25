@@ -11,6 +11,7 @@ from itertools import combinations
 from pathlib import Path
 
 import pandas as pd
+import fig_notes  # noqa: E402  (1.22.3: chart notes)
 
 from history_glance import josa
 
@@ -225,13 +226,13 @@ def section(lang: str, num: int, name, table) -> str:
     extra_en = ((f" {nd} {on('bucheon')} subscription concerts carry no date on their pages and are missing from this chart and from the yearly table." if nd else "")
                 + (f" The {on('seoul')} data are announcements and run to {seoul_last}; the chart stops at 2026." if seoul_last > 2026 else ""))
     b.append(f"<h3>{num}.1 {'자료가 덮는 해' if k else 'Years covered'}</h3>")
-    b.append(f"<figure>{svg_coverage(cov, (lo, hi), k)}<figcaption>" + (
+    b.append(fig_notes.fx(svg_coverage(cov, (lo, hi), k), ("네 악단의 자료가 해마다 정기연주회를 몇 번 덮는지, 그 가운데 곡목을 옮긴 공연이 몇 번인지를 악단마다 한 줄씩 막대로 그린 그림이다." if k else "For each of the four orchestras, how many subscription concerts the data list each year and from how many of them works were read, one row of bars per orchestra."), dict(how=(
         f"막대 하나가 한 해다. 옅은 막대는 그 해 목록에 오른 정기연주회 수, 짙은 막대는 그 가운데 작곡가가 적힌 곡목을 한 곡 이상 옮긴 공연 수다. 두 막대의 높이가 같으면 그 해 모든 정기연주회에서 곡목을 옮긴 것이다. 짙은 막대가 더 낮으면 그만큼 옮기지 못한 공연이 있다는 뜻이다. 곡목이 그림으로만 있거나 난이 빈 공연이 대부분이고, 글자로 있어도 작곡가 표기가 없어 세지 못한 공연이 섞여 있다. "
         f"예를 들어 {on('suwon')}의 2024년은 정기연주회 {int(sw24.concerts)}회 가운데 {int(sw24.with_program)}회에서만 곡목을 옮겼다. 회색 띠가 네 악단을 견주는 {lo}~{hi}년이다. "
         f"{on('busan')} 공연보는 공연마다 곡목이 함께 적혀 있어 두 막대가 늘 같다(두 막대가 겹쳐 짙은 막대만 보인다). {on('seoul')}의 짙은 막대는 작곡가를 붙인 곡이 한 곡 이상 있는 공연 수다({lo}~{hi}년 {int(S.at['seoul', 'concerts'])}회 가운데 {int(S.at['seoul', 'concerts_with_program'])}회).{extra_ko}" if k else
         f"Each bar is one year. The light bar is the number of subscription concerts listed that year; the dark bar is how many of them yielded at least one work with a named composer. Equal heights mean works were read from every subscription concert of that year. A lower dark bar means that many concerts yielded none: mostly concerts whose program exists only as an image or whose program block is empty, and some whose text names no composer. "
         f"For example, in 2024 the {on('suwon')} lists {int(sw24.concerts)} subscription concerts, and works were read from {int(sw24.with_program)} of them. The gray band marks {lo}–{hi}, the years used to compare the four orchestras. "
-        f"The {on('busan')} record book gives the program with every concert, so its two bars always coincide (the dark bar covers the light one). For the {on('seoul')} the dark bar counts concerts with at least one work whose composer was attributed ({int(S.at['seoul', 'concerts_with_program'])} of {int(S.at['seoul', 'concerts'])} in {lo}–{hi}).{extra_en}") + "</figcaption></figure>")
+        f"The {on('busan')} record book gives the program with every concert, so its two bars always coincide (the dark bar covers the light one). For the {on('seoul')} the dark bar counts concerts with at least one work whose composer was attributed ({int(S.at['seoul', 'concerts_with_program'])} of {int(S.at['seoul', 'concerts'])} in {lo}–{hi}).{extra_en}")), lang))
     cv = cov[cov.kind == "정기"].assign(o=lambda x: x.orch.map(on))
     b.append(table(cv, [("o", "악단" if k else "orchestra", None), ("year", "연도" if k else "year", ".0f"), ("concerts", "정기연주회" if k else "subscription concerts", ".0f"),
                         ("with_program", "곡목을 옮긴 공연" if k else "with works read", ".0f"), ("works", "작품 수" if k else "works", ".0f")], "krcov", lang))
@@ -299,7 +300,7 @@ def section(lang: str, num: int, name, table) -> str:
               + (f"The {on(small)} dot ({pct(dot)}) lies to the right of all three bars: even at equal size, the {on(small)} subscription programs we could read lean more on the top composers. " if above_all else f"The {on(small)} dot is at {pct(dot)}. ")
               + ("The other three bars overlap one another, so this chart alone does not separate those three. " if overlap_all else "Where two bars overlap, this chart alone does not separate those orchestras. ")
               + "The bars show how the value moves when works are redrawn; they are not confidence intervals.")
-    b.append(f"<figure>{svg_intervals(irows, t2, x2)}<figcaption>{cap_ko if k else cap_en}</figcaption></figure>")
+    b.append(fig_notes.fx(svg_intervals(irows, t2, x2), ("네 악단의 정기연주회 곡목을 같은 곡 수로 맞춘 뒤, 상위 10명 작곡가가 차지하는 비율을 점과 막대로 견준 그림이다." if k else "The share of the ten most programmed composers in each orchestra's subscription programs, with every orchestra cut to the same number of works."), dict(how=(cap_ko if k else cap_en)), lang))
 
     # 7.3 composer shares
     sh = d["sh"]
@@ -325,11 +326,11 @@ def section(lang: str, num: int, name, table) -> str:
     x3 = "그 악단의 작곡가를 아는 작품 가운데 이 작곡가의 곡이 차지하는 비율 — 막대가 길수록 자주 실렸다" if k else "Share of the orchestra's works with a known composer that are by this composer — a longer bar means programmed more often"
     ex_ko = ", ".join(f"{on(o)} {pct(getattr(r0, o + '_share'))}" for o in ORDER)
     ex_en = listing([f"{pct(getattr(r0, o + '_share'))} at the {on(o)}" for o in ORDER], False)
-    b.append(f"<figure>{svg_bars(rows3, t3, x3, ORDER, COL, {o: on(o) for o in ORDER})}<figcaption>" + (
+    b.append(fig_notes.fx(svg_bars(rows3, t3, x3, ORDER, COL, {o: on(o) for o in ORDER}), ("네 악단의 정기연주회에서 많이 연주된 작곡가 열다섯 명이 악단마다 차지하는 비율을, 작곡가마다 막대 넷으로 그린 그림이다." if k else "The fifteen composers most played across the four orchestras' subscription concerts, with four bars per composer for the four orchestras' shares."), dict(how=(
         f"네 악단의 비율을 단순 평균해 높은 순서로 열다섯 명을 골랐다. 작곡가마다 막대 넷이 위에서부터 {', '.join(on(o) for o in ORDER)}이다. 예를 들어 {cname(r0.composer)}의 곡이 차지하는 비율은 {ex_ko}다. "
         f"{on('seoul')}의 비율은 작곡가를 아는 곡({int(S.at['seoul', 'works_with_composer']):,}곡)만으로 나눈 값이다. {concl_ko}" if k else
         f"The fifteen are those with the highest simple average of the four orchestras' shares. Under each composer the four bars are, from the top, {listing([on(o) for o in ORDER], False)}. For example, {cname(r0.composer)} accounts for {ex_en}. "
-        f"{on('seoul')} shares are out of works with a known composer ({int(S.at['seoul', 'works_with_composer']):,}). {concl_en}") + "</figcaption></figure>")
+        f"{on('seoul')} shares are out of works with a known composer ({int(S.at['seoul', 'works_with_composer']):,}). {concl_en}")), lang))
     st = sh.assign(cn=sh.composer.map(cname))
     b.append(table(st, [("cn", "작곡가" if k else "composer", None)] + [(o + "_works", f"{on(o)} {'곡 수' if k else 'works'}", ".0f") for o in ORDER] + [(o + "_share", on(o), ".1%") for o in ORDER], "krsh", lang))
     cr = [(f"{on(a)} – {on(b_)}", f"{v:.3f}", f"{int(d['cos'][(d['cos'].a == a) & (d['cos'].b == b_)].shared_composers.iloc[0])}") for (a, b_), v in sorted(cs.items(), key=lambda x: -x[1])]
@@ -356,13 +357,13 @@ def section(lang: str, num: int, name, table) -> str:
     clear = [y for y in both if dx.at[("suwon", y), "top10_n90_lo"] > dx.at[("busan", y), "top10_n90_hi"]]
     ex = dx.loc[("busan", both[0])]
     t4 = f"10년마다 {dn}곡으로 맞춘 상위 10명 작곡가의 비율 — 정기연주회" if k else f"Share of the ten most programmed composers by decade, cut to {dn} works — subscription concerts"
-    b.append(f"<figure>{svg_intervals(drows, t4, x2, label_w=200)}<figcaption>" + (
+    b.append(fig_notes.fx(svg_intervals(drows, t4, x2, label_w=200), ("부산시향과 수원시향의 정기연주회에서 상위 10명 작곡가의 비율이 10년마다 어떻게 달랐는지, 같은 곡 수로 맞춰 견준 그림이다." if k else "How the share of the ten most programmed composers changed decade by decade in the Busan and Suwon subscription concerts, cut to the same number of works."), dict(how=(
         f"한 줄이 한 악단의 한 10년이다. 그 10년의 정기연주회 작품에서 {dn}곡을 500번 뽑아, 점은 평균이고 옅은 막대는 가운데 95%다. 예를 들어 {on('busan')}의 {dlab(both[0])}는 평균 {pct(ex.top10_n90_mean)}({pct(ex.top10_n90_lo)}~{pct(ex.top10_n90_hi)})이다. "
         f"두 악단이 함께 있는 {len(both)}개 10년 가운데 {len(clear)}개({', '.join(dlab(y) for y in clear) or '없음'})에서 {on('suwon')}의 막대가 {on('busan')}의 막대보다 온전히 오른쪽에 있고, 나머지에서는 겹친다(겹치는 폭은 10년마다 다르다 — 아래 표의 범위). "
         f"작품이 {dn}곡에 못 미치는 10년(두 악단의 2020년대)은 그리지 않았다. {on('suwon')} 1980년대 줄은 남은 곡목이 특히 짧다는 아래 단서와 함께 읽어야 한다." if k else
         f"Each row is one decade of one orchestra: {dn} works are drawn 500 times from that decade's subscription programs; the dot is the mean and the light bar the middle 95%. For example, the {on('busan')} in the {dlab(both[0])} has a mean of {pct(ex.top10_n90_mean)} ({pct(ex.top10_n90_lo)}–{pct(ex.top10_n90_hi)}). "
         f"In {len(clear)} of the {len(both)} decades the two share ({listing([dlab(y) for y in clear], False) or 'none'}) the {on('suwon')} bar lies entirely to the right of the {on('busan')} bar; in the others they overlap (by different amounts — see the ranges in the tables below). "
-        f"Decades with fewer than {dn} works (the 2020s for both) are not drawn. The {on('suwon')} row for the 1980s should be read with the caveat below about its especially short surviving listings.") + "</figcaption></figure>")
+        f"Decades with fewer than {dn} works (the 2020s for both) are not drawn. The {on('suwon')} row for the 1980s should be read with the caveat below about its especially short surviving listings.")), lang))
     for o in ("busan", "suwon"):
         dr = []
         for r in dec[dec.orch == o].itertuples():
@@ -447,7 +448,7 @@ def section(lang: str, num: int, name, table) -> str:
     t6 = "수원시향 기획 · 특별 공연에 많이 실린 작곡가 10명과, 같은 작곡가의 정기연주회 비율" if k else "The ten composers most programmed in Suwon Phil planned and special concerts, with their share in subscription concerts"
     x6 = "그 종류의 공연에 실린 작품 가운데 이 작곡가의 곡이 차지하는 비율 — 막대가 길수록 자주 실렸다" if k else "Share of the works in that kind of concert that are by this composer — a longer bar means programmed more often"
     n_more = sum(1 for c_ in names10 if p.get(c_, 0) > a.get(c_, 0))
-    b.append(f"<figure>{svg_bars(rows2, t6, x6, ['plan', 'sub'], col2, lab2)}<figcaption>" + (
+    b.append(fig_notes.fx(svg_bars(rows2, t6, x6, ['plan', 'sub'], col2, lab2), ("수원시향 기획 · 특별 공연에 많이 실린 작곡가 10명의 비율을, 같은 작곡가의 정기연주회 비율과 나란히 그린 그림이다." if k else "The ten composers most programmed in Suwon Phil planned and special concerts, each beside its share in subscription concerts."), dict(how=(
         f"작곡가마다 위 막대가 기획 · 특별 공연, 아래 막대가 정기연주회다. 예를 들어 {josa(cname(c0), '은는')} 기획 · 특별 공연 작품의 {pct(p.get(c0, 0))}, 정기연주회 작품의 {pct(a.get(c0, 0))}다. "
         f"기획 · 특별 공연은 목록에 {n_plan}회가 있지만 곡목을 옮긴 것은 {n_plan_prog}회({n_plan_1223}회가 2012~2023년 공연)이고, 거기서 작곡가가 적힌 작품 {n_plan_w:,}곡을 셌다. "
         f"영화 음악이나 뮤지컬 곡처럼 작곡가 없이 곡 이름만 적혔거나 작곡가를 읽지 못한 줄 {n_plan_nc}개는 세지 못했다. 열 명 가운데 {n_more}명은 기획 · 특별 공연 쪽 막대가 더 길다. "
@@ -455,7 +456,7 @@ def section(lang: str, num: int, name, table) -> str:
         f"For each composer the upper bar is planned and special concerts and the lower bar subscription concerts. For example, {cname(c0)} is {pct(p.get(c0, 0))} of the works in planned and special concerts and {pct(a.get(c0, 0))} in subscription concerts. "
         f"{n_plan} planned and special concerts are listed, but works were read from {n_plan_prog} ({n_plan_1223} of them from 2012–2023), giving {n_plan_w:,} works with a named composer. "
         f"{n_plan_nc} lines that give only a title without a composer (film music, musical numbers and the like), or whose composer could not be read, could not be counted. For {n_more} of the ten the planned-and-special bar is the longer one. "
-        f"But most planned and special programs date from 2012–2023 while subscription programs go back to {tot['suwon']['first_program_year']}, so the difference between the two bars cannot be read as an effect of the kind of concert alone.") + "</figcaption></figure>")
+        f"But most planned and special programs date from 2012–2023 while subscription programs go back to {tot['suwon']['first_program_year']}, so the difference between the two bars cannot be read as an effect of the kind of concert alone.")), lang))
     kb = kinds.loc[("busan", "특별")]
     b.append("<p>" + (f"{on('suwon')} 누리집은 공연마다 종류(정기 · 기획 · 특별 · 초청 등)를 적어 둔다. 악단끼리 견주는 표는 모두 정기연주회만으로 만들었다. {on('bucheon')} 아카이브에는 정기연주회 말고도 해설음악회 · 아침의 클래식 같은 공연이 함께 있는데 누리집이 종류를 따로 적지 않고, "
                       f"{on('busan')} 공연보에는 특별공연 {int(kb.concerts):,}회(취소된 공연 제외)와 교류 · 해외 연주회가 따로 실려 있다. 이들은 이 그림에 넣지 않았고 자료 표에만 들어 있다."
